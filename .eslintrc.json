@@ -29,19 +29,7 @@
     "jsx-a11y/no-static-element-interactions": "off",
     "react/require-default-props": "off",
     "jsx-a11y/no-noninteractive-element-interactions": "off",
-    "react/button-has-type": "off",
-    "react/jsx-no-useless-fragment": "off",
     "import/prefer-default-export": "off",
-    "react-hooks/exhaustive-deps": "off",
-    "consistent-return": "off",
-    "react/no-array-index-key": "off",
-    "no-await-in-loop": "off",
-    "no-plusplus": "off",
-    "no-param-reassign": "off",
-    "@typescript-eslint/no-explicit-any": "off", //kakao에서만
-    "@typescript-eslint/no-unused-vars": "off",
-    "prefer-destructuring": "off",
-    "@typescript-eslint/no-shadow": "off",
     "jsx-a11y/label-has-associated-control": "off"
   }
 }
