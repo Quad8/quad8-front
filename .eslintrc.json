@@ -1,9 +1,18 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+    "createDefaultProgram": true
+  },
   "env": {
     "browser": true,
     "es2021": true,
     "node": true
   },
+  "ignorePatterns": ["node_modules/"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -14,16 +23,10 @@
     "airbnb-typescript",
     "prettier"
   ],
-  "overrides": [],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module",
-    "project": ["tsconfig.json"]
-  },
-  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
+    "no-useless-catch": "off",
     "react/jsx-props-no-spreading": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-static-element-interactions": "off",
