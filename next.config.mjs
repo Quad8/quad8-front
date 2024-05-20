@@ -1,4 +1,29 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        // hostname: "bootcamp-project-api.s3",
+        port: "",
+        pathname: "**",
+      },
+    ],
+  },
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /.svg$/i,
+      issuer: /.[jt]sx?$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
+  },
+  sassOptions: {
+    includePaths: ["styles"],
+    additionalData: `@import "src/styles/_globals.scss";`,
+  },
+};
 
 export default nextConfig;
