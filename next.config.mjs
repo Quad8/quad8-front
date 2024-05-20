@@ -5,9 +5,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        // hostname: "bootcamp-project-api.s3",
+        hostname: "**",
         port: "",
-        pathname: "**",
       },
     ],
   },
