@@ -11,7 +11,7 @@
     "node": true,
     "es6": true
   },
-  "ignorePatterns": ["node_modules/", "next.config.mjs"],
+  "ignorePatterns": ["node_modules/", "next.config.mjs", "stories"],
   "extends": [
     "airbnb",
     "airbnb-typescript",
@@ -19,11 +19,17 @@
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "prettier"
+    "prettier",
+    "plugin:storybook/recommended"
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [".ts", ".tsx"]
+      }
+    ],
     "no-useless-catch": "off",
     "react/jsx-props-no-spreading": "off",
     "jsx-a11y/label-has-associated-control": "off",

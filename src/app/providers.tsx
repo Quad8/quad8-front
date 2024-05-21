@@ -29,7 +29,6 @@ function getQueryClient() {
   return browserQueryClient;
 }
 
-// eslint-disable-next-line react/destructuring-assignment
 export function Providers({ children }: ProvidersProps) {
   const queryClient = getQueryClient();
 
