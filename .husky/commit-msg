@@ -6,11 +6,11 @@ requiredPattern="^(Feat|Fix|Docs|Style|Refactor|Chore|Test|Design):.*$"
 if ! [[ $message =~ $requiredPattern ]];
 then
   echo "=========================================================================="
-  echo "======================   🚨 진심입니까 휴먼...?   ============================"
+  echo "======================   🚨 진심입니까 휴먼...?   ========================"
   echo "=========================================================================="
   echo "= Format should be => [header]: [What was done for Why]                 =="
   echo "= Allowed Headers: Feat, Fix, Docs, Style, Chore, Refactor, Design, Test ="
-  echo "== EXAMPLE => Feat: Google login을 구현하였습니다                            =="
+  echo "== EXAMPLE => Feat: Google login을 구현하였습니다                        =="
   echo "=========================================================================="
   echo "== Your commit message was =>" $message 
   echo "== For more information, check script in .husky/commit-msg or README.md =="
@@ -18,6 +18,6 @@ then
   exit 1
 else
   echo "=========================================================================="
-  echo "=======================        Quad8 화이팅!!!       ======================="
+  echo "=======================        Quad8 화이팅!       ======================="
   echo "=========================================================================="
 fi
