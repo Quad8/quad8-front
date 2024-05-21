@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky",
+    "prepare": "husky install",
     "format": "prettier --cache --write .",
     "lint:fix": "eslint ./**/*.{ts,tsx} --cache --fix"
   },
