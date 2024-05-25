@@ -2,7 +2,7 @@ name: Next.js Quad8 KEYDEUK deployment
 
 on:
   push:
-    branches: ['main', 'develop']
+    branches: ['develop']
 
 jobs:
   continuous-deployment:
