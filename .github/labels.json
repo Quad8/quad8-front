@@ -53,5 +53,10 @@
     "name": "🥰 Accessibility",
     "color": "facfcf",
     "description": "웹접근성 관련"
+  },
+  {
+    "name": "✅ Test",
+    "color": "ccffc4",
+    "description": "test 관련(storybook, jest...)"
   }
 ]
