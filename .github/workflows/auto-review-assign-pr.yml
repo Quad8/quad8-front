@@ -1,0 +1,14 @@
+name: Review Assign
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hkusu/review-assign-action@v1
+        with:
+          assignees: ${{ github.actor }} # assign - PR 만든 사람
+          reviewers: armd482, Young2un, ggjiny, minjeong9919, bokeeeey # 리뷰어 추가
