@@ -9,6 +9,10 @@
 
   width: 100vw;
   padding: 1.9rem 12rem;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+  color: #111;
+  text-decoration: none;
 }
 
 .right-wrapper {
@@ -33,4 +37,14 @@
   @include flex-wrapper;
 
   gap: 2rem;
+}
+
+.logo {
+  width: 7.144rem;
+  height: 3.2rem;
+}
+
+.icon {
+  width: 2.4rem;
+  height: 2.4rem;
 }
