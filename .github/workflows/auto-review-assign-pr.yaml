@@ -7,6 +7,10 @@ on:
 jobs:
   assign:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
     steps:
       - uses: hkusu/review-assign-action@v1
         with:
