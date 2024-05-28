@@ -4,6 +4,7 @@ import User from '@/public/svgs/user.svg';
 import Cart from '@/public/svgs/cart.svg';
 import Link from 'next/link';
 import styles from './header.module.scss';
+import SearchBox from './searchBox';
 
 const PAGE_BUTTON = [
   { name: '커스텀 키보드 만들기', href: '/' },
@@ -29,7 +30,7 @@ export default function Header() {
         </div>
       </div>
       <div className={cn('left-wrapper')}>
-        <div>검색창</div>
+        <SearchBox />
         <div className={cn('status-wrapper')}>
           <Link href="/signin">로그인</Link>
           <Link href="/mypage" className={cn('icon')}>
