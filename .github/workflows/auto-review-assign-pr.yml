@@ -12,3 +12,4 @@ jobs:
         with:
           assignees: ${{ github.actor }} # assign - PR 만든 사람
           reviewers: armd482, Young2un, ggjiny, minjeong9919, bokeeeey # 리뷰어 추가
+          github-token: ${{ secrets.GITHUB_TOKEN }}
