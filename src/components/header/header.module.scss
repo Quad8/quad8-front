@@ -1,0 +1,36 @@
+@mixin flex-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper {
+  @include flex-wrapper;
+
+  width: 100vw;
+  padding: 1.9rem 12rem;
+}
+
+.right-wrapper {
+  @include flex-wrapper;
+
+  gap: 12rem;
+}
+
+.button-wrapper {
+  @include flex-wrapper;
+
+  gap: 8rem;
+}
+
+.left-wrapper {
+  @include flex-wrapper;
+
+  gap: 9.6rem;
+}
+
+.status-wrapper {
+  @include flex-wrapper;
+
+  gap: 2rem;
+}
