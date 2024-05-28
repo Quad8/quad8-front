@@ -1,5 +1,5 @@
 {
-  "name": "final_project",
+  "name": "keydeuk",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -59,9 +59,13 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,scss}": [
+    "*.{js,jsx,ts,tsx}": [
       "prettier --write",
       "eslint --fix"
+    ],
+    "*.{css,scss}": [
+      "prettier --write",
+      "stylelint --fix"
     ]
   }
 }
