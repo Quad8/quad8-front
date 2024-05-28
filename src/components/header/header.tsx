@@ -14,19 +14,9 @@ const PAGE_BUTTON = [
   { name: '커뮤니티', href: '/' },
 ];
 
-const getToken = () => {
-  try {
-    const cookiesStore = cookies();
-    const accessToken = cookiesStore.get('accessToken');
-    return accessToken;
-  } catch {
-    return null;
-  }
-};
-
 export default function Header() {
   const cn = classNames.bind(styles);
-  const accessToken = getToken();
+  const accessToken = cookies().get('accessToken')?.value ?? null;
   return (
     <div className={cn('wrapper')}>
       <div className={cn('right-wrapper')}>
@@ -44,7 +34,7 @@ export default function Header() {
       <div className={cn('left-wrapper')}>
         <SearchBox />
         <div className={cn('status-wrapper')}>
-          {accessToken ? <Link href="/signin">로그인</Link> : <LogoutButton />}
+          {!accessToken ? <Link href="/signin">로그인</Link> : <LogoutButton />}
           <Link href="/mypage" className={cn('icon')}>
             <User width={24} height={24} />
           </Link>

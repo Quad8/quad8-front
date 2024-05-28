@@ -1,9 +1,11 @@
 'use client';
 
+import { deleteCookie } from 'cookies-next';
+
 export default function LogoutButton() {
   const handleClickButton = () => {
-    /* delete accessToken => library 사용 */
-    console.log('');
+    deleteCookie('accessToken');
+    window.location.reload();
   };
   return (
     <button type="button" onClick={handleClickButton}>
