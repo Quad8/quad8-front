@@ -3,8 +3,10 @@ import Logo from '@/public/svgs/logo.svg';
 import User from '@/public/svgs/user.svg';
 import Cart from '@/public/svgs/cart.svg';
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 import styles from './header.module.scss';
 import SearchBox from './searchBox';
+import LogoutButton from './logoutButton';
 
 const PAGE_BUTTON = [
   { name: '커스텀 키보드 만들기', href: '/' },
@@ -12,9 +14,19 @@ const PAGE_BUTTON = [
   { name: '커뮤니티', href: '/' },
 ];
 
+const getToken = () => {
+  try {
+    const cookiesStore = cookies();
+    const accessToken = cookiesStore.get('accessToken');
+    return accessToken;
+  } catch {
+    return null;
+  }
+};
+
 export default function Header() {
   const cn = classNames.bind(styles);
-
+  const accessToken = getToken();
   return (
     <div className={cn('wrapper')}>
       <div className={cn('right-wrapper')}>
@@ -32,7 +44,7 @@ export default function Header() {
       <div className={cn('left-wrapper')}>
         <SearchBox />
         <div className={cn('status-wrapper')}>
-          <Link href="/signin">로그인</Link>
+          {accessToken ? <Link href="/signin">로그인</Link> : <LogoutButton />}
           <Link href="/mypage" className={cn('icon')}>
             <User width={24} height={24} />
           </Link>
