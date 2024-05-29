@@ -7,18 +7,18 @@
 .input-box {
   width: 100%;
   height: 100%;
-  padding: 0.8rem 1.2rem;
-  font-size: 1.8rem;
-  line-height: 2.6rem;
-  color: #a5a5a5;
+  padding: 0.8rem 4.4rem 0.8rem 1.2rem;
   border: 0.1rem solid #999;
   border-radius: 0.8rem;
   outline: none;
+  color: #a5a5a5;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
 }
 
 .search-button {
   position: absolute;
   top: 0.9rem;
-  right: 1rem;
+  right: 1.2rem;
   cursor: pointer;
 }
