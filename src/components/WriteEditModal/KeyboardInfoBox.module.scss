@@ -28,8 +28,15 @@
 .options-div {
   font-size: 1.4rem;
   color: #999;
+}
 
-  & > .keycap-color-div {
-    line-height: 1.6rem;
-  }
+.keycap-color-div {
+  display: -webkit-box;
+  margin-top: 0.2rem;
+  overflow: hidden;
+  line-height: 1.6rem;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
