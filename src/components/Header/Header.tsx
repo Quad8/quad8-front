@@ -1,12 +1,13 @@
+import { cookies } from 'next/headers';
 import classNames from 'classnames/bind';
 import Logo from '@/public/svgs/logo.svg';
 import User from '@/public/svgs/user.svg';
 import Cart from '@/public/svgs/cart.svg';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import styles from './header.module.scss';
 import SearchBox from './SearchBox';
 import LogoutButton from './LogoutButton';
+import LoginButton from './LoginButton';
 
 const PAGE_BUTTON = [
   { name: '커스텀 키보드 만들기', href: '/' },
@@ -34,7 +35,7 @@ export default function Header() {
       <div className={cn('left-wrapper')}>
         <SearchBox />
         <div className={cn('status-wrapper')}>
-          {!accessToken ? <Link href="/signin">로그인</Link> : <LogoutButton />}
+          {!accessToken ? <LoginButton /> : <LogoutButton />}
           <Link href="/mypage" className={cn('icon')}>
             <User width={24} height={24} />
           </Link>
