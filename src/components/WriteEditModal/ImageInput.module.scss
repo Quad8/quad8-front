@@ -1,0 +1,72 @@
+.title-div {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+
+  & > #title-h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  & > #sub-title-h3 {
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    color: #999;
+  }
+}
+
+.input-div {
+  display: flex;
+  gap: 1.2rem;
+  width: 100%;
+  height: 15.6rem;
+  margin-top: 1.2rem;
+}
+
+.label-input-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: 0.1rem solid #999;
+  border-radius: 0.8rem;
+}
+
+.width-quater {
+  width: 16.8rem;
+}
+
+.input-image-input {
+  display: none;
+}
+
+.image-div {
+  position: relative;
+  width: 16.8rem;
+  height: 15.6rem;
+
+  & > #image {
+    border-radius: 0.8rem;
+  }
+}
+
+.delete-image-icon {
+  position: absolute;
+  top: -1.2rem;
+  right: -1.2rem;
+  cursor: pointer;
+}
+
+.main-image {
+  position: absolute;
+  top: 0.8rem;
+  left: 1rem;
+  padding: 0.4rem 1rem;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+  color: #fff;
+  background-color: #6f6565;
+  border-radius: 3rem;
+}

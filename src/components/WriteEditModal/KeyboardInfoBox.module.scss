@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+  line-height: 2.4rem;
+}
+
+.sub-text {
+  margin-bottom: 2rem;
+  font-size: 1.4rem;
+  color: #999;
+}
+
+.keyboard-image-div {
+  width: 14.3rem;
+  height: 14.3rem;
+  background-color: #d9d9d9;
+  border-radius: 0.8rem;
+}
+
+.keyboard-info-text-div {
+  width: 54.5rem;
+
+  & > h3 {
+    font-size: 1.6rem;
+  }
+
+  & > #products-list {
+    font-weight: bold;
+  }
+}
+
+.options-div {
+  font-size: 1.4rem;
+  color: #999;
+}
+
+.keycap-color-div {
+  display: -webkit-box;
+  margin-top: 0.2rem;
+  overflow: hidden;
+  line-height: 1.6rem;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
