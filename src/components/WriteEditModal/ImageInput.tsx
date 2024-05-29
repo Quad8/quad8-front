@@ -33,7 +33,7 @@ export default function ImageInput() {
     <div className={cn('container')}>
       <div className={cn('title-div')}>
         <h1 id={cn('title-h1')}>사진/동영상 첨부</h1>
-        <h3 id={cn('sub-title-h3')}>최대 3장</h3>
+        <h3 id={cn('sub-title-h3')}>최대 4장</h3>
       </div>
       <div>
         <form className={cn('input-div')}>
@@ -46,7 +46,7 @@ export default function ImageInput() {
           {selectedImageFile &&
             selectedImageFile.map((imageUrl, index) => (
               <div key={imageUrl} className={cn('image-div')}>
-                <Image alt="선택된 이미지" src={imageUrl} fill />
+                <Image alt="선택된 이미지" src={imageUrl} fill id={cn('image')} />
                 <DeleteImage className={cn('delete-image-icon')} onClick={() => handleClickDeleteImage(index)} />
                 {index === 0 && <div className={cn('main-image')}>대표</div>}
               </div>

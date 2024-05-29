@@ -35,7 +35,7 @@
 }
 
 .width-quater {
-  width: 15.6rem;
+  width: 16.8rem;
 }
 
 .input-image-input {
@@ -44,8 +44,12 @@
 
 .image-div {
   position: relative;
-  width: 15.6rem;
+  width: 16.8rem;
   height: 15.6rem;
+
+  & > #image {
+    border-radius: 0.8rem;
+  }
 }
 
 .delete-image-icon {
