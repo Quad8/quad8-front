@@ -5,8 +5,9 @@ import SearchIcon from '@/public/svgs/search.svg';
 import classNames from 'classnames/bind';
 import styles from './SearchBox.module.scss';
 
+const cn = classNames.bind(styles);
+
 export default function SearchBox() {
-  const cn = classNames.bind(styles);
   const [searchValue, setSearchValue] = useState<string>('');
   const handleSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
