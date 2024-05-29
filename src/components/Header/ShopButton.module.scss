@@ -1,0 +1,36 @@
+.wrapper {
+  position: relative;
+  height: fit-content;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  height: 8.608rem;
+}
+
+.sub-menu-wrapper {
+  position: absolute;
+  top: 100%;
+  left: -3.5rem;
+  height: 18.4rem;
+  box-shadow: 0 0.4rem 0.4rem 0 rgb(0 0 0 / 25%);
+}
+
+.menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12rem;
+  padding: 1rem;
+
+  &:hover {
+    background-color: $sub02;
+  }
+}
+
+.button-text {
+  color: $text-black;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+}

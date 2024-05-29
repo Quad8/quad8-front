@@ -8,8 +8,10 @@
   @include flex-wrapper;
 
   width: 100vw;
-  padding: 1.9rem 12rem;
-  color: #111;
+  height: 8.608rem;
+  padding: 0 12rem;
+  background-color: #04002a;
+  color: $text-white;
   font-size: 1.8rem;
   line-height: 2.6rem;
   text-decoration: none;
@@ -18,33 +20,45 @@
 .right-wrapper {
   @include flex-wrapper;
 
+  height: 100%;
   gap: 12rem;
 }
 
 .button-wrapper {
   @include flex-wrapper;
 
+  height: 100%;
   gap: 8rem;
+}
+
+.button {
+  @include flex-wrapper;
+
+  height: 100%;
 }
 
 .left-wrapper {
   @include flex-wrapper;
 
+  height: 100%;
   gap: 9.6rem;
 }
 
 .status-wrapper {
   @include flex-wrapper;
 
+  height: 100%;
   gap: 2rem;
 }
 
 .logo {
-  width: 7.144rem;
-  height: 3.2rem;
+  @include flex-wrapper;
+
+  height: 100%;
 }
 
 .icon {
-  width: 2.4rem;
-  height: 2.4rem;
+  @include flex-wrapper;
+
+  height: 100%;
 }

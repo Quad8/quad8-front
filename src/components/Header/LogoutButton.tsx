@@ -7,6 +7,7 @@ export default function LogoutButton() {
     deleteCookie('accessToken');
     window.location.reload();
   };
+
   return (
     <button type="button" onClick={handleClickButton}>
       로그아웃
