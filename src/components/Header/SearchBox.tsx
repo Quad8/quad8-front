@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import SearchIcon from '@/public/svgs/search.svg';
 import classNames from 'classnames/bind';
-import styles from './searchBox.module.scss';
+import styles from './SearchBox.module.scss';
 
 export default function SearchBox() {
   const cn = classNames.bind(styles);

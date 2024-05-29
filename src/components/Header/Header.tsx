@@ -5,8 +5,8 @@ import Cart from '@/public/svgs/cart.svg';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import styles from './header.module.scss';
-import SearchBox from './searchBox';
-import LogoutButton from './logoutButton';
+import SearchBox from './SearchBox';
+import LogoutButton from './LogoutButton';
 
 const PAGE_BUTTON = [
   { name: '커스텀 키보드 만들기', href: '/' },
