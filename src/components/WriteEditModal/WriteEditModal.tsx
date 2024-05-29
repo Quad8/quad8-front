@@ -6,6 +6,9 @@ import KeyboardInfoBox from './KeyboardInfoBox';
 import TwoButton from '../buttons/TwoButton/TwoButton';
 import ImageInput from './ImageInput';
 
+// interface WriteEditModalProps {
+// }
+
 export default function WriteEditModal() {
   const cn = classNames.bind(styles);
   const handleClickLeftButton = () => {
@@ -16,7 +19,7 @@ export default function WriteEditModal() {
   };
   return (
     <div className={cn('container')}>
-      <KeyboardInfoBox keyboardInfo={KEYBOARD_DATA} />
+      <KeyboardInfoBox keyboardInfo={KEYBOARD_DATA} isReview />
       <div className={cn('input-div')}>
         <input className={cn('input')} placeholder="제목 작성" />
         <ImageInput />
