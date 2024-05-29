@@ -8,12 +8,12 @@ import styles from './SearchBox.module.scss';
 export default function SearchBox() {
   const cn = classNames.bind(styles);
   const [searchValue, setSearchValue] = useState<string>('');
-  const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     /* 검색 결과 사이트 이동 */
   };
-  const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
+  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
   };
 
   return (
