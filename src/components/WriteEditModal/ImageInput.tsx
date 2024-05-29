@@ -32,7 +32,8 @@ export default function ImageInput() {
   return (
     <div className={cn('container')}>
       <div className={cn('title-div')}>
-        <h1>사진/동영상 첨부</h1>
+        <h1 id={cn('title-h1')}>사진/동영상 첨부</h1>
+        <h3 id={cn('sub-title-h3')}>최대 3장</h3>
       </div>
       <div>
         <form className={cn('input-div')}>

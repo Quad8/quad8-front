@@ -1,6 +1,18 @@
 .title-div {
-  font-size: 2rem;
-  font-weight: bold;
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+
+  & > #title-h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  & > #sub-title-h3 {
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    color: #999;
+  }
 }
 
 .input-div {
