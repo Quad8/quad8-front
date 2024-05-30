@@ -1,6 +1,7 @@
 'use client';
 
 import { PropsWithChildren, createContext, useCallback, useMemo, useState } from 'react';
+import { KEY, TEN_KEY } from '@/constants/keyboardData';
 
 interface StepStatusType {
   board: boolean;
@@ -36,6 +37,15 @@ interface KeyboardDataContextType {
   updateData: (key: keyof KeyboardDataType, value: KeyboardDataType[keyof KeyboardDataType]) => void;
 }
 
+interface KeyColorType {
+  [key: string]: string;
+}
+
+interface KeyColorContextType {
+  keyColorData: KeyColorType;
+  updateKeyColor: (key: string, value: string) => void;
+}
+
 export const StepContext = createContext<StepContextType>({
   stepStatus: {
     board: false,
@@ -64,6 +74,11 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
   updateIndividualKey: () => {},
   updateOption: () => {},
   updateData: () => {},
+});
+
+export const KeyColorContext = createContext<KeyColorContextType>({
+  keyColorData: {},
+  updateKeyColor: () => {},
 });
 
 export function StepContextProvider({ children }: PropsWithChildren) {
@@ -138,4 +153,19 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
   );
 
   return <KeyboardDataContext.Provider value={value}>{children}</KeyboardDataContext.Provider>;
+}
+
+export function KeyColorContextProvider({ children }: PropsWithChildren) {
+  const [keyColorData, setKeyColorData] = useState<KeyColorType>(() => {
+    const color = {};
+    [...KEY, ...TEN_KEY].forEach((key) => Object.assign(color, { [key]: '#ffffff' }));
+    return color;
+  });
+
+  const updateKeyColor = useCallback((key: string, value: string) => {
+    setKeyColorData((prev) => ({ ...prev, [key]: value }));
+  }, []);
+
+  const value = useMemo(() => ({ keyColorData, updateKeyColor }), [keyColorData, updateKeyColor]);
+  return <KeyColorContext.Provider value={value}>{children}</KeyColorContext.Provider>;
 }
