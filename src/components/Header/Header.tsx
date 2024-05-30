@@ -1,8 +1,7 @@
 import { cookies } from 'next/headers';
 import classNames from 'classnames/bind';
-import Ic_Logo from '@/public/svgs/logo.svg';
-import Ic_User from '@/public/svgs/user.svg';
-
+import LogoIcon from '@/public/svgs/logo.svg';
+import UserIcon from '@/public/svgs/user.svg';
 import Link from 'next/link';
 import styles from './Header.module.scss';
 import SearchBox from './SearchBox';
@@ -26,7 +25,7 @@ export default function Header() {
     <div className={cn('wrapper')}>
       <div className={cn('right-wrapper')}>
         <Link href={URL_LIST.main} className={cn('logo')}>
-          <Ic_Logo width={130.65} height={23.89} />
+          <LogoIcon width={130.65} height={23.89} />
         </Link>
         <div className={cn('button-wrapper')}>
           <Link href={URL_LIST.customKeyboard} className={cn('button')}>
@@ -43,7 +42,7 @@ export default function Header() {
         <div className={cn('status-wrapper')}>
           {!accessToken ? <LoginButton /> : <LogoutButton />}
           <Link href="/mypage" className={cn('icon')}>
-            <Ic_User width={42} height={42} />
+            <UserIcon width={42} height={42} />
           </Link>
           <CartButton cartCount={13} />
         </div>
