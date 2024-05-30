@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import SearchIcon from '@/public/svgs/search.svg';
 import classNames from 'classnames/bind';
 import styles from './SearchBox.module.scss';
@@ -9,11 +9,11 @@ const cn = classNames.bind(styles);
 
 export default function SearchBox() {
   const [searchValue, setSearchValue] = useState<string>('');
-  const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     /* 검색 결과 사이트 이동 */
   };
-  const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 
