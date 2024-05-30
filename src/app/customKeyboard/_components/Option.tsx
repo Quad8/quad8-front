@@ -3,6 +3,8 @@
 import { useContext } from 'react';
 import { StepContext } from '@/context/customKeyboardContext';
 import BoardOption from './BoardOption';
+import SwitchOption from './SwitchOption';
+import KeyCapOption from './KeyCapOption';
 
 export default function Option() {
   const { currentStep } = useContext(StepContext);
@@ -12,7 +14,7 @@ export default function Option() {
   }
 
   if (currentStep === 'switch') {
-    return <div>switch</div>;
+    return <SwitchOption />;
   }
-  return <div>keyCap</div>;
+  return <KeyCapOption />;
 }
