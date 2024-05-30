@@ -1,11 +1,13 @@
 'use client';
 
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie } from '@/libs/manageCookie';
+import { useRouter } from 'next/navigation';
 
 export default function LogoutButton() {
+  const router = useRouter();
   const handleClickButton = () => {
     deleteCookie('accessToken');
-    window.location.reload();
+    router.refresh();
   };
 
   return (
