@@ -12,22 +12,16 @@ const cn = classNames.bind(styles);
 export default function ImageInput() {
   const [selectedImageFile, setSelectedImageFile] = useState<string[]>([]);
   const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (selectedImageFile.length === 4) {
+    const { files } = e.target;
+    if (selectedImageFile.length >= 4 || !files) {
       alert('이미지 4개 이상 불가');
       return;
     }
-    if (e.target.files) {
-      const file = e.target.files[0];
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImageFile([...selectedImageFile, imageUrl]);
-    }
+    const imageUrl = URL.createObjectURL(files[0]);
+    setSelectedImageFile([...selectedImageFile, imageUrl]);
   };
   const handleClickDeleteImage = (clickedImageIndex: number) => {
-    const updatedImageFile = [
-      ...selectedImageFile.slice(0, clickedImageIndex),
-      ...selectedImageFile.slice(clickedImageIndex + 1),
-    ];
-    setSelectedImageFile(updatedImageFile);
+    setSelectedImageFile((prev) => [...prev.slice(0, clickedImageIndex), ...prev.slice(clickedImageIndex + 1)]);
   };
   return (
     <div className={cn('container')}>

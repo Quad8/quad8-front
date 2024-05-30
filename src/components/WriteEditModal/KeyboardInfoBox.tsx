@@ -8,9 +8,9 @@ interface KeyboardInfoBoxProps {
   keyboardInfo: CustomKeyboardTypes;
   isReview?: boolean;
 }
+const cn = classNames.bind(styles);
 
 export default function KeyboardInfoBox({ keyboardInfo, isReview }: KeyboardInfoBoxProps) {
-  const cn = classNames.bind(styles);
   const {
     layout,
     appearance_texture: appearanceTexture,
@@ -25,11 +25,14 @@ export default function KeyboardInfoBox({ keyboardInfo, isReview }: KeyboardInfo
                         / ${keyboardSwitch} 
                         / 포인트 키캡 ${hasPointKey ? 'o' : 'x'}
                       `;
-  let keycapColors = '';
 
-  Object.entries(keycapColor).forEach(([key, val]) => {
-    keycapColors += `${key}: ${val}`;
-  });
+  // let keycapColors = '';
+
+  // Object.entries(keycapColor).forEach(([key, val]) => {
+  //   keycapColors += `${key}: ${val}`;
+  // });
+  const keycapData = JSON.stringify(keycapColor).replaceAll('"', '');
+  const keycapColors = keycapData.slice(1, keycapData.length - 1);
 
   return (
     <div>
