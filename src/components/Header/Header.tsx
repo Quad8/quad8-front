@@ -24,25 +24,21 @@ export default function Header() {
   return (
     <header className={cn('wrapper')}>
       <div className={cn('right-wrapper')}>
-        <Link href={URL_LIST.main} className={cn('logo')}>
-          <LogoIcon width={130.65} height={23.89} />
+        <Link href={URL_LIST.main}>
+          <LogoIcon width={131} height={24} />
         </Link>
         <div className={cn('button-wrapper')}>
-          <Link href={URL_LIST.customKeyboard} className={cn('button')}>
-            커스텀 키보드 만들기
-          </Link>
+          <Link href={URL_LIST.customKeyboard}>커스텀 키보드 만들기</Link>
           <ShopButton />
-          <Link href={URL_LIST.community} className={cn('button')}>
-            커뮤니티
-          </Link>
+          <Link href={URL_LIST.community}>커뮤니티</Link>
         </div>
       </div>
       <div className={cn('left-wrapper')}>
         <SearchBox />
         <div className={cn('status-wrapper')}>
           {!accessToken ? <LoginButton /> : <LogoutButton />}
-          <Link href="/mypage" className={cn('icon')}>
-            <UserIcon width={42} height={42} />
+          <Link href="/mypage">
+            <UserIcon width={31} height={31} />
           </Link>
           <CartButton cartCount={13} />
         </div>

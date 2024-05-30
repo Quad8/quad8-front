@@ -14,7 +14,7 @@ export default function CartButton({ cartCount }: CartButtonProps) {
 
   return (
     <div className={cn('wrapper')}>
-      <Link href="/cart">
+      <Link href="/cart" className={cn('icon')}>
         <CartIcon width={24} height={24} />
         <div className={cn('cart-count', cartCount > 9 && 'count-more-digit')}>{countStatus}</div>
       </Link>

@@ -2,7 +2,13 @@
   display: flex;
   position: relative;
   align-items: center;
+  justify-content: center;
   height: 100%;
+}
+
+.icon {
+  width: 2.4rem;
+  height: 2.4rem;
 }
 
 .cart-count {
