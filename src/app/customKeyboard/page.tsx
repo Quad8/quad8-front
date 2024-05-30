@@ -9,7 +9,10 @@ export default function Page() {
   return (
     <div className={cn('content-wrapper')}>
       <Canvas />
-      <Option />
+      <div className={cn('option-wrapper')}>
+        <Option />
+        <div className={cn('button-wrapper')} />
+      </div>
     </div>
   );
 }
