@@ -9,12 +9,12 @@ const cn = classNames.bind(styles);
 
 export default function SearchBox() {
   const [searchValue, setSearchValue] = useState<string>('');
-  const handleSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     /* 검색 결과 사이트 이동 */
   };
-  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
+  const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
   };
 
   return (
