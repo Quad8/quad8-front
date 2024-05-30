@@ -26,13 +26,13 @@ export default function ImageInput() {
   return (
     <div className={cn('container')}>
       <div className={cn('title-div')}>
-        <h1 id={cn('title-h1')}>사진/동영상 첨부</h1>
-        <h3 id={cn('sub-title-h3')}>최대 4장</h3>
+        <h1 id={cn('title')}>사진/동영상 첨부</h1>
+        <h3 id={cn('sub-title')}>최대 4장</h3>
       </div>
       <div>
         <form className={cn('input-div')}>
           {selectedImageFile.length >= 4 || (
-            <label htmlFor="imageInput" className={cn('label-input-div', `${selectedImageFile && 'width-quater'}`)}>
+            <label htmlFor="imageInput" className={cn('label-input', `${selectedImageFile && 'width-quater'}`)}>
               <Carmera />
             </label>
           )}

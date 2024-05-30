@@ -28,9 +28,9 @@ export default function WriteEditModal({ type }: WriteEditModalProps) {
         <input className={cn('input')} placeholder="내용 작성" />
         <TwoButton
           leftText="닫기"
-          leftOnClickHandler={handleClickLeftButton}
+          leftOnClick={handleClickLeftButton}
           rightText="등록"
-          rightOnClickHandler={handleClickRightButton}
+          rightOnClick={handleClickRightButton}
         />
       </div>
     </div>
