@@ -1,14 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { WriteEditModalType } from '@/constants/writeEditModalType';
+import ScrollUpButton from '@/components/buttons/ScrollUpButton/ScrollUpButton';
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
 
 export default function Page() {
+  const ref = useRef(null);
   const [selectedModal, setSelectedModal] = useState<WriteEditModalType | null>(null);
   // const [isOpenModal, setIsOpenModal] = useState(false);
   const handleWritePostModal = () => {
@@ -28,7 +30,7 @@ export default function Page() {
   return (
     <div className={styles.container}>
       <div className={cn('buttom')}>
-        <button type="button" onClick={handleWritePostModal}>
+        <button type="button" onClick={handleWritePostModal} ref={ref}>
           1. 커뮤니티 페이지에서 글 작성
         </button>
         <button type="button" onClick={handleWriteCustomReivewModal}>
@@ -39,6 +41,7 @@ export default function Page() {
         </button>
       </div>
       {selectedModal && <WriteEditModal type={selectedModal} />}
+      <ScrollUpButton headerRef={ref} />
     </div>
   );
 }
