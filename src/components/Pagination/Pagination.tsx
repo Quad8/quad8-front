@@ -2,6 +2,7 @@ import CaretLeftIcon from '@/public/svgs/CaretLeft.svg';
 import CaretRightIcon from '@/public/svgs/CaretRight.svg';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
+import calculateStartPageNum from '@/libs/calculatePage';
 import styles from './Pagination.module.scss';
 
 interface PaginationProps {
@@ -13,10 +14,6 @@ interface PaginationProps {
 const cn = classNames.bind(styles);
 
 const MAX_PAGE_LENGTH = 6;
-
-const calculateStartPageNum = (currentPage: number, maxPageLength: number): number => {
-  return Math.floor((currentPage - 1) / maxPageLength) * maxPageLength + 1;
-};
 
 function Pagination({ page, count, limit }: PaginationProps) {
   const currentPage = Math.max(1, parseInt(page || '1', 10));
