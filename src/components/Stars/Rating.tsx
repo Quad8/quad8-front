@@ -11,7 +11,7 @@ interface RatingProps {
 
 export default function Rating({ initialRating, onRatingChange, isEditable }: RatingProps) {
   const STARS = [1, 2, 3, 4, 5];
-  const [rating, setRating] = useState<number>(initialRating);
+  const [rating, setRating] = useState<number>(Math.floor(initialRating));
   const [hoverRating, setHoverRating] = useState<number>(0);
 
   const handleRating = (rate: number) => {
