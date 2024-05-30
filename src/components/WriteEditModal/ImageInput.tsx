@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import Image from 'next/image';
-import Carmera from '@/public/svgs/camera.svg';
-import DeleteImage from '@/public/svgs/deleteImage.svg';
+import CarmeraIcon from '@/public/svgs/camera.svg';
+import DeleteImageIcon from '@/public/svgs/deleteImage.svg';
 import classNames from 'classnames/bind';
 import styles from './ImageInput.module.scss';
 
@@ -11,7 +11,7 @@ const cn = classNames.bind(styles);
 
 export default function ImageInput() {
   const [selectedImageFile, setSelectedImageFile] = useState<string[]>([]);
-  const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (selectedImageFile.length >= 4 || !files) {
       alert('이미지 4개 이상 불가');
@@ -33,7 +33,7 @@ export default function ImageInput() {
         <form className={cn('input-div')}>
           {selectedImageFile.length >= 4 || (
             <label htmlFor="imageInput" className={cn('label-input', `${selectedImageFile && 'width-quater'}`)}>
-              <Carmera />
+              <CarmeraIcon />
             </label>
           )}
           <input type="file" className={cn('input-image-input')} id="imageInput" onChange={handleChangeImage} />
@@ -41,7 +41,7 @@ export default function ImageInput() {
             selectedImageFile.map((imageUrl, index) => (
               <div key={imageUrl} className={cn('image-div')}>
                 <Image alt="선택된 이미지" src={imageUrl} fill id={cn('image')} />
-                <DeleteImage className={cn('delete-image-icon')} onClick={() => handleClickDeleteImage(index)} />
+                <DeleteImageIcon className={cn('delete-image-icon')} onClick={() => handleClickDeleteImage(index)} />
                 {index === 0 && <div className={cn('main-image')}>대표</div>}
               </div>
             ))}

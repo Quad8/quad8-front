@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, RefObject } from 'react';
 import classNames from 'classnames/bind';
-import UpArrow from '@/public/svgs/upArrow.svg';
+import UpArrowIcon from '@/public/svgs/upArrow.svg';
 import styles from './ScrollUpButton.module.scss';
 
 const cn = classNames.bind(styles);
 
 interface ScrollUpButtonProps {
-  headerRef: React.RefObject<HTMLDivElement>;
+  headerRef: RefObject<HTMLDivElement>;
 }
 
 export default function ScrollUpButton({ headerRef }: ScrollUpButtonProps) {
@@ -40,7 +40,7 @@ export default function ScrollUpButton({ headerRef }: ScrollUpButtonProps) {
       onClick={handleScrollUpButtonClick}
     >
       {' '}
-      <UpArrow />
+      <UpArrowIcon />
     </button>
   );
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import classNames from 'classnames/bind';
 import { CustomKeyboardTypes } from '@/app/types/CustomKeyboardTypes';
 import styles from './KeyboardInfoBox.module.scss';
@@ -27,7 +26,7 @@ export default function KeyboardInfoBox({ keyboardInfo, isReview }: KeyboardInfo
                       `;
 
   const keycapColors = Object.entries(keycapColor)
-    .map(([key, val]) => `${key}: ${val}`)
+    .map(([key, value]) => `${key}: ${value}`)
     .join(', ');
 
   return (
