@@ -24,8 +24,6 @@ interface KeyboardDataType {
 
 interface KeyboardDataContextType {
   keyboardData: KeyboardDataType;
-  updateIndividualKey: (key: string, value: string) => void;
-  updateOption: (optionId: string) => void;
   updateData: (key: keyof KeyboardDataType, value: KeyboardDataType[keyof KeyboardDataType]) => void;
 }
 
@@ -57,8 +55,6 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
     option: [],
     individualColor: null,
   },
-  updateIndividualKey: () => {},
-  updateOption: () => {},
   updateData: () => {},
 });
 
@@ -75,9 +71,11 @@ export function StepContextProvider({ children }: PropsWithChildren) {
   }, []);
 
   const contextValue = useMemo(() => ({ currentStep, updateCurrentStep }), [currentStep, updateCurrentStep]);
+
   return <StepContext.Provider value={contextValue}>{children}</StepContext.Provider>;
 }
 
+/* 다음 버튼 눌렀을 때 내용 업데이트 */
 export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
   const [data, setData] = useState<KeyboardDataType>({
     keyboardType: null,
@@ -93,39 +91,11 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     individualColor: null,
   });
 
-  const updateIndividualKey = useCallback((key: string, value: string) => {
-    setData((prev) => {
-      const prevColor = { ...prev.individualColor };
-      if (value === prev.baseKeyColor) {
-        delete prevColor[key];
-      } else {
-        Object.assign(prevColor, { [key]: value });
-      }
-      return { ...prev, individualColor: { ...prevColor } };
-    });
-  }, []);
-
-  const updateOption = useCallback((optionId: string) => {
-    setData((prev) => {
-      const filteredList = prev.option.filter((id) => id !== optionId);
-      if (filteredList.length !== prev.option.length) {
-        return { ...prev, option: filteredList };
-      }
-      return { ...prev, option: [...prev.option, optionId] };
-    });
-  }, []);
-
   const updateData = useCallback((key: keyof KeyboardDataType, value: KeyboardDataType[keyof KeyboardDataType]) => {
-    if (key === 'individualColor' || key === 'option') {
-      return;
-    }
     setData((prev) => ({ ...prev, [key]: value }));
   }, []);
 
-  const value = useMemo(
-    () => ({ keyboardData: data, updateIndividualKey, updateOption, updateData }),
-    [data, updateIndividualKey, updateOption, updateData],
-  );
+  const value = useMemo(() => ({ keyboardData: data, updateData }), [data, updateData]);
 
   return <KeyboardDataContext.Provider value={value}>{children}</KeyboardDataContext.Provider>;
 }
@@ -142,5 +112,6 @@ export function KeyColorContextProvider({ children }: PropsWithChildren) {
   }, []);
 
   const value = useMemo(() => ({ keyColorData, updateKeyColor }), [keyColorData, updateKeyColor]);
+
   return <KeyColorContext.Provider value={value}>{children}</KeyColorContext.Provider>;
 }
