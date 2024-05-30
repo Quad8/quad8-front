@@ -26,13 +26,9 @@ export default function KeyboardInfoBox({ keyboardInfo, isReview }: KeyboardInfo
                         / 포인트 키캡 ${hasPointKey ? 'o' : 'x'}
                       `;
 
-  // let keycapColors = '';
-
-  // Object.entries(keycapColor).forEach(([key, val]) => {
-  //   keycapColors += `${key}: ${val}`;
-  // });
-  const keycapData = JSON.stringify(keycapColor).replaceAll('"', '');
-  const keycapColors = keycapData.slice(1, keycapData.length - 1);
+  const keycapColors = Object.entries(keycapColor)
+    .map(([key, val]) => `${key}: ${val}`)
+    .join(', ');
 
   return (
     <div>
