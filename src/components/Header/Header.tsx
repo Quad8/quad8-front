@@ -41,7 +41,7 @@ export default function Header() {
         <div className={cn('status-wrapper')}>
           {!accessToken ? <LoginButton /> : <LogoutButton />}
           <Link href="/mypage" className={cn('icon')}>
-            <Ic_User width={48.08} height={48.08} />
+            <Ic_User width={42} height={42} />
           </Link>
           <Link href="/cart" className={cn('icon')}>
             <Ic_Cart width={24} height={24} />
