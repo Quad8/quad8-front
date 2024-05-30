@@ -10,9 +10,9 @@ interface ScrollUpButtonProps {
 export default function ScrollUpButton({ headerRef }: ScrollUpButtonProps) {
   const cn = classNames.bind(styles);
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
-  useEffect(() => {
-    console.log(isHeaderVisible);
-  }, [isHeaderVisible]);
+  const handleScrollUpButtonClick = () => {
+    headerRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
@@ -33,7 +33,11 @@ export default function ScrollUpButton({ headerRef }: ScrollUpButtonProps) {
     };
   }, []);
   return (
-    <button type="button" className={cn('button-div', `${isHeaderVisible && 'no-button-visible'}`)}>
+    <button
+      type="button"
+      className={cn('button-div', `${isHeaderVisible && 'no-button-visible'}`)}
+      onClick={handleScrollUpButtonClick}
+    >
       {' '}
       <UpArrow />
     </button>
