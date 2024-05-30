@@ -22,7 +22,7 @@ export default function Header() {
   /* 장바구니 수량 개수 가져오기 */
 
   return (
-    <div className={cn('wrapper')}>
+    <header className={cn('wrapper')}>
       <div className={cn('right-wrapper')}>
         <Link href={URL_LIST.main} className={cn('logo')}>
           <LogoIcon width={130.65} height={23.89} />
@@ -47,6 +47,6 @@ export default function Header() {
           <CartButton cartCount={13} />
         </div>
       </div>
-    </div>
+    </header>
   );
 }
