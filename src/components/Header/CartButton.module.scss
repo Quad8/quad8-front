@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  position: relative;
+  align-items: center;
+  height: 100%;
+}
+
+.cart-count {
+  display: flex;
+  position: absolute;
+  top: 2.2rem;
+  left: 1.1rem;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 30rem;
+  background-color: #ed2c2c;
+  color: $text-white;
+  font-size: 1.4rem;
+  line-height: 2.1rem;
+}
+
+.count-more-digit {
+  width: 2.3rem;
+}
