@@ -17,6 +17,7 @@ $main-01: #587df2;
 
 @mixin hover($color, $type) {
   &:hover {
+    transition: all 0.5s ease-in-out;
     @if ($type == 'background') {
       @include background($color);
     } @else if($type == 'outline') {

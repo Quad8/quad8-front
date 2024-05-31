@@ -50,7 +50,9 @@ export default function Page() {
         radius={BUTTON_RADIUS.RADIUS_8}
         onClick={handleButtonClick}
         hoverColor={BUTTON_COLOR.OUTLINE_MAIN}
-      />
+      >
+        button text
+      </Button>
     </div>
   );
 }

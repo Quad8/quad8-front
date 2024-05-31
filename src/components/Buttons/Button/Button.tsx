@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import classNames from 'classnames/bind';
 import {
   ButtonColorType,
@@ -17,6 +18,7 @@ interface ButtonProps {
   radius?: ButtonRadiusType;
   width?: ButtonWidthType;
   onClick: () => void;
+  children: ReactNode;
 }
 
 export default function Button({
@@ -25,6 +27,7 @@ export default function Button({
   radius = BUTTON_RADIUS.RADIUS_0,
   width = BUTTON_WIDTH.PARENT_FULL,
   onClick,
+  children,
 }: ButtonProps) {
   return (
     <button
@@ -32,7 +35,7 @@ export default function Button({
       type="button"
       onClick={onClick}
     >
-      Button
+      {children}
     </button>
   );
 }
