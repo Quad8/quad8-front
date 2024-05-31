@@ -29,6 +29,7 @@ export default function Page() {
   };
 
   const handleButtonClick = () => {
+    /** 버튼 누를 때 실행되는 함수 */
     console.log('버튼 누름');
   };
   return (
@@ -46,7 +47,7 @@ export default function Page() {
       </div>
       {selectedModal && <WriteEditModal type={selectedModal} />}
       <Button
-        backgroundColor={BUTTON_COLOR.BACKGROUND_MAIN_01}
+        backgroundColor={BUTTON_COLOR.OUTLINE_MAIN}
         radius={BUTTON_RADIUS.RADIUS_8}
         onClick={handleButtonClick}
         hoverColor={BUTTON_COLOR.OUTLINE_MAIN}
