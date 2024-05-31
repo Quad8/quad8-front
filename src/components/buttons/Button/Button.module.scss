@@ -15,6 +15,16 @@ $main-01: #587df2;
   color: $color;
 }
 
+@mixin hover($color, $type) {
+  &:hover {
+    @if ($type == 'background') {
+      @include background($color);
+    } @else if($type == 'outline') {
+      @include border($color);
+    }
+  }
+}
+
 .common-style {
   padding: 2rem 4rem;
   font-size: 1.8rem;
@@ -25,11 +35,23 @@ $main-01: #587df2;
 }
 
 .background-gray-01 {
-  @include background(($gray-01));
+  @include background($gray-01);
 }
 
 .background-main-01 {
   @include background($main-01);
+}
+
+.hover-background-gray-00 {
+  @include hover($gray-00, 'background');
+}
+
+.hover-background-gray-01 {
+  @include hover($gray-01, 'background');
+}
+
+.hover-background-main-01 {
+  @include hover($main-01, 'background');
 }
 
 .outline-gray-00 {
@@ -38,6 +60,14 @@ $main-01: #587df2;
 
 .outline-main-01 {
   @include border($main-01);
+}
+
+.hover-outline-gray-00 {
+  @include hover($gray-00, 'outline');
+}
+
+.hover-outline-main-01 {
+  @include hover($main-01, 'outline');
 }
 
 .radius-4 {

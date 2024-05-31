@@ -49,6 +49,7 @@ export default function Page() {
         backgroundColor={BUTTON_COLOR.BACKGROUND_MAIN_01}
         radius={BUTTON_RADIUS.RADIUS_8}
         onClick={handleButtonClick}
+        hoverColor={BUTTON_COLOR.OUTLINE_MAIN}
       />
     </div>
   );

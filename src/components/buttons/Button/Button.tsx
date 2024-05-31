@@ -13,6 +13,7 @@ const cn = classNames.bind(styles);
 
 interface ButtonProps {
   backgroundColor?: ButtonColorType;
+  hoverColor?: ButtonColorType;
   radius?: ButtonRadiusType;
   width?: ButtonWidthType;
   onClick: () => void;
@@ -20,13 +21,14 @@ interface ButtonProps {
 
 export default function Button({
   backgroundColor = BUTTON_COLOR.BACKGROUND_MAIN_01,
+  hoverColor,
   radius = BUTTON_RADIUS.RADIUS_0,
   width = BUTTON_WIDTH.PARENT_FULL,
   onClick,
 }: ButtonProps) {
   return (
     <button
-      className={cn('common-style', `${backgroundColor}`, `${radius}`, `${width}`)}
+      className={cn('common-style', `${backgroundColor}`, `${radius}`, `${width}`, `hover-${hoverColor}`)}
       type="button"
       onClick={onClick}
     >
