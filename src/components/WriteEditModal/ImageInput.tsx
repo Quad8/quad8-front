@@ -18,7 +18,7 @@ export default function ImageInput() {
       return;
     }
     const imageUrl = URL.createObjectURL(files[0]);
-    setSelectedImageFile([...selectedImageFile, imageUrl]);
+    setSelectedImageFile((prev) => [...prev, imageUrl]);
   };
   const handleClickDeleteImage = (clickedImageIndex: number) => {
     setSelectedImageFile((prev) => [...prev.slice(0, clickedImageIndex), ...prev.slice(clickedImageIndex + 1)]);
