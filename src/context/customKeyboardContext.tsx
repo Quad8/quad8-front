@@ -18,7 +18,7 @@ interface KeyboardDataType {
   pointKeyType: string | null;
   pointKeyColor: string | null;
   price: number;
-  option: string[];
+  option: { [key: string]: boolean };
   individualColor: { [key: string]: string } | null;
 }
 
@@ -52,7 +52,7 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
     pointKeyType: null,
     pointKeyColor: null,
     price: 0,
-    option: [],
+    option: {},
     individualColor: null,
   },
   updateData: () => {},
@@ -87,7 +87,7 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     pointKeyType: null,
     pointKeyColor: null,
     price: 0,
-    option: [],
+    option: {},
     individualColor: null,
   });
 

@@ -43,6 +43,8 @@ const nextConfig = {
     includePaths: ['styles'],
     additionalData: `@import "src/styles/_globals.scss";`,
   },
+
+  transpilePackages: ['three'],
 };
 
 export default nextConfig;
