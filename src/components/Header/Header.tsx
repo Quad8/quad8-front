@@ -20,8 +20,8 @@ const URL_LIST = {
 export default function Header() {
   const accessToken = cookies().get('accessToken')?.value ?? null;
   const headerList = headers();
-  const white = headerList.get('x-pathname')?.includes('/customKeyboard');
-  const cartCount = 13; /* api로 가져오기 */
+  const white = headerList.get('x-pathname')?.includes('/custom-keyboard');
+  const cartCount = 0; /* api로 가져오기 */
 
   return (
     <header className={cn('wrapper', white && 'white')}>
@@ -39,7 +39,7 @@ export default function Header() {
         <SearchBox />
         <div className={cn('status-wrapper')}>
           {!accessToken ? <LoginButton /> : <LogoutButton />}
-          <Link href="/mypage">
+          <Link href="/mypage" className={cn('user-icon')}>
             <UserIcon width={31} height={31} className={cn(white ? 'user-white' : 'user-black')} />
           </Link>
           <CartButton cartCount={cartCount} white={white} />

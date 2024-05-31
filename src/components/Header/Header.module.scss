@@ -14,8 +14,8 @@
   padding: 0 12rem;
   background-color: #04002a;
   color: $text-white;
-  font-size: 1.66rem;
-  line-height: 1.8rem;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
   text-decoration: none;
 }
 
@@ -47,6 +47,10 @@
   @include flex-wrapper;
 
   gap: 2rem;
+}
+
+.user-icon {
+  height: 3.1rem;
 }
 
 .user-white {
