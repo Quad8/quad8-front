@@ -1,24 +1,20 @@
 $gray-00: #1c232f;
+$gray-01: #b8b8b8;
 $main-01: #587df2;
 
 @mixin button {
   padding: 2rem;
+  font-size: 1.8rem;
 }
 
-.container {
-  width: 200;
-  height: 200;
-  border-radius: 0;
-}
-
-.background-gray {
+.background-gray-00 {
   @include button;
 
   background-color: $gray-00;
   color: #fff;
 }
 
-.outline-gray {
+.outline-gray-00 {
   @include button;
 
   border: 1px solid $gray-00;
@@ -26,14 +22,14 @@ $main-01: #587df2;
   color: $gray-00;
 }
 
-.background-blue {
+.background-main-01 {
   @include button;
 
   background-color: $main-01;
   color: #fff;
 }
 
-.outline-blue {
+.outline-main-01 {
   @include button;
 
   border: 1px solid $main-01;
