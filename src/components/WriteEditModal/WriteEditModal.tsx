@@ -1,4 +1,3 @@
-import React from 'react';
 import KEYBOARD_DATA from '@/app/mj/customData';
 import { WRITE_EIDT_MODAL_TYPE, WriteEditModalType } from '@/constants/writeEditModalType';
 import classNames from 'classnames/bind';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, RefObject } from 'react';
+import { useState, useEffect, RefObject } from 'react';
 import classNames from 'classnames/bind';
 import UpArrowIcon from '@/public/svgs/upArrow.svg';
 import styles from './ScrollUpButton.module.scss';

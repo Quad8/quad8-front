@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import Image from 'next/image';
 import CarmeraIcon from '@/public/svgs/camera.svg';
 import DeleteImageIcon from '@/public/svgs/deleteImage.svg';
