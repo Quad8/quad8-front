@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { WriteEditModalType } from '@/constants/writeEditModalType';
-import Button, { BUTTON_BORDER, BUTTON_COLOR } from '@/components/buttons/Button/Button';
+import Button, { BUTTON_RADIUS, BUTTON_COLOR } from '@/components/buttons/Button/Button';
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
 
@@ -40,7 +40,7 @@ export default function Page() {
         </button>
       </div>
       {selectedModal && <WriteEditModal type={selectedModal} />}
-      <Button color={BUTTON_COLOR.OUTLINE_MAIN} border={BUTTON_BORDER.BORDER_8} />
+      <Button backgroundColor={BUTTON_COLOR.BACKGROUND_GRAY_01} border={BUTTON_RADIUS.RADIUS_8} />
     </div>
   );
 }

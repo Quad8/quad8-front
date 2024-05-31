@@ -1,46 +1,49 @@
+$black: #000;
+$white: #fff;
 $gray-00: #1c232f;
 $gray-01: #b8b8b8;
 $main-01: #587df2;
 
-@mixin button {
+@mixin background($color) {
+  background-color: $color;
+  color: #fff;
+}
+
+@mixin border($color) {
+  border: 0.1rem solid $color;
+  background-color: $white;
+  color: $color;
+}
+
+.common-style {
   padding: 2rem;
   font-size: 1.8rem;
 }
 
 .background-gray-00 {
-  @include button;
-
-  background-color: $gray-00;
-  color: #fff;
+  @include background($gray-00);
 }
 
-.outline-gray-00 {
-  @include button;
-
-  border: 1px solid $gray-00;
-  background-color: #fff;
-  color: $gray-00;
+.background-gray-01 {
+  @include background(($gray-01));
 }
 
 .background-main-01 {
-  @include button;
+  @include background($main-01);
+}
 
-  background-color: $main-01;
-  color: #fff;
+.outline-gray-00 {
+  @include border($gray-00);
 }
 
 .outline-main-01 {
-  @include button;
-
-  border: 1px solid $main-01;
-  background-color: #fff;
-  color: $main-01;
+  @include border($main-01);
 }
 
-.border-4 {
+.radius-4 {
   border-radius: 0.4rem;
 }
 
-.border-8 {
+.radius-8 {
   border-radius: 0.8rem;
 }
