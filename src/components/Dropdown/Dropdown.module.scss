@@ -1,0 +1,75 @@
+@mixin sm {
+  padding: 0.8rem 1.6rem;
+  @include pretendard-14-400;
+}
+
+@mixin md {
+  padding: 1rem 1.6rem;
+  @include pretendard-18-400;
+}
+
+@mixin lg {
+  padding: 1rem 2rem;
+  @include pretendard-16-400;
+}
+
+.dropdown {
+  position: relative;
+
+  .input-wrapper {
+    position: relative;
+  }
+
+  .default {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 0.1rem solid #b8b8b8;
+    border-radius: 0.4rem;
+
+    &::placeholder {
+      color: #1c232f;
+    }
+  }
+
+  .sm {
+    @include sm;
+  }
+
+  .md {
+    @include md;
+  }
+
+  .lg {
+    @include lg;
+  }
+
+  .option-box {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    border: 0.1rem solid #b8b8b8;
+    border-radius: 0.4rem;
+
+    .option {
+      width: 100%;
+      background-color: #fff;
+
+      .sm {
+        @include sm;
+      }
+
+      .md {
+        @include md;
+      }
+
+      .lg {
+        @include lg;
+      }
+
+      &:hover {
+        background: #d6ddf3;
+      }
+    }
+  }
+}
