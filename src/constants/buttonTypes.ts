@@ -15,7 +15,9 @@ export const BUTTON_RADIUS = {
 
 export const BUTTON_WIDTH = {
   PARENT_FULL: '100%',
-  BORDER_4: 'border-4',
+  small: '12rem',
+  medium: '15.4rem',
+  big: '32rem',
 } as const;
 
 export type ButtonRadiusType = (typeof BUTTON_RADIUS)[keyof typeof BUTTON_RADIUS];

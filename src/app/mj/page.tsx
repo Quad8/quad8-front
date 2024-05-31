@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { WriteEditModalType } from '@/constants/writeEditModalType';
-import Button from '@/components/buttons/Button/Button';
+import Button from '@/components/Buttons/Button/Button';
 import { BUTTON_RADIUS, BUTTON_COLOR } from '@/constants/buttonTypes';
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
