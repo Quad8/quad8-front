@@ -1,0 +1,50 @@
+$gray-00: #1c232f;
+$main-01: #587df2;
+
+@mixin button {
+  padding: 2rem;
+}
+
+.container {
+  width: 200;
+  height: 200;
+  border-radius: 0;
+}
+
+.background-gray {
+  @include button;
+
+  background-color: $gray-00;
+  color: #fff;
+}
+
+.outline-gray {
+  @include button;
+
+  border: 1px solid $gray-00;
+  background-color: #fff;
+  color: $gray-00;
+}
+
+.background-blue {
+  @include button;
+
+  background-color: $main-01;
+  color: #fff;
+}
+
+.outline-blue {
+  @include button;
+
+  border: 1px solid $main-01;
+  background-color: #fff;
+  color: $main-01;
+}
+
+.border-4 {
+  border-radius: 0.4rem;
+}
+
+.border-8 {
+  border-radius: 0.8rem;
+}

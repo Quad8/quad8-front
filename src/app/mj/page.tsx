@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { WriteEditModalType } from '@/constants/writeEditModalType';
+import Button from '@/components/buttons/Button/Button';
+import { BUTTON_COLOR } from '@/constants/buttonTypes';
 import styles from './page.module.scss';
 
 export default function Page() {
@@ -36,6 +38,7 @@ export default function Page() {
         </button>
       </div>
       {selectedModal && <WriteEditModal type={selectedModal} />}
+      <Button color={BUTTON_COLOR.OUTLINE_BLUE} />
     </div>
   );
 }
