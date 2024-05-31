@@ -1,0 +1,27 @@
+@mixin sm {
+  @include pretendard-16-400;
+}
+
+@mixin md {
+  @include pretendard-16-400;
+}
+
+@mixin lg {
+  @include pretendard-20-600;
+}
+
+.default {
+  color: #111;
+}
+
+.sm {
+  @include sm;
+}
+
+.md {
+  @include md;
+}
+
+.lg {
+  @include lg;
+}
