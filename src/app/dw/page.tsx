@@ -1,5 +1,3 @@
-import Header from '@/components/Header/Header';
-
 export default function Page() {
-  return <Header />;
+  return <div>테스트페이지 dw</div>;
 }

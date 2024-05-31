@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import classNames from 'classnames/bind';
 import LogoIcon from '@/public/svgs/logo.svg';
 import UserIcon from '@/public/svgs/user.svg';
@@ -19,10 +19,12 @@ const URL_LIST = {
 
 export default function Header() {
   const accessToken = cookies().get('accessToken')?.value ?? null;
-  /* 장바구니 수량 개수 가져오기 */
+  const headerList = headers();
+  const white = headerList.get('x-pathname')?.includes('/customKeyboard');
+  const cartCount = 13; /* api로 가져오기 */
 
   return (
-    <header className={cn('wrapper')}>
+    <header className={cn('wrapper', white && 'white')}>
       <div className={cn('right-wrapper')}>
         <Link href={URL_LIST.main}>
           <LogoIcon width={131} height={24} />
@@ -38,9 +40,9 @@ export default function Header() {
         <div className={cn('status-wrapper')}>
           {!accessToken ? <LoginButton /> : <LogoutButton />}
           <Link href="/mypage">
-            <UserIcon width={31} height={31} />
+            <UserIcon width={31} height={31} className={cn(white ? 'user-white' : 'user-black')} />
           </Link>
-          <CartButton cartCount={13} />
+          <CartButton cartCount={cartCount} white={white} />
         </div>
       </div>
     </header>

@@ -8,7 +8,8 @@
 .wrapper {
   @include flex-wrapper;
 
-  width: 100vw;
+  width: fit-content;
+  min-width: 100%;
   height: 8rem;
   padding: 0 12rem;
   background-color: #04002a;
@@ -16,6 +17,12 @@
   font-size: 1.66rem;
   line-height: 1.8rem;
   text-decoration: none;
+}
+
+.white {
+  border-bottom: 1px solid #eaeaea;
+  background-color: #fff;
+  color: #111;
 }
 
 .right-wrapper {
@@ -40,4 +47,20 @@
   @include flex-wrapper;
 
   gap: 2rem;
+}
+
+.user-white {
+  fill: #111;
+
+  path {
+    fill: #fff;
+  }
+}
+
+.user-black {
+  fill: #fff;
+
+  path {
+    fill: #111;
+  }
 }

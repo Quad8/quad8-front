@@ -20,6 +20,7 @@
 
 .menu-button {
   display: flex;
+  z-index: $zindex-dropdown;
   align-items: center;
   justify-content: center;
   width: 12rem;
