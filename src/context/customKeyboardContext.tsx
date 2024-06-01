@@ -9,8 +9,8 @@ interface StepContextType {
 }
 
 interface KeyboardDataType {
-  keyboardType: 'tkl' | 'full' | null;
-  texture: 'metal' | 'plastic' | null;
+  keyboardType: 'tkl' | 'full';
+  texture: 'metal' | 'plastic';
   boardColor: string /* color */;
   switchType: 'blue' | 'red' | 'brown' | 'black' | null;
   baseKeyColor: string;
@@ -43,8 +43,8 @@ export const StepContext = createContext<StepContextType>({
 
 export const KeyboardDataContext = createContext<KeyboardDataContextType>({
   keyboardData: {
-    keyboardType: null,
-    texture: null,
+    keyboardType: 'tkl',
+    texture: 'metal',
     boardColor: '#ffffff',
     switchType: null,
     baseKeyColor: '#ffffff',
@@ -77,9 +77,9 @@ export function StepContextProvider({ children }: PropsWithChildren) {
 
 export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
   const [data, setData] = useState<KeyboardDataType>({
-    keyboardType: null,
-    texture: null,
-    boardColor: '#ffffff',
+    keyboardType: 'tkl',
+    texture: 'metal',
+    boardColor: '#00aaff',
     switchType: null,
     baseKeyColor: '#ffffff',
     hasPointKeyCap: false,

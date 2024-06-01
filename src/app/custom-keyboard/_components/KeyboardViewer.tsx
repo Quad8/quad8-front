@@ -12,19 +12,19 @@ const cn = classNames.bind(styles);
 export default function KeyboardViewer() {
   return (
     <div className={cn('wrapper')}>
+      <div className={cn('option-wrapper')}>option</div>
       <Suspense fallback={null}>
         <Canvas
           shadows
-          flat
           camera={{
             fov: 45,
-            position: [0, 0.3, 3],
+            position: [0, 1.5, 0],
           }}
-          style={{ background: '#f0f0f0' }}
+          className={cn('canvas')}
           gl={{ preserveDrawingBuffer: true, antialias: true }}
         >
           <Keyboard />
-          <Environment preset="warehouse" blur={1} />
+          <Environment preset="city" blur={1} />
           <OrbitControls />
         </Canvas>
       </Suspense>

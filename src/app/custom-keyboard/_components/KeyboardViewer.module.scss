@@ -1,4 +1,17 @@
 .wrapper {
+  position: relative;
   width: calc(100vw - 68rem);
   height: calc(100vh - 16rem);
+  background-color: #f0f0f0;
+}
+
+.option-wrapper {
+  position: absolute;
+  z-index: 100;
+  top: 50%;
+  left: 1rem;
+  width: 16.2rem;
+  height: 21.8rem;
+  transform: translateY(-50%);
+  border: 1px solid black;
 }
