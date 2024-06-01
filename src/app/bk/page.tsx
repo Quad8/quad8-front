@@ -21,6 +21,12 @@ export default function Page() {
       <br />
       <br />
       <Dropdown options={OPTIONS} placeholder="옵션을 선택해 주세요." />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </>
   );
 }
