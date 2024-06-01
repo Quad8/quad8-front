@@ -1,5 +1,6 @@
 'use client';
 
+import { RadioField } from '@/components';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import InputField from '@/components/InputField/InputField';
 import TextField from '@/components/TextField/TextField';
@@ -33,6 +34,13 @@ export default function Page() {
       <br />
       <br />
       <TextField label='텍스트필드' id='텍스트' name='텍스트' placeholder='최소 20자 이상 입력해 주세요' />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <RadioField options={OPTIONS} label='숫자' />
       <br />
       <br />
       <br />

@@ -1,0 +1,27 @@
+.radio-wrapper {
+  @include pretendard-18-400;
+
+  .radio {
+    width: 1.6rem;
+    height: 1.6rem;
+    margin: 0;
+    margin-right: 0.8rem;
+    margin-bottom: 0.4rem;
+    border: 0.1em solid $gray-40;
+    border-radius: 9999rem;
+    vertical-align: middle;
+    appearance: none;
+
+    &:checked {
+      border: 0.4rem solid $primary;
+
+      &:disabled {
+        border: 0.4rem solid $gray-50;
+      }
+    }
+  }
+
+  .red {
+    border: 0.1rem solid $red;
+  }
+}

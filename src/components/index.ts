@@ -1,5 +1,6 @@
 export { default as Dropdown } from './Dropdown/Dropdown';
 export { default as InputField } from './InputField/InputField';
+export { default as RadioField } from './RadioField/RadioField';
 export { default as TextField } from './TextField/TextField';
 
 export { default as Rating } from './Rating/Rating';
