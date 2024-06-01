@@ -1,5 +1,7 @@
-import { useState } from 'react';
 import StarIcon from '@/public/svgs/star.svg';
+import classNames from 'classnames/bind';
+import { useState } from 'react';
+import styles from './Rating.module.scss';
 
 interface StarProps {
   checked: boolean;
@@ -15,13 +17,12 @@ interface RatingProps {
   isEditable?: boolean;
 }
 
+const cn = classNames.bind(styles);
+
 function Star({ checked, onClick, onMouseOver, onMouseOut, isEditable }: StarProps) {
   return (
     <StarIcon
-      style={{
-        color: checked ? '#F15252' : '#E4E4E4',
-        cursor: isEditable ? 'pointer' : 'default',
-      }}
+      className={cn(checked ? 'checked' : 'not-checked', isEditable && 'edit')}
       onClick={onClick}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
