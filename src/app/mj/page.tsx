@@ -4,26 +4,32 @@ import { useState } from 'react';
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { WriteEditModalType, WRITE_EIDT_MODAL_TYPE } from '@/constants/writeEditModalType';
 import classNames from 'classnames/bind';
+import Modal from '@/components/Modal/Modal';
 import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
 
 export default function Page() {
   const [selectedModal, setSelectedModal] = useState<WriteEditModalType | null>(null);
-  // const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
+
   const handleWritePostModal = () => {
     setSelectedModal(WRITE_EIDT_MODAL_TYPE.writePost);
-    // setIsOpenModal(true);
+    setIsOpenModal(true);
   };
 
   const handleWriteCustomReivewModal = () => {
     setSelectedModal(WRITE_EIDT_MODAL_TYPE.writeCustomReview);
-    // setIsOpenModal(true);
+    setIsOpenModal(true);
   };
 
   const handleEditMyPostModal = () => {
     setSelectedModal(WRITE_EIDT_MODAL_TYPE.editMyPost);
-    // setIsOpenModal(true);
+    setIsOpenModal(true);
   };
   return (
     <div className={cn('container')}>
@@ -38,7 +44,11 @@ export default function Page() {
           3. 내 게시글 수정
         </button>
       </div>
-      {selectedModal && <WriteEditModal type={selectedModal} />}
+      {selectedModal && (
+        <Modal isOpen={isOpenModal} onClose={handleCloseModal}>
+          <WriteEditModal type={selectedModal} />
+        </Modal>
+      )}
     </div>
   );
 }
