@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import type { Metadata } from 'next';
 import Header from '@/components/Header/Header';
+import type { Metadata } from 'next';
+import { ReactNode } from 'react';
 import { Providers } from './providers';
 
 import '@/styles/reset.css';
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang='ko'>
       <body>
         <Providers>
           <Header />

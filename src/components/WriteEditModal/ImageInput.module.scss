@@ -3,15 +3,15 @@
   gap: 1.2rem;
   align-items: center;
 
-  & > #title-h1 {
+  & > #title {
     font-size: 2rem;
     font-weight: bold;
   }
 
-  & > #sub-title-h3 {
+  & > #sub-title {
+    color: #999;
     font-size: 1.4rem;
     line-height: 2.2rem;
-    color: #999;
   }
 }
 
@@ -23,15 +23,15 @@
   margin-top: 1.2rem;
 }
 
-.label-input-div {
+.label-input {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  cursor: pointer;
   border: 0.1rem solid #999;
   border-radius: 0.8rem;
+  cursor: pointer;
 }
 
 .width-quater {
@@ -64,9 +64,9 @@
   top: 0.8rem;
   left: 1rem;
   padding: 0.4rem 1rem;
+  border-radius: 3rem;
+  background-color: #6f6565;
+  color: #fff;
   font-size: 1.4rem;
   line-height: 2.2rem;
-  color: #fff;
-  background-color: #6f6565;
-  border-radius: 3rem;
 }

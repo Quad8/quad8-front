@@ -24,7 +24,7 @@ export default function KeyboardViewer() {
           gl={{ preserveDrawingBuffer: true, antialias: true }}
         >
           <Keyboard />
-          <Environment preset="city" blur={1} />
+          <Environment preset='city' blur={1} />
           <OrbitControls />
         </Canvas>
       </Suspense>

@@ -8,18 +8,18 @@
 
 .sub-text {
   margin-bottom: 2rem;
-  font-size: 1.4rem;
   color: #999;
+  font-size: 1.4rem;
 }
 
-.keyboard-image-div {
+.keyboard-image {
   width: 14.3rem;
   height: 14.3rem;
-  background-color: #d9d9d9;
   border-radius: 0.8rem;
+  background-color: #d9d9d9;
 }
 
-.keyboard-info-text-div {
+.keyboard-info-text {
   width: 54.5rem;
 
   & > h3 {
@@ -32,11 +32,11 @@
 }
 
 .options-div {
-  font-size: 1.4rem;
   color: #999;
+  font-size: 1.4rem;
 }
 
-.keycap-color-div {
+.keycap-color {
   display: -webkit-box;
   margin-top: 0.2rem;
   overflow: hidden;
