@@ -5,12 +5,12 @@
 
 .default {
   width: 100%;
-  border: 0.1rem solid #999;
+  border: 0.1rem solid $gray-50;
   border-radius: 0.8rem;
   resize: none;
 
   &::placeholder {
-    color: #a5a5a5;
+    color: $gray-40;
   }
 }
 

@@ -24,11 +24,11 @@
     display: flex;
     align-items: center;
     width: 100%;
-    border: 0.1rem solid #b8b8b8;
+    border: 0.1rem solid $gray-50;
     border-radius: 0.4rem;
 
     &::placeholder {
-      color: #1c232f;
+      color: $black;
     }
   }
 
@@ -49,7 +49,7 @@
     z-index: $zindex-dropdown;
     top: 0;
     width: 100%;
-    border: 0.1rem solid #b8b8b8;
+    border: 0.1rem solid $gray-50;
     border-radius: 0.4rem;
     background-color: #fff;
 
@@ -69,7 +69,7 @@
       }
 
       &:hover {
-        background: #d6ddf3;
+        background: $white;
       }
     }
   }
