@@ -5,9 +5,9 @@ import styles from './Rating.module.scss';
 
 interface StarProps {
   checked: boolean;
-  onClick?: () => void;
-  onMouseOver?: () => void;
-  onMouseOut?: () => void;
+  onClick: () => void;
+  onMouseOver: () => void;
+  onMouseOut: () => void;
   isEditable?: boolean;
 }
 
@@ -23,9 +23,9 @@ function Star({ checked, onClick, onMouseOver, onMouseOut, isEditable }: StarPro
   return (
     <StarIcon
       className={cn(checked ? 'checked' : 'not-checked', isEditable && 'edit')}
-      onClick={onClick}
-      onMouseOver={onMouseOver}
-      onMouseOut={onMouseOut}
+      onClick={() => isEditable && onClick()}
+      onMouseOver={() => isEditable && onMouseOver()}
+      onMouseOut={() => isEditable && onMouseOut()}
     />
   );
 }
@@ -42,18 +42,16 @@ export default function Rating({ rating, onRatingChange, isEditable }: RatingPro
 
   return (
     <div>
-      {isEditable
-        ? STARS.map((star) => (
-            <Star
-              key={star}
-              checked={star <= (hoverRating || rating)}
-              onClick={() => handleRating(star)}
-              onMouseOver={() => star > rating && setHoverRating(star)}
-              onMouseOut={() => setHoverRating(0)}
-              isEditable={isEditable}
-            />
-          ))
-        : STARS.map((star) => <Star key={star} checked={star <= (hoverRating || rating)} />)}
+      {STARS.map((star) => (
+        <Star
+          key={star}
+          checked={star <= (hoverRating || rating)}
+          onClick={() => handleRating(star)}
+          onMouseOver={() => star > rating && setHoverRating(star)}
+          onMouseOut={() => setHoverRating(0)}
+          isEditable={isEditable}
+        />
+      ))}
     </div>
   );
 }
