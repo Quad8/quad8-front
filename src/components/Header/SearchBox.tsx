@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, FormEvent, ChangeEvent } from 'react';
 import SearchIcon from '@/public/svgs/search.svg';
 import classNames from 'classnames/bind';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './SearchBox.module.scss';
 
 const cn = classNames.bind(styles);
@@ -23,9 +23,9 @@ export default function SearchBox() {
         value={searchValue}
         onChange={handleChangeSearch}
         className={cn('input-box')}
-        placeholder="검색어를 입력해주세요."
+        placeholder='검색어를 입력해주세요.'
       />
-      <button type="submit" className={cn('search-button')} aria-label="submit">
+      <button type='submit' className={cn('search-button')} aria-label='submit'>
         <SearchIcon width={24} height={24} />
       </button>
     </form>
