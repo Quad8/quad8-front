@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classNames from 'classnames/bind';
-import { CustomKeyboardTypes } from '@/app/types/CustomKeyboardTypes';
+import { CustomKeyboardTypes } from '@/types/CustomKeyboardTypes';
 import styles from './KeyboardInfoBox.module.scss';
 
 interface KeyboardInfoBoxProps {
