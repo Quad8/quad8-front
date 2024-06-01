@@ -19,7 +19,7 @@ export default function ShopButton() {
 
   return (
     <div className={cn('wrapper')} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-      <Link href="/" className={cn('button')}>
+      <Link href='/' className={cn('button')}>
         SHOP
       </Link>
       {isHover && (

@@ -23,9 +23,9 @@ export default function SearchBox() {
         value={searchValue}
         onChange={handleChangeSearch}
         className={cn('input-box')}
-        placeholder="검색어를 입력해주세요."
+        placeholder='검색어를 입력해주세요.'
       />
-      <button type="submit" className={cn('search-button')} aria-label="submit">
+      <button type='submit' className={cn('search-button')} aria-label='submit'>
         <SearchIcon width={24} height={24} />
       </button>
     </form>

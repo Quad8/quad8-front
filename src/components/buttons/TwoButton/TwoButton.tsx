@@ -1,22 +1,21 @@
-import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './TwoButton.module.scss';
 
 interface TwoButtonProps {
   leftText: string;
-  leftOnClickHandler: () => void;
+  leftOnClick: () => void;
   rightText: string;
-  rightOnClickHandler: () => void;
+  rightOnClick: () => void;
 }
 const cn = classNames.bind(styles);
 
-export default function TwoButton({ leftText, leftOnClickHandler, rightText, rightOnClickHandler }: TwoButtonProps) {
+export default function TwoButton({ leftText, leftOnClick, rightText, rightOnClick }: TwoButtonProps) {
   return (
     <div className={cn('buttons-div')}>
-      <button className={cn('button-div')} onClick={leftOnClickHandler} type="button">
+      <button className={cn('button-div')} onClick={leftOnClick} type='button'>
         {leftText}
       </button>
-      <button className={cn('button-div')} onClick={rightOnClickHandler} type="button">
+      <button className={cn('button-div')} onClick={rightOnClick} type='button'>
         {rightText}
       </button>
     </div>

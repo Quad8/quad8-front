@@ -6,7 +6,7 @@ export default function LoginButton() {
   };
 
   return (
-    <button type="button" onClick={handleClickButton}>
+    <button type='button' onClick={handleClickButton}>
       로그인
     </button>
   );

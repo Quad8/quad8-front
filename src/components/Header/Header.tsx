@@ -39,7 +39,7 @@ export default function Header() {
         <SearchBox />
         <div className={cn('status-wrapper')}>
           {!accessToken ? <LoginButton /> : <LogoutButton />}
-          <Link href="/mypage" className={cn('user-icon')}>
+          <Link href='/mypage' className={cn('user-icon')}>
             <UserIcon width={31} height={31} className={cn(white ? 'user-white' : 'user-black')} />
           </Link>
           <CartButton cartCount={cartCount} white={white} />
