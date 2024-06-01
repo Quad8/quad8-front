@@ -40,7 +40,7 @@ export default function Page() {
       <br />
       <br />
       <br />
-      <RadioField options={OPTIONS} label='숫자' />
+      <RadioField options={OPTIONS} label='숫자' value='6' />
       <br />
       <br />
       <br />

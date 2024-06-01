@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { ChangeEvent, InputHTMLAttributes, forwardRef, useState } from 'react';
+import { ChangeEvent, InputHTMLAttributes, forwardRef, useEffect, useState } from 'react';
 import { ErrorMessage, Radio } from '../parts';
 import styles from './RadioField.module.scss';
 
@@ -12,10 +12,16 @@ interface RadioFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export default forwardRef<HTMLInputElement, RadioFieldProps>(function RadioField(
-  { label, options, errorMessage, ...rest },
+  { label, options, errorMessage, value, ...rest },
   ref,
 ) {
-  const [isSelected, setIsSelected] = useState(options[0]);
+  const [isSelected, setIsSelected] = useState(value || options[0]);
+
+  useEffect(() => {
+    if (value) {
+      setIsSelected(value);
+    }
+  }, [value]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setIsSelected(e.target.value);
