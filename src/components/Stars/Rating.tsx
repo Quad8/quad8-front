@@ -1,22 +1,40 @@
-'use client';
-
 import { useState } from 'react';
-import Star from './Star';
+import StarIcon from '@/public/svgs/star.svg';
+
+interface StarProps {
+  checked: boolean;
+  onClick?: () => void;
+  onMouseOver?: () => void;
+  onMouseOut?: () => void;
+  isEditable?: boolean;
+}
 
 interface RatingProps {
-  initialRating: number;
+  rating: number;
   onRatingChange?: (rating: number) => void;
   isEditable?: boolean;
 }
 
-export default function Rating({ initialRating, onRatingChange, isEditable }: RatingProps) {
+function Star({ checked, onClick, onMouseOver, onMouseOut, isEditable }: StarProps) {
+  return (
+    <StarIcon
+      style={{
+        color: checked ? '#F15252' : '#E4E4E4',
+        cursor: isEditable ? 'pointer' : 'default',
+      }}
+      onClick={onClick}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+    />
+  );
+}
+
+export default function Rating({ rating, onRatingChange, isEditable }: RatingProps) {
   const STARS = [1, 2, 3, 4, 5];
-  const [rating, setRating] = useState<number>(Math.floor(initialRating));
   const [hoverRating, setHoverRating] = useState<number>(0);
 
   const handleRating = (rate: number) => {
-    if (isEditable && onRatingChange) {
-      setRating(rate);
+    if (onRatingChange) {
       onRatingChange(rate);
     }
   };
@@ -29,7 +47,7 @@ export default function Rating({ initialRating, onRatingChange, isEditable }: Ra
               key={star}
               checked={star <= (hoverRating || rating)}
               onClick={() => handleRating(star)}
-              onMouseOver={() => (star > rating ? setHoverRating(star) : undefined)}
+              onMouseOver={() => star > rating && setHoverRating(star)}
               onMouseOut={() => setHoverRating(0)}
               isEditable={isEditable}
             />
