@@ -1,12 +1,10 @@
 'use client';
 
-import { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import Image from 'next/image';
 import CarmeraIcon from '@/public/svgs/camera.svg';
 import DeleteImageIcon from '@/public/svgs/deleteImage.svg';
 import classNames from 'classnames/bind';
-import Image from 'next/image';
-import React, { useState } from 'react';
 import styles from './ImageInput.module.scss';
 
 const cn = classNames.bind(styles);
@@ -34,7 +32,7 @@ export default function ImageInput() {
       <div>
         <form className={cn('input-div')}>
           {selectedImageFile.length >= 4 || (
-            <label htmlFor="imageInput" className={cn('label-input', `${selectedImageFile && 'width-quater'}`)}>
+            <label htmlFor='imageInput' className={cn('label-input', `${selectedImageFile && 'width-quater'}`)}>
               <CarmeraIcon />
             </label>
           )}
@@ -42,7 +40,7 @@ export default function ImageInput() {
           {selectedImageFile &&
             selectedImageFile.map((imageUrl, index) => (
               <div key={imageUrl} className={cn('image-div')}>
-                <Image alt="선택된 이미지" src={imageUrl} fill id={cn('image')} />
+                <Image alt='선택된 이미지' src={imageUrl} fill id={cn('image')} />
                 <DeleteImageIcon className={cn('delete-image-icon')} onClick={() => handleClickDeleteImage(index)} />
                 {index === 0 && <div className={cn('main-image')}>대표</div>}
               </div>
