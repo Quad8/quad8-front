@@ -5,6 +5,8 @@ import Image from 'next/image';
 import CarmeraIcon from '@/public/svgs/camera.svg';
 import DeleteImageIcon from '@/public/svgs/deleteImage.svg';
 import classNames from 'classnames/bind';
+import Image from 'next/image';
+import React, { useState } from 'react';
 import styles from './ImageInput.module.scss';
 
 const cn = classNames.bind(styles);
@@ -36,7 +38,7 @@ export default function ImageInput() {
               <CarmeraIcon />
             </label>
           )}
-          <input type="file" className={cn('input-image-input')} id="imageInput" onChange={handleChangeImage} />
+          <input type='file' className={cn('input-image-input')} id='imageInput' onChange={handleChangeImage} />
           {selectedImageFile &&
             selectedImageFile.map((imageUrl, index) => (
               <div key={imageUrl} className={cn('image-div')}>
