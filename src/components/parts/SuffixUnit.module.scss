@@ -1,0 +1,9 @@
+.suffix-unit {
+  position: absolute;
+  z-index: $zindex-fixed;
+  top: 50%;
+  right: 1.6rem;
+  transform: translateY(-50%);
+  color: #1c232f;
+  @include pretendard-16-400;
+}
