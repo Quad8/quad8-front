@@ -1,0 +1,21 @@
+@mixin md {
+  gap: 1.2rem;
+}
+
+.default {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  .character-limit {
+    position: absolute;
+    right: 2.4rem;
+    bottom: 1rem;
+    color: #a5a5a5;
+    @include pretendard-16-400;
+  }
+}
+
+.md {
+  @include md;
+}

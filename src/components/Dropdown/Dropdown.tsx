@@ -2,7 +2,7 @@
 
 import classNames from 'classnames/bind';
 import { InputHTMLAttributes, forwardRef, useState } from 'react';
-import { SuffixIcon } from '../InputField/parts';
+import { SuffixIcon } from '../parts';
 import styles from './Dropdown.module.scss';
 
 const cn = classNames.bind(styles);
@@ -20,11 +20,11 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownValue, setDropdownValue] = useState<string>('');
 
-  const handleMouseEnter = () => {
+  const handleInputFocus = () => {
     setIsDropdownOpen(true);
   };
 
-  const handleMouseLeave = () => {
+  const handleDropdownBlur = () => {
     setTimeout(() => {
       setIsDropdownOpen(false);
     }, 200);
@@ -36,9 +36,17 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   };
 
   return (
-    <div className={cn('dropdown')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div className={cn('dropdown')} onBlur={handleDropdownBlur}>
       <div className={cn('input-wrapper')}>
-        <input ref={ref} type={type} className={cn('default', size)} value={dropdownValue} readOnly {...rest} />
+        <input
+          ref={ref}
+          type={type}
+          className={cn('default', size)}
+          value={dropdownValue}
+          onFocus={handleInputFocus}
+          readOnly
+          {...rest}
+        />
         <SuffixIcon icon="arrow" isOpen={isDropdownOpen} />
       </div>
       {isDropdownOpen && (

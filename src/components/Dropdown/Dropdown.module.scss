@@ -46,14 +46,15 @@
 
   .option-box {
     position: absolute;
+    z-index: $zindex-dropdown;
     top: 0;
     width: 100%;
     border: 0.1rem solid #b8b8b8;
     border-radius: 0.4rem;
+    background-color: #fff;
 
     .option {
       width: 100%;
-      background-color: #fff;
 
       .sm {
         @include sm;

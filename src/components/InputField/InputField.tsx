@@ -2,7 +2,7 @@
 
 import classNames from 'classnames/bind';
 import { InputHTMLAttributes, forwardRef, useState } from 'react';
-import { ErrorMessage, Input, Label, SuffixIcon } from './parts';
+import { ErrorMessage, Input, Label, SuffixIcon } from '../parts';
 import styles from './InputFiled.module.scss';
 
 const cn = classNames.bind(styles);
