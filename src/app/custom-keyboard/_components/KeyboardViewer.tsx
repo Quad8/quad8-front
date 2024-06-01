@@ -2,14 +2,21 @@
 
 import { Canvas } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
-import { Suspense } from 'react';
+import { Suspense, useContext } from 'react';
 import classNames from 'classnames/bind';
+import { KeyColorContext } from '@/context/customKeyboardContext';
 import styles from './KeyboardViewer.module.scss';
 import Keyboard from './Keyboard';
 
 const cn = classNames.bind(styles);
 
 export default function KeyboardViewer() {
+  const { updateFocusKey } = useContext(KeyColorContext);
+
+  const handleClickCanvs = () => {
+    updateFocusKey(null);
+  };
+
   return (
     <div className={cn('wrapper')}>
       <div className={cn('option-wrapper')}>option</div>
@@ -22,6 +29,7 @@ export default function KeyboardViewer() {
           }}
           className={cn('canvas')}
           gl={{ preserveDrawingBuffer: true, antialias: true }}
+          onPointerMissed={handleClickCanvs}
         >
           <Keyboard />
           <Environment preset='city' blur={1} />

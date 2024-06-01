@@ -33,7 +33,9 @@ interface KeyColorType {
 
 interface KeyColorContextType {
   keyColorData: KeyColorType;
+  focusKey: string | null;
   updateKeyColor: (key: string, value: string) => void;
+  updateFocusKey: (value: string | null) => void;
 }
 
 export const StepContext = createContext<StepContextType>({
@@ -60,7 +62,9 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
 
 export const KeyColorContext = createContext<KeyColorContextType>({
   keyColorData: {},
+  focusKey: '',
   updateKeyColor: () => {},
+  updateFocusKey: () => {},
 });
 
 export function StepContextProvider({ children }: PropsWithChildren) {
@@ -105,12 +109,20 @@ export function KeyColorContextProvider({ children }: PropsWithChildren) {
     [...KEY, ...TEN_KEY].forEach((key) => Object.assign(color, { [key]: '#ffffff' }));
     return color;
   });
+  const [focusKey, setFocusKey] = useState<string | null>(null);
 
   const updateKeyColor = useCallback((key: string, value: string) => {
     setKeyColorData((prev) => ({ ...prev, [key]: value }));
   }, []);
 
-  const value = useMemo(() => ({ keyColorData, updateKeyColor }), [keyColorData, updateKeyColor]);
+  const updateFocusKey = useCallback((value: string | null) => {
+    setFocusKey(value);
+  }, []);
+
+  const value = useMemo(
+    () => ({ keyColorData, focusKey, updateKeyColor, updateFocusKey }),
+    [keyColorData, focusKey, updateKeyColor, updateFocusKey],
+  );
 
   return <KeyColorContext.Provider value={value}>{children}</KeyColorContext.Provider>;
 }
