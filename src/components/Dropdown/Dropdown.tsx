@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { ChangeEvent, InputHTMLAttributes, forwardRef, useState } from 'react';
+import { InputHTMLAttributes, forwardRef, useState } from 'react';
 import { SuffixIcon } from '../InputField/parts';
 import styles from './Dropdown.module.scss';
 
@@ -10,6 +10,7 @@ const cn = classNames.bind(styles);
 interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   options: string[];
   size?: 'sm' | 'md' | 'lg';
+  placeholder?: string;
 }
 
 export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
@@ -17,7 +18,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   ref,
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [dropdownValue, setDropdownValue] = useState('');
+  const [dropdownValue, setDropdownValue] = useState<string>('');
 
   const handleMouseEnter = () => {
     setIsDropdownOpen(true);
@@ -34,26 +35,21 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
     setIsDropdownOpen(false);
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDropdownValue(e.target.value);
-  };
-
   return (
     <div className={cn('dropdown')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className={cn('input-wrapper')}>
-        <input
-          ref={ref}
-          type={type}
-          className={cn('default', size)}
-          value={dropdownValue}
-          onChange={handleInputChange}
-          readOnly
-          {...rest}
-        />
+        <input ref={ref} type={type} className={cn('default', size)} value={dropdownValue} readOnly {...rest} />
         <SuffixIcon icon="arrow" isOpen={isDropdownOpen} />
       </div>
       {isDropdownOpen && (
         <ul className={cn('option-box')}>
+          {rest.placeholder && (
+            <li>
+              <button type="button" className={cn('option', size)} onClick={() => handleOptionClick('')}>
+                {rest.placeholder}
+              </button>
+            </li>
+          )}
           {options.map((option) => (
             <li key={option}>
               <button type="button" className={cn('option', size)} onClick={() => handleOptionClick(option)}>
