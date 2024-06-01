@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
-import { WriteEditModalType } from '@/constants/writeEditModalType';
-import Button from '@/components/Buttons/Button/Button';
-import { BUTTON_RADIUS, BUTTON_COLOR } from '@/constants/buttonTypes';
+import { WriteEditModalType, WRITE_EIDT_MODAL_TYPE } from '@/constants/writeEditModalType';
+import { useState } from 'react';
+import { BUTTON_COLOR, BUTTON_RADIUS } from '@/constants/buttonTypes';
 import classNames from 'classnames/bind';
+import Button from '@/components/Buttons/Button/Button';
 import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
@@ -14,17 +14,17 @@ export default function Page() {
   const [selectedModal, setSelectedModal] = useState<WriteEditModalType | null>(null);
   // const [isOpenModal, setIsOpenModal] = useState(false);
   const handleWritePostModal = () => {
-    setSelectedModal(WriteEditModalType.writePost);
+    setSelectedModal(WRITE_EIDT_MODAL_TYPE.writePost);
     // setIsOpenModal(true);
   };
 
   const handleWriteCustomReivewModal = () => {
-    setSelectedModal(WriteEditModalType.writeCustomReview);
+    setSelectedModal(WRITE_EIDT_MODAL_TYPE.writeCustomReview);
     // setIsOpenModal(true);
   };
 
   const handleEditMyPostModal = () => {
-    setSelectedModal(WriteEditModalType.editMyPost);
+    setSelectedModal(WRITE_EIDT_MODAL_TYPE.editMyPost);
     // setIsOpenModal(true);
   };
 
@@ -34,7 +34,7 @@ export default function Page() {
   };
   return (
     <div className={cn('container')}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 20 }}>
+      <div className={cn('buttons')}>
         <button type='button' onClick={handleWritePostModal}>
           1. 커뮤니티 페이지에서 글 작성
         </button>
