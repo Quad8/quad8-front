@@ -12,7 +12,7 @@ export default function Page() {
 
   return (
     <div>
-      <Rating initialRating={userRating} onRatingChange={handleRatingChange} isEditable />
+      <Rating rating={userRating} onRatingChange={handleRatingChange} isEditable />
     </div>
   );
 }
