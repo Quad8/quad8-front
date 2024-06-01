@@ -36,7 +36,7 @@ export function Providers({ children }: ProvidersProps) {
     <QueryClientProvider client={queryClient}>
       <ReactQueryStreamedHydration>
         {children}
-        <div id="modal" />
+        <div id='modal' />
       </ReactQueryStreamedHydration>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

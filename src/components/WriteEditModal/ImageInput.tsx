@@ -38,15 +38,15 @@ export default function ImageInput() {
       <div>
         <form className={cn('input-div')}>
           {selectedImageFile.length >= 4 || (
-            <label htmlFor="imageInput" className={cn('label-input-div', `${selectedImageFile && 'width-quater'}`)}>
+            <label htmlFor='imageInput' className={cn('label-input-div', `${selectedImageFile && 'width-quater'}`)}>
               <Carmera />
             </label>
           )}
-          <input type="file" className={cn('input-image-input')} id="imageInput" onChange={handleChangeImage} />
+          <input type='file' className={cn('input-image-input')} id='imageInput' onChange={handleChangeImage} />
           {selectedImageFile &&
             selectedImageFile.map((imageUrl, index) => (
               <div key={imageUrl} className={cn('image-div')}>
-                <Image alt="선택된 이미지" src={imageUrl} fill id={cn('image')} />
+                <Image alt='선택된 이미지' src={imageUrl} fill id={cn('image')} />
                 <DeleteImage className={cn('delete-image-icon')} onClick={() => handleClickDeleteImage(index)} />
                 {index === 0 && <div className={cn('main-image')}>대표</div>}
               </div>

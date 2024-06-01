@@ -32,7 +32,7 @@ export default function Button({
   return (
     <button
       className={cn('common-style', `${backgroundColor}`, `${radius}`, `${width}`, `hover-${hoverColor}`)}
-      type="button"
+      type='button'
       onClick={onClick}
     >
       {children}

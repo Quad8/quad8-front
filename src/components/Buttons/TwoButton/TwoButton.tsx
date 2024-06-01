@@ -13,10 +13,10 @@ export default function TwoButton({ leftText, leftOnClickHandler, rightText, rig
   const cn = classNames.bind(styles);
   return (
     <div className={cn('buttons-div')}>
-      <button className={cn('button-div')} onClick={leftOnClickHandler} type="button">
+      <button className={cn('button-div')} onClick={leftOnClickHandler} type='button'>
         {leftText}
       </button>
-      <button className={cn('button-div')} onClick={rightOnClickHandler} type="button">
+      <button className={cn('button-div')} onClick={rightOnClickHandler} type='button'>
         {rightText}
       </button>
     </div>
