@@ -1,6 +1,6 @@
+import { ArrowDownIcon, EyeOffIcon, EyeOnIcon, SearchIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import { InputHTMLAttributes } from 'react';
-import { ArrowDownIcon, EyeOffIcon, EyeOnIcon, SearchIcon } from '@/public/index';
 import styles from './SuffixIcon.module.scss';
 
 const cn = classNames.bind(styles);
@@ -27,7 +27,7 @@ export default function SuffixIcon({ type, icon, isOpen, onClick }: SuffixIconPr
   };
 
   return (
-    <button type="button" className={cn('suffix-icon', { rotate: isOpen })} onClick={onClick}>
+    <button type='button' className={cn('suffix-icon', { rotate: isOpen })} onClick={onClick}>
       {renderIcon()}
     </button>
   );

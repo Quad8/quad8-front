@@ -47,20 +47,20 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
           readOnly
           {...rest}
         />
-        <SuffixIcon icon="arrow" isOpen={isDropdownOpen} />
+        <SuffixIcon icon='arrow' isOpen={isDropdownOpen} />
       </div>
       {isDropdownOpen && (
         <ul className={cn('option-box')}>
           {rest.placeholder && (
             <li>
-              <button type="button" className={cn('option', size)} onClick={() => handleOptionClick('')}>
+              <button type='button' className={cn('option', size)} onClick={() => handleOptionClick('')}>
                 {rest.placeholder}
               </button>
             </li>
           )}
           {options.map((option) => (
             <li key={option}>
-              <button type="button" className={cn('option', size)} onClick={() => handleOptionClick(option)}>
+              <button type='button' className={cn('option', size)} onClick={() => handleOptionClick(option)}>
                 {option}
               </button>
             </li>

@@ -16,7 +16,7 @@ export default forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
     <textarea
       ref={ref}
       className={cn('default', size)}
-      autoCapitalize="off"
+      autoCapitalize='off'
       minLength={minLength}
       maxLength={maxLength}
       {...rest}

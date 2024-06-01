@@ -26,7 +26,7 @@ export default forwardRef<HTMLTextAreaElement, TextFieldProps>(function TextFiel
   return (
     <div className={cn('default', size)}>
       {label && (
-        <Label htmlFor={id} size="lg">
+        <Label htmlFor={id} size='lg'>
           {label}
         </Label>
       )}
