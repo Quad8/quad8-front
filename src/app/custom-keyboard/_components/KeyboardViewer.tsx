@@ -1,9 +1,9 @@
 'use client';
 
-import classNames from 'classnames/bind';
 import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
 import { Environment, OrbitControls } from '@react-three/drei';
+import { Suspense } from 'react';
+import classNames from 'classnames/bind';
 import styles from './KeyboardViewer.module.scss';
 import Keyboard from './Keyboard';
 
@@ -15,15 +15,16 @@ export default function KeyboardViewer() {
       <Suspense fallback={null}>
         <Canvas
           shadows
+          flat
           camera={{
             fov: 45,
-            position: [0, 1, 0],
+            position: [0, 0.3, 3],
           }}
-          style={{ background: '#fafafa' }}
+          style={{ background: '#f0f0f0' }}
           gl={{ preserveDrawingBuffer: true, antialias: true }}
         >
           <Keyboard />
-          <Environment preset="city" blur={1} />
+          <Environment preset="warehouse" blur={1} />
           <OrbitControls />
         </Canvas>
       </Suspense>

@@ -11,9 +11,9 @@ interface StepContextType {
 interface KeyboardDataType {
   keyboardType: 'tkl' | 'full' | null;
   texture: 'metal' | 'plastic' | null;
-  boardColor: string | null /* color */;
+  boardColor: string /* color */;
   switchType: 'blue' | 'red' | 'brown' | 'black' | null;
-  baseKeyColor: string | null;
+  baseKeyColor: string;
   hasPointKeyCap: boolean;
   pointKeyType: string | null;
   pointKeyColor: string | null;
@@ -45,9 +45,9 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
   keyboardData: {
     keyboardType: null,
     texture: null,
-    boardColor: null,
+    boardColor: '#ffffff',
     switchType: null,
-    baseKeyColor: null,
+    baseKeyColor: '#ffffff',
     hasPointKeyCap: false,
     pointKeyType: null,
     pointKeyColor: null,
@@ -75,14 +75,13 @@ export function StepContextProvider({ children }: PropsWithChildren) {
   return <StepContext.Provider value={contextValue}>{children}</StepContext.Provider>;
 }
 
-/* 다음 버튼 눌렀을 때 내용 업데이트 */
 export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
   const [data, setData] = useState<KeyboardDataType>({
     keyboardType: null,
     texture: null,
-    boardColor: null,
+    boardColor: '#ffffff',
     switchType: null,
-    baseKeyColor: null,
+    baseKeyColor: '#ffffff',
     hasPointKeyCap: false,
     pointKeyType: null,
     pointKeyColor: null,
