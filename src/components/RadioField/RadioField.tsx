@@ -36,7 +36,6 @@ export default forwardRef<HTMLInputElement, RadioFieldProps>(function RadioField
       <div className={cn('radio-box')}>
         {options.map((option) => (
           <Radio
-            name={label}
             ref={ref}
             key={option}
             id={option}
