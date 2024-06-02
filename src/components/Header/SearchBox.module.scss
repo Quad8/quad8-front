@@ -1,0 +1,25 @@
+.wrapper {
+  position: relative;
+  width: 36.3rem;
+  height: 4.2rem;
+}
+
+.input-box {
+  width: 100%;
+  height: 100%;
+  padding: 0.8rem 4.4rem 0.8rem 1.2rem;
+  border: 0.1rem solid $gray-40;
+  border-radius: 0.8rem;
+  outline: none;
+  background-color: transparent;
+  color: $gray-40;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+}
+
+.search-button {
+  position: absolute;
+  top: 0.9rem;
+  right: 1.2rem;
+  cursor: pointer;
+}
