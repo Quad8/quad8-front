@@ -37,6 +37,10 @@
   gap: 4rem;
 }
 
+.current-page {
+  color: $primary;
+}
+
 .left-wrapper {
   @include flex-wrapper;
 

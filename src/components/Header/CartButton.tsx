@@ -1,6 +1,5 @@
 import CartIcon from '@/public/svgs/cart.svg';
 import classNames from 'classnames/bind';
-import Link from 'next/link';
 import styles from './CartButton.module.scss';
 
 interface CartButtonProps {
@@ -15,10 +14,10 @@ export default function CartButton({ cartCount, white }: CartButtonProps) {
 
   return (
     <div className={cn('wrapper')}>
-      <Link href='/cart' className={cn('icon')}>
+      <a href='/cart' className={cn('icon')}>
         <CartIcon width={24} height={24} fill={white ? '#111111' : '#ffffff'} />
         {cartCount > 0 && <div className={cn('cart-count', cartCount > 9 && 'count-more-digit')}>{countStatus}</div>}
-      </Link>
+      </a>
     </div>
   );
 }

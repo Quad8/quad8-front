@@ -1,7 +1,6 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import Link from 'next/link';
 import { useState } from 'react';
 import styles from './ShopButton.module.scss';
 
@@ -14,21 +13,25 @@ const MENU_BUTTON = [
   { name: '기타 용품', href: '/' },
 ];
 
-export default function ShopButton() {
+interface ShopButtonProps {
+  pathname: string;
+}
+
+export default function ShopButton({ pathname }: ShopButtonProps) {
   const [isHover, setIsHover] = useState(false);
 
   return (
     <div className={cn('wrapper')} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-      <Link href='/' className={cn('button')}>
+      <a href='/' className={cn('button', { 'current-page': pathname === 'shop' })}>
         SHOP
-      </Link>
+      </a>
       {isHover && (
         <div className={cn('sub-menu-wrapper')}>
           {MENU_BUTTON.map((element) => (
             <div key={element.name} className={cn('menu-button')}>
-              <Link href={element.href} className={cn('button-text')}>
+              <a href={element.href} className={cn('button-text')}>
                 {element.name}
-              </Link>
+              </a>
             </div>
           ))}
         </div>

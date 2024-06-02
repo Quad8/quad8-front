@@ -19,29 +19,33 @@ const URL_LIST = {
 
 export default function Header() {
   const accessToken = cookies().get('accessToken')?.value ?? null;
-  const headerList = headers();
-  const white = headerList.get('x-pathname')?.includes('/custom-keyboard');
+  const pathname = headers().get('pathname') as string;
+  const white = pathname === 'custom-keyboard';
   const cartCount = 0; /* api로 가져오기 */
 
   return (
-    <header className={cn('wrapper', white && 'white')}>
+    <header className={cn('wrapper', { white })}>
       <div className={cn('right-wrapper')}>
         <Link href={URL_LIST.main}>
           <LogoIcon width={131} height={24} />
         </Link>
         <div className={cn('button-wrapper')}>
-          <Link href={URL_LIST.customKeyboard}>커스텀 키보드 만들기</Link>
-          <ShopButton />
-          <Link href={URL_LIST.community}>커뮤니티</Link>
+          <a href={URL_LIST.customKeyboard} className={cn({ 'current-page': pathname === 'custom-keyboard' })}>
+            커스텀 키보드 만들기
+          </a>
+          <ShopButton pathname={pathname} />
+          <a href={URL_LIST.community} className={cn({ 'current-page': pathname === 'community' })}>
+            커뮤니티
+          </a>
         </div>
       </div>
       <div className={cn('left-wrapper')}>
         <SearchBox />
         <div className={cn('status-wrapper')}>
           {!accessToken ? <LoginButton /> : <LogoutButton />}
-          <Link href='/mypage' className={cn('user-icon')}>
+          <a href='/mypage' className={cn('user-icon')}>
             <UserIcon width={31} height={31} className={cn(white ? 'user-white' : 'user-black')} />
-          </Link>
+          </a>
           <CartButton cartCount={cartCount} white={white} />
         </div>
       </div>
