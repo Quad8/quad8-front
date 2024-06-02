@@ -65,7 +65,7 @@ const BUTTONS: DualButtonType = {
 
 export default function PriceButton() {
   const {
-    keyboardData: { type, texture, price },
+    keyboardData: { type, texture, price, switchType },
   } = useContext(KeyboardDataContext);
   const { currentStep, updateCurrentStep } = useContext(StepContext);
 
@@ -88,7 +88,9 @@ export default function PriceButton() {
     }
 
     if (step === 'switch') {
-      return true;
+      if (switchType) {
+        return true;
+      }
     }
 
     if (step === 'keyCap') {

@@ -20,7 +20,7 @@ export default function KeyboardViewer() {
   return (
     <div className={cn('wrapper')}>
       <div className={cn('option-wrapper')}>option</div>
-      <Suspense fallback={null}>
+      <Suspense fallback={<div>Loading</div>}>
         <Canvas
           shadows
           camera={{
@@ -30,9 +30,10 @@ export default function KeyboardViewer() {
           className={cn('canvas')}
           gl={{ preserveDrawingBuffer: true, antialias: true }}
           onPointerMissed={handleClickCanvs}
+          style={{ zIndex: 0 }}
         >
           <Keyboard />
-          <Environment preset='city' background />
+          <Environment preset='city' blur={1} />
           <OrbitControls />
         </Canvas>
       </Suspense>

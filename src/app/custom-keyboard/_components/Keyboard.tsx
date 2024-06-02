@@ -27,7 +27,7 @@ export default function Keyboard() {
   const SCALE = type === 'tkl' ? 3.2 : 0.05;
   const KEY_BUTTONS = type === 'tkl' ? [...KEY] : [...KEY, ...TEN_KEY];
   const MATELNESS = texture === 'metal' ? 0.9 : 0;
-  const ROUGHNESS = texture === 'metal' ? 0 : 0.7;
+  const ROUGHNESS = texture === 'metal' ? 0.1 : 0.7;
 
   const handleClickKey = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
@@ -38,9 +38,8 @@ export default function Keyboard() {
     }
     updateFocusKey(key);
   };
-
   return (
-    <group onClick={() => currentStep === 'keyCap' && handleClickKey}>
+    <group onClick={(e) => currentStep === 'keyCap' && handleClickKey(e)}>
       <mesh
         geometry={nodes.Cube.geometry}
         material={materials.Cube}
@@ -50,6 +49,7 @@ export default function Keyboard() {
         scale={SCALE}
         material-metalness={MATELNESS}
         material-roughness={ROUGHNESS}
+        material-opacity={1}
       />
       {KEY_BUTTONS.map((key) => (
         <mesh
@@ -63,7 +63,7 @@ export default function Keyboard() {
           <meshStandardMaterial
             name={key}
             color={keyColorData[key]}
-            opacity={focusKey && focusKey !== key ? 0.7 : 1}
+            opacity={focusKey && focusKey !== key ? 0.4 : 1}
             transparent
           />
         </mesh>

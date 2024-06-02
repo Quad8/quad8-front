@@ -14,7 +14,7 @@ interface KeyboardDataType {
   boardColor: string /* color */;
   switchType: 'blue' | 'red' | 'brown' | 'black' | null;
   baseKeyColor: string;
-  hasPointKeyCap: boolean;
+  hasPointKeyCap: boolean | null;
   pointKeyType: string | null;
   pointKeyColor: string | null;
   price: number;
@@ -86,7 +86,7 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     boardColor: '#ffffff',
     switchType: null,
     baseKeyColor: '#ffffff',
-    hasPointKeyCap: false,
+    hasPointKeyCap: null,
     pointKeyType: null,
     pointKeyColor: null,
     price: 70000,

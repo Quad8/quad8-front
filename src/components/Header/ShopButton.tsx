@@ -19,9 +19,9 @@ export default function ShopButton() {
 
   return (
     <div className={cn('wrapper')} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-      <Link href='/' className={cn('button')}>
+      <a href='/' className={cn('button')}>
         SHOP
-      </Link>
+      </a>
       {isHover && (
         <div className={cn('sub-menu-wrapper')}>
           {MENU_BUTTON.map((element) => (

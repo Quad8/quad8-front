@@ -1,3 +1,70 @@
+@mixin flex-column($gap) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
 .wrapper {
-  position: relative;
+  @include flex-column(4rem);
+}
+
+.content-wrapper {
+  @include flex-column(1.2rem);
+}
+
+.title {
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.8rem;
+}
+
+.button-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15.4rem;
+  height: 6.6rem;
+  border: 0.1rem solid $black;
+  border-radius: 0.4rem;
+  color: $black;
+  gap: 1rem;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+}
+
+.selected {
+  background-color: $primary;
+  color: $white;
+}
+
+.help {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 0.4rem;
+  background-color: $gray-5;
+  color: $black;
+  gap: 0.8rem;
+}
+
+.help-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  gap: 0.8rem;
+}
+
+.help-content {
+  font-size: 1.4rem;
+  line-height: 2.2rem;
 }
