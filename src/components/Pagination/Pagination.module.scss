@@ -1,21 +1,17 @@
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .pagination-container {
   @include flex-center;
 
   gap: 4.8rem;
 
-  .pagination-list {
-    @include flex-center;
-
-    .disabled {
+  .arrow-button {
+    &:disabled {
       cursor: default;
       pointer-events: none;
     }
+  }
+
+  .pagination-list {
+    @include flex-center;
 
     .pagination-item {
       @include flex-center;
