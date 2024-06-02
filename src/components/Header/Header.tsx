@@ -2,7 +2,6 @@ import LogoIcon from '@/public/svgs/logo.svg';
 import UserIcon from '@/public/svgs/user.svg';
 import classNames from 'classnames/bind';
 import { cookies, headers } from 'next/headers';
-import Link from 'next/link';
 import CartButton from './CartButton';
 import styles from './Header.module.scss';
 import LoginButton from './LoginButton';
@@ -13,28 +12,28 @@ import ShopButton from './ShopButton';
 const cn = classNames.bind(styles);
 const URL_LIST = {
   main: '/',
-  customKeyboard: '/',
+  customKeyboard: '/custom-keyboard',
   community: '/',
 };
 
 export default function Header() {
   const accessToken = cookies().get('accessToken')?.value ?? null;
   const pathname = headers().get('pathname') as string;
-  const white = pathname === 'custom-keyboard';
+  const white = pathname === '/custom-keyboard';
   const cartCount = 0; /* api로 가져오기 */
 
   return (
     <header className={cn('wrapper', { white })}>
       <div className={cn('right-wrapper')}>
-        <Link href={URL_LIST.main}>
+        <a href={URL_LIST.main}>
           <LogoIcon width={131} height={24} />
-        </Link>
+        </a>
         <div className={cn('button-wrapper')}>
-          <a href={URL_LIST.customKeyboard} className={cn({ 'current-page': pathname === 'custom-keyboard' })}>
+          <a href={URL_LIST.customKeyboard} className={cn({ 'current-page': pathname === '/custom-keyboard' })}>
             커스텀 키보드 만들기
           </a>
           <ShopButton pathname={pathname} />
-          <a href={URL_LIST.community} className={cn({ 'current-page': pathname === 'community' })}>
+          <a href={URL_LIST.community} className={cn({ 'current-page': pathname === '/community' })}>
             커뮤니티
           </a>
         </div>

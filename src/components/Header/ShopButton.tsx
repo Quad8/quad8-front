@@ -22,7 +22,7 @@ export default function ShopButton({ pathname }: ShopButtonProps) {
 
   return (
     <div className={cn('wrapper')} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-      <a href='/' className={cn('button', { 'current-page': pathname === 'shop' })}>
+      <a href='/' className={cn('button', { 'current-page': pathname === '/shop' })}>
         SHOP
       </a>
       {isHover && (

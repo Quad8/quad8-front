@@ -15,6 +15,7 @@
   background-color: $black;
   color: $white;
   font-size: 1.8rem;
+  font-weight: 600;
   line-height: 2.6rem;
   text-decoration: none;
 }
@@ -58,7 +59,7 @@
 }
 
 .user-white {
-  fill: $black;
+  fill: $primary;
 
   path {
     fill: $white;
