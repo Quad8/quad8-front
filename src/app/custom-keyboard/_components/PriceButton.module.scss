@@ -1,0 +1,55 @@
+.price-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.price-title {
+  color: $black;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+  text-align: right;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  justify-content: flex-end;
+}
+
+.price-number {
+  color: $black;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.8rem;
+}
+
+.price-unit {
+  color: $black;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15.4rem;
+  height: 6.6rem;
+  border: 0.1rem solid black;
+  border-radius: 0.4rem;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+}
+
+.hidden {
+  visibility: hidden;
+}

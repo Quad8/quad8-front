@@ -1,3 +1,67 @@
+@mixin flex-column($gap) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
 .wrapper {
-  position: relative;
+  @include flex-column(4rem);
+}
+
+.content-wrapper {
+  @include flex-column(1.2rem);
+}
+
+.title {
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.8rem;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15.4rem;
+  height: 6.6rem;
+  border: 0.1rem solid $black;
+  border-radius: 0.4rem;
+  color: $black;
+  gap: 1rem;
+}
+
+.button-content {
+  color: $black;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+}
+
+.button-price {
+  color: #787878;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+}
+
+.selected {
+  background-color: $primary;
+
+  .button-content {
+    color: $white;
+  }
+
+  .button-price {
+    color: $gray-10;
+  }
+}
+
+.react-colorful {
+  width: 32rem !important;
+  height: 16rem !important;
 }

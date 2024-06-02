@@ -32,7 +32,7 @@ export default function KeyboardViewer() {
           onPointerMissed={handleClickCanvs}
         >
           <Keyboard />
-          <Environment preset='city' blur={1} />
+          <Environment preset='city' background />
           <OrbitControls />
         </Canvas>
       </Suspense>
