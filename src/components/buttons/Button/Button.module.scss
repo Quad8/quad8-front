@@ -20,9 +20,21 @@
   }
 }
 
+@mixin width($width, $fontSize) {
+  @if ($width == '100%') {
+    width: 100%;
+  } @else {
+    width: #{$width}rem;
+  }
+
+  font-size: #{$fontSize}rem;
+}
+
 .common-style {
-  padding: 2rem 4rem;
-  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
 }
 
 .background-gray-40 {
@@ -79,4 +91,22 @@
 
 .radius-8 {
   border-radius: 0.8rem;
+}
+
+.parent-full {
+  @include width('100%', 1.8);
+}
+
+.width-32 {
+  @include width(32, 2.4);
+}
+
+.width-15-4 {
+  @include width(15.4, 1.8);
+}
+
+.width-12 {
+  @include width(12, 1.4);
+
+  padding: 0.8rem 0;
 }

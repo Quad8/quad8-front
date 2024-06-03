@@ -8,16 +8,16 @@ export const BUTTON_COLOR = {
 } as const;
 
 export const BUTTON_RADIUS = {
-  RADIUS_0: 'radius-0',
   RADIUS_4: 'radius-4',
   RADIUS_8: 'radius-8',
 } as const;
 
 export const BUTTON_WIDTH = {
-  PARENT_FULL: '100%',
-  small: '12rem',
-  medium: '15.4rem',
-  big: '32rem',
+  PARENT_FULL: 'parent-full',
+  xs: 'width-9',
+  small: 'width-12',
+  medium: 'width-15-4',
+  big: 'width-32',
 } as const;
 
 export type ButtonRadiusType = (typeof BUTTON_RADIUS)[keyof typeof BUTTON_RADIUS];
