@@ -15,6 +15,20 @@ interface InputFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 's
   suffixUnit?: '원';
 }
 
+/**
+ * InputField component documentation
+ *
+ * @param {object} props - 컴포넌트의 속성
+ * @param {string} [props.id] - 입력 필드의 고유 식별자
+ * @param {string} [props.type='text'] - 입력 필드의 타입, 기본값은 'text'
+ * @param {string} [props.size='md'] - 입력 필드의 크기, 'sm', 'md', 'lg' 중 하나
+ * @param {string} [props.label] - 입력 필드의 레이블 텍스트
+ * @param {string} [props.errorMessage] - 에러 메시지 텍스트
+ * @param {string} [props.hasSuffixIcon] - 접미사 아이콘, 'search' 또는 'eye'
+ * @param {string} [props.suffixUnit='원'] - 입력 필드의 접미사 단위, 기본값은 '원'
+ * @returns {JSX.Element} 렌더링된 입력 필드 컴포넌트
+ */
+
 export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField(
   { id, type = 'text', size = 'md', label, errorMessage, hasSuffixIcon, suffixUnit, ...rest },
   ref,

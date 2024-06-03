@@ -76,6 +76,10 @@
   }
 }
 
+.header {
+  @include header;
+}
+
 .sm {
   @include sm;
 }
