@@ -9,7 +9,7 @@
   }
 
   & > #sub-title {
-    color: #999;
+    color: $gray-50;
     font-size: 1.4rem;
     line-height: 2.2rem;
   }
@@ -29,22 +29,19 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  border: 0.1rem solid #999;
+  border: 0.1rem dashed $gray-40;
   border-radius: 0.8rem;
   cursor: pointer;
 }
 
-.width-quater {
-  width: 16.8rem;
-}
-
 .input-image-input {
   display: none;
+  width: 100%;
 }
 
 .image-div {
   position: relative;
-  width: 16.8rem;
+  min-width: 16.8rem;
   height: 15.6rem;
 
   & > #image {
@@ -59,7 +56,7 @@
   cursor: pointer;
 }
 
-.main-image {
+.main-image-tag {
   position: absolute;
   top: 0.8rem;
   left: 1rem;

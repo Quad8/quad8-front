@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, MouseEvent } from 'react';
 import Image from 'next/image';
 import CarmeraIcon from '@/public/svgs/camera.svg';
 import DeleteImageIcon from '@/public/svgs/deleteImage.svg';
@@ -20,7 +20,8 @@ export default function ImageInput() {
     const imageUrl = URL.createObjectURL(files[0]);
     setSelectedImageFile((prev) => [...prev, imageUrl]);
   };
-  const handleClickDeleteImage = (clickedImageIndex: number) => {
+  const handleClickDeleteImage = (e: MouseEvent<SVGElement, globalThis.MouseEvent>, clickedImageIndex: number) => {
+    e.stopPropagation();
     setSelectedImageFile((prev) => [...prev.slice(0, clickedImageIndex), ...prev.slice(clickedImageIndex + 1)]);
   };
   return (
@@ -31,20 +32,23 @@ export default function ImageInput() {
       </div>
       <div>
         <form className={cn('input-div')}>
-          {selectedImageFile.length >= 4 || (
-            <label htmlFor='imageInput' className={cn('label-input', `${selectedImageFile && 'width-quater'}`)}>
-              <CarmeraIcon />
-            </label>
-          )}
-          <input type='file' className={cn('input-image-input')} id='imageInput' onChange={handleChangeImage} />
           {selectedImageFile &&
             selectedImageFile.map((imageUrl, index) => (
               <div key={imageUrl} className={cn('image-div')}>
                 <Image alt='선택된 이미지' src={imageUrl} fill id={cn('image')} />
-                <DeleteImageIcon className={cn('delete-image-icon')} onClick={() => handleClickDeleteImage(index)} />
-                {index === 0 && <div className={cn('main-image')}>대표</div>}
+                <DeleteImageIcon
+                  className={cn('delete-image-icon')}
+                  onClick={(e) => handleClickDeleteImage(e, index)}
+                />
+                {index === 0 && <div className={cn('main-image-tag')}>대표</div>}
               </div>
             ))}
+          {selectedImageFile.length < 4 && (
+            <label htmlFor='imageInput' className={cn('label-input')}>
+              <CarmeraIcon />
+            </label>
+          )}
+          <input type='file' className={cn('input-image-input')} id='imageInput' onChange={handleChangeImage} />
         </form>
       </div>
     </div>

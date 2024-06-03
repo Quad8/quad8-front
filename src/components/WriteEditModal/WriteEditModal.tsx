@@ -1,7 +1,7 @@
 import KEYBOARD_DATA from '@/app/mj/customData';
 import { WRITE_EIDT_MODAL_TYPE, WriteEditModalType } from '@/constants/writeEditModalType';
 import classNames from 'classnames/bind';
-import TwoButton from '../buttons/TwoButton/TwoButton';
+import TwoButton from '../Buttons/TwoButton/TwoButton';
 import ImageInput from './ImageInput';
 import KeyboardInfoBox from './KeyboardInfoBox';
 import styles from './WriteEditModal.module.scss';
