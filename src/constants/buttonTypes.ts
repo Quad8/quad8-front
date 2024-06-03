@@ -6,5 +6,3 @@ export const BUTTON_COLOR = {
   OUTLINE_PRIMARY: 'outline-primary',
   OUTLINE_PRIMARY_60: 'outline-primary-60',
 } as const;
-
-export type ButtonColorType = (typeof BUTTON_COLOR)[keyof typeof BUTTON_COLOR];

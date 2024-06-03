@@ -30,7 +30,7 @@ export default function Page() {
 
   const handleButtonClick = () => {
     /** 버튼 누를 때 실행되는 함수 */
-    console.log('버튼 누름');
+    // console.log('버튼 누름');
   };
   return (
     <div className={cn('container')}>
