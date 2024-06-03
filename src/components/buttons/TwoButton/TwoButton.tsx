@@ -12,10 +12,10 @@ const cn = classNames.bind(styles);
 export default function TwoButton({ leftText, leftOnClick, rightText, rightOnClick }: TwoButtonProps) {
   return (
     <div className={cn('buttons-div')}>
-      <button className={cn('button-div')} onClick={leftOnClick} type="button">
+      <button className={cn('button-div')} onClick={leftOnClick} type='button'>
         {leftText}
       </button>
-      <button className={cn('button-div')} onClick={rightOnClick} type="button">
+      <button className={cn('button-div')} onClick={rightOnClick} type='button'>
         {rightText}
       </button>
     </div>
