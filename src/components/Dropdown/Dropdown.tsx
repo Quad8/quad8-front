@@ -3,7 +3,7 @@
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import classNames from 'classnames/bind';
 import { InputHTMLAttributes, forwardRef, useRef, useState } from 'react';
-import { SuffixIcon } from '../parts';
+import { Input, SuffixIcon } from '../parts';
 import styles from './Dropdown.module.scss';
 
 const cn = classNames.bind(styles);
@@ -36,17 +36,9 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   };
 
   return (
-    <div className={cn('dropdown')} ref={DropdownRef}>
+    <div className={cn('dropdown')} ref={DropdownRef} onFocus={handleInputFocus}>
       <div className={cn('input-wrapper')}>
-        <input
-          ref={ref}
-          type={type}
-          className={cn('default', size)}
-          value={dropdownValue}
-          onFocus={handleInputFocus}
-          readOnly
-          {...rest}
-        />
+        <Input ref={ref} isSelect type={type} size={size} value={dropdownValue} readOnly {...rest} />
         <SuffixIcon icon='arrow' isOpen={isDropdownOpen} />
       </div>
       {isDropdownOpen && (

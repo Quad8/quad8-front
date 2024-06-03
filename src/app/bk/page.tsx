@@ -12,9 +12,9 @@ export default function Page() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(formData.entries());
-    console.log(payload);
+    // const formData = new FormData(e.currentTarget);
+    // const payload = Object.fromEntries(formData.entries());
+    // console.log(payload);
   };
 
   return (
