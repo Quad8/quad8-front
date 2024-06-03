@@ -42,11 +42,11 @@ export default function Pagination({ page, count, limit }: PaginationProps) {
   return (
     <div className={cn('pagination-container')}>
       <button
-        type="button"
+        type='button'
         onClick={() => handlePageChange(currentPage - 1)}
         className={cn('arrow-button')}
         disabled={currentPage === 1}
-        aria-label="이전 페이지"
+        aria-label='이전 페이지'
       >
         <CaretLeftIcon stroke={currentPage === 1 ? '#B8B8B8' : '#576DF2'} />
       </button>
@@ -59,7 +59,7 @@ export default function Pagination({ page, count, limit }: PaginationProps) {
             {currentPage === pageNum ? (
               <span className={cn('selected-page')}>{pageNum}</span>
             ) : (
-              <button type="button" onClick={() => handlePageChange(pageNum)} aria-label={`Page ${pageNum}`}>
+              <button type='button' onClick={() => handlePageChange(pageNum)} aria-label={`Page ${pageNum}`}>
                 {pageNum}
               </button>
             )}
@@ -67,11 +67,11 @@ export default function Pagination({ page, count, limit }: PaginationProps) {
         ))}
       </ul>
       <button
-        type="button"
+        type='button'
         onClick={() => handlePageChange(currentPage + 1)}
         className={cn('arrow-button')}
         disabled={currentPage === totalPageCount}
-        aria-label="다음 페이지"
+        aria-label='다음 페이지'
       >
         <CaretRightIcon stroke={currentPage === totalPageCount ? '#B8B8B8' : '#576DF2'} />
       </button>
