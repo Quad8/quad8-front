@@ -1,0 +1,14 @@
+.breadcrumb-list {
+  // @include pretendard-16-400
+  display: flex;
+  align-items: center;
+  color: #616161;
+  font-size: 16px;
+  gap: 0.8rem;
+}
+
+.current-category {
+  // color: $black;
+  color: #04002a;
+  font-weight: 700;
+}
