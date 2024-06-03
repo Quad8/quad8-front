@@ -13,17 +13,18 @@ interface SuffixIconProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export default function SuffixIcon({ type, icon, isOpen, onClick }: SuffixIconProps) {
   const renderIcon = () => {
-    if (icon === 'search') {
-      return <SearchIcon />;
-    }
-    if (type === 'password') {
-      return <EyeOffIcon />;
-    }
-    if (icon === 'arrow') {
-      return <ArrowDownIcon />;
-    }
+    switch (icon) {
+      case 'search':
+        return <SearchIcon />;
+      case 'arrow':
+        return <ArrowDownIcon />;
+      default:
+        if (type === 'password') {
+          return <EyeOffIcon />;
+        }
 
-    return <EyeOnIcon />;
+        return <EyeOnIcon />;
+    }
   };
 
   return (
