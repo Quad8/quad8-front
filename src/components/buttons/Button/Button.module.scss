@@ -1,9 +1,3 @@
-$black: #000;
-$white: #fff;
-$gray-00: #1c232f;
-$gray-01: #b8b8b8;
-$main-01: #35f;
-
 @mixin background($color) {
   background-color: $color;
   color: #fff;
@@ -31,44 +25,52 @@ $main-01: #35f;
   font-size: 1.8rem;
 }
 
-.background-gray-00 {
-  @include background($gray-00);
+.background-gray-40 {
+  @include background($gray-40);
 }
 
-.background-gray-01 {
-  @include background($gray-01);
+.background-primary {
+  @include background($primary);
 }
 
-.background-main-01 {
-  @include background($main-01);
+.background-primary-60 {
+  @include background($primary-60);
 }
 
-.hover-background-gray-00 {
-  @include hover($gray-00, 'background');
+.hover-background-gray-40 {
+  @include hover($gray-40, 'background');
 }
 
-.hover-background-gray-01 {
-  @include hover($gray-01, 'background');
+.hover-background-primary {
+  @include hover($primary, 'background');
 }
 
-.hover-background-main-01 {
-  @include hover($main-01, 'background');
+.hover-background-primary-60 {
+  @include hover($primary-60, 'background');
 }
 
-.outline-gray-00 {
-  @include border($gray-00);
+.outline-gray-40 {
+  @include border($gray-40);
 }
 
-.outline-main-01 {
-  @include border($main-01);
+.outline-primary {
+  @include border($primary);
 }
 
-.hover-outline-gray-00 {
-  @include hover($gray-00, 'outline');
+.outline-primary-60 {
+  @include border($primary-60);
 }
 
-.hover-outline-main-01 {
-  @include hover($main-01, 'outline');
+.hover-outline-gray-40 {
+  @include hover($gray-40, 'outline');
+}
+
+.hover-outline-primary {
+  @include hover($primary, 'outline');
+}
+
+.hover-outline-primary-60 {
+  @include hover($primary-60, 'outline');
 }
 
 .radius-4 {

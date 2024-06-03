@@ -22,19 +22,16 @@ interface ButtonProps {
 }
 
 export default function Button({
-  backgroundColor = BUTTON_COLOR.BACKGROUND_MAIN_01,
+  backgroundColor = BUTTON_COLOR.BACKGROUND_PRIMARY,
   hoverColor,
   radius = BUTTON_RADIUS.RADIUS_0,
   width = BUTTON_WIDTH.PARENT_FULL,
   onClick,
   children,
 }: ButtonProps) {
+  const className = cn('common-style', `${backgroundColor}`, `${radius}`, `${width}`, `hover-${hoverColor}`);
   return (
-    <button
-      className={cn('common-style', `${backgroundColor}`, `${radius}`, `${width}`, `hover-${hoverColor}`)}
-      type='button'
-      onClick={onClick}
-    >
+    <button className={className} type='button' onClick={onClick}>
       {children}
     </button>
   );
