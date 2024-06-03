@@ -19,7 +19,14 @@ export default function Page() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputField label='이메일' id='이메일' name='인풋' placeholder='이메일을 입력해 주세요' suffixUnit='원' />
+      <InputField
+        label='이메일'
+        id='이메일'
+        name='인풋'
+        placeholder='이메일을 입력해 주세요'
+        hasSuffixIcon='eye'
+        size='md'
+      />
       <br />
       <br />
       <br />

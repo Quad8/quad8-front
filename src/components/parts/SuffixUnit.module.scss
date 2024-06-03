@@ -5,5 +5,6 @@
   right: 1.6rem;
   transform: translateY(-50%);
   color: $black;
+  pointer-events: none;
   @include pretendard-16-400;
 }
