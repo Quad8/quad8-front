@@ -23,7 +23,7 @@ export default function Breadcrumb() {
   return (
     <ul className={cn('breadcrumb-list')}>
       <li className={cn('breadcrumb-item')}>
-        <Link href='/home'>HOME</Link>
+        <Link href='/'>HOME</Link>
       </li>
       <RightArrow />
       <li className={cn('breadcrumb-item', { 'current-category': !category })}>
