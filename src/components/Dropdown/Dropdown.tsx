@@ -1,7 +1,8 @@
 'use client';
 
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 import classNames from 'classnames/bind';
-import { InputHTMLAttributes, forwardRef, useState } from 'react';
+import { InputHTMLAttributes, forwardRef, useRef, useState } from 'react';
 import { SuffixIcon } from '../parts';
 import styles from './Dropdown.module.scss';
 
@@ -19,15 +20,14 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownValue, setDropdownValue] = useState<string>('');
+  const DropdownRef = useRef<HTMLDivElement>(null);
+
+  useOutsideClick(DropdownRef, () => {
+    setIsDropdownOpen(false);
+  });
 
   const handleInputFocus = () => {
     setIsDropdownOpen(true);
-  };
-
-  const handleDropdownBlur = () => {
-    setTimeout(() => {
-      setIsDropdownOpen(false);
-    }, 200);
   };
 
   const handleOptionClick = (option: string) => {
@@ -36,7 +36,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   };
 
   return (
-    <div className={cn('dropdown')} onBlur={handleDropdownBlur}>
+    <div className={cn('dropdown')} ref={DropdownRef}>
       <div className={cn('input-wrapper')}>
         <input
           ref={ref}
