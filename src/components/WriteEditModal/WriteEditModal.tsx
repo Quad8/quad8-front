@@ -1,10 +1,10 @@
 import KEYBOARD_DATA from '@/app/mj/customData';
 import { WRITE_EIDT_MODAL_TYPE, WriteEditModalType } from '@/constants/writeEditModalType';
 import classNames from 'classnames/bind';
-import TwoButton from '../Buttons/TwoButton/TwoButton';
 import ImageInput from './ImageInput';
 import KeyboardInfoBox from './KeyboardInfoBox';
 import styles from './WriteEditModal.module.scss';
+import Button from '../Buttons/Button/Button';
 
 interface WriteEditModalProps {
   type: WriteEditModalType;
@@ -21,16 +21,14 @@ export default function WriteEditModal({ type }: WriteEditModalProps) {
   return (
     <div className={cn('container')}>
       <KeyboardInfoBox keyboardInfo={KEYBOARD_DATA} isReview={type !== WRITE_EIDT_MODAL_TYPE.writePost} />
-      <div className={cn('input-div')}>
+      <div className={cn('input-wrapper')}>
         <input className={cn('input')} placeholder='제목 작성' />
         <ImageInput />
         <input className={cn('input')} placeholder='내용 작성' />
-        <TwoButton
-          leftText='닫기'
-          leftOnClick={handleClickLeftButton}
-          rightText='등록'
-          rightOnClick={handleClickRightButton}
-        />
+        <div className={cn('button-wrapper')}>
+          <Button onClick={handleClickLeftButton}>닫기</Button>
+          <Button onClick={handleClickRightButton}>등록 </Button>
+        </div>
       </div>
     </div>
   );
