@@ -8,22 +8,24 @@
 .wrapper {
   @include flex-wrapper;
 
+  position: fixed;
+  top: 0;
   width: fit-content;
   min-width: 100%;
   height: 8rem;
   padding: 0 12rem;
-  background-color: $black;
-  color: $white;
+  background-color: $white;
+  color: $black;
   font-size: 1.8rem;
   font-weight: 600;
   line-height: 2.6rem;
   text-decoration: none;
 }
 
-.white {
+.black {
   border-bottom: 1px solid $gray-10;
-  background-color: $white;
-  color: $black;
+  background-color: $black;
+  color: $white;
 }
 
 .right-wrapper {

@@ -11,29 +11,29 @@ import ShopButton from './ShopButton';
 
 const cn = classNames.bind(styles);
 const URL_LIST = {
-  main: '/',
-  customKeyboard: '/custom-keyboard',
-  community: '/',
+  MAIN: '/',
+  CUSTOM_KEYBOARD: '/custom-keyboard',
+  COMMUNITY: '/',
 };
 
 export default function Header() {
   const accessToken = cookies().get('accessToken')?.value ?? null;
   const pathname = headers().get('pathname') as string;
-  const white = pathname === '/custom-keyboard';
+  const BLACK = pathname === '/';
   const cartCount = 0; /* api로 가져오기 */
 
   return (
-    <header className={cn('wrapper', { white })}>
+    <header className={cn('wrapper', { black: BLACK })}>
       <div className={cn('right-wrapper')}>
-        <a href={URL_LIST.main}>
+        <a href={URL_LIST.MAIN}>
           <LogoIcon width={131} height={24} />
         </a>
         <div className={cn('button-wrapper')}>
-          <a href={URL_LIST.customKeyboard} className={cn({ 'current-page': pathname === '/custom-keyboard' })}>
+          <a href={URL_LIST.CUSTOM_KEYBOARD} className={cn({ 'current-page': pathname === '/custom-keyboard' })}>
             커스텀 키보드 만들기
           </a>
           <ShopButton pathname={pathname} />
-          <a href={URL_LIST.community} className={cn({ 'current-page': pathname === '/community' })}>
+          <a href={URL_LIST.COMMUNITY} className={cn({ 'current-page': pathname === '/community' })}>
             커뮤니티
           </a>
         </div>
@@ -43,9 +43,9 @@ export default function Header() {
         <div className={cn('status-wrapper')}>
           {!accessToken ? <LoginButton /> : <LogoutButton />}
           <a href='/mypage' className={cn('user-icon')}>
-            <UserIcon width={31} height={31} className={cn(white ? 'user-white' : 'user-black')} />
+            <UserIcon width={31} height={31} className={cn(BLACK ? 'user-black' : 'user-white')} />
           </a>
-          <CartButton cartCount={cartCount} white={white} />
+          <CartButton cartCount={cartCount} black={BLACK} />
         </div>
       </div>
     </header>
