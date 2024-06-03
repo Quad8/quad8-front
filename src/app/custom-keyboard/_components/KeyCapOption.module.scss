@@ -1,4 +1,71 @@
+@mixin flex-column($gap) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
 .wrapper {
-  position: relative;
+  @include flex-column(4rem);
+
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+}
+
+.content-wrapper {
+  @include flex-column(1.2rem);
+}
+
+.title {
   width: 100%;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.8rem;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15.4rem;
+  height: 6.6rem;
+  border: 0.1rem solid $black;
+  border-radius: 0.4rem;
+  gap: 1rem;
+  color: $black;
+}
+
+.selected {
+  background-color: $primary;
+
+  .button-content {
+    color: $white;
+  }
+
+  .button-price {
+    color: $gray-10;
+  }
+}
+
+.point-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.point-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.choosed {
+  border-bottom: 0.2rem solid $primary;
+  color: $primary;
 }

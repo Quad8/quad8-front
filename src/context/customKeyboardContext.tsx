@@ -14,12 +14,12 @@ interface KeyboardDataType {
   boardColor: string /* color */;
   switchType: 'blue' | 'red' | 'brown' | 'black' | null;
   baseKeyColor: string;
-  hasPointKeyCap: boolean | null;
-  pointKeyType: string | null;
+  hasPointKeyCap: boolean;
+  pointKeyType: '내 맘대로 바꾸기' | '세트 구성';
   pointKeyColor: string | null;
   price: number;
   option: { [key: string]: boolean };
-  individualColor: { [key: string]: string } | null;
+  individualColor: { [key: string]: string };
 }
 
 interface KeyboardDataContextType {
@@ -34,7 +34,7 @@ interface KeyColorType {
 interface KeyColorContextType {
   keyColorData: KeyColorType;
   focusKey: string | null;
-  updateKeyColor: (key: string, value: string) => void;
+  updateKeyColor: (value: { [key: string]: string }) => void;
   updateFocusKey: (value: string | null) => void;
 }
 
@@ -51,11 +51,11 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
     switchType: null,
     baseKeyColor: '#ffffff',
     hasPointKeyCap: false,
-    pointKeyType: null,
+    pointKeyType: '세트 구성',
     pointKeyColor: null,
     price: 0,
     option: {},
-    individualColor: null,
+    individualColor: {},
   },
   updateData: () => {},
 });
@@ -86,12 +86,12 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     boardColor: '#ffffff',
     switchType: null,
     baseKeyColor: '#ffffff',
-    hasPointKeyCap: null,
-    pointKeyType: null,
+    hasPointKeyCap: false,
+    pointKeyType: '세트 구성',
     pointKeyColor: null,
     price: 70000,
     option: {},
-    individualColor: null,
+    individualColor: {},
   });
 
   const updateData = useCallback((key: keyof KeyboardDataType, value: KeyboardDataType[keyof KeyboardDataType]) => {
@@ -111,8 +111,8 @@ export function KeyColorContextProvider({ children }: PropsWithChildren) {
   });
   const [focusKey, setFocusKey] = useState<string | null>(null);
 
-  const updateKeyColor = useCallback((key: string, value: string) => {
-    setKeyColorData((prev) => ({ ...prev, [key]: value }));
+  const updateKeyColor = useCallback((value: { [key: string]: string }) => {
+    setKeyColorData((prev) => ({ ...prev, ...value }));
   }, []);
 
   const updateFocusKey = useCallback((value: string | null) => {

@@ -15,7 +15,7 @@ interface KeyboardNodes {
 
 export default function Keyboard() {
   const {
-    keyboardData: { type, texture, boardColor },
+    keyboardData: { type, texture, boardColor, pointKeyType },
   } = useContext(KeyboardDataContext);
 
   const { keyColorData, focusKey, updateFocusKey } = useContext(KeyColorContext);
@@ -39,7 +39,7 @@ export default function Keyboard() {
     updateFocusKey(key);
   };
   return (
-    <group onClick={(e) => currentStep === 'keyCap' && handleClickKey(e)}>
+    <group onClick={(e) => currentStep === 'keyCap' && pointKeyType === '내 맘대로 바꾸기' && handleClickKey(e)}>
       <mesh
         geometry={nodes.Cube.geometry}
         material={materials.Cube}
