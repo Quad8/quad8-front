@@ -47,9 +47,9 @@ export default function Page() {
       </div>
       {selectedModal && <WriteEditModal type={selectedModal} />}
       <Button
-        backgroundColor={BUTTON_COLOR.BACKGROUND_GRAY_40}
+        backgroundColor={BUTTON_COLOR.OUTLINE_PRIMARY_60}
         radius={8}
-        width={320}
+        width={90}
         paddingVertical={20}
         hoverColor={BUTTON_COLOR.OUTLINE_PRIMARY_60}
         onClick={handleButtonClick}
