@@ -3,7 +3,7 @@
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { WriteEditModalType, WRITE_EIDT_MODAL_TYPE } from '@/constants/writeEditModalType';
 import { useState } from 'react';
-import { BUTTON_COLOR, BUTTON_RADIUS, BUTTON_WIDTH } from '@/constants/buttonTypes';
+import { BUTTON_COLOR } from '@/constants/buttonTypes';
 import classNames from 'classnames/bind';
 import Button from '@/components/Buttons/Button/Button';
 import styles from './page.module.scss';
@@ -48,12 +48,13 @@ export default function Page() {
       {selectedModal && <WriteEditModal type={selectedModal} />}
       <Button
         backgroundColor={BUTTON_COLOR.BACKGROUND_GRAY_40}
-        radius={BUTTON_RADIUS.RADIUS_8}
-        width={BUTTON_WIDTH.PARENT_FULL}
-        onClick={handleButtonClick}
+        radius={8}
+        width={320}
+        paddingVertical={20}
         hoverColor={BUTTON_COLOR.OUTLINE_PRIMARY_60}
+        onClick={handleButtonClick}
       >
-        button text
+        button
       </Button>
     </div>
   );

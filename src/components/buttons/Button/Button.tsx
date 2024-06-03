@@ -1,13 +1,6 @@
 import { ReactNode } from 'react';
 import classNames from 'classnames/bind';
-import {
-  ButtonColorType,
-  ButtonRadiusType,
-  ButtonWidthType,
-  BUTTON_COLOR,
-  BUTTON_WIDTH,
-  BUTTON_RADIUS,
-} from '@/constants/buttonTypes';
+import { ButtonColorType, BUTTON_COLOR } from '@/constants/buttonTypes';
 import styles from './Button.module.scss';
 
 const cn = classNames.bind(styles);
@@ -15,8 +8,10 @@ const cn = classNames.bind(styles);
 interface ButtonProps {
   backgroundColor?: ButtonColorType;
   hoverColor?: ButtonColorType;
-  radius?: ButtonRadiusType;
-  width?: ButtonWidthType;
+  radius?: 4 | 8;
+  width?: 'parent-full' | 72 | 90 | 120 | 154 | 320;
+  fontSize?: 14 | 18 | 20 | 24;
+  paddingVertical?: 8 | 20;
   onClick: () => void;
   children: ReactNode;
 }
@@ -24,12 +19,23 @@ interface ButtonProps {
 export default function Button({
   backgroundColor = BUTTON_COLOR.BACKGROUND_PRIMARY,
   hoverColor,
-  radius = BUTTON_RADIUS.RADIUS_8,
-  width = BUTTON_WIDTH.PARENT_FULL,
+  radius = 8,
+  width = 'parent-full',
+  fontSize = 18,
+  paddingVertical = 20,
   onClick,
   children,
 }: ButtonProps) {
-  const className = cn('common-style', backgroundColor, radius, width, `hover-${hoverColor}`);
+  const widthClassName = width === 'parent-full' ? 'parent-full' : `width-${width}`;
+  const className = cn(
+    widthClassName,
+    backgroundColor,
+    'common-style',
+    `radius-${radius}`,
+    `hover-${hoverColor}`,
+    `font-${fontSize}`,
+    `padding-${paddingVertical}`,
+  );
   return (
     <button className={className} type='button' onClick={onClick}>
       {children}

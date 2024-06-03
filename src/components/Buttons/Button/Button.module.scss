@@ -20,21 +20,10 @@
   }
 }
 
-@mixin width($width, $fontSize) {
-  @if ($width == '100%') {
-    width: 100%;
-  } @else {
-    width: #{$width}rem;
-  }
-
-  font-size: #{$fontSize}rem;
-}
-
 .common-style {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 0;
 }
 
 .background-gray-40 {
@@ -94,19 +83,49 @@
 }
 
 .parent-full {
-  @include width('100%', 1.8);
+  width: 100%;
 }
 
-.width-32 {
-  @include width(32, 2.4);
+.width-72 {
+  width: 7.2rem;
 }
 
-.width-15-4 {
-  @include width(15.4, 1.8);
+.width-120 {
+  width: 12rem;
 }
 
-.width-12 {
-  @include width(12, 1.4);
+.width-154 {
+  width: 15.4rem;
+}
 
+.width-320 {
+  width: 32rem;
+}
+
+.font-14 {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.font-18 {
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.font-20 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.font-24 {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.padding-8 {
   padding: 0.8rem 0;
+}
+
+.padding-20 {
+  padding: 2rem 0;
 }
