@@ -9,8 +9,8 @@ interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>
   isError?: boolean;
 }
 
-export default forwardRef<HTMLInputElement, InputProps>(function Input({ size = 'md', isError, ...rest }, ref) {
-  const className = cn('default', size, { red: isError });
+export default forwardRef<HTMLInputElement, InputProps>(function Input({ size, type, isError, ...rest }, ref) {
+  const className = cn('default', size, type, { red: isError });
 
-  return <input className={className} ref={ref} {...rest} />;
+  return <input className={className} ref={ref} type={type} {...rest} />;
 });

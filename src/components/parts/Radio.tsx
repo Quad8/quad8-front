@@ -1,27 +1,17 @@
-import classNames from 'classnames/bind';
 import { InputHTMLAttributes, forwardRef } from 'react';
-import styles from './Radio.module.scss';
+import Input from './Input';
+import Label from './Label';
 
-const cn = classNames.bind(styles);
-
-interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
+interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   checked?: boolean;
   isError?: boolean;
 }
 
 export default forwardRef<HTMLInputElement, RadioProps>(function Radio({ id, value, checked, isError, ...rest }, ref) {
   return (
-    <label className={cn('radio-wrapper')} htmlFor={id}>
-      <input
-        className={cn('radio', { red: isError })}
-        ref={ref}
-        id={id}
-        type='radio'
-        value={value}
-        checked={checked}
-        {...rest}
-      />
+    <Label htmlFor={id}>
+      <Input ref={ref} id={id} type='radio' value={value} checked={checked} isError={isError} {...rest} />
       {value}
-    </label>
+    </Label>
   );
 });
