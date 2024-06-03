@@ -1,5 +1,7 @@
-export const enum WriteEditModalType {
-  writePost = 'writePost',
-  writeCustomReview = 'writeCustomRivew',
-  editMyPost = 'editMyPost',
-}
+export const WRITE_EIDT_MODAL_TYPE = {
+  writePost: 'writePost',
+  writeCustomReview: 'writeCustomReview',
+  editMyPost: 'editMyPost',
+} as const;
+
+export type WriteEditModalType = keyof typeof WRITE_EIDT_MODAL_TYPE;
