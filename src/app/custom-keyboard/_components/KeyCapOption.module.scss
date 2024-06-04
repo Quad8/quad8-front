@@ -7,12 +7,15 @@
 .wrapper {
   @include flex-column(4rem);
 
+  align-items: center;
   font-size: 1.8rem;
   line-height: 2.6rem;
 }
 
 .content-wrapper {
   @include flex-column(1.2rem);
+
+  align-items: center;
 }
 
 .title {

@@ -6,6 +6,8 @@
 
 .wrapper {
   @include flex-column(4rem);
+
+  align-items: center;
 }
 
 .content-wrapper {
@@ -48,6 +50,7 @@
 .help {
   display: flex;
   flex-direction: column;
+  width: 32rem;
   padding: 2rem;
   border-radius: 0.4rem;
   background-color: $gray-5;

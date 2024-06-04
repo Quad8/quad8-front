@@ -6,6 +6,8 @@
 
 .wrapper {
   @include flex-column(4rem);
+
+  align-items: center;
 }
 
 .content-wrapper {

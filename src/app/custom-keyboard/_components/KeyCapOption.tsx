@@ -17,9 +17,8 @@ export default function KeyCapOption() {
   const { updateKeyColor } = useContext(KeyColorContext);
 
   const POINT_SET = pointKeyType === '세트 구성' ? ['W', 'A', 'S', 'D'] : Object.keys(individualColor);
-  const [pointStatus, setPointStatus] = useState<'set' | 'self'>('set');
 
-  /* const [pointColor, setPointColor] = useState(baseKeyColor); */
+  const [pointColor, setPointColor] = useState(baseKeyColor);
 
   const handleChangeBaseColor = (value: string) => {
     updateData('baseKeyColor', value);
@@ -43,6 +42,7 @@ export default function KeyCapOption() {
 
   const handleClickPointKeyCapButton = (value: boolean) => {
     updateData('hasPointKeyCap', value);
+    setPointColor(baseKeyColor);
   };
   return (
     <div className={cn('wrapper')}>
@@ -71,20 +71,20 @@ export default function KeyCapOption() {
           <div className={cn('point-title-wrapper')}>
             <button
               type='button'
-              className={cn({ choosed: pointStatus === 'set' })}
-              onClick={() => setPointStatus('set')}
+              className={cn({ choosed: pointKeyType === '세트 구성' })}
+              onClick={() => updateData('pointKeyType', '세트 구성')}
             >
               세트 구성
             </button>
             <button
               type='button'
-              className={cn({ choosed: pointStatus === 'self' })}
-              onClick={() => setPointStatus('self')}
+              className={cn({ choosed: pointKeyType === '내 맘대로 바꾸기' })}
+              onClick={() => updateData('pointKeyType', '내 맘대로 바꾸기')}
             >
               내 맘대로 바꾸기
             </button>
           </div>
-          <HexColorPicker />
+          <HexColorPicker color={pointColor} />
         </div>
       )}
     </div>
