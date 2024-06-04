@@ -7,7 +7,7 @@
 .wrapper {
   @include flex-column(4rem);
 
-  align-items: center;
+  position: relative;
   font-size: 1.8rem;
   line-height: 2.6rem;
 }
@@ -71,4 +71,15 @@
 .choosed {
   border-bottom: 0.2rem solid $primary;
   color: $primary;
+}
+
+.disabled {
+  position: absolute;
+  z-index: 1000;
+  top: 37.5rem;
+  left: -1.2rem;
+  width: 34.5rem;
+  height: 17.5rem;
+  border-radius: 1rem;
+  background-color: rgb(0 0 0 / 50%);
 }

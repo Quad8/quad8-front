@@ -103,7 +103,7 @@ export default function PriceButton() {
   const completed = checkCompleted(currentStep);
 
   return (
-    <>
+    <div className={cn('wrapper')}>
       <div className={cn('price-wrapper')}>
         <div className={cn('price-title')}>총 가격</div>
         <div className={cn('price')}>
@@ -123,6 +123,6 @@ export default function PriceButton() {
           {BUTTON[next]}
         </button>
       </div>
-    </>
+    </div>
   );
 }

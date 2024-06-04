@@ -103,6 +103,7 @@ export default function KeyCapOption() {
           <HexColorPicker color={pointColor} onChange={handleChangePointColor} />
         </div>
       )}
+      {hasPointKeyCap && pointKeyType === '내 맘대로 바꾸기' && !focusKey && <div className={cn('disabled')} />}
     </div>
   );
 }

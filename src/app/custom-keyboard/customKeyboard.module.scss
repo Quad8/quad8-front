@@ -1,47 +1,40 @@
 .content-wrapper {
   display: flex;
+  position: relative;
+  z-index: 3;
+  justify-content: space-between;
   width: 100%;
-  height: calc(100vh - 8rem);
-  padding: 0 9rem 8rem 12rem;
-  gap: 9rem;
+  padding: 8rem 10rem;
+  background-color: $white;
+  gap: 10rem;
 }
 
 .option-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 38rem;
-  padding-top: 6rem;
+  width: 36rem;
+  height: fit-content;
+  margin-top: 6rem;
+  padding-bottom: 19.6rem;
+  overflow: auto;
   gap: 3rem;
 }
 
 .option-content-wrapper {
-  flex: 1;
-  width: 100%;
-  max-height: calc(100% - 19.6rem);
-  overflow: visible auto;
-
-  &::-webkit-scrollbar {
-    width: 1rem;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 1rem;
-    background-color: $gray-40;
-  }
-
-  &::-webkit-scrollbar-track {
-    border-radius: 1rem;
-    background-color: $gray-10;
-  }
+  width: 34rem;
+  height: fit-content;
+  padding-left: 2rem;
 }
 
 .button-wrapper {
   display: flex;
+  position: fixed;
+  z-index: $zindex-fixed;
+  right: 0;
+  bottom: 0;
   flex-direction: column;
-  width: 32rem;
-  height: 16.6rem;
-  padding-top: 2rem;
-  border-top: 1px solid $gray-10;
-  gap: 2rem;
+  align-items: center;
+  width: 56rem;
+  height: 24.6rem;
+  background-color: $white;
 }
