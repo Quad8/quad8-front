@@ -6,13 +6,18 @@ import ProfileImage from './ProfileImage';
 
 const cn = classNames.bind(styles);
 
-export default function AuthorCard() {
+interface AuthorCardProps {
+  nickname: string;
+  createdAt: string;
+}
+
+export default function AuthorCard({ nickname, createdAt }: AuthorCardProps) {
   return (
     <div className={cn('container')}>
       <ProfileImage profile={myProfileImage} />
       <div className={cn('info-textbox')}>
-        <p id={cn('user-name')}>고양이는고양닉네임</p>
-        <p id={cn('sub-info')}>1분전</p>
+        <p id={cn('user-name')}>{nickname}</p>
+        <p id={cn('sub-info')}>{createdAt.toString()}</p>
       </div>
       <div className={cn('show-more-icon')}>
         <ShowMoreIcon />

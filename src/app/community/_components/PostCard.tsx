@@ -13,14 +13,13 @@ interface PostCardProps {
 }
 
 export default function PostCard({ cardData }: PostCardProps) {
-  console.log(cardData);
   const { title } = cardData;
   return (
     <div className={cn('container')}>
-      <AuthorCard />
+      <AuthorCard nickname={cardData.user_nickname} createdAt={cardData.created_at} />
       <Image src={ContentImage} className={cn('keyboard-image')} alt="키보드 이미지" />
       <p className={cn('title')}>{title}</p>
-      <PostInteractions />
+      <PostInteractions goodCount={cardData.good_count} commentCount={cardData.comment_count} />
     </div>
   );
 }
