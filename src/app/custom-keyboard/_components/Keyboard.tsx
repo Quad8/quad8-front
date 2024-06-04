@@ -1,6 +1,6 @@
 'use client';
 
-import { KEY, TEN_KEY } from '@/constants/keyboardData';
+import { KEY, TEN_KEY, POINT_KEY } from '@/constants/keyboardData';
 import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useGLTF } from '@react-three/drei';
 import { ThreeEvent } from '@react-three/fiber';
@@ -15,10 +15,19 @@ interface KeyboardNodes {
 
 export default function Keyboard() {
   const {
-    keyboardData: { type, texture, boardColor, pointKeyType },
+    keyboardData: {
+      type,
+      texture,
+      boardColor,
+      pointKeyType,
+      hasPointKeyCap,
+      baseKeyColor,
+      pointKeyColor,
+      individualColor,
+    },
   } = useContext(KeyboardDataContext);
 
-  const { keyColorData, focusKey, updateFocusKey } = useContext(KeyColorContext);
+  const { focusKey, updateFocusKey } = useContext(KeyColorContext);
   const { currentStep } = useContext(StepContext);
   const { nodes, materials } = useGLTF(
     type === 'tkl' ? '/glbs/tklKeyboard.glb' : '/glbs/keyboard.glb',
@@ -37,6 +46,18 @@ export default function Keyboard() {
       return;
     }
     updateFocusKey(key);
+  };
+
+  const getKeyColor = (key: string) => {
+    if (hasPointKeyCap) {
+      if (pointKeyType === '세트 구성' && POINT_KEY.includes(key)) {
+        return pointKeyColor;
+      }
+      if (pointKeyType === '내 맘대로 바꾸기' && individualColor[key]) {
+        return individualColor[key];
+      }
+    }
+    return baseKeyColor;
   };
   return (
     <group onClick={(e) => currentStep === 'keyCap' && pointKeyType === '내 맘대로 바꾸기' && handleClickKey(e)}>
@@ -62,7 +83,7 @@ export default function Keyboard() {
         >
           <meshStandardMaterial
             name={key}
-            color={keyColorData[key]}
+            color={getKeyColor(key)}
             opacity={focusKey && focusKey !== key ? 0.4 : 1}
             transparent
           />

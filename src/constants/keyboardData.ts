@@ -107,3 +107,17 @@ export const TEN_KEY = [
   'R9',
   'DotDel',
 ];
+
+export const POINT_KEY = [
+  'W',
+  'A',
+  'S',
+  'D',
+  'ArrowDown',
+  'ArrowUp',
+  'ArrowLeft',
+  'ArrowRight',
+  'Esc',
+  'Enter',
+  'Space',
+];

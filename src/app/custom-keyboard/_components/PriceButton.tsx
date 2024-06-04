@@ -90,7 +90,6 @@ export default function PriceButton() {
       }
     }
     if (value === 'board') {
-      console.log(checkCompleted('switch'));
       if (checkCompleted('switch')) {
         updateStepStatus({ board: 'current', switch: 'completed' });
       } else {

@@ -1,7 +1,6 @@
 'use client';
 
 import { PropsWithChildren, createContext, useCallback, useMemo, useState } from 'react';
-import { KEY, TEN_KEY } from '@/constants/keyboardData';
 
 interface StepStatusType {
   board: 'pending' | 'current' | 'completed';
@@ -24,7 +23,7 @@ interface KeyboardDataType {
   baseKeyColor: string;
   hasPointKeyCap: boolean;
   pointKeyType: '내 맘대로 바꾸기' | '세트 구성';
-  pointKeyColor: string | null;
+  pointKeyColor: string;
   price: number;
   option: { [key: string]: boolean };
   individualColor: { [key: string]: string };
@@ -33,16 +32,11 @@ interface KeyboardDataType {
 interface KeyboardDataContextType {
   keyboardData: KeyboardDataType;
   updateData: (key: keyof KeyboardDataType, value: KeyboardDataType[keyof KeyboardDataType]) => void;
-}
-
-interface KeyColorType {
-  [key: string]: string;
+  updateIndividualColor: (value: { [key: string]: string }) => void;
 }
 
 interface KeyColorContextType {
-  keyColorData: KeyColorType;
   focusKey: string | null;
-  updateKeyColor: (value: { [key: string]: string }) => void;
   updateFocusKey: (value: string | null) => void;
 }
 
@@ -66,18 +60,17 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
     baseKeyColor: '#ffffff',
     hasPointKeyCap: false,
     pointKeyType: '세트 구성',
-    pointKeyColor: null,
+    pointKeyColor: '#ffffff',
     price: 0,
     option: {},
     individualColor: {},
   },
   updateData: () => {},
+  updateIndividualColor: () => {},
 });
 
 export const KeyColorContext = createContext<KeyColorContextType>({
-  keyColorData: {},
   focusKey: '',
-  updateKeyColor: () => {},
   updateFocusKey: () => {},
 });
 
@@ -114,7 +107,7 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     baseKeyColor: '#ffffff',
     hasPointKeyCap: false,
     pointKeyType: '세트 구성',
-    pointKeyColor: null,
+    pointKeyColor: '#ffffff',
     price: 70000,
     option: {},
     individualColor: {},
@@ -124,31 +117,29 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     setData((prev) => ({ ...prev, [key]: value }));
   }, []);
 
-  const value = useMemo(() => ({ keyboardData: data, updateData }), [data, updateData]);
+  const updateIndividualColor = useCallback((value: { [key: string]: string }) => {
+    setData((prev) => {
+      const newData = { ...prev.individualColor, ...value };
+      return { ...prev, individualColor: newData };
+    });
+  }, []);
+
+  const value = useMemo(
+    () => ({ keyboardData: data, updateData, updateIndividualColor }),
+    [data, updateData, updateIndividualColor],
+  );
 
   return <KeyboardDataContext.Provider value={value}>{children}</KeyboardDataContext.Provider>;
 }
 
 export function KeyColorContextProvider({ children }: PropsWithChildren) {
-  const [keyColorData, setKeyColorData] = useState<KeyColorType>(() => {
-    const color = {};
-    [...KEY, ...TEN_KEY].forEach((key) => Object.assign(color, { [key]: '#ffffff' }));
-    return color;
-  });
   const [focusKey, setFocusKey] = useState<string | null>(null);
-
-  const updateKeyColor = useCallback((value: { [key: string]: string }) => {
-    setKeyColorData((prev) => ({ ...prev, ...value }));
-  }, []);
 
   const updateFocusKey = useCallback((value: string | null) => {
     setFocusKey(value);
   }, []);
 
-  const value = useMemo(
-    () => ({ keyColorData, focusKey, updateKeyColor, updateFocusKey }),
-    [keyColorData, focusKey, updateKeyColor, updateFocusKey],
-  );
+  const value = useMemo(() => ({ focusKey, updateFocusKey }), [focusKey, updateFocusKey]);
 
   return <KeyColorContext.Provider value={value}>{children}</KeyColorContext.Provider>;
 }
