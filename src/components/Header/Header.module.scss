@@ -7,6 +7,7 @@
 
 .wrapper {
   @include flex-wrapper;
+  @include poppins-18-600;
 
   position: fixed;
   top: 0;
@@ -15,23 +16,29 @@
   height: 8rem;
   padding: 0 12rem;
   background-color: $white;
-  color: $black;
-  font-size: 1.8rem;
-  font-weight: 600;
-  line-height: 2.6rem;
+  color: $gray-50;
   text-decoration: none;
-}
 
-.black {
-  border-bottom: 1px solid $gray-10;
-  background-color: $black;
-  color: $white;
+  a:hover,
+  button:hover {
+    color: $black;
+  }
 }
 
 .right-wrapper {
   @include flex-wrapper;
 
   gap: 12rem;
+}
+
+.black {
+  border-bottom: 1px solid $gray-10;
+  background-color: $black;
+
+  a:hover,
+  button:hover {
+    color: $white;
+  }
 }
 
 .button-wrapper {
