@@ -25,6 +25,7 @@ export default function Keyboard() {
       pointKeyColor,
       individualColor,
     },
+    updateData,
   } = useContext(KeyboardDataContext);
 
   const { focusKey, updateFocusKey } = useContext(KeyColorContext);
@@ -46,6 +47,7 @@ export default function Keyboard() {
       return;
     }
     updateFocusKey(key);
+    updateData('pointKeyColor', individualColor[key]);
   };
 
   const getKeyColor = (key: string) => {
