@@ -3,8 +3,16 @@
 import { PropsWithChildren, createContext, useCallback, useMemo, useState } from 'react';
 import { KEY, TEN_KEY } from '@/constants/keyboardData';
 
+interface StepStatusType {
+  board: 'pending' | 'current' | 'completed';
+  switch: 'pending' | 'current' | 'completed';
+  keyCap: 'pending' | 'current' | 'completed';
+}
+
 interface StepContextType {
   currentStep: 'board' | 'switch' | 'keyCap';
+  stepStatus: StepStatusType;
+  updateStepStatus: (value: { [key: string]: 'pending' | 'current' | 'completed' }) => void;
   updateCurrentStep: (data: 'board' | 'switch' | 'keyCap') => void;
 }
 
@@ -40,7 +48,13 @@ interface KeyColorContextType {
 
 export const StepContext = createContext<StepContextType>({
   currentStep: 'board',
+  stepStatus: {
+    board: 'current',
+    switch: 'pending',
+    keyCap: 'pending',
+  },
   updateCurrentStep: () => {},
+  updateStepStatus: () => {},
 });
 
 export const KeyboardDataContext = createContext<KeyboardDataContextType>({
@@ -69,12 +83,24 @@ export const KeyColorContext = createContext<KeyColorContextType>({
 
 export function StepContextProvider({ children }: PropsWithChildren) {
   const [currentStep, setCurrentStep] = useState<'board' | 'switch' | 'keyCap'>('board');
+  const [stepStatus, setStapStatus] = useState<StepStatusType>({
+    board: 'current',
+    switch: 'pending',
+    keyCap: 'pending',
+  });
 
   const updateCurrentStep = useCallback((step: 'board' | 'switch' | 'keyCap') => {
     setCurrentStep(step);
   }, []);
 
-  const contextValue = useMemo(() => ({ currentStep, updateCurrentStep }), [currentStep, updateCurrentStep]);
+  const updateStepStatus = useCallback((value: { [key: string]: 'pending' | 'current' | 'completed' }) => {
+    setStapStatus((prev) => ({ ...prev, ...value }));
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({ currentStep, stepStatus, updateCurrentStep, updateStepStatus }),
+    [currentStep, stepStatus, updateCurrentStep, updateStepStatus],
+  );
 
   return <StepContext.Provider value={contextValue}>{children}</StepContext.Provider>;
 }

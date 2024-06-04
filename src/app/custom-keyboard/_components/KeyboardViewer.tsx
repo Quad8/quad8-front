@@ -7,6 +7,7 @@ import classNames from 'classnames/bind';
 import { KeyColorContext } from '@/context/customKeyboardContext';
 import styles from './KeyboardViewer.module.scss';
 import Keyboard from './Keyboard';
+import Step from './Step';
 
 const cn = classNames.bind(styles);
 
@@ -19,7 +20,9 @@ export default function KeyboardViewer() {
 
   return (
     <div className={cn('wrapper')}>
-      <div className={cn('option-wrapper')}>option</div>
+      <div className={cn('option-wrapper')}>
+        <Step />
+      </div>
       <Suspense fallback={<div>Loading</div>}>
         <Canvas
           shadows

@@ -1,0 +1,40 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin wrapper {
+  @include flex-center;
+
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 1.6rem;
+}
+
+.pending-wrapper {
+  @include wrapper;
+
+  background-color: $gray-10;
+  color: $white;
+  font-size: 1.4rem;
+}
+
+.current-outside {
+  @include wrapper;
+
+  background-color: $primary;
+}
+
+.current-inside {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 0.8rem;
+  background-color: $white;
+}
+
+.completed-wrapper {
+  @include wrapper;
+
+  background-color: $primary;
+}

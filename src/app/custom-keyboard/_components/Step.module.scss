@@ -1,0 +1,34 @@
+.wrapper {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  gap: 3.7rem;
+  width: 10rem;
+  height: 17rem;
+}
+
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.line {
+  position: absolute;
+  left: 1.6rem;
+  width: 0;
+  height: 3.7rem;
+  border-left: 0.1rem dashed $gray-40;
+}
+
+.first-line {
+  top: 3.2rem;
+}
+
+.second-line {
+  top: 10.1rem;
+}
+
+.completed-line {
+  border-color: $primary;
+}
