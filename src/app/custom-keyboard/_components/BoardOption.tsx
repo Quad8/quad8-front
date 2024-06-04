@@ -10,25 +10,15 @@ const cn = classNames.bind(styles);
 
 export default function BoardOption() {
   const {
-    keyboardData: { type, texture, boardColor, price },
+    keyboardData: { type, texture, boardColor },
     updateData,
   } = useContext(KeyboardDataContext);
 
   const handleClickTypeButton = (value: 'full' | 'tkl') => {
-    if (type === 'full' && value === 'tkl') {
-      updateData('price', price - 5000);
-    } else if (type === 'tkl' && value === 'full') {
-      updateData('price', price + 5000);
-    }
     updateData('type', value);
   };
 
   const handleClickTextureButton = (value: 'metal' | 'plastic') => {
-    if (texture === 'metal' && value === 'plastic') {
-      updateData('price', price - 5000);
-    } else if (texture === 'plastic' && value === 'metal') {
-      updateData('price', price + 5000);
-    }
     updateData('texture', value);
   };
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './PriceButton.module.scss';
 
@@ -44,9 +44,17 @@ const UPDATE_NEXT_STEP_STATUS: { [key: string]: { [key: string]: 'completed' | '
   cart: { keyCap: 'completed' },
 };
 
+const PRICE_LIST = {
+  tkl: 30000,
+  full: 35000,
+  metal: 35000,
+  plastic: 30000,
+};
+
 export default function PriceButton() {
   const {
-    keyboardData: { type, texture, price, switchType },
+    keyboardData: { type, texture, price, switchType, hasPointKeyCap, individualColor, pointKeyType },
+    updateData,
   } = useContext(KeyboardDataContext);
   const { currentStep, updateCurrentStep, updateStepStatus } = useContext(StepContext);
 
@@ -101,6 +109,14 @@ export default function PriceButton() {
   const { prev, next } = BUTTONS[currentStep];
 
   const completed = checkCompleted(currentStep);
+
+  useEffect(() => {
+    const boardPrice = PRICE_LIST[type] + PRICE_LIST[texture];
+    const keyCapPrice =
+      Number(hasPointKeyCap) *
+      (Object.keys(individualColor).length * 500 + Number(pointKeyType === '세트 구성') * 5000);
+    updateData('price', boardPrice + keyCapPrice);
+  }, [hasPointKeyCap, individualColor, pointKeyType, texture, type, updateData]);
 
   return (
     <div className={cn('wrapper')}>
