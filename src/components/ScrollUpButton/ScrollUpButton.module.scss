@@ -1,16 +1,16 @@
-.buttons-div {
+.button-div {
   display: flex;
-  gap: 0.8rem;
-  width: 100%;
+  position: fixed;
+  right: 12rem;
+  bottom: 6.4rem;
+  align-items: center;
+  justify-content: center;
+  width: 5.7rem;
+  height: 5.7rem;
+  border-radius: 30rem;
+  background-color: $primary;
 }
 
-.button-div {
-  width: 35rem;
-  padding: 2rem 0;
-  border-radius: 0.8rem;
-  background-color: #111;
-  color: #fff;
-  font-size: 2.4rem;
-  line-height: 3.2rem;
-  text-align: center;
+.no-button-visible {
+  display: none;
 }
