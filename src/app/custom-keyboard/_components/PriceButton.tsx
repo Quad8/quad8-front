@@ -8,77 +8,47 @@ import styles from './PriceButton.module.scss';
 const cn = classNames.bind(styles);
 
 type StepValueType = 'board' | 'switch' | 'keyCap' | 'cart' | 'null';
-
-interface ButtonType {
-  name: string;
-  value: StepValueType;
-}
-
-type ButtonListType = {
-  [key in StepValueType]: ButtonType;
-};
-
 type DualButtonType = {
   [key in 'board' | 'switch' | 'keyCap']: {
-    prev: ButtonType;
-    next: ButtonType;
+    prev: Exclude<StepValueType, 'cart'>;
+    next: Exclude<StepValueType, 'null'>;
   };
 };
 
-const BUTTON: ButtonListType = {
-  board: {
-    name: '배열, 외관',
-    value: 'board',
-  },
-  switch: {
-    name: '스위치',
-    value: 'switch',
-  },
-  keyCap: {
-    name: '키캡',
-    value: 'keyCap',
-  },
-  cart: {
-    name: '장바구니',
-    value: 'cart',
-  },
-  null: {
-    name: 'null',
-    value: 'null',
-  },
+const BUTTON = {
+  board: '배열, 외관',
+  switch: '스위치',
+  keyCap: '키캡',
+  cart: '장바구니',
+  null: 'null',
 };
 
 const BUTTONS: DualButtonType = {
   board: {
-    prev: BUTTON.null,
-    next: BUTTON.switch,
+    prev: 'null',
+    next: 'switch',
   },
   switch: {
-    prev: BUTTON.board,
-    next: BUTTON.keyCap,
+    prev: 'board',
+    next: 'keyCap',
   },
   keyCap: {
-    prev: BUTTON.switch,
-    next: BUTTON.cart,
+    prev: 'switch',
+    next: 'cart',
   },
+};
+
+const UPDATE_NEXT_STEP_STATUS: { [key: string]: { [key: string]: 'completed' | 'current' } } = {
+  switch: { board: 'completed', switch: 'current' },
+  keyCap: { switch: 'completed', keyCap: 'current' },
+  cart: { keyCap: 'completed' },
 };
 
 export default function PriceButton() {
   const {
     keyboardData: { type, texture, price, switchType },
   } = useContext(KeyboardDataContext);
-  const { currentStep, updateCurrentStep } = useContext(StepContext);
-
-  const handleClickButton = (value: StepValueType) => {
-    if (value === 'null') {
-      return;
-    }
-    if (value === 'cart') {
-      return;
-    }
-    updateCurrentStep(value);
-  };
-  const { prev, next } = BUTTONS[currentStep];
+  const { currentStep, updateCurrentStep, updateStepStatus } = useContext(StepContext);
 
   const checkCompleted = (step: 'board' | 'switch' | 'keyCap') => {
     if (step === 'board') {
@@ -100,6 +70,37 @@ export default function PriceButton() {
     return false;
   };
 
+  const handleClickNextButton = (value: Exclude<StepValueType, 'null'>) => {
+    if (value === 'cart') {
+      return;
+    }
+    updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
+    updateCurrentStep(value);
+  };
+
+  const handleClickPrevButton = (value: Exclude<StepValueType, 'cart'>) => {
+    if (value === 'null' || value === 'keyCap') {
+      return;
+    }
+    if (value === 'switch') {
+      if (checkCompleted('keyCap')) {
+        updateStepStatus({ switch: 'current', keyCap: 'completed' });
+      } else {
+        updateStepStatus({ switch: 'current', keyCap: 'pending' });
+      }
+    }
+    if (value === 'board') {
+      console.log(checkCompleted('switch'));
+      if (checkCompleted('switch')) {
+        updateStepStatus({ board: 'current', switch: 'completed' });
+      } else {
+        updateStepStatus({ board: 'current', switch: 'pending' });
+      }
+    }
+    updateCurrentStep(value);
+  };
+  const { prev, next } = BUTTONS[currentStep];
+
   const completed = checkCompleted(currentStep);
 
   return (
@@ -114,13 +115,13 @@ export default function PriceButton() {
       <div className={cn('button-wrapper')}>
         <button
           type='button'
-          className={cn('button', { disabled: completed }, { hidden: prev.name === 'null' })}
-          onClick={() => handleClickButton(prev.value)}
+          className={cn('button', { disabled: completed }, { hidden: prev === 'null' })}
+          onClick={() => handleClickPrevButton(prev)}
         >
-          {prev.name}
+          {BUTTON[prev]}
         </button>
-        <button type='button' className={cn('button')} onClick={() => completed && handleClickButton(next.value)}>
-          {next.name}
+        <button type='button' className={cn('button')} onClick={() => completed && handleClickNextButton(next)}>
+          {BUTTON[next]}
         </button>
       </div>
     </>
