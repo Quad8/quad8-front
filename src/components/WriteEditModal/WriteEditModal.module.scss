@@ -1,11 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
   width: max-content;
   padding: 4rem;
-  background-color: white;
   border-radius: 1.6rem;
+  background-color: white;
+  gap: 4rem;
 }
 
 .input-div {

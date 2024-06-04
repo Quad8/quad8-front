@@ -15,24 +15,26 @@ export default function ScrollUpButton({ headerRef }: ScrollUpButtonProps) {
     headerRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   useEffect(() => {
-    if (!headerRef.current) {
+    const headerNode = headerRef.current;
+    if (!headerNode) {
       return undefined;
     }
     const observer = new IntersectionObserver(([entry]) => {
       setIsHeaderVisible(entry.isIntersecting);
     });
 
-    observer.observe(headerRef.current);
+    observer.observe(headerNode);
 
     return () => {
-      if (headerRef.current) {
-        observer.unobserve(headerRef.current);
+      if (headerNode) {
+        observer.unobserve(headerNode);
+        observer.disconnect();
       }
     };
   }, [headerRef]);
   return (
     <button
-      type="button"
+      type='button'
       className={cn('button-div', `${isHeaderVisible && 'no-button-visible'}`)}
       onClick={handleScrollUpButtonClick}
     >

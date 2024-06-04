@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState, useRef, PropsWithChildren } from 'react';
-import ReactDOM from 'react-dom';
-import classNames from 'classnames/bind';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
+import classNames from 'classnames/bind';
+import { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 import styles from './Modal.module.scss';
 
 const cn = classNames.bind(styles);
