@@ -14,13 +14,23 @@ interface PostCardProps {
 }
 
 export default function PostCard({ cardData, onClick }: PostCardProps) {
-  const { title } = cardData;
+  const {
+    user_nickname: nickname,
+    created_at: createdAt,
+    title,
+    image,
+    good_count: goodCount,
+    comment_count: commentCount,
+  } = cardData;
   return (
     <button type='button' className={cn('container')} onClick={onClick}>
-      <AuthorCard nickname={cardData.user_nickname} createdAt={cardData.created_at} />
-      <Image src={ContentImage} className={cn('keyboard-image')} alt='키보드 이미지' />
+      <AuthorCard nickname={nickname} createdAt={createdAt} />
+      <div className={cn('keyboard-image-wrapper')}>
+        <Image src={ContentImage} className={cn('keyboard-image')} alt='키보드 이미지' />
+        {image.length > 1 && <p id={cn('image-count')}>{image.length}</p>}
+      </div>
       <p className={cn('title')}>{title}</p>
-      <PostInteractions goodCount={cardData.good_count} commentCount={cardData.comment_count} />
+      <PostInteractions goodCount={goodCount} commentCount={commentCount} />
     </button>
   );
 }

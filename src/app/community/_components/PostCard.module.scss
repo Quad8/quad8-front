@@ -6,6 +6,28 @@
   gap: 2rem;
 }
 
+.keyboard-image-wrapper {
+  position: relative;
+
+  & > #image-count {
+    $div-size: 6.1rem;
+    @include pretendard-16-400;
+
+    display: flex;
+    position: absolute;
+    right: 0;
+    bottom: 0.3rem;
+    align-items: center;
+    justify-content: center;
+    width: $div-size;
+    height: $div-size;
+    border-radius: 0.8rem 0;
+    opacity: 0.8;
+    background-color: black;
+    color: $white;
+  }
+}
+
 .keyboard-image {
   width: 100%;
   height: 27rem;
