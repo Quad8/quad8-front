@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import ImageInput from './ImageInput';
 import KeyboardInfoBox from './KeyboardInfoBox';
 import styles from './WriteEditModal.module.scss';
-import Button from '../Buttons/Button/Button';
+import Button from '../Button/Button';
 
 interface WriteEditModalProps {
   type: WriteEditModalType;

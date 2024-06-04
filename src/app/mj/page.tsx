@@ -5,7 +5,7 @@ import { WriteEditModalType, WRITE_EIDT_MODAL_TYPE } from '@/constants/writeEdit
 import { useState } from 'react';
 import { BUTTON_COLOR } from '@/constants/buttonTypes';
 import classNames from 'classnames/bind';
-import Button from '@/components/Buttons/Button/Button';
+import Button from '@/components/Button/Button';
 import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
