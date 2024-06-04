@@ -10,6 +10,7 @@
   @include poppins-18-600;
 
   position: fixed;
+  z-index: $zindex-fixed;
   top: 0;
   width: fit-content;
   min-width: 100%;

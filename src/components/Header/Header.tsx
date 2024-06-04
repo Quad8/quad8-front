@@ -2,6 +2,7 @@ import LogoIcon from '@/public/svgs/logo.svg';
 import UserIcon from '@/public/svgs/user.svg';
 import classNames from 'classnames/bind';
 import { cookies, headers } from 'next/headers';
+import Link from 'next/link';
 import CartButton from './CartButton';
 import styles from './Header.module.scss';
 import LoginButton from './LoginButton';
@@ -25,26 +26,26 @@ export default function Header() {
   return (
     <header className={cn('wrapper', { black: BLACK })}>
       <div className={cn('right-wrapper')}>
-        <a href={URL_LIST.MAIN}>
+        <Link href={URL_LIST.MAIN}>
           <LogoIcon width={131} height={24} />
-        </a>
+        </Link>
         <div className={cn('button-wrapper')}>
-          <a href={URL_LIST.CUSTOM_KEYBOARD} className={cn({ 'current-page': pathname === '/custom-keyboard' })}>
+          <Link href={URL_LIST.CUSTOM_KEYBOARD} className={cn({ 'current-page': pathname === '/custom-keyboard' })}>
             커스텀 키보드 만들기
-          </a>
+          </Link>
           <ShopButton pathname={pathname} />
-          <a href={URL_LIST.COMMUNITY} className={cn({ 'current-page': pathname === '/community' })}>
+          <Link href={URL_LIST.COMMUNITY} className={cn({ 'current-page': pathname === '/community' })}>
             커뮤니티
-          </a>
+          </Link>
         </div>
       </div>
       <div className={cn('left-wrapper')}>
         <SearchBox />
         <div className={cn('status-wrapper')}>
           {!accessToken ? <LoginButton /> : <LogoutButton />}
-          <a href='/mypage' className={cn('user-icon')}>
+          <Link href='/mypage' className={cn('user-icon')}>
             <UserIcon width={31} height={31} className={cn(BLACK ? 'user-black' : 'user-white')} />
-          </a>
+          </Link>
           <CartButton cartCount={cartCount} black={BLACK} />
         </div>
       </div>
