@@ -3,7 +3,9 @@
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { WriteEditModalType, WRITE_EIDT_MODAL_TYPE } from '@/constants/writeEditModalType';
 import { useState } from 'react';
+import { BUTTON_COLOR } from '@/constants/buttonTypes';
 import classNames from 'classnames/bind';
+import Button from '@/components/Button/Button';
 import Modal from '@/components/Modal/Modal';
 import styles from './page.module.scss';
 
@@ -29,7 +31,12 @@ export default function Page() {
 
   const handleEditMyPostModal = () => {
     setSelectedModal(WRITE_EIDT_MODAL_TYPE.editMyPost);
-    setIsOpenModal(true);
+    // setIsOpenModal(true);
+  };
+
+  const handleButtonClick = () => {
+    /** 버튼 누를 때 실행되는 함수 */
+    console.log('버튼 누름');
   };
   return (
     <div className={cn('container')}>
@@ -44,6 +51,16 @@ export default function Page() {
           3. 내 게시글 수정
         </button>
       </div>
+      <Button
+        backgroundColor={BUTTON_COLOR.OUTLINE_PRIMARY_60}
+        radius={8}
+        width={90}
+        paddingVertical={20}
+        hoverColor={BUTTON_COLOR.OUTLINE_PRIMARY_60}
+        onClick={handleButtonClick}
+      >
+        button
+      </Button>
       {selectedModal && (
         <Modal isOpen={isOpenModal} onClose={handleCloseModal}>
           <WriteEditModal type={selectedModal} />
