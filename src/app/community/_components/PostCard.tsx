@@ -10,16 +10,17 @@ const cn = classNames.bind(styles);
 
 interface PostCardProps {
   cardData: CommunityCardDataType;
+  onClick: () => void;
 }
 
-export default function PostCard({ cardData }: PostCardProps) {
+export default function PostCard({ cardData, onClick }: PostCardProps) {
   const { title } = cardData;
   return (
-    <div className={cn('container')}>
+    <button type='button' className={cn('container')} onClick={onClick}>
       <AuthorCard nickname={cardData.user_nickname} createdAt={cardData.created_at} />
       <Image src={ContentImage} className={cn('keyboard-image')} alt='키보드 이미지' />
       <p className={cn('title')}>{title}</p>
       <PostInteractions goodCount={cardData.good_count} commentCount={cardData.comment_count} />
-    </div>
+    </button>
   );
 }
