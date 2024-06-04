@@ -16,7 +16,7 @@ export default function CartButton({ cartCount, black }: CartButtonProps) {
   return (
     <div className={cn('wrapper')}>
       <Link href='/cart' className={cn('icon')}>
-        <CartIcon width={24} height={24} fill={black ? '#ffffff' : '#4968f6'} />
+        <CartIcon className={cn('cart-icon', { black })} width={24} height={24} />
         {cartCount > 0 && <div className={cn('cart-count', cartCount > 9 && 'count-more-digit')}>{countStatus}</div>}
       </Link>
     </div>
