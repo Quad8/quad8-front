@@ -1,5 +1,12 @@
 .container {
   width: 100vw;
-  height: 100vh;
+  height: 2000rem;
   background-color: lightgray;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 2rem;
 }
