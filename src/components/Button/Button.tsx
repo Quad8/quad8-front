@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import classNames from 'classnames/bind';
-import { BUTTON_COLOR } from '@/constants/buttonTypes';
+import { BUTTON_COLOR } from '@/constants/buttonColors';
 import styles from './Button.module.scss';
 
 type ButtonColorType = (typeof BUTTON_COLOR)[keyof typeof BUTTON_COLOR];
