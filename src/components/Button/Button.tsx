@@ -49,7 +49,7 @@ export default function Button({
   onClick,
   children,
   ...rest
-}: ButtonProps) {
+}: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>): JSX.Element {
   const widthClassName = width === 'parent-full' ? 'parent-full' : `width-${width}`;
   const className = cn(
     widthClassName,
