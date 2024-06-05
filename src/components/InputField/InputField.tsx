@@ -11,7 +11,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   sizeVariant?: 'sm' | 'md' | 'lg';
   label?: string;
   errorMessage?: string;
-  hasSuffixIcon?: 'search' | 'eye';
+  suffixIcon?: 'search' | 'eye';
   suffixUnit?: '원';
 }
 
@@ -24,13 +24,13 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
  * @param {string} [props.sizeVariant='md'] - 입력 필드의 크기, 'sm', 'md', 'lg' 중 하나
  * @param {string} [props.label] - 입력 필드의 레이블 텍스트
  * @param {string} [props.errorMessage] - 에러 메시지 텍스트
- * @param {string} [props.hasSuffixIcon] - 접미사 아이콘, 'search' 또는 'eye'
+ * @param {string} [props.suffixIcon] - 접미사 아이콘, 'search' 또는 'eye'
  * @param {string} [props.suffixUnit='원'] - 입력 필드의 접미사 단위, 기본값은 '원'
  * @returns {JSX.Element} 렌더링된 입력 필드 컴포넌트
  */
 
 export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField(
-  { id, type = 'text', sizeVariant = 'md', label, errorMessage, hasSuffixIcon, suffixUnit, ...rest },
+  { id, type = 'text', sizeVariant = 'md', label, errorMessage, suffixIcon, suffixUnit, ...rest },
   ref,
 ) {
   const [inputType, setInputType] = useState(type);
@@ -51,10 +51,10 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
       <div className={cn('input-wrapper')}>
         <Input id={id} type={inputType} sizeVariant={sizeVariant} isError={!!errorMessage} ref={ref} {...rest} />
         {suffixUnit && <SuffixUnit unit={suffixUnit} />}
-        {hasSuffixIcon && (
+        {suffixIcon && (
           <SuffixIcon
-            icon={hasSuffixIcon}
-            onClick={hasSuffixIcon === 'eye' ? onSuffixEyeIconClick : undefined}
+            icon={suffixIcon}
+            onClick={suffixIcon === 'eye' ? onSuffixEyeIconClick : undefined}
             type={inputType}
           />
         )}

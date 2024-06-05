@@ -26,7 +26,7 @@ export default function Page() {
         id='이메일'
         name='인풋'
         placeholder='이메일을 입력해 주세요'
-        hasSuffixIcon='eye'
+        suffixIcon='eye'
         sizeVariant='md'
       />
       <br />

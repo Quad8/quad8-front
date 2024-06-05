@@ -8,6 +8,10 @@ type Story = StoryObj<typeof InputField>;
 
 export const Primary: Story = { args: {} };
 
-export const Boky: Story = { args: { sizeVariant: 'lg', label: 'quad8' } };
+export const Small: Story = { args: { sizeVariant: 'sm', label: 'Small' } };
 
-export const Dw: Story = { args: { sizeVariant: 'sm', label: 'quad8' } };
+export const Medium: Story = { args: { sizeVariant: 'md', label: 'Medium' } };
+
+export const Large: Story = { args: { sizeVariant: 'lg', label: 'Large' } };
+
+export const Password: Story = { args: { label: 'Password', type: 'password', suffixIcon: 'eye' } };
