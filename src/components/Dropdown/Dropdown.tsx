@@ -3,14 +3,15 @@
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import classNames from 'classnames/bind';
 import { InputHTMLAttributes, MouseEvent, forwardRef, useEffect, useRef, useState } from 'react';
+import TextField from '../TextField/TextField';
 import { Input, SuffixIcon } from '../parts';
 import styles from './Dropdown.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'onClick'> {
+interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onClick'> {
   options: string[];
-  size?: 'xs' | 'sm' | 'md' | 'lg';
+  sizeVariant?: 'xs' | 'sm' | 'md' | 'lg';
   onClick?: (option: string) => void;
   onDropdownClick?: (e: MouseEvent<HTMLInputElement>) => void;
 }
@@ -20,7 +21,7 @@ interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'siz
  *
  * @param {object} props - 컴포넌트의 속성
  * @param {string} [props.type='text'] - 입력 필드의 타입, 기본값은 'text'
- * @param {string} [props.size='sm'] - 드롭다운의 사이즈:
+ * @param {string} [props.sizeVariant='sm'] - 드롭다운의 사이즈:
  * 'xs' = sort Dropdown에서 사용,
  * 'sm' = 일반적인 상품 옵션 선택,
  * 'md', 'lg' 중 하나
@@ -32,12 +33,13 @@ interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'siz
  */
 
 export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
-  { type = 'text', size = 'sm', options, onDropdownClick, onClick, ...rest },
+  { type = 'text', sizeVariant = 'sm', options, onDropdownClick, onClick, ...rest },
   ref,
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownValue, setDropdownValue] = useState<string>('');
   const DropdownRef = useRef<HTMLDivElement>(null);
+  const TextareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (!rest.placeholder) {
@@ -45,7 +47,12 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
     }
   }, [rest.placeholder, options]);
 
-  useOutsideClick(DropdownRef, () => {
+  useOutsideClick(DropdownRef || TextareaRef, () => {
+    if (TextareaRef.current) {
+      setDropdownValue(TextareaRef.current.value);
+      options.push(TextareaRef.current.value);
+    }
+
     setIsDropdownOpen(false);
   });
 
@@ -59,20 +66,19 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   const handleOptionClick = (option: string) => {
     setDropdownValue(option);
     setIsDropdownOpen(false);
-
     if (onClick) {
       onClick(option);
     }
   };
 
   return (
-    <div className={cn('dropdown', size)} ref={DropdownRef}>
+    <div className={cn('dropdown', sizeVariant)} ref={DropdownRef}>
       <div className={cn('input-wrapper')}>
         <Input
           ref={ref}
           isSelect
           type={type}
-          size={size}
+          sizeVariant={sizeVariant}
           value={dropdownValue}
           placeholder={rest.placeholder || options[0]}
           readOnly
@@ -81,13 +87,28 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
         />
         <SuffixIcon icon='arrow' isOpen={isDropdownOpen} />
       </div>
+      {dropdownValue === '직접 입력' && (
+        <TextField
+          ref={TextareaRef}
+          sizeVariant='option'
+          rows={3}
+          minLength={2}
+          maxLength={30}
+          placeholder='내용을 입력해 주세요'
+        />
+      )}
       {isDropdownOpen && (
-        <ul className={cn('option-box', { 'open-xs': isDropdownOpen, 'open-other': isDropdownOpen && size !== 'xs' })}>
+        <ul
+          className={cn('option-box', {
+            'open-xs': isDropdownOpen,
+            'open-other': isDropdownOpen && sizeVariant !== 'xs',
+          })}
+        >
           {rest.placeholder && (
             <li>
               <button
                 type='button'
-                className={cn('option', size, { checked: dropdownValue === rest.placeholder })}
+                className={cn('option', sizeVariant, { checked: dropdownValue === rest.placeholder })}
                 onClick={() => handleOptionClick('')}
               >
                 {rest.placeholder}
@@ -98,7 +119,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
             <li key={option}>
               <button
                 type='button'
-                className={cn('option', size, { checked: dropdownValue === option })}
+                className={cn('option', sizeVariant, { checked: dropdownValue === option })}
                 onClick={() => handleOptionClick(option)}
               >
                 {option}

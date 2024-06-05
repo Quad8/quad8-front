@@ -1,9 +1,10 @@
 'use client';
 
+import { TextField } from '@/components';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import { FormEvent } from 'react';
 
-const OPTIONS = ['인기순', '조회순', '최신순', '가격 낮은순', '가격 높은순'];
+const OPTIONS = ['인기순', '조회순', '최신순', '가격 낮은순', '가격 높은순', '직접 입력'];
 
 export default function Page() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -34,14 +35,16 @@ export default function Page() {
       <br />
       <br />
       <br />
-      <Dropdown options={OPTIONS} name='드롭다운' size='xs' onClick={handleClick} />
+      <div style={{ width: '600px' }}>
+        <Dropdown options={OPTIONS} name='드롭다운' sizeVariant='sm' onClick={handleClick} />
+      </div>
       <br />
       <br />
       <br />
       <br />
       <br />
       <br />
-      {/* <TextField label='텍스트필드' id='텍스트' name='텍스트' placeholder='최소 20자 이상 입력해 주세요' /> */}
+      <TextField label='텍스트필드' id='텍스트' name='텍스트' placeholder='최소 20자 이상 입력해 주세요' />
       <br />
       <br />
       <br />
