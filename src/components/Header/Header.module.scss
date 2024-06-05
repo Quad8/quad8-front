@@ -9,7 +9,7 @@
   @include flex-wrapper;
   @include poppins-18-600;
 
-  position: fixed;
+  position: sticky;
   z-index: $zindex-fixed;
   top: 0;
   width: fit-content;
@@ -33,7 +33,7 @@
 }
 
 .black {
-  border-bottom: 1px solid $gray-10;
+  border-bottom: 0.1rem solid $gray-10;
   background-color: $black;
 
   a:hover,
