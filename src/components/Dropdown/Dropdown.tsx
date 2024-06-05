@@ -77,11 +77,11 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
         <Input
           ref={ref}
           isSelect
+          readOnly
           type={type}
           sizeVariant={sizeVariant}
           value={dropdownValue}
           placeholder={rest.placeholder || options[0]}
-          readOnly
           onClick={handleDropdownClick}
           {...rest}
         />

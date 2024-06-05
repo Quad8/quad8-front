@@ -23,6 +23,7 @@
 }
 
 @mixin xs {
+  height: 3.8rem;
   padding: 0.8rem 1.6rem;
   @include pretendard-14-400;
 }
@@ -112,7 +113,6 @@
     border: 0.1rem solid $gray-20;
 
     .option {
-      height: 3.8rem;
       @include xs;
     }
 
