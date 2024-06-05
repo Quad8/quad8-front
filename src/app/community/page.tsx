@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { Modal } from '@/components';
 import Button from '@/components/Button/Button';
+import Plus from '@/public/svgs/plus.svg';
 import PostCard from './_components/PostCard';
 import styles from './page.module.scss';
 import { COMMUNITY_DATA } from '../mj/CommunityData';
@@ -28,7 +29,9 @@ export default function Page() {
       <div className={cn('filter-write-button-wrapper')}>
         <div>최신글</div>
         <Button onClick={handleWritePostButton} width={120} fontSize={14} paddingVertical={8} radius={4}>
-          글 작성하기
+          <div className={cn('write-button-content')}>
+            <Plus /> 글 작성하기
+          </div>
         </Button>
       </div>
       <div className={cn('post-wrapper')}>
