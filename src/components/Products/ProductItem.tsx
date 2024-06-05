@@ -28,7 +28,7 @@ export default function ProductItem({ id, size, title, reviewCount, price, image
             <p className={cn('product-price')}>{price.toLocaleString()}원</p>
             <div className={cn('product-review-wishlist')}>
               <p className={cn('product-reviews')}>리뷰 {reviewCount > 99 ? '99+' : reviewCount}</p>
-              <button type="button" className={cn('product-wishlist')}>
+              <button type='button' className={cn('product-wishlist')}>
                 찜버튼 영역
               </button>
             </div>
