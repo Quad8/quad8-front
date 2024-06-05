@@ -5,7 +5,7 @@ import styles from './Input.module.scss';
 const cn = classNames.bind(styles);
 
 interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   isError?: boolean;
   isSelect?: boolean;
 }
