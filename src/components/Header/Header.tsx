@@ -14,13 +14,13 @@ const cn = classNames.bind(styles);
 const URL_LIST = {
   MAIN: '/',
   CUSTOM_KEYBOARD: '/custom-keyboard',
-  COMMUNITY: '/',
+  COMMUNITY: '/community',
 };
 
 export default function Header() {
   const accessToken = cookies().get('accessToken')?.value ?? null;
   const pathname = headers().get('pathname') as string;
-  const BLACK = pathname === '/';
+  const BLACK = pathname === '/' || pathname === 'sign-up';
   const cartCount = 0; /* api로 가져오기 */
 
   return (
