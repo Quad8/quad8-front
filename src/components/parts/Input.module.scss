@@ -66,6 +66,7 @@
   border-radius: 9999rem;
   vertical-align: middle;
   appearance: none;
+  @include pretendard-18-400;
 
   &:hover {
     border: 0.4rem solid $primary-60;

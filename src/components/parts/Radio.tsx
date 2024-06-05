@@ -2,7 +2,7 @@ import { InputHTMLAttributes, forwardRef } from 'react';
 import Input from './Input';
 import Label from './Label';
 
-interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   checked?: boolean;
   isError?: boolean;
 }
