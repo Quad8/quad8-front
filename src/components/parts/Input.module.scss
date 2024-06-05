@@ -4,8 +4,8 @@
 }
 
 @mixin xs {
-  height: 4rem;
-  padding: 0.8rem 3.2rem 0.8rem 1.6rem;
+  height: 3.8rem;
+  padding: 0.8rem 3.2rem 1.2rem 1.6rem;
   @include pretendard-14-400;
 }
 
@@ -88,7 +88,7 @@
   cursor: pointer;
 
   &::placeholder {
-    color: $black;
+    color: $gray-50;
   }
 
   &:focus {

@@ -1,6 +1,6 @@
 'use client';
 
-import { TextField } from '@/components';
+import { InputField, TextField } from '@/components';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import { FormEvent } from 'react';
 
@@ -21,14 +21,14 @@ export default function Page() {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* <InputField
+      <InputField
         label='이메일'
         id='이메일'
         name='인풋'
         placeholder='이메일을 입력해 주세요'
         hasSuffixIcon='eye'
-        size='md'
-      /> */}
+        sizeVariant='md'
+      />
       <br />
       <br />
       <br />
@@ -36,7 +36,7 @@ export default function Page() {
       <br />
       <br />
       <div style={{ width: '600px' }}>
-        <Dropdown options={OPTIONS} name='드롭다운' sizeVariant='sm' onClick={handleClick} />
+        <Dropdown options={OPTIONS} name='드롭다운' sizeVariant='xs' onClick={handleClick} />
       </div>
       <br />
       <br />

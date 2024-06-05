@@ -6,7 +6,7 @@
 
 @mixin option {
   position: absolute;
-  z-index: $zindex-dropdown - 1;
+  z-index: -1;
   top: -2rem;
   height: 10.4rem;
   padding: 2.8rem 1.6rem 0.8rem;

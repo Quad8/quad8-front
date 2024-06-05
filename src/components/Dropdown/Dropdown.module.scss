@@ -47,16 +47,15 @@
 
 .dropdown {
   position: relative;
-  z-index: $zindex-dropdown;
+  z-index: 10;
 
   .input-wrapper {
     position: relative;
-    z-index: inherit;
   }
 
   .option-box {
     position: absolute;
-    z-index: inherit;
+    z-index: $zindex-dropdown;
     top: 0;
     width: 100%;
     max-height: 0;
@@ -80,6 +79,7 @@
     }
 
     .option {
+      z-index: $zindex-dropdown + 1;
       width: 100%;
 
       &:hover {
