@@ -1,7 +1,6 @@
 'use client';
 
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
-import { WriteEditModalType, WRITE_EIDT_MODAL_TYPE } from '@/constants/writeEditModalType';
 import { useState } from 'react';
 import { BUTTON_COLOR } from '@/constants/buttonTypes';
 import classNames from 'classnames/bind';
@@ -12,26 +11,14 @@ import styles from './page.module.scss';
 const cn = classNames.bind(styles);
 
 export default function Page() {
-  const [selectedModal, setSelectedModal] = useState<WriteEditModalType | null>(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleCloseModal = () => {
     setIsOpenModal(false);
   };
 
-  const handleWritePostModal = () => {
-    setSelectedModal(WRITE_EIDT_MODAL_TYPE.writePost);
+  const handleOpenModal = () => {
     setIsOpenModal(true);
-  };
-
-  const handleWriteCustomReivewModal = () => {
-    setSelectedModal(WRITE_EIDT_MODAL_TYPE.writeCustomReview);
-    setIsOpenModal(true);
-  };
-
-  const handleEditMyPostModal = () => {
-    setSelectedModal(WRITE_EIDT_MODAL_TYPE.editMyPost);
-    // setIsOpenModal(true);
   };
 
   const handleButtonClick = () => {
@@ -41,14 +28,8 @@ export default function Page() {
   return (
     <div className={cn('container')}>
       <div className={cn('buttons')}>
-        <button type='button' onClick={handleWritePostModal}>
-          1. 커뮤니티 페이지에서 글 작성
-        </button>
-        <button type='button' onClick={handleWriteCustomReivewModal}>
-          2. 커스텀 키보드 상품 리뷰 작성
-        </button>
-        <button type='button' onClick={handleEditMyPostModal}>
-          3. 내 게시글 수정
+        <button type='button' onClick={handleOpenModal}>
+          커스텀 리뷰 모달창 열기
         </button>
       </div>
       <Button
@@ -61,11 +42,9 @@ export default function Page() {
       >
         button
       </Button>
-      {selectedModal && (
-        <Modal isOpen={isOpenModal} onClose={handleCloseModal}>
-          <WriteEditModal type={selectedModal} />
-        </Modal>
-      )}
+      <Modal isOpen={isOpenModal} onClose={handleCloseModal}>
+        <WriteEditModal isCustomReview />
+      </Modal>
     </div>
   );
 }

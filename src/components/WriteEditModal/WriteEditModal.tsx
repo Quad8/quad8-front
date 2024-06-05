@@ -1,5 +1,4 @@
 import KEYBOARD_DATA from '@/app/mj/customData';
-import { WRITE_EIDT_MODAL_TYPE, WriteEditModalType } from '@/constants/writeEditModalType';
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 import ImageInput from './ImageInput';
@@ -10,13 +9,13 @@ import InputField from '../InputField/InputField';
 import TextField from '../TextField/TextField';
 
 interface WriteEditModalProps {
-  type: WriteEditModalType;
+  isCustomReview?: boolean;
 }
 
 const cn = classNames.bind(styles);
 const TITLE_MAX_LENGTH = 20;
 
-export default function WriteEditModal({ type }: WriteEditModalProps) {
+export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) {
   const titleInputRef = useRef<HTMLInputElement>(null);
   const titileInputPlaceHolder = '미 입력 시 키득 커스텀 키보드로 등록됩니다.';
   const [title, setTitle] = useState('');
@@ -29,7 +28,6 @@ export default function WriteEditModal({ type }: WriteEditModalProps) {
   const handleTitleInputChange = (e: Event) => {
     const target = e.target as HTMLInputElement;
     const newTitle = target.value.slice(0, TITLE_MAX_LENGTH);
-    target.value = newTitle;
     setTitleLength(newTitle.length);
     setTitle(newTitle);
   };
@@ -62,8 +60,6 @@ export default function WriteEditModal({ type }: WriteEditModalProps) {
     }
   };
 
-  const isCustomReview = !!(type !== WRITE_EIDT_MODAL_TYPE.writeProductReview);
-
   return (
     <div className={cn('container')}>
       <KeyboardInfoBox keyboardInfo={KEYBOARD_DATA} isCustomReview={isCustomReview} />
@@ -75,6 +71,7 @@ export default function WriteEditModal({ type }: WriteEditModalProps) {
             className={cn('title-input')}
             placeholder={titileInputPlaceHolder}
             ref={titleInputRef}
+            maxLength={TITLE_MAX_LENGTH}
           />
           <div className={cn('character-limit')}>
             {titleLength} / {TITLE_MAX_LENGTH}
