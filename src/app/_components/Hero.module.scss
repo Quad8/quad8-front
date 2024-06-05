@@ -1,5 +1,5 @@
 .hero-section {
-  background-color: #04002a;
+  background-color: $black;
 }
 
 .inner {
@@ -18,16 +18,16 @@
   top: 18rem;
   flex-direction: column;
   width: 100%;
-  color: white;
+  color: $white;
   font-size: 8rem;
   font-weight: 700;
   text-align: center;
-  gap: 35px;
+  gap: 3.5rem;
 
   & h2 {
-    padding-bottom: 50px;
-    color: #e4eeff;
-    font-size: 40px;
+    padding-bottom: 5rem;
+    color: $primary-20;
+    font-size: 4rem;
     font-weight: 700;
   }
 }
@@ -80,6 +80,7 @@
 }
 
 .typing-wrap {
+  // @include flex-center
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,7 +92,7 @@
   animation:
     typing 0.8s steps(10, end),
     blink-caret 0.75s step-start infinite;
-  border-right: 0.15em solid black; /* 커서 효과 */
+  border-right: 0.15em solid $black;
   background: linear-gradient(to right top, rgb(152 138 255), #ff70db);
   background-clip: text;
   color: transparent;
@@ -121,7 +122,7 @@
   }
 
   50% {
-    border-color: white;
+    border-color: $white;
   }
 }
 
