@@ -1,3 +1,27 @@
+@keyframes slide-fade-in {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes expand {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  100% {
+    max-height: 40rem;
+    opacity: 1;
+  }
+}
+
 @mixin xs {
   padding: 0.8rem 1.6rem;
   @include pretendard-14-400;
@@ -30,9 +54,25 @@
     z-index: $zindex-dropdown;
     top: 0;
     width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      max-height 0.4s ease,
+      opacity 0.4s ease;
     border: 0.1rem solid $gray-50;
     border-radius: 0.4rem;
+    opacity: 0;
     background-color: $white;
+
+    &.open-xs {
+      max-height: 40rem;
+      animation: slide-fade-in 0.4s forwards;
+      opacity: 1;
+    }
+
+    &.open-other {
+      animation: expand 0.6s ease forwards;
+    }
 
     .option {
       width: 100%;
@@ -62,8 +102,8 @@
 
   .option-box {
     top: auto;
+    right: 0.6rem;
     width: 10rem;
-    transform: translateX(15%);
     border: 0.1rem solid $gray-20;
 
     .option {

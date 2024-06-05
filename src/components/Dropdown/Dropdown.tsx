@@ -8,9 +8,11 @@ import styles from './Dropdown.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'onClick'> {
   options: string[];
   size?: 'xs' | 'sm' | 'md' | 'lg';
+  onClick?: (option: string) => void;
+  onDropdownClick?: (e: MouseEvent<HTMLInputElement>) => void;
 }
 
 /**
@@ -30,7 +32,7 @@ interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'siz
  */
 
 export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
-  { type = 'text', size = 'sm', options, ...rest },
+  { type = 'text', size = 'sm', options, onDropdownClick, onClick, ...rest },
   ref,
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -49,14 +51,18 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
 
   const handleDropdownClick = (e: MouseEvent<HTMLInputElement>) => {
     setIsDropdownOpen((prevIsOpen) => !prevIsOpen);
-    if (rest.onClick) {
-      rest.onClick(e);
+    if (onDropdownClick) {
+      onDropdownClick(e);
     }
   };
 
   const handleOptionClick = (option: string) => {
     setDropdownValue(option);
     setIsDropdownOpen(false);
+
+    if (onClick) {
+      onClick(option);
+    }
   };
 
   return (
@@ -76,7 +82,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
         <SuffixIcon icon='arrow' isOpen={isDropdownOpen} />
       </div>
       {isDropdownOpen && (
-        <ul className={cn('option-box')}>
+        <ul className={cn('option-box', { 'open-xs': isDropdownOpen, 'open-other': isDropdownOpen && size !== 'xs' })}>
           {rest.placeholder && (
             <li>
               <button

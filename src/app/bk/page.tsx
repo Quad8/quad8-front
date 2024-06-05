@@ -14,6 +14,10 @@ export default function Page() {
     // console.log(payload);
   };
 
+  const handleClick = () => {
+    // console.log('onClick', true);
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       {/* <InputField
@@ -30,7 +34,7 @@ export default function Page() {
       <br />
       <br />
       <br />
-      <Dropdown options={OPTIONS} name='드롭다운' size='xs' />
+      <Dropdown options={OPTIONS} name='드롭다운' size='xs' onClick={handleClick} />
       <br />
       <br />
       <br />
