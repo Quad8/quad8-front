@@ -1,0 +1,170 @@
+.hero-section {
+  background-color: #04002a;
+}
+
+.inner {
+  max-width: 168rem;
+  margin: 0 auto;
+}
+
+.hero-box {
+  position: relative;
+  height: 100rem;
+}
+
+.title-container {
+  display: flex;
+  position: absolute;
+  top: 18rem;
+  flex-direction: column;
+  width: 100%;
+  color: white;
+  font-size: 8rem;
+  font-weight: 700;
+  text-align: center;
+  gap: 35px;
+
+  & h2 {
+    padding-bottom: 50px;
+    color: #e4eeff;
+    font-size: 40px;
+    font-weight: 700;
+  }
+}
+
+.hero-item-container {
+  position: absolute;
+  width: 100%;
+  height: 100rem;
+
+  .hero-item {
+    position: absolute;
+    animation: bounce-in-fwd 1.1s both;
+
+    &:nth-child(1) {
+      bottom: 29.3rem;
+      left: 9.2rem;
+    }
+
+    &:nth-child(2) {
+      right: 10rem;
+      bottom: 22rem;
+    }
+
+    &:nth-child(3) {
+      top: 10rem;
+      right: 39rem;
+    }
+
+    &:nth-child(4) {
+      bottom: 22.2rem;
+      left: 52.2rem;
+    }
+
+    &:nth-child(5) {
+      top: 20rem;
+      left: 28rem;
+    }
+
+    &:nth-child(6) {
+      top: 30rem;
+      right: 10rem;
+    }
+  }
+}
+
+.animation-line {
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+
+.typing-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typing {
+  display: inline-block;
+  overflow: hidden;
+  animation:
+    typing 0.8s steps(10, end),
+    blink-caret 0.75s step-start infinite;
+  border-right: 0.15em solid black; /* 커서 효과 */
+  background: linear-gradient(to right top, rgb(152 138 255), #ff70db);
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.wrap {
+  position: relative;
+  opacity: 0;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  0%,
+  100% {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: white;
+  }
+}
+
+@keyframes bounce-in-fwd {
+  0% {
+    transform: scale(0);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  38% {
+    transform: scale(1);
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+
+  55% {
+    transform: scale(0.7);
+    animation-timing-function: ease-in;
+  }
+
+  72% {
+    transform: scale(1);
+    animation-timing-function: ease-out;
+  }
+
+  81% {
+    transform: scale(0.84);
+    animation-timing-function: ease-in;
+  }
+
+  89% {
+    transform: scale(1);
+    animation-timing-function: ease-out;
+  }
+
+  95% {
+    transform: scale(0.95);
+    animation-timing-function: ease-in;
+  }
+
+  100% {
+    transform: scale(1);
+    animation-timing-function: ease-out;
+  }
+}
