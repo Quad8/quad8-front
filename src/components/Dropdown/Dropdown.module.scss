@@ -1,3 +1,8 @@
+@mixin xs {
+  padding: 0.8rem 1.6rem;
+  @include pretendard-14-400;
+}
+
 @mixin sm {
   padding: 0.8rem 1.6rem;
   @include pretendard-14-400;
@@ -20,18 +25,6 @@
     position: relative;
   }
 
-  .sm {
-    @include sm;
-  }
-
-  .md {
-    @include md;
-  }
-
-  .lg {
-    @include lg;
-  }
-
   .option-box {
     position: absolute;
     z-index: $zindex-dropdown;
@@ -47,6 +40,38 @@
       &:hover {
         background: $primary-20;
       }
+    }
+
+    .sm {
+      @include sm;
+    }
+
+    .md {
+      @include md;
+    }
+
+    .lg {
+      @include lg;
+    }
+  }
+}
+
+.xs {
+  width: 12rem;
+  height: 3.8rem;
+
+  .option-box {
+    top: auto;
+    width: 10rem;
+    transform: translateX(15%);
+    border: 0.1rem solid $gray-20;
+
+    .option {
+      @include xs;
+    }
+
+    .checked {
+      color: $primary;
     }
   }
 }

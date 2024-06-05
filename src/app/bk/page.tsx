@@ -1,12 +1,9 @@
 'use client';
 
-import { RadioField } from '@/components';
 import Dropdown from '@/components/Dropdown/Dropdown';
-import InputField from '@/components/InputField/InputField';
-import TextField from '@/components/TextField/TextField';
 import { FormEvent } from 'react';
 
-const OPTIONS = ['1', '2', '3', '4', '5', '6'];
+const OPTIONS = ['인기순', '조회순', '최신순', '가격 낮은순', '가격 높은순'];
 
 export default function Page() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -19,35 +16,35 @@ export default function Page() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputField
+      {/* <InputField
         label='이메일'
         id='이메일'
         name='인풋'
         placeholder='이메일을 입력해 주세요'
         hasSuffixIcon='eye'
         size='md'
-      />
+      /> */}
       <br />
       <br />
       <br />
       <br />
       <br />
       <br />
-      <Dropdown options={OPTIONS} name='드롭다운' placeholder='옵션을 선택해 주세요.' />
+      <Dropdown options={OPTIONS} name='드롭다운' size='xs' />
       <br />
       <br />
       <br />
       <br />
       <br />
       <br />
-      <TextField label='텍스트필드' id='텍스트' name='텍스트' placeholder='최소 20자 이상 입력해 주세요' />
+      {/* <TextField label='텍스트필드' id='텍스트' name='텍스트' placeholder='최소 20자 이상 입력해 주세요' /> */}
       <br />
       <br />
       <br />
       <br />
       <br />
       <br />
-      <RadioField options={OPTIONS} label='숫자' value='6' />
+      {/* <RadioField options={OPTIONS} label='숫자' value='6' /> */}
       <br />
       <br />
       <br />

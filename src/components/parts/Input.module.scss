@@ -3,8 +3,13 @@
   @include poppins-18-400;
 }
 
+@mixin xs {
+  padding: 0.8rem 3.2rem 0.8rem 1.6rem;
+  @include pretendard-14-400;
+}
+
 @mixin sm {
-  padding: 0.8rem 4rem 0.8rem 1.6rem;
+  padding: 0.8rem 3.2rem 0.8rem 1.6rem;
   @include pretendard-14-400;
 }
 
@@ -20,7 +25,6 @@
 
 .default {
   width: 100%;
-  margin-right: 2.5rem;
   border: 0.1rem solid $gray-50;
   border-radius: 0.8rem;
   outline: none;
@@ -79,6 +83,17 @@
 
 .header {
   @include header;
+}
+
+.xs {
+  border: none;
+  outline: none;
+  text-align: center;
+  @include xs;
+
+  &:focus {
+    border: none;
+  }
 }
 
 .sm {
