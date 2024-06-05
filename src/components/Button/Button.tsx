@@ -1,11 +1,19 @@
 import { ReactNode } from 'react';
 import classNames from 'classnames/bind';
-import { BUTTON_COLOR } from '@/constants/buttonColors';
 import styles from './Button.module.scss';
 
-type ButtonColorType = (typeof BUTTON_COLOR)[keyof typeof BUTTON_COLOR];
-
 const cn = classNames.bind(styles);
+
+const BUTTON_COLOR = {
+  BACKGROUND_GRAY_40: 'background-gray-40',
+  BACKGROUND_PRIMARY: 'background-primary',
+  BACKGROUND_PRIMARY_60: 'background-primary-60',
+  OUTLINE_GRAY_40: 'outline-gray-40',
+  OUTLINE_PRIMARY: 'outline-primary',
+  OUTLINE_PRIMARY_60: 'outline-primary-60',
+} as const;
+
+type ButtonColorType = (typeof BUTTON_COLOR)[keyof typeof BUTTON_COLOR];
 
 interface ButtonProps {
   backgroundColor?: ButtonColorType;
@@ -40,6 +48,7 @@ export default function Button({
   paddingVertical = 20,
   onClick,
   children,
+  ...rest
 }: ButtonProps) {
   const widthClassName = width === 'parent-full' ? 'parent-full' : `width-${width}`;
   const className = cn(
@@ -52,7 +61,7 @@ export default function Button({
     `padding-${paddingVertical}`,
   );
   return (
-    <button className={className} type='button' onClick={onClick}>
+    <button className={className} type='button' onClick={onClick} {...rest}>
       {children}
     </button>
   );
