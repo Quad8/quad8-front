@@ -33,7 +33,7 @@ interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onC
  */
 
 export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
-  { type = 'text', sizeVariant = 'sm', options, onDropdownClick, onClick, ...rest },
+  { type = 'button', sizeVariant = 'sm', options, onDropdownClick, onClick, ...rest },
   ref,
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

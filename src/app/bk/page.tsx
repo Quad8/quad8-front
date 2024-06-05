@@ -22,9 +22,10 @@ export default function Page() {
   return (
     <form onSubmit={handleSubmit}>
       <InputField
-        label='이메일'
+        label='비밀번호'
         id='이메일'
         name='인풋'
+        type='password'
         placeholder='이메일을 입력해 주세요'
         suffixIcon='eye'
         sizeVariant='md'
