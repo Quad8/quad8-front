@@ -1,0 +1,23 @@
+.default {
+  display: inline-flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+
+  .input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+}
+
+.sm {
+  gap: 0.4rem;
+}
+
+.md {
+  gap: 0.4rem;
+}
+
+.lg {
+  gap: 1.2rem;
+}
