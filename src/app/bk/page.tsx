@@ -42,7 +42,7 @@ export default function Page() {
       <br />
       <br />
       <div style={{ width: '600px' }}>
-        <Dropdown options={OPTIONS} name='드롭다운' sizeVariant='xs' onClick={handleClick} className={cn('dropdown')} />
+        <Dropdown options={OPTIONS} name='드롭다운' sizeVariant='md' onClick={handleClick} className={cn('dropdown')} />
       </div>
       <br />
       <br />
