@@ -38,6 +38,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownValue, setDropdownValue] = useState<string>('');
+  const [isTextFieldVisible, setIsTextFieldVisible] = useState(false);
   const DropdownRef = useRef<HTMLDivElement>(null);
   const TextareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -47,10 +48,11 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
     }
   }, [options, rest.placeholder]);
 
-  useOutsideClick(DropdownRef || TextareaRef, () => {
+  useOutsideClick(DropdownRef, () => {
     if (TextareaRef.current) {
       setDropdownValue(TextareaRef.current.value);
       options.push(TextareaRef.current.value);
+      setIsTextFieldVisible(false);
     }
 
     setIsDropdownOpen(false);
@@ -61,8 +63,10 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   };
 
   const handleOptionClick = (e: MouseEvent<HTMLInputElement>) => {
-    setDropdownValue(e.currentTarget.value);
+    const inputValue = e.currentTarget.value;
+    setDropdownValue(inputValue);
     setIsDropdownOpen(false);
+    setIsTextFieldVisible(inputValue === '직접 입력');
 
     if (onClick) {
       onClick();
@@ -85,7 +89,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
         />
         <SuffixIcon icon='arrow' isOpen={isDropdownOpen} />
       </div>
-      {dropdownValue === '직접 입력' && (
+      {isTextFieldVisible && (
         <TextField
           ref={TextareaRef}
           sizeVariant='option'
