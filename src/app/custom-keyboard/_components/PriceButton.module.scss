@@ -1,16 +1,19 @@
-.wrapper {
+@mixin flex-column($gap) {
   display: flex;
   flex-direction: column;
+  gap: $gap;
+}
+
+.wrapper {
+  @include flex-column(2rem);
+
   width: 32rem;
   padding-top: 2rem;
   border-top: 0.1rem solid $gray-10;
-  gap: 2rem;
 }
 
 .price-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+  @include flex-column(0.6rem);
 }
 
 .price-title {
@@ -43,6 +46,7 @@
 .button-wrapper {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 1.2rem;
   width: 100%;
 }
@@ -53,7 +57,7 @@
   justify-content: center;
   width: 15.4rem;
   height: 6.6rem;
-  border: 0.1rem solid black;
+  border: 0.1rem solid $black;
   border-radius: 0.4rem;
   font-size: 1.8rem;
   line-height: 2.6rem;
