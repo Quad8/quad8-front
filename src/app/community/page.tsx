@@ -8,11 +8,13 @@ import Plus from '@/public/svgs/plus.svg';
 import PostCard from './_components/PostCard';
 import styles from './page.module.scss';
 import { COMMUNITY_DATA } from '../mj/CommunityData';
+import OrderListModal from './_components/OrderListModal';
 
 const cn = classNames.bind(styles);
 
 export default function Page() {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
+  const [isOrderListModalOpen, setIsOrderListModalOpen] = useState(false);
   const handleClosePostModal = () => {
     setIsPostModalOpen(false);
   };
@@ -22,6 +24,10 @@ export default function Page() {
 
   const handleWritePostButton = () => {
     /** 글 작성하기 버튼 */
+    setIsOrderListModalOpen(true);
+  };
+  const handleCloseWritePostModal = () => {
+    setIsOrderListModalOpen(false);
   };
   return (
     <div className={cn('container')}>
@@ -46,6 +52,9 @@ export default function Page() {
 
       <Modal isOpen={isPostModalOpen} onClose={handleClosePostModal}>
         modal
+      </Modal>
+      <Modal isOpen={isOrderListModalOpen} onClose={handleCloseWritePostModal}>
+        <OrderListModal />
       </Modal>
     </div>
   );

@@ -1,0 +1,27 @@
+.container {
+  padding: 4rem;
+  border-radius: 1.6rem;
+  background-color: $white;
+}
+
+.no-orderlist-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 7.4rem;
+  background-color: $gray-20;
+  gap: 2.4rem;
+
+  & > h1 {
+    @include pretendard-20-700;
+
+    color: $gray-40;
+  }
+}
+
+.button-wrapper {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}

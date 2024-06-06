@@ -14,7 +14,7 @@ interface ButtonProps {
   width?: 'parent-full' | 72 | 90 | 120 | 154 | 320;
   fontSize?: 14 | 18 | 20 | 24;
   paddingVertical?: 8 | 20;
-  onClick: () => void;
+  onClick?: () => void;
   children: ReactNode;
 }
 
