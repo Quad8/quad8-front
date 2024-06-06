@@ -1,4 +1,9 @@
+export { default as ArrowDownIcon } from './svgs/arrowDown.svg';
 export { default as EyeOffIcon } from './svgs/eyeOff.svg';
 export { default as EyeOnIcon } from './svgs/eyeOn.svg';
+export { default as HeartIcon } from './svgs/heart.svg';
+export { default as KakaotalkIcon } from './svgs/kakaotalk.svg';
+export { default as LinkCopyIcon } from './svgs/linkCopy.svg';
 export { default as SearchIcon } from './svgs/search.svg';
-export { default as ArrowDownIcon } from './svgs/arrowDown.svg';
+export { default as ShareIcon } from './svgs/share.svg';
+export { default as ThumbIcon } from './svgs/thumb.svg';
