@@ -36,7 +36,7 @@ export default function KeyboardViewer() {
           style={{ zIndex: 0 }}
         >
           <Keyboard />
-          <Environment preset='city' blur={1} />
+          <Environment preset='city' />
           <OrbitControls />
         </Canvas>
       </Suspense>
