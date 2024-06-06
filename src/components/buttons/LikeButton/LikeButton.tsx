@@ -1,4 +1,5 @@
 import HeartIcon from '@/public/svgs/heart.svg';
+import ShareIcon from '@/public/svgs/share.svg';
 import ThumbIcon from '@/public/svgs/thumb.svg';
 import classNames from 'classnames/bind';
 import styles from './LikeButton.module.scss';
@@ -6,26 +7,41 @@ import styles from './LikeButton.module.scss';
 const cn = classNames.bind(styles);
 
 interface LikeButtonProps {
-  forDetail?: boolean;
-  forReview?: boolean;
+  variant?: 'detail' | 'review' | 'share';
   isChecked: boolean;
   count?: number;
   onClick: () => void;
 }
 
-export default function LikeButton({ forDetail, forReview, isChecked, count, onClick }: LikeButtonProps) {
+export default function LikeButton({ variant, isChecked, count, onClick }: LikeButtonProps) {
+  const getIcon = () => {
+    switch (variant) {
+      case 'review':
+        return (
+          <>
+            <ThumbIcon className={cn('thumb', { 'white-thumb': isChecked })} />
+            <span className={cn('count')}>{count}</span>
+          </>
+        );
+      case 'share':
+        return <ShareIcon />;
+      default:
+        return <HeartIcon className={cn('heart', { 'white-stroke': variant === 'detail', 'red-heart': isChecked })} />;
+    }
+  };
+
+  const buttonClass = cn({
+    circle: variant === 'detail' || variant === 'share',
+    'like-circle': variant === 'review',
+    'red-circle': (variant === 'review' && isChecked) || (variant === 'detail' && isChecked),
+    'blue-circle': variant === 'share' && isChecked,
+    'hover-red': variant === 'detail' && !isChecked,
+    'hover-blue': variant === 'share' && !isChecked,
+  });
+
   return (
-    <button
-      type='button'
-      className={cn(forDetail && 'circle', forReview && 'like-circle', isChecked && 'red-circle')}
-      onClick={onClick}
-    >
-      {forReview ? (
-        <ThumbIcon className={cn('thumb', isChecked && 'white-thumb')} />
-      ) : (
-        <HeartIcon className={cn('heart', forDetail && 'white-stroke', isChecked && 'red-heart')} />
-      )}
-      {forReview && <span>{count}</span>}
+    <button type='button' className={buttonClass} onClick={onClick}>
+      {getIcon()}
     </button>
   );
 }

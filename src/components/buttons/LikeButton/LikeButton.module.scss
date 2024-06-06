@@ -1,3 +1,9 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .heart {
   width: 2.33rem;
   height: 2.157rem;
@@ -10,31 +16,53 @@
 
   &.white-stroke {
     stroke: $white;
+
+    &:hover {
+      fill: none;
+    }
+  }
+
+  &:hover {
+    fill: $red-80;
   }
 }
 
 .circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
+
   width: 4.33rem;
   height: 4.157rem;
   border-radius: 100%;
   background-color: $gray-10;
 
-  &:hover {
+  &.red-circle {
+    background-color: $red-80;
+  }
+
+  &.blue-circle {
+    background-color: $primary;
+  }
+
+  &.hover-red:hover {
     background-color: $red-40;
   }
 
-  &.red-circle {
-    background-color: $red-80;
+  &.hover-blue:hover {
+    background-color: $primary-60;
+  }
+}
+
+.thumb {
+  fill: $red-80;
+
+  &.white-thumb {
+    fill: $white;
   }
 }
 
 .like-circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
+
   width: 7.7rem;
   height: 4rem;
   border: 1px solid $gray-20;
@@ -49,11 +77,11 @@
   &:hover {
     background-color: $red-40;
 
-    svg {
+    .thumb {
       fill: $white;
     }
 
-    span {
+    .count {
       color: $white;
     }
   }
@@ -61,16 +89,8 @@
   &.red-circle {
     background-color: $red-80;
 
-    span {
+    .count {
       color: $white;
     }
-  }
-}
-
-.thumb {
-  fill: $red-80;
-
-  &.white-thumb {
-    fill: $white;
   }
 }
