@@ -5,6 +5,7 @@ import { useCallback, useContext, useState } from 'react';
 import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import HelpDetailIcon from '@/public/svgs/HelpDetail.svg';
 import Modal from '@/components/Modal/Modal';
+import { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
 import styles from './SwitchOption.module.scss';
 import SwitchHelp from './SwitchHelp';
 
@@ -12,7 +13,7 @@ const cn = classNames.bind(styles);
 
 interface ButtonType {
   name: string;
-  value: 'blue' | 'red' | 'brown' | 'black';
+  value: CustomKeyboardSwitchTypes;
 }
 
 const BUTTONS: ButtonType[] = [
@@ -28,7 +29,7 @@ export default function SwitchOption() {
     keyboardData: { switchType },
     updateData,
   } = useContext(KeyboardDataContext);
-  const handleClickSwitchButton = (value: 'blue' | 'red' | 'brown' | 'black') => {
+  const handleClickSwitchButton = (value: CustomKeyboardSwitchTypes) => {
     updateData('switchType', value);
   };
 

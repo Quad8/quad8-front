@@ -22,7 +22,6 @@
 .button-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
   gap: 1.2rem;
 }
 
@@ -46,14 +45,13 @@
 }
 
 .help {
-  display: flex;
-  flex-direction: column;
+  @include flex-column(0.8rem);
+
   width: 32rem;
   padding: 2rem;
   border-radius: 0.4rem;
   background-color: $gray-5;
   color: $black;
-  gap: 0.8rem;
 }
 
 .help-title {
