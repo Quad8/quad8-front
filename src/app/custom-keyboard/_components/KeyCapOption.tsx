@@ -2,7 +2,7 @@
 
 import classNames from 'classnames/bind';
 import { HexColorPicker } from 'react-colorful';
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { KeyColorContext, KeyboardDataContext } from '@/context/customKeyboardContext';
 import { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 import { Color } from '@react-three/fiber';
@@ -19,6 +19,7 @@ export default function KeyCapOption() {
     deleteIndividualColor,
   } = useContext(KeyboardDataContext);
   const { focusKey, updateFocusKey } = useContext(KeyColorContext);
+  const [pointColor, setPointColor] = useState(baseKeyColor);
   const [colorList, setColorList] = useState<[CustomKeyboardKeyTypes, Color][]>(
     Object.keys(individualColor).map((key) => [
       key as CustomKeyboardKeyTypes,
@@ -33,11 +34,13 @@ export default function KeyCapOption() {
   const handleClickPointKeyCapButton = (value: boolean) => {
     updateData('hasPointKeyCap', value);
     updateFocusKey(null);
-    updateData('pointKeyColor', baseKeyColor);
     if (value) {
-      updateData('pointKeyColor', baseKeyColor);
+      if (pointKeyType === '세트 구성') {
+        setPointColor(pointKeyColor);
+      } else {
+        setPointColor(baseKeyColor);
+      }
     }
-    setColorList([]);
   };
 
   const handleChangePointColor = (value: Color) => {
@@ -61,16 +64,14 @@ export default function KeyCapOption() {
   };
 
   const handleClickSetPoint = () => {
-    updateData('individualColor', {});
     updateData('pointKeyType', '세트 구성');
-    updateData('pointKeyColor', baseKeyColor);
     updateFocusKey(null);
-    setColorList([]);
+    setPointColor(pointKeyColor);
   };
 
   const handleClickSelfPoint = () => {
     updateData('pointKeyType', '내 맘대로 바꾸기');
-    updateData('pointKeyColor', baseKeyColor);
+    setPointColor(baseKeyColor);
   };
 
   const handleClickDeleteTag = useCallback(
@@ -83,6 +84,12 @@ export default function KeyCapOption() {
     },
     [deleteIndividualColor, focusKey, updateFocusKey],
   );
+
+  useEffect(() => {
+    if (focusKey) {
+      setPointColor(individualColor[focusKey] as Color);
+    }
+  }, [focusKey, individualColor]);
 
   return (
     <div className={cn('wrapper')}>
@@ -124,12 +131,14 @@ export default function KeyCapOption() {
               내 맘대로 바꾸기
             </button>
           </div>
-          <HexColorPicker color={pointKeyColor as string} onChange={handleChangePointColor} />
-          <div className={cn('tag-wrapper')}>
-            {colorList.map(([key, color]) => (
-              <ColorTag key={key} keyCap={key} color={color} onClose={() => handleClickDeleteTag(key)} />
-            ))}
-          </div>
+          <HexColorPicker color={pointColor as string} onChange={handleChangePointColor} />
+          {hasPointKeyCap && pointKeyType === '내 맘대로 바꾸기' && (
+            <div className={cn('tag-wrapper')}>
+              {colorList.map(([key, color]) => (
+                <ColorTag key={key} keyCap={key} color={color} onClose={() => handleClickDeleteTag(key)} />
+              ))}
+            </div>
+          )}
         </div>
       )}
       {hasPointKeyCap && pointKeyType === '내 맘대로 바꾸기' && !focusKey && <div className={cn('disabled')} />}

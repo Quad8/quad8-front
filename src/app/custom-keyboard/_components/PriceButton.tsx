@@ -114,7 +114,8 @@ export default function PriceButton() {
     const boardPrice = PRICE_LIST[type] + PRICE_LIST[texture];
     const keyCapPrice =
       Number(hasPointKeyCap) *
-      (Object.keys(individualColor).length * 500 + Number(pointKeyType === '세트 구성') * 5000);
+      (Object.keys(individualColor).length * 500 * Number(pointKeyType === '내 맘대로 바꾸기') +
+        Number(pointKeyType === '세트 구성') * 5000);
     updateData('price', boardPrice + keyCapPrice);
   }, [hasPointKeyCap, individualColor, pointKeyType, texture, type, updateData]);
 

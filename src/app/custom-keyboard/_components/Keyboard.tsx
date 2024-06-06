@@ -53,11 +53,11 @@ export default function Keyboard() {
 
   const getKeyColor = (key: CustomKeyboardKeyTypes) => {
     if (hasPointKeyCap) {
-      if (pointKeyType === '세트 구성' && POINT_KEY.includes(key)) {
-        return pointKeyColor;
-      }
       if (pointKeyType === '내 맘대로 바꾸기' && individualColor[key]) {
         return individualColor[key];
+      }
+      if (pointKeyType === '세트 구성' && POINT_KEY.includes(key)) {
+        return pointKeyColor;
       }
     }
     return baseKeyColor;
