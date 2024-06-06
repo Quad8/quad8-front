@@ -39,6 +39,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownValue, setDropdownValue] = useState<string>('');
+  const [isTextFieldVisible, setIsTextFieldVisible] = useState(false);
   const DropdownRef = useRef<HTMLDivElement>(null);
   const TextareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -67,6 +68,8 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   const handleOptionClick = (option: string) => {
     setDropdownValue(option);
     setIsDropdownOpen(false);
+    setIsTextFieldVisible(option === '직접 입력');
+
     if (onClick) {
       onClick(option);
     }
@@ -88,7 +91,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
         />
         <SuffixIcon icon='arrow' isOpen={isDropdownOpen} />
       </div>
-      {dropdownValue === '직접 입력' && (
+      {isTextFieldVisible && (
         <TextField
           ref={TextareaRef}
           sizeVariant='option'
