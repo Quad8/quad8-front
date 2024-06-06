@@ -3,28 +3,44 @@
   @include poppins-18-400;
 }
 
-@mixin sm {
-  padding: 0.8rem 4rem 0.8rem 1.6rem;
+@mixin xs {
+  height: 3.8rem;
+  padding: 0.8rem 3.2rem 1.2rem 1.6rem;
   @include pretendard-14-400;
 }
 
+@mixin sm {
+  height: 4rem;
+  padding: 0.8rem 3.2rem 0.8rem 1.6rem;
+  @include pretendard-16-400;
+}
+
 @mixin md {
-  padding: 1rem 4rem 1rem 1.6rem;
+  height: 4.4rem;
+  padding: 1rem 3.2rem 1rem 1.6rem;
   @include pretendard-18-400;
 }
 
 @mixin lg {
-  padding: 1rem 5rem 1rem 2rem;
+  height: 5.2rem;
+  padding: 1rem 4rem 1rem 2rem;
   @include pretendard-16-400;
 }
 
 .default {
   width: 100%;
-  margin-right: 2.5rem;
-  border: 0.1rem solid $gray-50;
+  border: 0.1rem solid $gray-40;
   border-radius: 0.8rem;
   outline: none;
   color: $black;
+
+  &.red {
+    border: 0.1rem solid $red;
+  }
+
+  &.dropdown-textarea-case {
+    border-radius: 0.4rem 0.4rem 0 0;
+  }
 
   &:focus {
     border: 0.1rem solid $primary;
@@ -35,8 +51,8 @@
   }
 
   &:disabled {
-    background: $gray-50;
-    color: $gray-40;
+    background: $gray-10;
+    color: $gray-50;
   }
 }
 
@@ -50,6 +66,7 @@
   border-radius: 9999rem;
   vertical-align: middle;
   appearance: none;
+  @include pretendard-18-400;
 
   &:hover {
     border: 0.4rem solid $primary-60;
@@ -66,19 +83,35 @@
 
 .select {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  align-content: center;
   width: 100%;
-  border: 0.1rem solid $gray-50;
   border-radius: 0.4rem;
+  background: $white;
   cursor: pointer;
 
   &::placeholder {
-    color: $black;
+    color: $gray-50;
+  }
+
+  &:focus {
+    border: 0.1rem solid $gray-50;
   }
 }
 
 .header {
   @include header;
+}
+
+.xs {
+  border: none;
+  background: none;
+  text-align: center;
+  @include xs;
+
+  &:focus {
+    border: none;
+  }
 }
 
 .sm {
@@ -91,8 +124,4 @@
 
 .lg {
   @include lg;
-}
-
-.red {
-  border: 0.1rem solid $red;
 }

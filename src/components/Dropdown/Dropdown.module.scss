@@ -1,35 +1,57 @@
-@mixin sm {
+@keyframes slide-fade-in {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes expand {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  100% {
+    max-height: 40rem;
+    opacity: 1;
+  }
+}
+
+@mixin xs {
+  height: 3.8rem;
   padding: 0.8rem 1.6rem;
   @include pretendard-14-400;
 }
 
+@mixin sm {
+  height: 4rem;
+  padding: 0.8rem 1.6rem;
+  @include pretendard-16-400;
+}
+
 @mixin md {
+  height: 4.4rem;
   padding: 1rem 1.6rem;
   @include pretendard-18-400;
 }
 
 @mixin lg {
+  height: 5.2rem;
   padding: 1rem 2rem;
   @include pretendard-16-400;
 }
 
 .dropdown {
   position: relative;
+  z-index: 10;
 
   .input-wrapper {
     position: relative;
-  }
-
-  .sm {
-    @include sm;
-  }
-
-  .md {
-    @include md;
-  }
-
-  .lg {
-    @include lg;
   }
 
   .option-box {
@@ -37,16 +59,68 @@
     z-index: $zindex-dropdown;
     top: 0;
     width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      max-height 0.4s ease,
+      opacity 0.4s ease;
     border: 0.1rem solid $gray-50;
     border-radius: 0.4rem;
+    opacity: 0;
     background-color: $white;
 
+    &.open-xs {
+      max-height: 40rem;
+      animation: slide-fade-in 0.4s forwards;
+      opacity: 1;
+    }
+
+    &.open-other {
+      animation: expand 0.6s ease forwards;
+    }
+
     .option {
+      display: flex;
+      z-index: $zindex-dropdown + 1;
+      flex-wrap: wrap;
+      align-content: center;
       width: 100%;
 
       &:hover {
         background: $primary-20;
       }
+    }
+
+    .sm {
+      @include sm;
+    }
+
+    .md {
+      @include md;
+    }
+
+    .lg {
+      @include lg;
+    }
+  }
+}
+
+.xs {
+  width: 12rem;
+  height: 3.8rem;
+
+  .option-box {
+    top: auto;
+    right: 0.6rem;
+    width: 10rem;
+    border: 0.1rem solid $gray-20;
+
+    .option {
+      @include xs;
+    }
+
+    .checked {
+      color: $primary;
     }
   }
 }

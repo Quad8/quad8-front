@@ -1,12 +1,15 @@
 'use client';
 
-import { RadioField } from '@/components';
+import { InputField, RadioField, TextField } from '@/components';
 import Dropdown from '@/components/Dropdown/Dropdown';
-import InputField from '@/components/InputField/InputField';
-import TextField from '@/components/TextField/TextField';
+import classNames from 'classnames/bind';
 import { FormEvent } from 'react';
 
-const OPTIONS = ['1', '2', '3', '4', '5', '6'];
+import styles from './page.module.scss';
+
+const cn = classNames.bind(styles);
+
+const OPTIONS = ['인기순', '조회순', '최신순', '가격 낮은순', '가격 높은순', '직접 입력'];
 
 export default function Page() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -17,15 +20,20 @@ export default function Page() {
     // console.log(payload);
   };
 
+  const handleClick = () => {
+    // console.log('onClick', true);
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <InputField
-        label='이메일'
+        label='비밀번호'
         id='이메일'
         name='인풋'
+        type='password'
         placeholder='이메일을 입력해 주세요'
-        hasSuffixIcon='eye'
-        size='md'
+        suffixIcon='eye'
+        sizeVariant='md'
       />
       <br />
       <br />
@@ -33,7 +41,9 @@ export default function Page() {
       <br />
       <br />
       <br />
-      <Dropdown options={OPTIONS} name='드롭다운' placeholder='옵션을 선택해 주세요.' />
+      <div style={{ width: '600px' }}>
+        <Dropdown options={OPTIONS} name='드롭다운' sizeVariant='xs' onClick={handleClick} className={cn('dropdown')} />
+      </div>
       <br />
       <br />
       <br />
