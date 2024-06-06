@@ -1,14 +1,13 @@
 'use client';
 
 import calculateStartPageNum from '@/libs/calculatePage';
-import CaretLeftIcon from '@/public/svgs/CaretLeft.svg';
-import CaretRightIcon from '@/public/svgs/CaretRight.svg';
+import CaretLeftIcon from '@/public/svgs/caretLeft.svg';
+import CaretRightIcon from '@/public/svgs/caretRight.svg';
 import classNames from 'classnames/bind';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import styles from './Pagination.module.scss';
 
 interface PaginationProps {
-  page: string;
   count: number;
   limit: number;
 }
@@ -17,11 +16,11 @@ const cn = classNames.bind(styles);
 
 const MAX_PAGE_LENGTH = 6;
 
-export default function Pagination({ page, count, limit }: PaginationProps) {
+export default function Pagination({ count, limit }: PaginationProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const currentPage = Math.max(1, parseInt(page || '1', 10));
+  const currentPage = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
   const totalPageCount = Math.ceil(count / limit);
 
   if (!count) {
