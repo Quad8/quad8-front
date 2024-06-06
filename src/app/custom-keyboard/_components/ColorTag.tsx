@@ -2,13 +2,15 @@
 
 import classNames from 'classnames/bind';
 import DeleteTagIcon from '@/public/svgs/deleteTag.svg';
+import { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
+import { Color } from '@react-three/fiber';
 import styles from './ColorTag.module.scss';
 
 const cn = classNames.bind(styles);
 
 interface ColorTagProps {
-  keyCap: string;
-  color: string;
+  keyCap: CustomKeyboardKeyTypes;
+  color: Color;
   onClose: () => void;
 }
 

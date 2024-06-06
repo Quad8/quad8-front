@@ -43,7 +43,7 @@ export default function Keyboard() {
   const handleClickKey = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
     const key = e.object.name as CustomKeyboardKeyTypes;
-    if (!key || key === focusKey) {
+    if (key === focusKey) {
       updateFocusKey(null);
       return;
     }

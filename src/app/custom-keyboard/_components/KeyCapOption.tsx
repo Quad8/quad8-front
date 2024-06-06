@@ -4,6 +4,8 @@ import classNames from 'classnames/bind';
 import { HexColorPicker } from 'react-colorful';
 import { useCallback, useContext, useState } from 'react';
 import { KeyColorContext, KeyboardDataContext } from '@/context/customKeyboardContext';
+import { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
+import { Color } from '@react-three/fiber';
 import styles from './KeyCapOption.module.scss';
 import ColorTag from './ColorTag';
 
@@ -17,9 +19,14 @@ export default function KeyCapOption() {
     deleteIndividualColor,
   } = useContext(KeyboardDataContext);
   const { focusKey, updateFocusKey } = useContext(KeyColorContext);
-  const [colorList, setColorList] = useState(Object.keys(individualColor).map((key) => [key, individualColor[key]]));
+  const [colorList, setColorList] = useState<[CustomKeyboardKeyTypes, Color][]>(
+    Object.keys(individualColor).map((key) => [
+      key as CustomKeyboardKeyTypes,
+      individualColor[key as CustomKeyboardKeyTypes] as Color,
+    ]),
+  );
 
-  const handleChangeBaseColor = (value: string) => {
+  const handleChangeBaseColor = (value: Color) => {
     updateData('baseKeyColor', value);
   };
 
@@ -33,7 +40,7 @@ export default function KeyCapOption() {
     setColorList([]);
   };
 
-  const handleChangePointColor = (value: string) => {
+  const handleChangePointColor = (value: Color) => {
     if (pointKeyType === '세트 구성') {
       updateData('pointKeyColor', value);
     } else if (focusKey) {
@@ -67,7 +74,7 @@ export default function KeyCapOption() {
   };
 
   const handleClickDeleteTag = useCallback(
-    (key: string) => {
+    (key: CustomKeyboardKeyTypes) => {
       setColorList((prev) => prev.filter((element) => element[0] !== key));
       deleteIndividualColor(key);
       if (focusKey === key) {
@@ -81,7 +88,7 @@ export default function KeyCapOption() {
     <div className={cn('wrapper')}>
       <div className={cn('content-wrapper')}>
         <div className={cn('title')}>키캡</div>
-        <HexColorPicker color={baseKeyColor} onChange={handleChangeBaseColor} />
+        <HexColorPicker color={baseKeyColor as string} onChange={handleChangeBaseColor} />
       </div>
       <div className={cn('button-wrapper')}>
         <button
@@ -117,7 +124,7 @@ export default function KeyCapOption() {
               내 맘대로 바꾸기
             </button>
           </div>
-          <HexColorPicker color={pointKeyColor} onChange={handleChangePointColor} />
+          <HexColorPicker color={pointKeyColor as string} onChange={handleChangePointColor} />
           <div className={cn('tag-wrapper')}>
             {colorList.map(([key, color]) => (
               <ColorTag key={key} keyCap={key} color={color} onClose={() => handleClickDeleteTag(key)} />

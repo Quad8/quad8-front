@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
+import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useContext } from 'react';
 import { CustomKeyboardStepStatusTypes, CustomKeyboardStepTypes } from '@/types/CustomKeyboardTypes';
 import styles from './Step.module.scss';
@@ -20,6 +20,7 @@ export default function Step() {
   const {
     keyboardData: { switchType },
   } = useContext(KeyboardDataContext);
+  const { updateFocusKey } = useContext(KeyColorContext);
   const STEP_ICON: StepIconDataType[] = [
     { ID: 'board', STATUS: stepStatus.board, NAME: '배열, 외관' },
     { ID: 'switch', STATUS: stepStatus.switch, NAME: '스위치' },
@@ -49,7 +50,7 @@ export default function Step() {
       [currentStep]: currentStep === 'switch' && !switchType ? 'pending' : 'completed',
       [value]: 'current',
     });
-
+    updateFocusKey(null);
     updateCurrentStep(value);
   };
 
