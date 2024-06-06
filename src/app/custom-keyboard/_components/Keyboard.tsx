@@ -3,14 +3,15 @@
 import { KEY, TEN_KEY, POINT_KEY } from '@/constants/keyboardData';
 import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useGLTF } from '@react-three/drei';
-import { ThreeEvent } from '@react-three/fiber';
+import { ThreeEvent, Color } from '@react-three/fiber';
 import { useContext } from 'react';
 import { Mesh, MeshStandardMaterial } from 'three';
 import { GLTF } from 'three-stdlib';
+import { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 
 interface KeyboardNodes {
-  nodes: { [key: string]: Mesh };
-  materials: { [key: string]: MeshStandardMaterial };
+  nodes: Record<CustomKeyboardKeyTypes | 'Cube', Mesh>;
+  materials: Record<CustomKeyboardKeyTypes | 'Cube', MeshStandardMaterial>;
 }
 
 export default function Keyboard() {
@@ -41,16 +42,16 @@ export default function Keyboard() {
 
   const handleClickKey = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
-    const key = e.object.name;
+    const key = e.object.name as CustomKeyboardKeyTypes;
     if (!key || key === focusKey) {
       updateFocusKey(null);
       return;
     }
     updateFocusKey(key);
-    updateData('pointKeyColor', individualColor[key]);
+    updateData('pointKeyColor', individualColor[key] as Color);
   };
 
-  const getKeyColor = (key: string) => {
+  const getKeyColor = (key: CustomKeyboardKeyTypes) => {
     if (hasPointKeyCap) {
       if (pointKeyType === '세트 구성' && POINT_KEY.includes(key)) {
         return pointKeyColor;

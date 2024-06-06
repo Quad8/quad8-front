@@ -1,44 +1,44 @@
 'use client';
 
+import {
+  CustomKeyboardStepTypes,
+  CustomKeyboardStepStatusTypes,
+  CustomKeyboardKeyTypes,
+} from '@/types/CustomKeyboardTypes';
+import { Color } from '@react-three/fiber';
 import { PropsWithChildren, createContext, useCallback, useMemo, useState } from 'react';
 
-interface StepStatusType {
-  board: 'pending' | 'current' | 'completed';
-  switch: 'pending' | 'current' | 'completed';
-  keyCap: 'pending' | 'current' | 'completed';
-}
-
 interface StepContextType {
-  currentStep: 'board' | 'switch' | 'keyCap';
-  stepStatus: StepStatusType;
-  updateStepStatus: (value: { [key: string]: 'pending' | 'current' | 'completed' }) => void;
-  updateCurrentStep: (data: 'board' | 'switch' | 'keyCap') => void;
+  currentStep: CustomKeyboardStepTypes;
+  stepStatus: Record<CustomKeyboardStepTypes, CustomKeyboardStepStatusTypes>;
+  updateStepStatus: (value: Partial<Record<CustomKeyboardStepTypes, CustomKeyboardStepStatusTypes>>) => void;
+  updateCurrentStep: (data: CustomKeyboardStepTypes) => void;
 }
 
 interface KeyboardDataType {
   type: 'tkl' | 'full';
   texture: 'metal' | 'plastic';
-  boardColor: string /* color */;
+  boardColor: Color;
   switchType: 'blue' | 'red' | 'brown' | 'black' | null;
-  baseKeyColor: string;
+  baseKeyColor: Color;
   hasPointKeyCap: boolean;
   pointKeyType: '내 맘대로 바꾸기' | '세트 구성';
-  pointKeyColor: string;
+  pointKeyColor: Color;
   price: number;
-  option: { [key: string]: boolean };
-  individualColor: { [key: string]: string };
+  option: Partial<Record<string, boolean>>;
+  individualColor: Partial<Record<CustomKeyboardKeyTypes, Color>>;
 }
 
 interface KeyboardDataContextType {
   keyboardData: KeyboardDataType;
   updateData: (key: keyof KeyboardDataType, value: KeyboardDataType[keyof KeyboardDataType]) => void;
-  updateIndividualColor: (value: { [key: string]: string }) => void;
-  deleteIndividualColor: (key: string) => void;
+  updateIndividualColor: (value: Partial<Record<CustomKeyboardKeyTypes, Color>>) => void;
+  deleteIndividualColor: (key: CustomKeyboardKeyTypes) => void;
 }
 
 interface KeyColorContextType {
-  focusKey: string | null;
-  updateFocusKey: (value: string | null) => void;
+  focusKey: CustomKeyboardKeyTypes | null;
+  updateFocusKey: (value: CustomKeyboardKeyTypes | null) => void;
 }
 
 export const StepContext = createContext<StepContextType>({
@@ -72,25 +72,28 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
 });
 
 export const KeyColorContext = createContext<KeyColorContextType>({
-  focusKey: '',
+  focusKey: null,
   updateFocusKey: () => {},
 });
 
 export function StepContextProvider({ children }: PropsWithChildren) {
-  const [currentStep, setCurrentStep] = useState<'board' | 'switch' | 'keyCap'>('board');
-  const [stepStatus, setStapStatus] = useState<StepStatusType>({
+  const [currentStep, setCurrentStep] = useState<CustomKeyboardStepTypes>('board');
+  const [stepStatus, setStapStatus] = useState<Record<CustomKeyboardStepTypes, CustomKeyboardStepStatusTypes>>({
     board: 'current',
     switch: 'pending',
     keyCap: 'pending',
   });
 
-  const updateCurrentStep = useCallback((step: 'board' | 'switch' | 'keyCap') => {
-    setCurrentStep(step);
+  const updateCurrentStep = useCallback((value: CustomKeyboardStepTypes) => {
+    setCurrentStep(value);
   }, []);
 
-  const updateStepStatus = useCallback((value: { [key: string]: 'pending' | 'current' | 'completed' }) => {
-    setStapStatus((prev) => ({ ...prev, ...value }));
-  }, []);
+  const updateStepStatus = useCallback(
+    (value: Partial<Record<CustomKeyboardStepTypes, CustomKeyboardStepStatusTypes>>) => {
+      setStapStatus((prev) => ({ ...prev, ...value }));
+    },
+    [],
+  );
 
   const contextValue = useMemo(
     () => ({ currentStep, stepStatus, updateCurrentStep, updateStepStatus }),
@@ -101,7 +104,7 @@ export function StepContextProvider({ children }: PropsWithChildren) {
 }
 
 export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
-  const [data, setData] = useState<KeyboardDataType>({
+  const [keyboardData, setKeyboardData] = useState<KeyboardDataType>({
     type: 'full',
     texture: 'metal',
     boardColor: '#ffffff',
@@ -116,18 +119,15 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
   });
 
   const updateData = useCallback((key: keyof KeyboardDataType, value: KeyboardDataType[keyof KeyboardDataType]) => {
-    setData((prev) => ({ ...prev, [key]: value }));
+    setKeyboardData((prev) => ({ ...prev, [key]: value }));
   }, []);
 
-  const updateIndividualColor = useCallback((value: { [key: string]: string }) => {
-    setData((prev) => {
-      const newData = { ...prev.individualColor, ...value };
-      return { ...prev, individualColor: newData };
-    });
+  const updateIndividualColor = useCallback((value: Partial<Record<CustomKeyboardKeyTypes, Color>>) => {
+    setKeyboardData((prev) => ({ ...prev, individualColor: { ...prev.individualColor, ...value } }));
   }, []);
 
-  const deleteIndividualColor = useCallback((value: string) => {
-    setData((prev) => {
+  const deleteIndividualColor = useCallback((value: CustomKeyboardKeyTypes) => {
+    setKeyboardData((prev) => {
       const prevData = prev.individualColor;
       delete prevData[value];
       return { ...prev, individualColor: { ...prevData } };
@@ -135,17 +135,17 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
   }, []);
 
   const value = useMemo(
-    () => ({ keyboardData: data, updateData, updateIndividualColor, deleteIndividualColor }),
-    [data, updateData, updateIndividualColor, deleteIndividualColor],
+    () => ({ keyboardData, updateData, updateIndividualColor, deleteIndividualColor }),
+    [keyboardData, updateData, updateIndividualColor, deleteIndividualColor],
   );
 
   return <KeyboardDataContext.Provider value={value}>{children}</KeyboardDataContext.Provider>;
 }
 
 export function KeyColorContextProvider({ children }: PropsWithChildren) {
-  const [focusKey, setFocusKey] = useState<string | null>(null);
+  const [focusKey, setFocusKey] = useState<CustomKeyboardKeyTypes | null>(null);
 
-  const updateFocusKey = useCallback((value: string | null) => {
+  const updateFocusKey = useCallback((value: CustomKeyboardKeyTypes | null) => {
     setFocusKey(value);
   }, []);
 

@@ -86,7 +86,7 @@ export const KEY = [
   'ArrowLeft',
   'ArrowDown',
   'ArrowRight',
-];
+] as const;
 
 export const TEN_KEY = [
   'NumLock',
@@ -106,9 +106,9 @@ export const TEN_KEY = [
   'R8',
   'R9',
   'DotDel',
-];
+] as const;
 
-export const POINT_KEY = [
+export const POINT_KEY: ((typeof KEY)[number] | (typeof TEN_KEY)[number])[] = [
   'W',
   'A',
   'S',
@@ -120,4 +120,4 @@ export const POINT_KEY = [
   'Esc',
   'Enter',
   'Space',
-];
+] as const;
