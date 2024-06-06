@@ -1,0 +1,17 @@
+.radio-field {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+
+  .label {
+    @include pretendard-16-400;
+  }
+
+  .radio-box {
+    display: flex;
+    gap: 3.2rem;
+    align-items: center;
+  }
+}
