@@ -9,6 +9,7 @@ import PostCard from './_components/PostCard';
 import styles from './page.module.scss';
 import { COMMUNITY_DATA } from '../mj/CommunityData';
 import OrderListModal from './_components/OrderListModal';
+import KEYBOARD_DATA from '../mj/customData';
 
 const cn = classNames.bind(styles);
 
@@ -54,7 +55,17 @@ export default function Page() {
         modal
       </Modal>
       <Modal isOpen={isOrderListModalOpen} onClose={handleCloseWritePostModal}>
-        <OrderListModal />
+        <OrderListModal
+          orderList={[
+            KEYBOARD_DATA,
+            KEYBOARD_DATA,
+            KEYBOARD_DATA,
+            KEYBOARD_DATA,
+            KEYBOARD_DATA,
+            KEYBOARD_DATA,
+            KEYBOARD_DATA,
+          ]}
+        />
       </Modal>
     </div>
   );

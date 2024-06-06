@@ -1,12 +1,14 @@
 import classNames from 'classnames/bind';
 import WarningIcon from '@/public/svgs/warning.svg';
 import Button from '@/components/Button/Button';
+import { KeyboardInfoBox } from '@/components';
+import { CustomKeyboardTypes } from '@/types/CustomKeyboardTypes';
 import styles from './OrderListModal.module.scss';
 
 const cn = classNames.bind(styles);
 
 interface OrderListModalProps {
-  orderList?: string[];
+  orderList?: CustomKeyboardTypes[];
 }
 
 export default function OrderListModal({ orderList }: OrderListModalProps) {
@@ -19,7 +21,18 @@ export default function OrderListModal({ orderList }: OrderListModalProps) {
           <WarningIcon />
           <h1>커스텀 키보드 구매내역이 없습니다.</h1>
         </div>
-      ) : null}
+      ) : (
+        <div>
+          <h1 className={cn('title')}>작성할 후기 제품을 선택해주세요.</h1>
+          <div className={cn('keyboard-list-wrapper')}>
+            {orderList.map((order) => (
+              <div key={order.id} className={cn('keyboard-list')}>
+                <KeyboardInfoBox keyboardInfo={order} isCompact />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       <div className={cn('button-wrapper')}>
         <Button>닫기</Button>
         <Button fontSize={20}>{buttonText}</Button>

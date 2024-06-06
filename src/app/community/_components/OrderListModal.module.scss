@@ -20,6 +20,24 @@
   }
 }
 
+.title {
+  @include pretendard-30-700;
+
+  margin-bottom: 2rem;
+}
+
+.keyboard-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 63.6rem;
+  overflow: scroll;
+  gap: 2rem;
+}
+
+.keyboard-list {
+  padding: 2rem;
+}
+
 .button-wrapper {
   display: flex;
   gap: 1.2rem;

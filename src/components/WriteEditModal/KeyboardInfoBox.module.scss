@@ -12,11 +12,25 @@
   font-size: 1.4rem;
 }
 
-.keyboard-image {
-  width: 14.3rem;
-  height: 14.3rem;
+@mixin keyboard-image($size) {
+  @if ($size == 'small') {
+    width: 10rem;
+    height: 10rem;
+  } @else {
+    width: 14.3rem;
+    height: 14.3rem;
+  }
+
   border-radius: 0.8rem;
   background-color: $gray-20;
+}
+
+.keyboard-image-small {
+  @include keyboard-image('small');
+}
+
+.keyboard-image {
+  @include keyboard-image('');
 }
 
 .keyboard-info-text {
@@ -39,12 +53,25 @@
   color: $gray-50;
 }
 
-.keycap-color {
+@mixin keycap-color($size) {
   display: -webkit-box;
   margin-top: 0.2rem;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+
+  @if $size == 'small' {
+    -webkit-line-clamp: 1;
+  } @else {
+    -webkit-line-clamp: 2;
+  }
+}
+
+.keycap-color {
+  @include keycap-color('');
+}
+
+.keycap-color-small {
+  @include keycap-color('small');
 }
