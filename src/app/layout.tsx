@@ -1,4 +1,3 @@
-import Header from '@/components/Header/Header';
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import { Providers } from './providers';
@@ -18,10 +17,7 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body>
-        <Providers>
-          <Header />
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
