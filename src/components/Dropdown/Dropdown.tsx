@@ -12,6 +12,7 @@ const cn = classNames.bind(styles);
 interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onClick'> {
   options: string[];
   sizeVariant?: 'xs' | 'sm' | 'md' | 'lg';
+  className?: string;
   onClick?: (option: string) => void;
   onDropdownClick?: (e: MouseEvent<HTMLInputElement>) => void;
 }
@@ -33,7 +34,7 @@ interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onC
  */
 
 export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
-  { type = 'button', sizeVariant = 'sm', options, onDropdownClick, onClick, ...rest },
+  { type = 'button', sizeVariant = 'sm', options, className, onDropdownClick, onClick, ...rest },
   ref,
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -72,7 +73,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   };
 
   return (
-    <div className={cn('dropdown', sizeVariant)} ref={DropdownRef}>
+    <div className={cn('dropdown', sizeVariant, className)} ref={DropdownRef}>
       <div className={cn('input-wrapper')}>
         <Input
           ref={ref}

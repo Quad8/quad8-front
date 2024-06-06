@@ -17,9 +17,12 @@ interface TextFieldProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
  * @param {object} props - 컴포넌트의 속성
  * @param {number} [props.rows=7] - 텍스트 영역의 기본 행 수
  * @param {string} [props.label] - 텍스트 영역의 레이블 텍스트
+ * @param {string} [props.labelSize='lg'] - 레이블 사이즈, 기본값 'lg'
  * @param {number} [props.minLength=20] - 입력할 수 있는 최소 문자 수
  * @param {number} [props.maxLength=200] - 입력할 수 있는 최대 문자 수
- * @param {string} [props.sizeVariant='md'] - 텍스트 영역의 크기, 'sm', 'md', 'lg' 중 하나
+ * @param {string} [props.sizeVariant='md'] - 텍스트 영역의 크기
+ * 'md' = 페이지 안에서 사용하는 유일 사이즈
+ * 'option' = Dropdown value가 '직접 입력' 일 때 나오는 textarea
  * @returns {JSX.Element} 렌더링된 텍스트 필드 컴포넌트
  */
 

@@ -9,6 +9,7 @@ const cn = classNames.bind(styles);
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   sizeVariant?: 'sm' | 'md' | 'lg';
+  className?: string;
   label?: string;
   errorMessage?: string;
   suffixIcon?: 'search' | 'eye';
@@ -30,7 +31,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
  */
 
 export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField(
-  { id, type = 'text', sizeVariant = 'md', label, errorMessage, suffixIcon, suffixUnit, ...rest },
+  { id, type = 'text', sizeVariant = 'md', label, className, errorMessage, suffixIcon, suffixUnit, ...rest },
   ref,
 ) {
   const [inputType, setInputType] = useState(type);
@@ -39,10 +40,10 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
     setInputType((prevType) => (prevType === 'password' ? 'text' : 'password'));
   };
 
-  const className = cn('default', sizeVariant);
+  const combinedClassName = cn('default', sizeVariant, className);
 
   return (
-    <div className={className}>
+    <div className={combinedClassName}>
       {label && (
         <Label htmlFor={id} sizeVariant={sizeVariant}>
           {label}

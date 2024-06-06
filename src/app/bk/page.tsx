@@ -2,7 +2,12 @@
 
 import { InputField, TextField } from '@/components';
 import Dropdown from '@/components/Dropdown/Dropdown';
+import classNames from 'classnames/bind';
 import { FormEvent } from 'react';
+
+import styles from './page.module.scss';
+
+const cn = classNames.bind(styles);
 
 const OPTIONS = ['인기순', '조회순', '최신순', '가격 낮은순', '가격 높은순', '직접 입력'];
 
@@ -37,7 +42,7 @@ export default function Page() {
       <br />
       <br />
       <div style={{ width: '600px' }}>
-        <Dropdown options={OPTIONS} name='드롭다운' sizeVariant='xs' onClick={handleClick} />
+        <Dropdown options={OPTIONS} name='드롭다운' sizeVariant='md' onClick={handleClick} className={cn('dropdown')} />
       </div>
       <br />
       <br />

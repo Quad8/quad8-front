@@ -33,6 +33,7 @@
   border-radius: 0.8rem;
   outline: none;
   color: $black;
+  text-align: center;
 
   &.red {
     border: 0.1rem solid $red;
@@ -83,10 +84,10 @@
 
 .select {
   display: flex;
-  align-items: center;
+  align-items: start;
   width: 100%;
   border-radius: 0.4rem;
-  background: none;
+  background: $white;
   cursor: pointer;
 
   &::placeholder {
@@ -104,6 +105,7 @@
 
 .xs {
   border: none;
+  background: none;
   text-align: center;
   @include xs;
 
