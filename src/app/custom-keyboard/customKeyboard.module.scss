@@ -1,38 +1,39 @@
+@mixin flex-column($gap) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
 .content-wrapper {
   display: flex;
   position: relative;
-  z-index: 3;
-  justify-content: space-between;
   width: 100%;
-  padding: 8rem 10rem;
+  padding: 0 10rem 8rem;
   background-color: $white;
   gap: 10rem;
 }
 
 .option-wrapper {
-  display: flex;
-  flex-direction: column;
+  @include flex-column(3rem);
+
   width: 36rem;
-  height: fit-content;
   margin-top: 6rem;
   padding-bottom: 19.6rem;
-  overflow: auto;
-  gap: 3rem;
+  overflow: hidden auto;
 }
 
 .option-content-wrapper {
   width: 34rem;
-  height: fit-content;
   padding-left: 2rem;
 }
 
 .button-wrapper {
-  display: flex;
+  @include flex-column(3rem);
+
   position: fixed;
   z-index: $zindex-fixed;
   right: 0;
   bottom: 0;
-  flex-direction: column;
   align-items: center;
   width: 56rem;
   height: 24.6rem;
