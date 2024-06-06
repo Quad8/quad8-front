@@ -1,4 +1,6 @@
 import HeartIcon from '@/public/svgs/heart.svg';
+import KakaotalkIcon from '@/public/svgs/kakaotalk.svg';
+import LinkCopyIcon from '@/public/svgs/linkCopy.svg';
 import ShareIcon from '@/public/svgs/share.svg';
 import ThumbIcon from '@/public/svgs/thumb.svg';
 import classNames from 'classnames/bind';
@@ -11,6 +13,24 @@ interface LikeButtonProps {
   isChecked: boolean;
   count?: number;
   onClick: () => void;
+}
+
+function ShareBox() {
+  return (
+    <div className={cn('share-box')}>
+      <h2 className={cn('share-title')}>공유하기</h2>
+      <div className={cn('share-contents')}>
+        <div className={cn('share-content')}>
+          <KakaotalkIcon className={cn('share-icon')} />
+          <h2 className={cn('share-text')}>카카오톡</h2>
+        </div>
+        <div className={cn('share-content')}>
+          <LinkCopyIcon className={cn('share-icon')} />
+          <h2 className={cn('share-text')}>링크복사</h2>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function LikeButton({ variant, isChecked, count, onClick }: LikeButtonProps) {
@@ -30,7 +50,7 @@ export default function LikeButton({ variant, isChecked, count, onClick }: LikeB
     }
   };
 
-  const buttonClass = cn({
+  const buttonClass = cn('button', {
     circle: variant === 'detail' || variant === 'share',
     'like-circle': variant === 'review',
     'red-circle': (variant === 'review' && isChecked) || (variant === 'detail' && isChecked),
@@ -42,6 +62,7 @@ export default function LikeButton({ variant, isChecked, count, onClick }: LikeB
   return (
     <button type='button' className={buttonClass} onClick={onClick}>
       {getIcon()}
+      {variant === 'share' && isChecked && <ShareBox />}
     </button>
   );
 }
