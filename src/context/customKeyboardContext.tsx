@@ -4,6 +4,10 @@ import {
   CustomKeyboardStepTypes,
   CustomKeyboardStepStatusTypes,
   CustomKeyboardKeyTypes,
+  CustomKeyboardTypeTypes,
+  CustomKeyboardTextureTypes,
+  CustomKeyboardSwitchTypes,
+  CustomKeyboardPointKeyType,
 } from '@/types/CustomKeyboardTypes';
 import { Color } from '@react-three/fiber';
 import { PropsWithChildren, createContext, useCallback, useMemo, useState } from 'react';
@@ -16,13 +20,13 @@ interface StepContextType {
 }
 
 interface KeyboardDataType {
-  type: 'tkl' | 'full';
-  texture: 'metal' | 'plastic';
+  type: CustomKeyboardTypeTypes;
+  texture: CustomKeyboardTextureTypes;
   boardColor: Color;
-  switchType: 'blue' | 'red' | 'brown' | 'black' | null;
+  switchType: CustomKeyboardSwitchTypes | null;
   baseKeyColor: Color;
   hasPointKeyCap: boolean;
-  pointKeyType: '내 맘대로 바꾸기' | '세트 구성';
+  pointKeyType: CustomKeyboardPointKeyType;
   pointKeyColor: Color;
   price: number;
   option: Partial<Record<string, boolean>>;

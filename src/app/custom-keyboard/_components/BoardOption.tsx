@@ -4,7 +4,18 @@ import classNames from 'classnames/bind';
 import { useContext } from 'react';
 import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import { HexColorPicker } from 'react-colorful';
+import { CustomKeyboardTypeTypes, CustomKeyboardTextureTypes } from '@/types/CustomKeyboardTypes';
 import styles from './BoardOption.module.scss';
+
+const TYPE_BUTTONS = [
+  { type: 'full', name: '풀 배열', price: 35000 },
+  { type: 'tkl', name: '텐키리스', price: 30000 },
+];
+
+const TEXTURE_BUTTONS = [
+  { texture: 'metal', name: '금속', price: 35000 },
+  { texture: 'plastic', name: '플라스틱', price: 30000 },
+];
 
 const cn = classNames.bind(styles);
 
@@ -14,11 +25,11 @@ export default function BoardOption() {
     updateData,
   } = useContext(KeyboardDataContext);
 
-  const handleClickTypeButton = (value: 'full' | 'tkl') => {
+  const handleClickTypeButton = (value: CustomKeyboardTypeTypes) => {
     updateData('type', value);
   };
 
-  const handleClickTextureButton = (value: 'metal' | 'plastic') => {
+  const handleClickTextureButton = (value: CustomKeyboardTextureTypes) => {
     updateData('texture', value);
   };
 
@@ -31,53 +42,39 @@ export default function BoardOption() {
       <div className={cn('content-wrapper')}>
         <div className={cn('title')}>배열</div>
         <div className={cn('button-wrapper')}>
-          <button
-            type='button'
-            className={cn('button', { selected: type === 'full' })}
-            onClick={() => handleClickTypeButton('full')}
-          >
-            <div className={cn('button-content')}>풀 배열</div>
-            <div className={cn('button-price')}>+35,000</div>
-          </button>
-          <button
-            type='button'
-            className={cn('button', { selected: type === 'tkl' })}
-            onClick={() => handleClickTypeButton('tkl')}
-          >
-            <div className={cn('button-content')}>텐키리스</div>
-            <div className={cn('button-price')}>+30,000</div>
-          </button>
+          {TYPE_BUTTONS.map((element) => (
+            <button
+              key={element.name}
+              type='button'
+              className={cn('button', { selected: type === element.type })}
+              onClick={() => handleClickTypeButton(element.type as CustomKeyboardTypeTypes)}
+            >
+              <div className={cn('button-content')}>{element.name}</div>
+              <div className={cn('button-price')}>+{element.price.toLocaleString()}</div>
+            </button>
+          ))}
         </div>
       </div>
       <div className={cn('content-wrapper')}>
         <div className={cn('title')}>외관 재질</div>
         <div className={cn('button-wrapper')}>
-          <button
-            type='button'
-            className={cn('button', { selected: texture === 'metal' })}
-            onClick={() => handleClickTextureButton('metal')}
-          >
-            <div className={cn('button-content')}>금속</div>
-            <div className={cn('button-price')}>+35,000</div>
-          </button>
-          <button
-            type='button'
-            className={cn('button', { selected: texture === 'plastic' })}
-            onClick={() => handleClickTextureButton('plastic')}
-          >
-            <div className={cn('button-content')}>플라스틱</div>
-            <div className={cn('button-price')}>+30,000</div>
-          </button>
+          {TEXTURE_BUTTONS.map((element) => (
+            <button
+              key={element.name}
+              type='button'
+              className={cn('button', { selected: texture === element.texture })}
+              onClick={() => handleClickTextureButton(element.texture as CustomKeyboardTextureTypes)}
+            >
+              <div className={cn('button-content')}>{element.name}</div>
+              <div className={cn('button-price')}>+{element.price.toLocaleString()}</div>
+            </button>
+          ))}
         </div>
       </div>
       <div className={cn('content-wrapper')}>
         <div className={cn('title')}>외관 색</div>
         <div className={cn('color-wrapper')}>
-          <HexColorPicker
-            className={cn('react-colorful')}
-            color={boardColor as string}
-            onChange={(c) => handleChnageColor(c)}
-          />
+          <HexColorPicker className={cn('react-colorful')} color={boardColor as string} onChange={handleChnageColor} />
         </div>
       </div>
     </div>
