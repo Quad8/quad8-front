@@ -9,12 +9,11 @@ import styles from './Dropdown.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onClick'> {
+interface DropdownProps extends InputHTMLAttributes<HTMLInputElement> {
   options: string[];
   sizeVariant?: 'xs' | 'sm' | 'md' | 'lg';
   className?: string;
-  onClick?: (option: string) => void;
-  onDropdownClick?: (e: MouseEvent<HTMLInputElement>) => void;
+  onClick?: () => void;
 }
 
 /**
@@ -34,7 +33,7 @@ interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onC
  */
 
 export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
-  { type = 'button', sizeVariant = 'sm', options, className, onDropdownClick, onClick, ...rest },
+  { type = 'text', sizeVariant = 'sm', options, className, onClick, ...rest },
   ref,
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -46,7 +45,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
     if (!rest.placeholder) {
       setDropdownValue(options[0]);
     }
-  }, [rest.placeholder, options]);
+  }, [options, rest.placeholder]);
 
   useOutsideClick(DropdownRef || TextareaRef, () => {
     if (TextareaRef.current) {
@@ -57,18 +56,16 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
     setIsDropdownOpen(false);
   });
 
-  const handleDropdownClick = (e: MouseEvent<HTMLInputElement>) => {
+  const handleDropdownClick = () => {
     setIsDropdownOpen((prevIsOpen) => !prevIsOpen);
-    if (onDropdownClick) {
-      onDropdownClick(e);
-    }
   };
 
-  const handleOptionClick = (option: string) => {
-    setDropdownValue(option);
+  const handleOptionClick = (e: MouseEvent<HTMLInputElement>) => {
+    setDropdownValue(e.currentTarget.value);
     setIsDropdownOpen(false);
+
     if (onClick) {
-      onClick(option);
+      onClick();
     }
   };
 
@@ -107,24 +104,28 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
         >
           {rest.placeholder && (
             <li>
-              <button
+              <Input
                 type='button'
-                className={cn('option', sizeVariant, { checked: dropdownValue === rest.placeholder })}
-                onClick={() => handleOptionClick('')}
-              >
-                {rest.placeholder}
-              </button>
+                isOption
+                isChecked={dropdownValue === rest.placeholder}
+                sizeVariant={sizeVariant}
+                value={rest.placeholder}
+                readOnly
+                onClick={handleOptionClick}
+              />
             </li>
           )}
           {options.map((option) => (
             <li key={option}>
-              <button
+              <Input
                 type='button'
-                className={cn('option', sizeVariant, { checked: dropdownValue === option })}
-                onClick={() => handleOptionClick(option)}
-              >
-                {option}
-              </button>
+                isOption
+                isChecked={dropdownValue === option}
+                sizeVariant={sizeVariant}
+                value={option}
+                readOnly
+                onClick={handleOptionClick}
+              />
             </li>
           ))}
         </ul>

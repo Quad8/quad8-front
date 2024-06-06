@@ -1,6 +1,6 @@
 'use client';
 
-import { InputField, RadioField, TextField } from '@/components';
+import { InputField } from '@/components';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import classNames from 'classnames/bind';
 import { FormEvent } from 'react';
@@ -20,9 +20,10 @@ export default function Page() {
     // console.log(payload);
   };
 
-  const handleClick = () => {
-    // console.log('onClick', true);
-  };
+  // const handleClick = (e: MouseEvent<HTMLInputElement>) => {
+  //   console.log('onClick', true, e.currentTarget.value);
+  // };
+  const handleClick = () => {};
 
   return (
     <form onSubmit={handleSubmit}>
@@ -41,23 +42,21 @@ export default function Page() {
       <br />
       <br />
       <br />
-      <div style={{ width: '600px' }}>
-        <Dropdown options={OPTIONS} name='드롭다운' sizeVariant='xs' onClick={handleClick} className={cn('dropdown')} />
-      </div>
+      <Dropdown options={OPTIONS} name='드롭다운' onClick={handleClick} className={cn('dropdown')} sizeVariant='md' />
       <br />
       <br />
       <br />
       <br />
       <br />
       <br />
-      <TextField label='텍스트필드' id='텍스트' name='텍스트' placeholder='최소 20자 이상 입력해 주세요' />
+      {/* <TextField label='텍스트필드' id='텍스트' name='텍스트' placeholder='최소 20자 이상 입력해 주세요' /> */}
       <br />
       <br />
       <br />
       <br />
       <br />
       <br />
-      <RadioField options={OPTIONS} label='숫자' value='6' />
+      {/* <RadioField options={OPTIONS} label='숫자' value='6' /> */}
       <br />
       <br />
       <br />
