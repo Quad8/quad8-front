@@ -1,9 +1,5 @@
 import { useOutsideClick } from '@/hooks/useOutsideClick';
-import HeartIcon from '@/public/svgs/heart.svg';
-import KakaotalkIcon from '@/public/svgs/kakaotalk.svg';
-import LinkCopyIcon from '@/public/svgs/linkCopy.svg';
-import ShareIcon from '@/public/svgs/share.svg';
-import ThumbIcon from '@/public/svgs/thumb.svg';
+import { HeartIcon, KakaotalkIcon, LinkCopyIcon, ShareIcon, ThumbIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import { useRef } from 'react';
 import styles from './LikeButton.module.scss';
@@ -17,17 +13,31 @@ interface LikeButtonProps {
   onClick: () => void;
 }
 
-function ShareBox() {
+interface ShareBoxProps {
+  onClick: () => void;
+}
+
+function ShareBox({ onClick }: ShareBoxProps) {
+  const BoxRef = useRef<HTMLDivElement>(null);
+
+  useOutsideClick(BoxRef, () => {
+    onClick();
+  });
+
+  const handleIconClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className={cn('share-box')}>
+    <div className={cn('share-box')} ref={BoxRef}>
       <h2 className={cn('share-title')}>공유하기</h2>
       <div className={cn('share-contents')}>
         <div className={cn('share-content')}>
-          <KakaotalkIcon className={cn('share-icon')} />
+          <KakaotalkIcon className={cn('share-icon')} onClick={handleIconClick} />
           <h2 className={cn('share-text')}>카카오톡</h2>
         </div>
         <div className={cn('share-content')}>
-          <LinkCopyIcon className={cn('share-icon')} />
+          <LinkCopyIcon className={cn('share-icon')} onClick={handleIconClick} />
           <h2 className={cn('share-text')}>링크복사</h2>
         </div>
       </div>
@@ -61,16 +71,10 @@ export default function LikeButton({ variant, isChecked, count, onClick }: LikeB
     'hover-blue': variant === 'share' && !isChecked,
   });
 
-  const ButtonRef = useRef<HTMLButtonElement>(null);
-
-  useOutsideClick(ButtonRef, () => {
-    onClick();
-  });
-
   return (
-    <button type='button' className={buttonClass} onClick={onClick} ref={ButtonRef}>
+    <button type='button' className={buttonClass} onClick={onClick}>
       {getIcon()}
-      {variant === 'share' && isChecked && <ShareBox />}
+      {variant === 'share' && isChecked && <ShareBox onClick={onClick} />}
     </button>
   );
 }
