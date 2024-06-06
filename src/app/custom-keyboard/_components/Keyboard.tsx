@@ -5,7 +5,7 @@ import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/cus
 import { useGLTF } from '@react-three/drei';
 import { ThreeEvent, Color } from '@react-three/fiber';
 import { useContext } from 'react';
-import { Mesh, MeshStandardMaterial } from 'three';
+import { Euler, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 import { GLTF } from 'three-stdlib';
 import { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 
@@ -39,6 +39,8 @@ export default function Keyboard() {
   const KEY_BUTTONS = type === 'tkl' ? [...KEY] : [...KEY, ...TEN_KEY];
   const MATELNESS = texture === 'metal' ? 0.9 : 0;
   const ROUGHNESS = texture === 'metal' ? 0.1 : 0.7;
+  const ROTATION = new Euler(type === 'tkl' ? -1.55 : 0, 0, 0);
+  const POSITION = new Vector3(0.1, 0, 0);
 
   const handleClickKey = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
@@ -68,22 +70,15 @@ export default function Keyboard() {
         geometry={nodes.Cube.geometry}
         material={materials.Cube}
         material-color={boardColor}
-        position={[0.1, 0, 0]}
-        rotation={type === 'tkl' ? [-1.55, 0, 0] : [0, 0, 0]}
+        position={POSITION}
+        rotation={ROTATION}
         scale={SCALE}
         material-metalness={MATELNESS}
         material-roughness={ROUGHNESS}
         material-opacity={1}
       />
       {KEY_BUTTONS.map((key) => (
-        <mesh
-          key={key}
-          name={key}
-          geometry={nodes[key].geometry}
-          position={[0.1, 0, 0]}
-          rotation={type === 'tkl' ? [-1.55, 0, 0] : [0, 0, 0]}
-          scale={SCALE}
-        >
+        <mesh key={key} name={key} geometry={nodes[key].geometry} position={POSITION} rotation={ROTATION} scale={SCALE}>
           <meshStandardMaterial
             name={key}
             color={getKeyColor(key)}
