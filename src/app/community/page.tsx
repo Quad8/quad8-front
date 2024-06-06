@@ -6,6 +6,7 @@ import { Modal } from '@/components';
 import PostCard from './_components/PostCard';
 import styles from './page.module.scss';
 import { COMMUNITY_DATA } from '../mj/CommunityData';
+import PostCardDetailModal from './_components/PostCardDetailModal';
 
 const cn = classNames.bind(styles);
 
@@ -21,7 +22,7 @@ export default function Page() {
     <div className={cn('container')}>
       <PostCard cardData={COMMUNITY_DATA} onClick={handleCustomPostModal} />
       <Modal isOpen={isPostModalOpen} onClose={handleClosePostModal}>
-        modal
+        <PostCardDetailModal />
       </Modal>
     </div>
   );

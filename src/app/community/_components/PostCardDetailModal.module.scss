@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  padding: 9.9rem 4rem;
+  border-radius: 1.6rem;
+  background-color: $white;
+  gap: 2rem;
+}
+
+.images-wrapper {
+  width: 49.2rem;
+
+  & > .selected-image {
+    width: 100%;
+    height: 53.6rem;
+  }
+}
+
+.unselected-image-wrapper {
+  display: flex;
+  width: 100%;
+  margin-top: 2rem;
+  gap: 0.8rem;
+}
+
+.unselected-image {
+  width: 4.8rem;
+  height: 4.8rem;
+}
+
+.title {
+  @include pretendard-18-600;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 44.4rem;
+  height: 24rem;
+  gap: 1.2rem;
+  overflow-y: scroll;
+
+  & > .content {
+    @include pretendard-16-400;
+
+    width: 100%;
+    height: 16.8rem;
+  }
+}
