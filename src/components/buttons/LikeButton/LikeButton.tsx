@@ -1,9 +1,11 @@
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 import HeartIcon from '@/public/svgs/heart.svg';
 import KakaotalkIcon from '@/public/svgs/kakaotalk.svg';
 import LinkCopyIcon from '@/public/svgs/linkCopy.svg';
 import ShareIcon from '@/public/svgs/share.svg';
 import ThumbIcon from '@/public/svgs/thumb.svg';
 import classNames from 'classnames/bind';
+import { useRef } from 'react';
 import styles from './LikeButton.module.scss';
 
 const cn = classNames.bind(styles);
@@ -59,8 +61,14 @@ export default function LikeButton({ variant, isChecked, count, onClick }: LikeB
     'hover-blue': variant === 'share' && !isChecked,
   });
 
+  const ButtonRef = useRef<HTMLButtonElement>(null);
+
+  useOutsideClick(ButtonRef, () => {
+    onClick();
+  });
+
   return (
-    <button type='button' className={buttonClass} onClick={onClick}>
+    <button type='button' className={buttonClass} onClick={onClick} ref={ButtonRef}>
       {getIcon()}
       {variant === 'share' && isChecked && <ShareBox />}
     </button>
