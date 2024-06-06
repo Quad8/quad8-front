@@ -22,9 +22,10 @@
   gap: 0.8rem;
 }
 
-.unselected-image {
+.images {
   width: 4.8rem;
   height: 4.8rem;
+  cursor: pointer;
 }
 
 .title {
@@ -33,16 +34,36 @@
 
 .content-wrapper {
   display: flex;
+  position: relative;
   flex-direction: column;
-  width: 44.4rem;
+  width: 48rem;
   height: 53.6rem;
-  gap: 1.2rem;
   overflow-y: scroll;
+  gap: 1.2rem;
+
+  & > * {
+    width: 44.5rem;
+  }
 
   & > .content {
     @include pretendard-16-400;
 
-    width: 100%;
+    width: 44.5rem;
     height: 16.8rem;
   }
+}
+
+.comment-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.comment-input {
+  position: sticky;
+  bottom: 0;
+  width: 44.5rem;
+  margin-top: 1rem;
+  padding: 1rem 0;
+  background-color: $white;
 }
