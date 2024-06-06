@@ -51,6 +51,21 @@
     width: 44.5rem;
     height: 16.8rem;
   }
+
+  &::-webkit-scrollbar {
+    width: 0.9rem;
+    height: 2rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2rem;
+    background-color: $primary;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 0.8rem;
+    background-color: $gray-20;
+  }
 }
 
 .comment-wrapper {
