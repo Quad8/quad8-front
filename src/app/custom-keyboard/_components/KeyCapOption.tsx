@@ -11,6 +11,14 @@ import ColorTag from './ColorTag';
 
 const cn = classNames.bind(styles);
 
+const HELP_CONTENT = {
+  '세트 구성': { content: 'W, A, S, D, 방향키, Esc, Enter, Space Bar', cost: '(+5,500원의 추가요금이 있습니다)' },
+  '내 맘대로 바꾸기': {
+    content: '원하는 색상으로 바꾸고 싶은 키를 선택해주세요',
+    cost: '(개당 +500원의 추가요금이 있습니다)',
+  },
+};
+
 export default function KeyCapOption() {
   const {
     keyboardData: { baseKeyColor, hasPointKeyCap, pointKeyType, individualColor, pointKeyColor },
@@ -100,17 +108,17 @@ export default function KeyCapOption() {
       <div className={cn('button-wrapper')}>
         <button
           type='button'
-          className={cn('button', { selected: hasPointKeyCap })}
-          onClick={() => handleClickPointKeyCapButton(true)}
-        >
-          <div>포인트 키캡 추가</div>
-        </button>
-        <button
-          type='button'
           className={cn('button', { selected: !hasPointKeyCap })}
           onClick={() => handleClickPointKeyCapButton(false)}
         >
           <div className={cn('button-content')}>포인트 키캡 없음</div>
+        </button>
+        <button
+          type='button'
+          className={cn('button', { selected: hasPointKeyCap })}
+          onClick={() => handleClickPointKeyCapButton(true)}
+        >
+          <div>포인트 키캡 추가</div>
         </button>
       </div>
       {hasPointKeyCap && (
@@ -132,13 +140,18 @@ export default function KeyCapOption() {
             </button>
           </div>
           <HexColorPicker color={pointColor as string} onChange={handleChangePointColor} />
-          {hasPointKeyCap && pointKeyType === '내 맘대로 바꾸기' && (
+          {pointKeyType === '내 맘대로 바꾸기' && (
             <div className={cn('tag-wrapper')}>
               {colorList.map(([key, color]) => (
                 <ColorTag key={key} keyCap={key} color={color} onClose={() => handleClickDeleteTag(key)} />
               ))}
             </div>
           )}
+          <div className={cn('help-wrapper')}>
+            <div className={cn('help-title')}>{pointKeyType}</div>
+            <div className={cn('help-content')}>{HELP_CONTENT[pointKeyType].content}</div>
+            <div className={cn('help-cost')}>{HELP_CONTENT[pointKeyType].cost}</div>
+          </div>
         </div>
       )}
       {hasPointKeyCap && pointKeyType === '내 맘대로 바꾸기' && !focusKey && <div className={cn('disabled')} />}

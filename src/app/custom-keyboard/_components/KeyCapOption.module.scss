@@ -91,3 +91,27 @@
   padding: 0 0.8rem;
   gap: 1.2rem;
 }
+
+.help-wrapper {
+  @include flex-column(0.8rem);
+
+  width: 32rem;
+  padding: 2rem;
+  border-radius: 0.4rem;
+  background-color: $gray-5;
+}
+
+.help-title {
+  color: $black;
+  @include pretendard-16-500;
+}
+
+.help-content {
+  color: $black;
+  @include pretendard-14-400;
+}
+
+.help-cost {
+  color: $gray-50;
+  @include pretendard-14-400;
+}
