@@ -80,7 +80,10 @@
     }
 
     .option {
+      display: flex;
       z-index: $zindex-dropdown + 1;
+      flex-wrap: wrap;
+      align-content: center;
       width: 100%;
 
       &:hover {

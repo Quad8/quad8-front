@@ -33,7 +33,6 @@
   border-radius: 0.8rem;
   outline: none;
   color: $black;
-  text-align: center;
 
   &.red {
     border: 0.1rem solid $red;
@@ -84,7 +83,8 @@
 
 .select {
   display: flex;
-  align-items: start;
+  flex-wrap: wrap;
+  align-content: center;
   width: 100%;
   border-radius: 0.4rem;
   background: $white;

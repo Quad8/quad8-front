@@ -1,6 +1,6 @@
 'use client';
 
-import { InputField, TextField } from '@/components';
+import { InputField, RadioField, TextField } from '@/components';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import classNames from 'classnames/bind';
 import { FormEvent } from 'react';
@@ -42,7 +42,7 @@ export default function Page() {
       <br />
       <br />
       <div style={{ width: '600px' }}>
-        <Dropdown options={OPTIONS} name='드롭다운' sizeVariant='md' onClick={handleClick} className={cn('dropdown')} />
+        <Dropdown options={OPTIONS} name='드롭다운' sizeVariant='xs' onClick={handleClick} className={cn('dropdown')} />
       </div>
       <br />
       <br />
@@ -57,7 +57,7 @@ export default function Page() {
       <br />
       <br />
       <br />
-      {/* <RadioField options={OPTIONS} label='숫자' value='6' /> */}
+      <RadioField options={OPTIONS} label='숫자' value='6' />
       <br />
       <br />
       <br />
