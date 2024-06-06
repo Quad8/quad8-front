@@ -4,3 +4,41 @@
   width: 100%;
   gap: 1.2rem;
 }
+
+.profile-image {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 6.4rem;
+  height: 6.4rem;
+  overflow: hidden;
+  border-radius: 9rem;
+  background-color: $gray-20;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.6rem 0;
+}
+
+.user-info {
+  display: flex;
+  gap: 1.2rem;
+
+  & > #nickname {
+    @include pretendard-16-400;
+  }
+
+  & > #time-ago {
+    @include pretendard-14-400;
+
+    color: $gray-50;
+  }
+}
+
+.content {
+  @include pretendard-16-400;
+}
