@@ -1,36 +1,42 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import Link from 'next/link';
 import { useState } from 'react';
+import Link from 'next/link';
 import styles from './ShopButton.module.scss';
 
 const cn = classNames.bind(styles);
 
 const MENU_BUTTON = [
-  { name: '키보드', href: '/' },
-  { name: '키캡', href: '/' },
-  { name: '스위치', href: '/' },
-  { name: '기타 용품', href: '/' },
+  { NAME: '키보드', HREF: '/keyboard' },
+  { NAME: '키캡', HREF: '/keycap' },
+  { NAME: '스위치', HREF: '/switch' },
+  { NAME: '기타 용품', HREF: '/etc' },
 ];
 
-export default function ShopButton() {
+interface ShopButtonProps {
+  pathname: string;
+}
+
+export default function ShopButton({ pathname }: ShopButtonProps) {
   const [isHover, setIsHover] = useState(false);
 
   return (
     <div className={cn('wrapper')} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-      <Link href='/' className={cn('button')}>
+      <Link href='/' className={cn('button', { 'current-page': pathname === 'shop' })}>
         SHOP
       </Link>
       {isHover && (
-        <div className={cn('sub-menu-wrapper')}>
-          {MENU_BUTTON.map((element) => (
-            <div key={element.name} className={cn('menu-button')}>
-              <Link href={element.href} className={cn('button-text')}>
-                {element.name}
-              </Link>
-            </div>
-          ))}
+        <div className={cn('sub-menu-layout')}>
+          <div className={cn('sub-menu-wrapper', { black: pathname === '/' || pathname === 'sign-up' })}>
+            {MENU_BUTTON.map((element) => (
+              <div key={element.NAME} className={cn('menu-button')}>
+                <Link href={element.HREF} className={cn('button-text')}>
+                  {element.NAME}
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
