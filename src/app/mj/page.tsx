@@ -31,6 +31,7 @@ export default function Page() {
     /** 버튼 누를 때 실행되는 함수 */
     // console.log('버튼 누름');
   };
+
   return (
     <div className={cn('container')}>
       <div className={cn('buttons')}>
@@ -52,6 +53,7 @@ export default function Page() {
         paddingVertical={20}
         hoverColor='background-primary-60'
         onClick={handleButtonClick}
+        className={cn('test')}
       >
         button
       </Button>

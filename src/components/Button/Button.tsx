@@ -23,6 +23,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   fontSize?: 14 | 18 | 20 | 24;
   paddingVertical?: 8 | 20;
   children: ReactNode;
+  className?: string;
 }
 
 /**
@@ -46,20 +47,23 @@ export default function Button({
   fontSize = 18,
   paddingVertical = 20,
   children,
+  className,
   ...rest
 }: ButtonProps): JSX.Element {
   const widthClassName = width ? `width-${width}` : 'parent-full';
-  const className = cn(
+  const combinedClassName = cn(
     widthClassName,
     backgroundColor,
+    className,
     'common-style',
     `radius-${radius}`,
     `hover-${hoverColor}`,
     `font-${fontSize}`,
     `padding-${paddingVertical}`,
   );
+  console.log(combinedClassName);
   return (
-    <button className={className} type='button' {...rest}>
+    <button className={combinedClassName} type='button' {...rest}>
       {children}
     </button>
   );
