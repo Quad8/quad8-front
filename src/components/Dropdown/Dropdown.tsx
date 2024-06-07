@@ -49,7 +49,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   }, [options, rest.placeholder]);
 
   useOutsideClick(DropdownRef, () => {
-    if (TextareaRef.current) {
+    if (TextareaRef.current?.value) {
       setDropdownValue(TextareaRef.current.value);
       options.push(TextareaRef.current.value);
       setIsTextFieldVisible(false);
