@@ -35,7 +35,7 @@ export default function KeyboardViewer() {
         <Step />
       </div>
       <Suspense fallback={<div>Loading</div>}>
-        <Canvas shadows camera={CAMERA} className={cn('canvas')} gl={GL} onPointerMissed={handleClickCanvs}>
+        <Canvas camera={CAMERA} className={cn('canvas')} gl={GL} onPointerMissed={handleClickCanvs}>
           <Keyboard />
           <Environment preset='city' />
           <OrbitControls />

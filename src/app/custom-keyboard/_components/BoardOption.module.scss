@@ -37,8 +37,7 @@
 
 .button-content {
   color: $black;
-  font-size: 1.8rem;
-  line-height: 2.6rem;
+  @include pretendard-18-400;
 }
 
 .button-price {

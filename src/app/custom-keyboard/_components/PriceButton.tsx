@@ -1,6 +1,6 @@
 'use client';
 
-import { KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
+import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useContext, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { CustomKeyboardStepTypes } from '@/types/CustomKeyboardTypes';
@@ -55,6 +55,7 @@ export default function PriceButton() {
     updateData,
   } = useContext(KeyboardDataContext);
   const { currentStep, updateCurrentStep, updateStepStatus } = useContext(StepContext);
+  const { updateFocusKey } = useContext(KeyColorContext);
 
   const checkCompleted = (step: CustomKeyboardStepTypes) => {
     if (step === 'board') {
@@ -102,6 +103,7 @@ export default function PriceButton() {
         updateStepStatus({ board: 'current', switch: 'pending' });
       }
     }
+    updateFocusKey(null);
     updateCurrentStep(value);
   };
   const { prev, next } = BUTTONS[currentStep];
