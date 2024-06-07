@@ -1,0 +1,63 @@
+.product-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  transition: box-shadow 0.3s ease;
+  border-radius: 0.8rem;
+  white-space: wrap;
+  gap: 2rem;
+
+  &.sm {
+    max-width: 26.4rem;
+  }
+
+  &.lg {
+    max-width: 40rem;
+  }
+}
+
+.product-image-wrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 68.5%;
+  overflow: hidden;
+  border-radius: 0.8rem;
+}
+
+.product-image {
+  object-fit: cover;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.product-title {
+  font-size: 1.8rem;
+  line-height: 2.8rem;
+}
+
+.product-details {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.product-price {
+  // @include pretendard-18-400;
+
+  font-size: 1.8rem;
+}
+
+.product-review-wishlist {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.product-review {
+  // @include pretendard-16-400;
+}
