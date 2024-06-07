@@ -33,7 +33,7 @@ export default function BoardOption() {
     updateData('texture', value);
   };
 
-  const handleChnageColor = (value: string) => {
+  const handleChangeColor = (value: string) => {
     updateData('boardColor', value);
   };
 
@@ -74,7 +74,7 @@ export default function BoardOption() {
       <div className={cn('content-wrapper')}>
         <div className={cn('title')}>외관 색</div>
         <div className={cn('color-wrapper')}>
-          <HexColorPicker className={cn('react-colorful')} color={boardColor as string} onChange={handleChnageColor} />
+          <HexColorPicker className={cn('react-colorful')} color={boardColor as string} onChange={handleChangeColor} />
         </div>
       </div>
     </div>

@@ -29,33 +29,25 @@ export default function KeyCapOption() {
   const { focusKey, updateFocusKey } = useContext(KeyColorContext);
   const [pointColor, setPointColor] = useState(baseKeyColor);
   const [colorList, setColorList] = useState<[CustomKeyboardKeyTypes, Color][]>(
-    Object.keys(individualColor).map((key) => [
-      key as CustomKeyboardKeyTypes,
-      individualColor[key as CustomKeyboardKeyTypes] as Color,
-    ]),
+    Object.entries(individualColor).map(([key, value]) => [key as CustomKeyboardKeyTypes, value as Color]),
   );
 
   const handleChangeBaseColor = (value: Color) => {
     updateData('baseKeyColor', value);
   };
 
-  const handleClickPointKeyCapButton = (value: boolean) => {
-    updateData('hasPointKeyCap', value);
+  const handleClickPointKeyCapButton = (hasPointKey: boolean) => {
+    updateData('hasPointKeyCap', hasPointKey);
     updateFocusKey(null);
-    if (value) {
-      if (pointKeyType === '세트 구성') {
-        setPointColor(pointKeyColor);
-      } else {
-        setPointColor(baseKeyColor);
-      }
+    if (hasPointKey) {
+      setPointColor(pointKeyType === '세트 구성' ? pointKeyColor : baseKeyColor);
     }
   };
 
   const handleChangePointColor = (value: Color) => {
     if (pointKeyType === '세트 구성') {
       updateData('pointKeyColor', value);
-    } else if (focusKey) {
-      updateIndividualColor({ [focusKey]: value });
+      return;
     }
 
     if (focusKey) {
@@ -64,11 +56,10 @@ export default function KeyCapOption() {
           const data = prev.filter((color) => color[0] !== focusKey);
           return [...data, [focusKey, value]];
         });
-      } else {
-        setColorList((prev) => [...prev, [focusKey, value]]);
       }
+      setColorList((prev) => [...prev, [focusKey, value]]);
+      updateIndividualColor({ [focusKey]: value });
     }
-    updateData('pointKeyColor', value);
   };
 
   const handleClickSetPoint = () => {
@@ -97,7 +88,8 @@ export default function KeyCapOption() {
     if (focusKey) {
       setPointColor(individualColor[focusKey] as Color);
     }
-  }, [focusKey, individualColor]);
+    setPointColor(baseKeyColor);
+  }, [focusKey, individualColor, baseKeyColor]);
 
   return (
     <div className={cn('wrapper')}>

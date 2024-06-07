@@ -25,7 +25,7 @@ const GL = {
 export default function KeyboardViewer() {
   const { updateFocusKey } = useContext(KeyColorContext);
 
-  const handleClickCanvs = () => {
+  const handleClickCanvas = () => {
     updateFocusKey(null);
   };
 
@@ -35,7 +35,7 @@ export default function KeyboardViewer() {
         <Step />
       </div>
       <Suspense fallback={<div>Loading</div>}>
-        <Canvas camera={CAMERA} className={cn('canvas')} gl={GL} onPointerMissed={handleClickCanvs}>
+        <Canvas camera={CAMERA} className={cn('canvas')} gl={GL} onPointerMissed={handleClickCanvas}>
           <Keyboard />
           <Environment preset='city' />
           <OrbitControls />
