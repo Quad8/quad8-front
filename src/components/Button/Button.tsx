@@ -19,7 +19,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   backgroundColor?: ButtonColorType;
   hoverColor?: ButtonColorType;
   radius?: 4 | 8;
-  width?: 'parent-full' | 72 | 90 | 120 | 154 | 320;
+  width?: 72 | 90 | 120 | 154 | 320;
   fontSize?: 14 | 18 | 20 | 24;
   paddingVertical?: 8 | 20;
   children: ReactNode;
@@ -42,13 +42,13 @@ export default function Button({
   backgroundColor = BUTTON_COLOR.BACKGROUND_PRIMARY,
   hoverColor,
   radius = 8,
-  width = 'parent-full',
+  width,
   fontSize = 18,
   paddingVertical = 20,
   children,
   ...rest
 }: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>): JSX.Element {
-  const widthClassName = width === 'parent-full' ? 'parent-full' : `width-${width}`;
+  const widthClassName = width ? `width-${width}` : 'parent-full';
   const className = cn(
     widthClassName,
     backgroundColor,
