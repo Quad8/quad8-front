@@ -6,6 +6,10 @@
   transform: translateY(-50%);
 }
 
+.arrow-icon {
+  pointer-events: none;
+}
+
 .rotate {
   transform: rotate(180deg) translateY(70%);
 }
