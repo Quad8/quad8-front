@@ -37,7 +37,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   ref,
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [dropdownValue, setDropdownValue] = useState<string>('');
+  const [dropdownValue, setDropdownValue] = useState('');
   const [isTextFieldVisible, setIsTextFieldVisible] = useState(false);
   const DropdownRef = useRef<HTMLDivElement>(null);
   const TextareaRef = useRef<HTMLTextAreaElement>(null);
@@ -46,7 +46,11 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
     if (!rest.placeholder) {
       setDropdownValue(options[0]);
     }
-  }, [options, rest.placeholder]);
+
+    if (rest.placeholder === dropdownValue) {
+      setDropdownValue('');
+    }
+  }, [options, rest.placeholder, dropdownValue]);
 
   useOutsideClick(DropdownRef, () => {
     if (TextareaRef.current?.value) {
