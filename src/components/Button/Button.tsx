@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, ButtonHTMLAttributes } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Button.module.scss';
 
@@ -15,14 +15,13 @@ const BUTTON_COLOR = {
 
 type ButtonColorType = (typeof BUTTON_COLOR)[keyof typeof BUTTON_COLOR];
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   backgroundColor?: ButtonColorType;
   hoverColor?: ButtonColorType;
   radius?: 4 | 8;
   width?: 'parent-full' | 72 | 90 | 120 | 154 | 320;
   fontSize?: 14 | 18 | 20 | 24;
   paddingVertical?: 8 | 20;
-  onClick?: () => void;
   children: ReactNode;
 }
 
@@ -46,7 +45,6 @@ export default function Button({
   width = 'parent-full',
   fontSize = 18,
   paddingVertical = 20,
-  onClick,
   children,
   ...rest
 }: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>): JSX.Element {
@@ -61,7 +59,7 @@ export default function Button({
     `padding-${paddingVertical}`,
   );
   return (
-    <button className={className} type='button' onClick={onClick} {...rest}>
+    <button className={className} type='button' {...rest}>
       {children}
     </button>
   );
