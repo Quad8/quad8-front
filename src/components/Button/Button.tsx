@@ -47,7 +47,7 @@ export default function Button({
   paddingVertical = 20,
   children,
   ...rest
-}: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>): JSX.Element {
+}: ButtonProps): JSX.Element {
   const widthClassName = width ? `width-${width}` : 'parent-full';
   const className = cn(
     widthClassName,
