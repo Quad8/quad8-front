@@ -14,7 +14,7 @@ export default function ImageInput() {
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (selectedImageFile.length >= 4 || !files) {
-      alert('이미지 4개 이상 불가');
+      // alert('이미지 4개 이상 불가');
       return;
     }
     const imageUrl = URL.createObjectURL(files[0]);

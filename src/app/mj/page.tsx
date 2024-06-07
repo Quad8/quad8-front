@@ -4,6 +4,7 @@ import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { WriteEditModalType, WRITE_EIDT_MODAL_TYPE } from '@/constants/writeEditModalType';
 import { useState } from 'react';
 import classNames from 'classnames/bind';
+import Button from '@/components/Button/Button';
 import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
@@ -25,6 +26,12 @@ export default function Page() {
     setSelectedModal(WRITE_EIDT_MODAL_TYPE.editMyPost);
     // setIsOpenModal(true);
   };
+
+  const handleButtonClick = () => {
+    /** 버튼 누를 때 실행되는 함수 */
+    // console.log('버튼 누름');
+  };
+
   return (
     <div className={cn('container')}>
       <div className={cn('buttons')}>
@@ -39,6 +46,17 @@ export default function Page() {
         </button>
       </div>
       {selectedModal && <WriteEditModal type={selectedModal} />}
+      <Button
+        backgroundColor='background-gray-40'
+        radius={8}
+        width={90}
+        paddingVertical={20}
+        hoverColor='background-primary-60'
+        onClick={handleButtonClick}
+        className={cn('test')}
+      >
+        button
+      </Button>
     </div>
   );
 }
