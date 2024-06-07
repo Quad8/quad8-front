@@ -42,8 +42,6 @@ export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) 
 
   const handleClickLeftButton = () => {
     /** 닫기버튼 누르면 실행되는 함수 */
-    console.log(title);
-    console.log(content);
   };
   const handleClickRightButton = () => {
     /** 등록 버튼 누르면 실행되는 함수 */
@@ -88,6 +86,9 @@ export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) 
           <Button onClick={handleClickLeftButton}>닫기</Button>
           <Button onClick={handleClickRightButton}>등록 </Button>
         </div>
+        <p>
+          {title} {content}
+        </p>
       </div>
     </div>
   );
