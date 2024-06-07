@@ -61,7 +61,6 @@ export default function Button({
     `font-${fontSize}`,
     `padding-${paddingVertical}`,
   );
-  console.log(combinedClassName);
   return (
     <button className={combinedClassName} type='button' {...rest}>
       {children}
