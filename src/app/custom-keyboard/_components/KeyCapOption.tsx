@@ -36,29 +36,30 @@ export default function KeyCapOption() {
     updateData('baseKeyColor', value);
   };
 
-  const handleClickPointKeyCapButton = (hasPointKey: boolean) => {
-    updateData('hasPointKeyCap', hasPointKey);
+  const handleClickPointKeyCapButton = (value: boolean) => {
+    updateData('hasPointKeyCap', value);
     updateFocusKey(null);
-    if (hasPointKey) {
+    if (value) {
       setPointColor(pointKeyType === '세트 구성' ? pointKeyColor : baseKeyColor);
     }
   };
 
   const handleChangePointColor = (value: Color) => {
+    setPointColor(value);
     if (pointKeyType === '세트 구성') {
       updateData('pointKeyColor', value);
       return;
     }
 
     if (focusKey) {
-      if (individualColor[focusKey]) {
-        setColorList((prev) => {
+      updateIndividualColor({ [focusKey]: value });
+      setColorList((prev) => {
+        if (individualColor[focusKey]) {
           const data = prev.filter((color) => color[0] !== focusKey);
           return [...data, [focusKey, value]];
-        });
-      }
-      setColorList((prev) => [...prev, [focusKey, value]]);
-      updateIndividualColor({ [focusKey]: value });
+        }
+        return [...prev, [focusKey, value]];
+      });
     }
   };
 
@@ -88,8 +89,7 @@ export default function KeyCapOption() {
     if (focusKey) {
       setPointColor(individualColor[focusKey] as Color);
     }
-    setPointColor(baseKeyColor);
-  }, [focusKey, individualColor, baseKeyColor]);
+  }, [focusKey, individualColor]);
 
   return (
     <div className={cn('wrapper')}>
