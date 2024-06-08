@@ -5,21 +5,9 @@ import styles from './Textarea.module.scss';
 const cn = classNames.bind(styles);
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  size?: 'sm' | 'md' | 'lg';
+  sizeVariant?: 'md' | 'option';
 }
 
-export default forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
-  { size, minLength, maxLength, ...rest },
-  ref,
-) {
-  return (
-    <textarea
-      ref={ref}
-      className={cn('default', size)}
-      autoCapitalize='off'
-      minLength={minLength}
-      maxLength={maxLength}
-      {...rest}
-    />
-  );
+export default forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea({ sizeVariant, ...rest }, ref) {
+  return <textarea ref={ref} className={cn('default', sizeVariant)} autoCapitalize='off' {...rest} />;
 });
