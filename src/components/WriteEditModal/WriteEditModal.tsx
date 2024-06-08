@@ -65,7 +65,7 @@ export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) 
         <div className={cn('title-input-wrapper')}>
           <InputField
             label='제목'
-            size='lg'
+            sizeVariant='md'
             className={cn('title-input')}
             placeholder={titileInputPlaceHolder}
             ref={titleInputRef}
