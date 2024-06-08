@@ -1,6 +1,7 @@
 import { useState, useEffect, RefObject } from 'react';
 import classNames from 'classnames/bind';
 import UpArrowIcon from '@/public/svgs/upArrow.svg';
+import useObserver from '@/hooks/useObserver';
 import styles from './ScrollUpButton.module.scss';
 
 const cn = classNames.bind(styles);
@@ -14,30 +15,26 @@ export default function ScrollUpButton({ headerRef }: ScrollUpButtonProps) {
   const handleScrollUpButtonClick = () => {
     headerRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+  const [observerRef, isIntersecting] = useObserver({
+    threshold: 0.1,
+  });
+
   useEffect(() => {
-    const currentHeaderRef = headerRef.current;
-    if (!currentHeaderRef) {
-      return undefined;
+    if (headerRef.current) {
+      observerRef.current = headerRef.current;
     }
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsHeaderVisible(entry.isIntersecting);
-    });
+  }, [headerRef, observerRef]);
 
-    observer.observe(currentHeaderRef);
+  useEffect(() => {
+    setIsHeaderVisible(isIntersecting);
+  }, [isIntersecting]);
 
-    return () => {
-      if (currentHeaderRef) {
-        observer.unobserve(currentHeaderRef);
-      }
-    };
-  }, [headerRef]);
   return (
     <button
       type='button'
       className={cn('button-div', `${isHeaderVisible && 'no-button-visible'}`)}
       onClick={handleScrollUpButtonClick}
     >
-      {' '}
       <UpArrowIcon />
     </button>
   );
