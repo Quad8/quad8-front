@@ -7,6 +7,8 @@ import { HexColorPicker } from 'react-colorful';
 import { CustomKeyboardTypeTypes, CustomKeyboardTextureTypes } from '@/types/CustomKeyboardTypes';
 import styles from './BoardOption.module.scss';
 
+const cn = classNames.bind(styles);
+
 const TYPE_BUTTONS = [
   { type: 'full', name: '풀 배열', price: 35000 },
   { type: 'tkl', name: '텐키리스', price: 30000 },
@@ -16,8 +18,6 @@ const TEXTURE_BUTTONS = [
   { texture: 'metal', name: '금속', price: 35000 },
   { texture: 'plastic', name: '플라스틱', price: 30000 },
 ];
-
-const cn = classNames.bind(styles);
 
 export default function BoardOption() {
   const {

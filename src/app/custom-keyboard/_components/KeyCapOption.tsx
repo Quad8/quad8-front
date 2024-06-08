@@ -34,6 +34,9 @@ export default function KeyCapOption() {
 
   const handleChangeBaseColor = (value: Color) => {
     updateData('baseKeyColor', value);
+    if (focusKey) {
+      updateFocusKey(null);
+    }
   };
 
   const handleClickPointKeyCapButton = (value: boolean) => {
