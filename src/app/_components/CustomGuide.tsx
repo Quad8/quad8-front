@@ -1,3 +1,4 @@
+import Button from '@/components/Button/Button';
 import keyduekImg from '@/public/images/keyduek.png';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
@@ -44,6 +45,12 @@ export default function CustomGuide() {
           <Guide key={step} step={step} title={title} desc={desc} src={src} />
         ))}
       </ul>
+      <h1 className={cn('title')} data-aos='fade-up'>
+        키보드 득템할 준비가 되었다면?
+      </h1>
+      <div className={cn('button-area')} data-aos='fade-up'>
+        <Button className={cn('font-24')}>키보드 커스텀 하러 가기</Button>
+      </div>
     </section>
   );
 }
