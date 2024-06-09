@@ -1,0 +1,45 @@
+.card-wrap {
+  display: flex;
+  justify-content: space-between;
+  width: 141.6rem;
+  overflow: hidden;
+  border: 0.1rem solid #eee;
+  border-radius: 3.6rem;
+  background-color: $white;
+  box-shadow: #30303005 0 0 1.5rem;
+}
+
+.text-area {
+  margin-top: 9.5rem;
+  margin-left: 4.6rem;
+}
+
+.badge {
+  @include pretendard-18-600;
+
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.8rem;
+  background-color: $primary-20;
+  color: $primary;
+}
+
+.title {
+  @include pretendard-30-700;
+
+  margin-top: 3rem;
+  margin-bottom: 0.8rem;
+  color: $black;
+}
+
+.sub-title {
+  @include pretendard-20-300;
+
+  color: $gray-50;
+}
+
+.img-area {
+  position: relative;
+  width: 78rem;
+  height: 40.4rem;
+}
