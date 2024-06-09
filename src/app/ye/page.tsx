@@ -1,5 +1,5 @@
-import Pagination from '@/components/Pagination/Pagination';
+import CustomGuide from '../_components/CustomGuide';
 
 export default function Page() {
-  return <Pagination count={161} limit={16} />;
+  return <CustomGuide />;
 }
