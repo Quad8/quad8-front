@@ -24,7 +24,7 @@ export default function Guide({ step, title, desc, src }: GuideProp) {
         ))}
       </div>
       <div className={cn('img-area')}>
-        <Image src={src} alt={`STEP ${step}`} layout='fill' style={{ objectFit: 'cover' }} />
+        <Image src={src} alt={`STEP ${step}`} fill />
       </div>
     </li>
   );
