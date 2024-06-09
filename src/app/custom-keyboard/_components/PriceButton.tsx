@@ -3,7 +3,7 @@
 import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useContext, useEffect } from 'react';
 import classNames from 'classnames/bind';
-import { CustomKeyboardStepTypes } from '@/types/CustomKeyboardTypes';
+import type { CustomKeyboardStepTypes } from '@/types/CustomKeyboardTypes';
 import styles from './PriceButton.module.scss';
 
 const cn = classNames.bind(styles);

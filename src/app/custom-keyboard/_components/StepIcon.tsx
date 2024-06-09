@@ -2,7 +2,7 @@
 
 import classNames from 'classnames/bind';
 import CompleteIcon from '@/public/svgs/stepComplete.svg';
-import { CustomKeyboardStepStatusTypes } from '@/types/CustomKeyboardTypes';
+import type { CustomKeyboardStepStatusTypes } from '@/types/CustomKeyboardTypes';
 import styles from './StepIcon.module.scss';
 
 const cn = classNames.bind(styles);

@@ -1,6 +1,6 @@
 'use client';
 
-import {
+import type {
   CustomKeyboardStepTypes,
   CustomKeyboardStepStatusTypes,
   CustomKeyboardKeyTypes,
@@ -27,7 +27,7 @@ interface KeyboardDataType {
   baseKeyColor: Color;
   hasPointKeyCap: boolean;
   pointKeyType: CustomKeyboardPointKeyType;
-  pointKeyColor: Color;
+  pointKeySetColor: Color;
   price: number;
   option: Partial<Record<string, boolean>>;
   individualColor: Partial<Record<CustomKeyboardKeyTypes, Color>>;
@@ -42,6 +42,8 @@ interface KeyboardDataContextType {
 
 interface KeyColorContextType {
   focusKey: CustomKeyboardKeyTypes | null;
+  currentPointKeyColor: Color;
+  updateCurrentPointKeyColor: (value: Color) => void;
   updateFocusKey: (value: CustomKeyboardKeyTypes | null) => void;
 }
 
@@ -65,7 +67,7 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
     baseKeyColor: '#ffffff',
     hasPointKeyCap: false,
     pointKeyType: '세트 구성',
-    pointKeyColor: '#ffffff',
+    pointKeySetColor: '#ffffff',
     price: 0,
     option: {},
     individualColor: {},
@@ -77,6 +79,8 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
 
 export const KeyColorContext = createContext<KeyColorContextType>({
   focusKey: null,
+  currentPointKeyColor: '#ffffff',
+  updateCurrentPointKeyColor: () => {},
   updateFocusKey: () => {},
 });
 
@@ -116,7 +120,7 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     baseKeyColor: '#ffffff',
     hasPointKeyCap: false,
     pointKeyType: '세트 구성',
-    pointKeyColor: '#ffffff',
+    pointKeySetColor: '#ffffff',
     price: 70000,
     option: {},
     individualColor: {},
@@ -148,12 +152,20 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
 
 export function KeyColorContextProvider({ children }: PropsWithChildren) {
   const [focusKey, setFocusKey] = useState<CustomKeyboardKeyTypes | null>(null);
+  const [currentPointKeyColor, setCurrentPointKeyColor] = useState<Color>('#ffffff');
+
+  const updateCurrentPointKeyColor = useCallback((value: Color) => {
+    setCurrentPointKeyColor(value);
+  }, []);
 
   const updateFocusKey = useCallback((value: CustomKeyboardKeyTypes | null) => {
     setFocusKey(value);
   }, []);
 
-  const value = useMemo(() => ({ focusKey, updateFocusKey }), [focusKey, updateFocusKey]);
+  const value = useMemo(
+    () => ({ focusKey, currentPointKeyColor, updateFocusKey, updateCurrentPointKeyColor }),
+    [focusKey, currentPointKeyColor, updateFocusKey, updateCurrentPointKeyColor],
+  );
 
   return <KeyColorContext.Provider value={value}>{children}</KeyColorContext.Provider>;
 }

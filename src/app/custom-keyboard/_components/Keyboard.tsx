@@ -3,11 +3,11 @@
 import { KEY, TEN_KEY, POINT_KEY } from '@/constants/keyboardData';
 import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useGLTF } from '@react-three/drei';
-import { ThreeEvent, Color } from '@react-three/fiber';
+import { ThreeEvent } from '@react-three/fiber';
 import { useContext } from 'react';
 import { Euler, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 import { GLTF } from 'three-stdlib';
-import { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
+import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 
 interface KeyboardNodes {
   nodes: Record<CustomKeyboardKeyTypes | 'Cube', Mesh>;
@@ -23,13 +23,12 @@ export default function Keyboard() {
       pointKeyType,
       hasPointKeyCap,
       baseKeyColor,
-      pointKeyColor,
+      pointKeySetColor,
       individualColor,
     },
-    updateData,
   } = useContext(KeyboardDataContext);
 
-  const { focusKey, updateFocusKey } = useContext(KeyColorContext);
+  const { focusKey, updateFocusKey, updateCurrentPointKeyColor } = useContext(KeyColorContext);
   const { currentStep } = useContext(StepContext);
   const { nodes, materials } = useGLTF(
     type === 'tkl' ? '/glbs/tklKeyboard.glb' : '/glbs/keyboard.glb',
@@ -50,7 +49,7 @@ export default function Keyboard() {
       return;
     }
     updateFocusKey(key);
-    updateData('pointKeyColor', individualColor[key] as Color);
+    updateCurrentPointKeyColor(individualColor[key] ?? baseKeyColor);
   };
 
   const getKeyColor = (key: CustomKeyboardKeyTypes) => {
@@ -59,7 +58,7 @@ export default function Keyboard() {
         return individualColor[key];
       }
       if (pointKeyType === '세트 구성' && POINT_KEY.includes(key)) {
-        return pointKeyColor;
+        return pointKeySetColor;
       }
     }
     return baseKeyColor;

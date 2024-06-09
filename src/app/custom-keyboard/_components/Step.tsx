@@ -3,7 +3,7 @@
 import classNames from 'classnames/bind';
 import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useContext } from 'react';
-import { CustomKeyboardStepStatusTypes, CustomKeyboardStepTypes } from '@/types/CustomKeyboardTypes';
+import type { CustomKeyboardStepStatusTypes, CustomKeyboardStepTypes } from '@/types/CustomKeyboardTypes';
 import styles from './Step.module.scss';
 import StepIcon from './StepIcon';
 

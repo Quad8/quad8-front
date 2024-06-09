@@ -5,7 +5,7 @@ import { useCallback, useContext, useState } from 'react';
 import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import HelpDetailIcon from '@/public/svgs/HelpDetail.svg';
 import Modal from '@/components/Modal/Modal';
-import { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
+import type { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
 import styles from './SwitchOption.module.scss';
 import SwitchHelp from './SwitchHelp';
 
