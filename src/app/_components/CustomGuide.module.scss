@@ -3,21 +3,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 10rem;
+  padding-top: 100px;
   background-color: #f5f5f5;
 }
 
 .title {
   @include pretendard-30-700;
 
-  margin-top: 4rem;
+  margin-top: 40px;
   color: $black;
 }
 
 .sub-title {
   @include pretendard-20-300;
 
-  margin: 0.8rem 0 8rem;
+  margin: 8px 0 80px;
   color: $black;
 }
 
@@ -26,5 +26,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4rem;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.button-area {
+  width: 32rem;
+  margin-top: 4rem;
+  padding-bottom: 20rem;
 }
