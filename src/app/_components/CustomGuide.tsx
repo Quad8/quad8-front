@@ -2,6 +2,7 @@ import Button from '@/components/Button/Button';
 import keyduekImg from '@/public/images/keyduek.png';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
+import Link from 'next/link';
 import AnimatedSection from './AnimatedSection';
 import styles from './CustomGuide.module.scss';
 import Guide from './Guide';
@@ -48,10 +49,14 @@ export default function CustomGuide() {
           </AnimatedSection>
         ))}
       </ul>
-      <h1 className={cn('title')}>키보드 득템할 준비가 되었다면?</h1>
-      <div className={cn('button-area')}>
-        <Button className={cn('font-24')}>키보드 커스텀 하러 가기</Button>
-      </div>
+      <AnimatedSection>
+        <h1 className={cn('title')}>키보드 득템할 준비가 되었다면?</h1>
+      </AnimatedSection>
+      <AnimatedSection>
+        <Link href='/' className={cn('button-area')}>
+          <Button className={cn('font-24')}>키보드 커스텀 하러 가기</Button>
+        </Link>
+      </AnimatedSection>
     </section>
   );
 }
