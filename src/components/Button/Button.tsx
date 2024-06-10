@@ -4,17 +4,6 @@ import styles from './Button.module.scss';
 
 const cn = classNames.bind(styles);
 
-const BUTTON_COLOR = {
-  BACKGROUND_GRAY_40: 'background-gray-40',
-  BACKGROUND_PRIMARY: 'background-primary',
-  BACKGROUND_PRIMARY_60: 'background-primary-60',
-  OUTLINE_GRAY_40: 'outline-gray-40',
-  OUTLINE_PRIMARY: 'outline-primary',
-  OUTLINE_PRIMARY_60: 'outline-primary-60',
-} as const;
-
-type ButtonColorType = (typeof BUTTON_COLOR)[keyof typeof BUTTON_COLOR];
-
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   backgroundColor?: ButtonColorType;
   hoverColor?: ButtonColorType;
@@ -25,6 +14,16 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   className?: string;
 }
+type ButtonColorType = (typeof BUTTON_COLOR)[keyof typeof BUTTON_COLOR];
+
+const BUTTON_COLOR = {
+  BACKGROUND_GRAY_40: 'background-gray-40',
+  BACKGROUND_PRIMARY: 'background-primary',
+  BACKGROUND_PRIMARY_60: 'background-primary-60',
+  OUTLINE_GRAY_40: 'outline-gray-40',
+  OUTLINE_PRIMARY: 'outline-primary',
+  OUTLINE_PRIMARY_60: 'outline-primary-60',
+} as const;
 
 /**
  * button component documentation

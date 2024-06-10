@@ -11,15 +11,15 @@ interface WriteEditModalProps {
 }
 
 const TITLE_MAX_LENGTH = 20;
+const TITLE_PLACEHOLDER = '미 입력 시 키득 커스텀 키보드로 등록됩니다.';
+const CONTENT_PLACEHOLDER = '최소 20자 이상 입력해주세요';
 
 export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) {
   const titleInputRef = useRef<HTMLInputElement>(null);
-  const titileInputPlaceHolder = '미 입력 시 키득 커스텀 키보드로 등록됩니다.';
   const [title, setTitle] = useState('');
   const [titleLength, setTitleLength] = useState(0);
 
   const contentInputRef = useRef<HTMLTextAreaElement>(null);
-  const contentInputPlaceHolder = '최소 20자 이상 입력해주세요';
   const [content, setContent] = useState('');
 
   const handleTitleInputChange = (e: Event) => {
@@ -64,7 +64,7 @@ export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) 
             label='제목'
             sizeVariant='md'
             className={cn('title-input')}
-            placeholder={titileInputPlaceHolder}
+            placeholder={TITLE_PLACEHOLDER}
             ref={titleInputRef}
             maxLength={TITLE_MAX_LENGTH}
           />
@@ -76,7 +76,7 @@ export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) 
         <TextField
           label='내용'
           className={cn('text-area-input')}
-          placeholder={contentInputPlaceHolder}
+          placeholder={CONTENT_PLACEHOLDER}
           ref={contentInputRef}
         />
         <div className={cn('button-wrapper')}>

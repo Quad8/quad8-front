@@ -2,11 +2,12 @@ import classNames from 'classnames/bind';
 import type { CustomKeyboardTypes } from '@/types/CustomKeyboardTypes';
 import styles from './KeyboardInfoBox.module.scss';
 
+const cn = classNames.bind(styles);
+
 interface KeyboardInfoBoxProps {
   keyboardInfo: CustomKeyboardTypes;
   isCustomReview?: boolean;
 }
-const cn = classNames.bind(styles);
 
 export default function KeyboardInfoBox({ keyboardInfo, isCustomReview }: KeyboardInfoBoxProps) {
   const {
