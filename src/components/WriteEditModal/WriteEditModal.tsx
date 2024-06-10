@@ -37,10 +37,7 @@ export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) 
     };
   }, []);
 
-  const handleClickLeftButton = () => {
-    /** 닫기버튼 누르면 실행되는 함수 */
-  };
-  const handleClickRightButton = () => {
+  const handleSubmit = () => {
     /** 등록 버튼 누르면 실행되는 함수 */
     const titleValue = titleInputRef.current?.value;
     if (titleValue) {
@@ -56,7 +53,7 @@ export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) 
   };
 
   return (
-    <div className={cn('container')}>
+    <form className={cn('container')} onSubmit={handleSubmit}>
       <KeyboardInfoBox keyboardInfo={KEYBOARD_DATA} isCustomReview={isCustomReview} />
       <div className={cn('input-wrapper')}>
         <div className={cn('title-input-wrapper')}>
@@ -80,13 +77,12 @@ export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) 
           ref={contentInputRef}
         />
         <div className={cn('button-wrapper')}>
-          <Button onClick={handleClickLeftButton}>닫기</Button>
-          <Button onClick={handleClickRightButton}>등록 </Button>
+          <Button onClick={handleSubmit}>후기 등록하기</Button>
         </div>
         <p>
           {title} {content}
         </p>
       </div>
-    </div>
+    </form>
   );
 }
