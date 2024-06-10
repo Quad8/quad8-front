@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, MutableRefObject } from 'react';
 
-const useObserver = (options = {}): [MutableRefObject<HTMLElement | null>, boolean] => {
+const useObserver = (options?: IntersectionObserverInit): [MutableRefObject<HTMLElement | null>, boolean] => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const elementRef = useRef(null);
 
