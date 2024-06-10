@@ -2,15 +2,18 @@
 
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import classNames from 'classnames/bind';
-import { InputHTMLAttributes, forwardRef, useRef, useState } from 'react';
+import { InputHTMLAttributes, MouseEvent, forwardRef, useEffect, useRef, useState } from 'react';
+import TextField from '../TextField/TextField';
 import { Input, SuffixIcon } from '../parts';
 import styles from './Dropdown.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface DropdownProps extends InputHTMLAttributes<HTMLInputElement> {
   options: string[];
-  size?: 'sm' | 'md' | 'lg';
+  sizeVariant?: 'xs' | 'sm' | 'md' | 'lg';
+  className?: string;
+  onClick?: () => void;
 }
 
 /**
@@ -18,53 +21,119 @@ interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'siz
  *
  * @param {object} props - 컴포넌트의 속성
  * @param {string} [props.type='text'] - 입력 필드의 타입, 기본값은 'text'
- * @param {string} [props.size='sm'] - 드롭다운의 크기, 'sm', 'md', 'lg' 중 하나
+ * @param {string} [props.sizeVariant='sm'] - 드롭다운의 사이즈:
+ * 'xs' = sort Dropdown에서 사용,
+ * 'sm' = 일반적인 상품 옵션 선택,
+ * 'md', 'lg' 중 하나
  * @param {string[]} props.options - 선택할 수 있는 옵션 목록
  * @param {string} [props.placeholder] - placeholder 텍스트로 기본값 설정
+ * placeholder값 선택시 inputValue === ('')
+ * placeholder 설정하지 않을 시 options의 첫번째 값 렌더링
  * @returns {JSX.Element} 렌더링된 드롭다운 컴포넌트
  */
 
 export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
-  { type = 'text', size = 'sm', options, ...rest },
+  { type = 'text', sizeVariant = 'sm', options, className, onClick, ...rest },
   ref,
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [dropdownValue, setDropdownValue] = useState<string>('');
+  const [dropdownValue, setDropdownValue] = useState('');
+  const [isTextFieldVisible, setIsTextFieldVisible] = useState(false);
   const DropdownRef = useRef<HTMLDivElement>(null);
+  const TextareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (!rest.placeholder) {
+      setDropdownValue(options[0]);
+    }
+
+    if (rest.placeholder === dropdownValue) {
+      setDropdownValue('');
+    }
+  }, [options, rest.placeholder, dropdownValue]);
 
   useOutsideClick(DropdownRef, () => {
+    if (TextareaRef.current?.value) {
+      setDropdownValue(TextareaRef.current.value);
+      options.push(TextareaRef.current.value);
+      setIsTextFieldVisible(false);
+    }
+
     setIsDropdownOpen(false);
   });
 
-  const handleInputFocus = () => {
-    setIsDropdownOpen(true);
+  const handleDropdownClick = () => {
+    setIsDropdownOpen((prevIsOpen) => !prevIsOpen);
   };
 
-  const handleOptionClick = (option: string) => {
-    setDropdownValue(option);
+  const handleOptionClick = (e: MouseEvent<HTMLInputElement>) => {
+    const inputValue = e.currentTarget.value;
+    setDropdownValue(inputValue);
     setIsDropdownOpen(false);
+    setIsTextFieldVisible(inputValue === '직접 입력');
+
+    if (onClick) {
+      onClick();
+    }
   };
 
   return (
-    <div className={cn('dropdown')} ref={DropdownRef} onFocus={handleInputFocus}>
+    <div className={cn('dropdown', sizeVariant, className)} ref={DropdownRef}>
       <div className={cn('input-wrapper')}>
-        <Input ref={ref} isSelect type={type} size={size} value={dropdownValue} readOnly {...rest} />
+        <Input
+          ref={ref}
+          isSelect
+          readOnly
+          type={type}
+          sizeVariant={sizeVariant}
+          value={dropdownValue}
+          placeholder={rest.placeholder || options[0]}
+          onClick={handleDropdownClick}
+          {...rest}
+        />
         <SuffixIcon icon='arrow' isOpen={isDropdownOpen} />
       </div>
+      {isTextFieldVisible && (
+        <TextField
+          ref={TextareaRef}
+          sizeVariant='option'
+          rows={3}
+          minLength={2}
+          maxLength={30}
+          placeholder='내용을 입력해 주세요'
+        />
+      )}
       {isDropdownOpen && (
-        <ul className={cn('option-box')}>
+        <ul
+          className={cn('option-box', {
+            'open-xs': isDropdownOpen,
+            'open-other': isDropdownOpen && sizeVariant !== 'xs',
+          })}
+        >
           {rest.placeholder && (
             <li>
-              <button type='button' className={cn('option', size)} onClick={() => handleOptionClick('')}>
-                {rest.placeholder}
-              </button>
+              <Input
+                type='button'
+                isOption
+                isChecked={dropdownValue === rest.placeholder}
+                sizeVariant={sizeVariant}
+                value={rest.placeholder}
+                readOnly
+                onClick={handleOptionClick}
+              />
             </li>
           )}
           {options.map((option) => (
             <li key={option}>
-              <button type='button' className={cn('option', size)} onClick={() => handleOptionClick(option)}>
-                {option}
-              </button>
+              <Input
+                type='button'
+                isOption
+                isChecked={dropdownValue === option}
+                sizeVariant={sizeVariant}
+                value={option}
+                readOnly
+                onClick={handleOptionClick}
+              />
             </li>
           ))}
         </ul>

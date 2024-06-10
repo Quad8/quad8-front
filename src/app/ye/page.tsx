@@ -1,3 +1,5 @@
+import Pagination from '@/components/Pagination/Pagination';
+
 export default function Page() {
-  return <div>테스트페이지 ye</div>;
+  return <Pagination count={161} limit={16} />;
 }
