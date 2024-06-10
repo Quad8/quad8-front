@@ -1,0 +1,12 @@
+.fade-zoom-in {
+  transform: scale(0.8) translateY(50%);
+  transition:
+    opacity 1s ease-in-out,
+    transform 1s ease-in-out;
+  opacity: 0.5;
+
+  &.visible {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
