@@ -1,11 +1,10 @@
 .image-div {
-  display: flex;
   position: relative;
-  align-items: center;
-  justify-content: center;
   width: 6.4rem;
   height: 6.4rem;
   overflow: hidden;
   border-radius: 999rem;
   background-color: #eaeaea;
+
+  @include flex-center;
 }
