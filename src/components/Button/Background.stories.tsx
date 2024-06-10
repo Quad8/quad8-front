@@ -5,6 +5,7 @@ const meta: Meta<typeof Button> = {
   component: Button,
   args: {
     children: 'button',
+    width: 120,
   },
 };
 export default meta;
