@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 import { Providers } from './providers';
 
 import '@/styles/reset.css';
-import AOSWrapper from './_components/AOSWrapper';
 
 export const metadata: Metadata = {
   title: '키보드 득템 :: KeyDuek',
@@ -18,9 +17,7 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body>
-        <Providers>
-          <AOSWrapper>{children}</AOSWrapper>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

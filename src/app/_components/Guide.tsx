@@ -13,7 +13,7 @@ interface GuideProp {
 
 export default function Guide({ step, title, desc, src }: GuideProp) {
   return (
-    <li className={cn('card-wrap')} data-aos='fade-up'>
+    <li className={cn('card-wrap')}>
       <div className={cn('text-area')}>
         <em className={cn('badge')}>STEP {step}</em>
         <h3 className={cn('title')}>{title}</h3>
