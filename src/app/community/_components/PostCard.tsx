@@ -29,7 +29,7 @@ export default function PostCard({ cardData, onClick }: PostCardProps) {
   const timeToString = calculateTimeDifference(createdDate, nowDate);
 
   return (
-    <button type='button' className={cn('container')} onClick={onClick}>
+    <div className={cn('container')} onClick={onClick}>
       <AuthorCard nickname={nickname} timeAgoString={timeToString} />
       <div className={cn('keyboard-image-wrapper')}>
         <Image src={ContentImage} className={cn('keyboard-image')} alt='키보드 이미지' />
@@ -37,6 +37,6 @@ export default function PostCard({ cardData, onClick }: PostCardProps) {
       </div>
       <p className={cn('title')}>{title}</p>
       <PostInteractions goodCount={goodCount} commentCount={commentCount} />
-    </button>
+    </div>
   );
 }

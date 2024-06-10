@@ -1,5 +1,7 @@
+import { useState, MouseEvent } from 'react';
 import classNames from 'classnames/bind';
 import CommentIcon from '@/public/svgs/comment.svg';
+import LikeButton from '@/components/buttons/LikeButton/LikeButton';
 import styles from './PostInteractions.module.scss';
 
 const cn = classNames.bind(styles);
@@ -10,10 +12,18 @@ interface PostInteractionsProps {
 }
 
 export function PostInteractions({ goodCount, commentCount }: PostInteractionsProps) {
+  const [isChecked, setIsChecked] = useState(false);
+  const handleContainerClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
+  const handleLikeButtonClick = () => {
+    setIsChecked((prev) => !prev);
+  };
   return (
-    <div className={cn('container')}>
+    <div className={cn('container')} onClick={handleContainerClick}>
       <div className={cn('icon-and-count')}>
-        <CommentIcon />
+        <LikeButton isChecked={isChecked} onClick={handleLikeButtonClick} />
         <p id={cn('count')}>{goodCount > 99 ? '99+' : goodCount}</p>
       </div>
       <div className={cn('icon-and-count')}>
