@@ -21,9 +21,7 @@
 }
 
 .common-style {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
 }
 
 .background-gray-40 {

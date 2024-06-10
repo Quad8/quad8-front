@@ -10,7 +10,7 @@ interface ScrollUpButtonProps {
 }
 
 export default function ScrollUpButton({ headerRef }: ScrollUpButtonProps) {
-  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const handleScrollUpButtonClick = () => {
     headerRef.current?.scrollIntoView({ behavior: 'smooth' });
   };

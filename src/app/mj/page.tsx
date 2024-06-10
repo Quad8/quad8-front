@@ -3,7 +3,6 @@
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { WriteEditModalType, WRITE_EIDT_MODAL_TYPE } from '@/constants/writeEditModalType';
 import { useState } from 'react';
-import { BUTTON_COLOR } from '@/constants/buttonTypes';
 import classNames from 'classnames/bind';
 import Button from '@/components/Button/Button';
 import styles from './page.module.scss';
@@ -30,8 +29,9 @@ export default function Page() {
 
   const handleButtonClick = () => {
     /** 버튼 누를 때 실행되는 함수 */
-    console.log('버튼 누름');
+    // console.log('버튼 누름');
   };
+
   return (
     <div className={cn('container')}>
       <div className={cn('buttons')}>
@@ -47,12 +47,13 @@ export default function Page() {
       </div>
       {selectedModal && <WriteEditModal type={selectedModal} />}
       <Button
-        backgroundColor={BUTTON_COLOR.OUTLINE_PRIMARY_60}
+        backgroundColor='background-gray-40'
         radius={8}
         width={90}
         paddingVertical={20}
-        hoverColor={BUTTON_COLOR.OUTLINE_PRIMARY_60}
+        hoverColor='background-primary-60'
         onClick={handleButtonClick}
+        className={cn('test')}
       >
         button
       </Button>

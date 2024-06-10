@@ -1,0 +1,33 @@
+.pagination-container {
+  @include flex-center;
+
+  gap: 4.8rem;
+
+  .arrow-button {
+    &:disabled {
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+
+  .pagination-list {
+    @include flex-center;
+
+    .pagination-item {
+      @include flex-center;
+
+      width: 3.6rem;
+      height: 2.4rem;
+
+      .selected-page {
+        @include flex-center;
+
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 100%;
+        background-color: $primary;
+        color: $white;
+      }
+    }
+  }
+}

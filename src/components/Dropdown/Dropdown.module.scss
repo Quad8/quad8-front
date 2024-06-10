@@ -1,35 +1,33 @@
-@mixin sm {
-  padding: 0.8rem 1.6rem;
-  @include pretendard-14-400;
+@keyframes slide-fade-in {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-@mixin md {
-  padding: 1rem 1.6rem;
-  @include pretendard-18-400;
-}
+@keyframes expand {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
 
-@mixin lg {
-  padding: 1rem 2rem;
-  @include pretendard-16-400;
+  100% {
+    max-height: 40rem;
+    opacity: 1;
+  }
 }
 
 .dropdown {
   position: relative;
+  z-index: 10;
 
   .input-wrapper {
     position: relative;
-  }
-
-  .sm {
-    @include sm;
-  }
-
-  .md {
-    @include md;
-  }
-
-  .lg {
-    @include lg;
   }
 
   .option-box {
@@ -37,16 +35,35 @@
     z-index: $zindex-dropdown;
     top: 0;
     width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      max-height 0.4s ease,
+      opacity 0.4s ease;
     border: 0.1rem solid $gray-50;
     border-radius: 0.4rem;
+    opacity: 0;
     background-color: $white;
 
-    .option {
-      width: 100%;
-
-      &:hover {
-        background: $primary-20;
-      }
+    &.open-xs {
+      max-height: 40rem;
+      animation: slide-fade-in 0.4s forwards;
+      opacity: 1;
     }
+
+    &.open-other {
+      animation: expand 0.6s ease forwards;
+    }
+  }
+}
+
+.xs {
+  width: 12rem;
+
+  .option-box {
+    top: auto;
+    right: 0.6rem;
+    width: 10rem;
+    border: 0.1rem solid $gray-20;
   }
 }
