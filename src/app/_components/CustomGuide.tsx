@@ -2,6 +2,7 @@ import Button from '@/components/Button/Button';
 import keyduekImg from '@/public/images/keyduek.png';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
+import AnimatedSection from './AnimatedSection';
 import styles from './CustomGuide.module.scss';
 import Guide from './Guide';
 
@@ -42,7 +43,9 @@ export default function CustomGuide() {
       <p className={cn('sub-title')}>3D 시뮬레이션으로 원하는 느낌 그대로 재현 할 수 있어요</p>
       <ul className={cn('guide-list')}>
         {guide.map(({ step, title, desc, src }) => (
-          <Guide key={step} step={step} title={title} desc={desc} src={src} />
+          <AnimatedSection key={step}>
+            <Guide step={step} title={title} desc={desc} src={src} />
+          </AnimatedSection>
         ))}
       </ul>
       <h1 className={cn('title')}>키보드 득템할 준비가 되었다면?</h1>
