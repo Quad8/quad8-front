@@ -39,7 +39,11 @@
 
   .hero-item {
     position: absolute;
-    animation: bounce-in-fwd 1.1s both;
+    animation: bounce-in-fwd 1.7s both;
+
+    &:nth-child(even) {
+      animation: bounce-in-fwd 1.3s both;
+    }
 
     &:nth-child(1) {
       bottom: 29.3rem;
@@ -90,8 +94,9 @@
   display: inline-block;
   overflow: hidden;
   animation:
-    typing 0.8s steps(10, end),
-    blink-caret 0.75s step-start infinite;
+    typing 1s steps(10, end),
+    blink-caret 1s step-start infinite;
+  animation-delay: 0.5s;
   border-right: 0.15em solid $black;
   background: linear-gradient(to right top, rgb(152 138 255), #ff70db);
   background-clip: text;
@@ -126,46 +131,45 @@
   }
 }
 
+@mixin bounce-effect($scale, $timing) {
+  transform: scale($scale);
+  animation-timing-function: $timing;
+}
+
 @keyframes bounce-in-fwd {
   0% {
-    transform: scale(0);
-    animation-timing-function: ease-in;
+    @include bounce-effect(0, ease-in);
+
     opacity: 0;
   }
 
   38% {
-    transform: scale(1);
-    animation-timing-function: ease-out;
+    @include bounce-effect(1, ease-out);
+
     opacity: 1;
   }
 
   55% {
-    transform: scale(0.7);
-    animation-timing-function: ease-in;
+    @include bounce-effect(0.7, ease-in);
   }
 
   72% {
-    transform: scale(1);
-    animation-timing-function: ease-out;
+    @include bounce-effect(1, ease-out);
   }
 
   81% {
-    transform: scale(0.84);
-    animation-timing-function: ease-in;
+    @include bounce-effect(0.84, ease-in);
   }
 
   89% {
-    transform: scale(1);
-    animation-timing-function: ease-out;
+    @include bounce-effect(1, ease-out);
   }
 
   95% {
-    transform: scale(0.95);
-    animation-timing-function: ease-in;
+    @include bounce-effect(0.95, ease-in);
   }
 
   100% {
-    transform: scale(1);
-    animation-timing-function: ease-out;
+    @include bounce-effect(1, ease-out);
   }
 }
