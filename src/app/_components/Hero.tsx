@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import styles from './Hero.module.scss';
-import images from './heroItem';
+import IMAGES from './heroItem';
 
 const cn = classNames.bind(styles);
 
@@ -11,8 +11,8 @@ export default function Hero() {
       <div className={cn('inner')}>
         <div className={cn('hero-box')}>
           <div className={cn('hero-item-container')}>
-            {images.map((src, i) => (
-              <Image key={src.src} src={src} alt={`배경 이미지 ${i}`} className={cn('hero-item')} />
+            {IMAGES.map((image, i) => (
+              <Image key={image.src} src={image} alt={`배경 이미지 ${i}`} className={cn('hero-item')} />
             ))}
           </div>
           <div className={cn('title-container')}>
@@ -24,7 +24,6 @@ export default function Hero() {
                 <span className={cn('typing')}>커스텀 키보드</span>
               </div>
             </div>
-
             <h1>초보도 쉽게 만들 수 있어요</h1>
           </div>
         </div>
