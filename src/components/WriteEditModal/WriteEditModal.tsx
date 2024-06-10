@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import KEYBOARD_DATA from '@/app/mj/customData';
-import { InputField, ImageInput, KeyboardInfoBox, Button } from '@/components';
-import TextField from '../TextField/TextField';
+import { InputField, ImageInput, KeyboardInfoBox, Button, TextField } from '@/components';
 import styles from './WriteEditModal.module.scss';
 
 const cn = classNames.bind(styles);
