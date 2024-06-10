@@ -31,100 +31,54 @@
 }
 
 @mixin pretendard-14-400 {
-  font-family: Pretendard-Regular, sans-serif;
-  font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 2.2rem;
+  @include font-mixin('Pretendard', 1.4, 400);
 }
 
 @mixin pretendard-16-400 {
-  font-family: Pretendard-Regular, sans-serif;
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 2rem;
+  @include font-mixin('Pretendard', 1.6, 400);
 }
 
 @mixin pretendard-16-500 {
-  font-family: Pretendard-Regular, sans-serif;
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 2.4rem; /* 150% */
+  @include font-mixin('Pretendard', 1.6, 500);
 }
 
 @mixin pretendard-16-700 {
-  font-family: Pretendard-Regular, sans-serif;
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 2.4rem; /* 150% */
+  @include font-mixin('Pretendard', 1.6, 700);
 }
 
 @mixin pretendard-18-400 {
-  font-family: Pretendard-Regular, sans-serif;
-  font-size: 1.8rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 2.8rem;
+  @include font-mixin('Pretendard', 1.8, 400);
 }
 
 @mixin pretendard-18-600 {
-  font-family: Pretendard-bold, sans-serif;
-  font-size: 1.8rem;
-  line-height: 2.8rem;
+  @include font-mixin('Pretendard', 1.8, 600);
 }
 
 @mixin pretendard-20-600 {
-  font-family: Pretendard-Regular, sans-serif;
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 2.6rem;
+  @include font-mixin('Pretendard', 2, 600);
 }
 
-@mixin pretendard-20-300 {
-  font-family: Pretendard-light, sans-serif;
-  font-size: 2rem;
-  line-height: 2.8rem;
+@mixin pretendard-20-400 {
+  @include font-mixin('Pretendard', 2, 400);
 }
 
 @mixin pretendard-24-700 {
-  font-family: Pretendard-Regular, sans-serif;
-  font-size: 2.4rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 3.2rem;
+  @include font-mixin('Pretendard', 2.4, 700);
 }
 
 @mixin pretendard-30-700 {
-  font-family: Pretendard-bold, sans-serif;
-  font-size: 3rem;
-  font-style: normal;
-  line-height: 3.2rem;
+  @include font-mixin('Pretendard', 3, 700);
 }
 
+// Poppins Mixin들
 @mixin poppins-18-400 {
-  font-family: Poppins, sans-serif;
-  font-size: 1.8rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 2.2rem;
+  @include font-mixin('Poppins', 1.8, 400);
 }
 
 @mixin poppins-18-500 {
-  font-family: Poppins, sans-serif;
-  font-size: 1.8rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 2.2rem;
+  @include font-mixin('Poppins', 1.8, 500);
 }
 
 @mixin poppins-18-600 {
-  font-family: Poppins, sans-serif;
-  font-size: 1.8rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 2.2rem;
+  @include font-mixin('Poppins', 1.8, 600);
 }
