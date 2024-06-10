@@ -12,6 +12,7 @@
 
   margin-top: 40px;
   color: $black;
+  text-align: center;
 }
 
 .sub-title {
@@ -31,6 +32,8 @@
 }
 
 .button-area {
+  @include flex-center;
+
   width: 32rem;
   margin-top: 4rem;
   padding-bottom: 20rem;
