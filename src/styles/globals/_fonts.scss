@@ -12,6 +12,24 @@
   src: url('https://cdn.jsdelivr.net/gh/webfontworld/Poppins/Poppins-Regular.woff2') format('woff2');
 }
 
+@function line-height-calc($font-family, $font-size) {
+  @if $font-family == 'Pretendard' {
+    @return if($font-size >= 3.5, $font-size + 1rem, $font-size + 0.8rem);
+  } @else if $font-family == 'Poppins' {
+    @return 2.2rem;
+  }
+}
+
+@mixin font-mixin($font-family, $font-size, $font-weight) {
+  $line-height: line-height-calc($font-family, $font-size);
+
+  font-family: $font-family, sans-serif;
+  font-size: $font-size * 1rem;
+  font-style: normal;
+  font-weight: $font-weight;
+  line-height: $line-height;
+}
+
 @mixin pretendard-14-400 {
   font-family: Pretendard-Regular, sans-serif;
   font-size: 1.4rem;
