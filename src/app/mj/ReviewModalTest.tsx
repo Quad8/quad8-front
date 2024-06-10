@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import Button from '@/components/Button/Button';
-import { Modal, WriteEditModal } from '@/components';
+import { Modal } from '@/components';
+import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import styles from './ReviewModalTest.module.scss';
 
 const cn = classNames.bind(styles);

@@ -1,18 +1,16 @@
-import KEYBOARD_DATA from '@/app/mj/customData';
-import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
-import ImageInput from './ImageInput';
-import KeyboardInfoBox from './KeyboardInfoBox';
-import styles from './WriteEditModal.module.scss';
-import Button from '../Button/Button';
-import InputField from '../InputField/InputField';
+import classNames from 'classnames/bind';
+import KEYBOARD_DATA from '@/app/mj/customData';
+import { InputField, ImageInput, KeyboardInfoBox, Button } from '@/components';
 import TextField from '../TextField/TextField';
+import styles from './WriteEditModal.module.scss';
+
+const cn = classNames.bind(styles);
 
 interface WriteEditModalProps {
   isCustomReview?: boolean;
 }
 
-const cn = classNames.bind(styles);
 const TITLE_MAX_LENGTH = 20;
 
 export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) {

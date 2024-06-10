@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { CustomKeyboardTypes } from '@/types/CustomKeyboardTypes';
+import type { CustomKeyboardTypes } from '@/types/CustomKeyboardTypes';
 import styles from './KeyboardInfoBox.module.scss';
 
 interface KeyboardInfoBoxProps {
