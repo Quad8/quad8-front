@@ -1,0 +1,25 @@
+.container {
+  width: 56.2rem;
+  padding: 4rem;
+  border-radius: 2.4rem;
+  background-color: $white;
+}
+
+.title {
+  margin-bottom: 8rem;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.input-div {
+  margin-bottom: 6.8rem;
+  @include flex-column(4rem);
+}
+
+.auth-section {
+  gap: 1.2rem;
+  color: $gray-50;
+  @include flex-center;
+  @include pretendard-14-400;
+}
