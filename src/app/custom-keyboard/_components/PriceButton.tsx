@@ -64,7 +64,7 @@ export default function PriceButton() {
   } = useContext(KeyboardDataContext);
   const { currentStep, canvasRef, controlRef, updateCurrentStep, updateStepStatus, updateKeyboardImage } =
     useContext(StepContext);
-  const { updateFocusKey } = useContext(KeyColorContext);
+  const { focusKey, updateFocusKey } = useContext(KeyColorContext);
 
   const checkCompleted = (step: CustomKeyboardStepTypes) => {
     if (step === 'board') {
@@ -86,27 +86,40 @@ export default function PriceButton() {
     return false;
   };
 
-  const handleClickNextButton = (value: CustomKeyboardStepTypes) => {
+  const captureKeyboard = (value: 'board' | 'keyCap') => {
     const canvas = canvasRef?.current;
     const control = controlRef?.current;
-    if (canvas && control && (value === 'board' || value === 'keyCap')) {
-      updateFocusKey(null);
-      control.reset();
-      requestAnimationFrame(() => {
-        const image = canvas.toDataURL('image/png');
-        updateKeyboardImage(value, image);
-        if (value === 'board') {
-          updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
-          updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
-          return;
-        }
 
-        if (isInitialOpenOptionModal) {
-          setIsOpenOptionModal(true);
-          return;
-        }
-        setIsOpenCartModal(true);
-      });
+    if (!canvas || !control) {
+      return;
+    }
+    control.reset();
+    requestAnimationFrame(() => {
+      const image = canvas.toDataURL('image/png');
+      updateKeyboardImage(value, image);
+      if (value === 'board') {
+        updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
+        updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
+        return;
+      }
+
+      if (isInitialOpenOptionModal) {
+        setIsOpenOptionModal(true);
+        return;
+      }
+      setIsOpenCartModal(true);
+    });
+  };
+  const handleClickNextButton = (value: CustomKeyboardStepTypes) => {
+    if (value === 'board' || value === 'keyCap') {
+      if (focusKey) {
+        updateFocusKey(null);
+        setTimeout(() => {
+          captureKeyboard(value);
+        }, 1);
+      } else {
+        captureKeyboard(value);
+      }
     }
 
     if (value === 'switch') {
