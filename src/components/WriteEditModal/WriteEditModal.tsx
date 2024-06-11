@@ -43,6 +43,7 @@ export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) 
             placeholder={TITLE_PLACEHOLDER}
             maxLength={TITLE_MAX_LENGTH}
             onChange={handleTitleChange}
+            labelSize='lg'
           />
           <div className={cn('character-limit')}>
             {title.length} / {TITLE_MAX_LENGTH}
@@ -54,6 +55,7 @@ export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) 
           className={cn('text-area-input')}
           placeholder={CONTENT_PLACEHOLDER}
           onChange={handleContentChange}
+          sizeVariant='md'
         />
         <div className={cn('button-wrapper')}>
           <Button onClick={handleSubmit}>후기 등록하기</Button>
