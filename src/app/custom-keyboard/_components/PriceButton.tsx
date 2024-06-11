@@ -1,9 +1,10 @@
 'use client';
 
 import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import type { CustomKeyboardStepTypes } from '@/types/CustomKeyboardTypes';
+import { Modal } from '@/components';
 import styles from './PriceButton.module.scss';
 
 const cn = classNames.bind(styles);
@@ -37,9 +38,9 @@ const BUTTONS: DualButtonType = {
   },
 };
 
-const UPDATE_NEXT_STEP_STATUS: { [key in 'switch' | 'keyCap']: { [key: string]: 'completed' | 'current' } } = {
-  switch: { board: 'completed', switch: 'current' },
-  keyCap: { switch: 'completed', keyCap: 'current' },
+const UPDATE_NEXT_STEP_STATUS: { [key in 'board' | 'switch']: { [key: string]: 'completed' | 'current' } } = {
+  board: { board: 'completed', switch: 'current' },
+  switch: { switch: 'completed', keyCap: 'current' },
 };
 
 const PRICE_LIST = {
@@ -50,6 +51,8 @@ const PRICE_LIST = {
 };
 
 export default function PriceButton() {
+  const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
+  const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
   const {
     keyboardData: { type, texture, price, switchType, hasPointKeyCap, individualColor, pointKeyType },
     updateData,
@@ -77,26 +80,30 @@ export default function PriceButton() {
     return false;
   };
 
-  const handleClickNextButton = (value: CustomKeyboardStepTypes | 'cart') => {
-    if (value === 'cart') {
+  const handleClickNextButton = (value: CustomKeyboardStepTypes) => {
+    if (value === 'keyCap') {
+      if (isInitialOpenOptionModal) {
+        setIsInitialOpenOptionModal(true);
+        setIsOpenOptionModal(true);
+      }
       return;
     }
-
-    if (value !== 'board') {
-      updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
+    if (value === 'switch' && !checkCompleted('switch')) {
+      return;
     }
+    updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
     updateCurrentStep(value);
   };
 
   const handleClickPrevButton = (value: CustomKeyboardStepTypes) => {
-    if (value === 'switch') {
+    if (value === 'keyCap') {
       if (checkCompleted('keyCap')) {
         updateStepStatus({ switch: 'current', keyCap: 'completed' });
       } else {
         updateStepStatus({ switch: 'current', keyCap: 'pending' });
       }
     }
-    if (value === 'board') {
+    if (value === 'switch') {
       if (checkCompleted('switch')) {
         updateStepStatus({ board: 'current', switch: 'completed' });
       } else {
@@ -104,11 +111,16 @@ export default function PriceButton() {
       }
     }
     updateFocusKey(null);
-    updateCurrentStep(value);
+    updateCurrentStep(BUTTONS[value].prev as CustomKeyboardStepTypes);
   };
   const { prev, next } = BUTTONS[currentStep];
 
   const completed = checkCompleted(currentStep);
+
+  const onCloseOptionModal = () => {
+    setIsOpenOptionModal(false);
+    setIsInitialOpenOptionModal(false);
+  };
 
   useEffect(() => {
     const boardPrice = PRICE_LIST[type] + PRICE_LIST[texture];
@@ -133,15 +145,18 @@ export default function PriceButton() {
           <button
             type='button'
             className={cn('button', { disabled: completed })}
-            onClick={() => handleClickPrevButton(prev)}
+            onClick={() => handleClickPrevButton(currentStep)}
           >
             {BUTTON[prev]}
           </button>
         )}
-        <button type='button' className={cn('button')} onClick={() => completed && handleClickNextButton(next)}>
+        <button type='button' className={cn('button')} onClick={() => completed && handleClickNextButton(currentStep)}>
           {BUTTON[next]}
         </button>
       </div>
+      <Modal isOpen={isOpenOptionModal} onClose={onCloseOptionModal}>
+        test
+      </Modal>
     </div>
   );
 }
