@@ -1,0 +1,112 @@
+@mixin flex-center-space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 42.2rem;
+  overflow-x: visible;
+}
+
+.image {
+  border-radius: 0.8rem;
+}
+
+.content-wrapper {
+  @include flex-column(0);
+
+  justify-content: space-between;
+  width: 29.8rem;
+  height: 10.4rem;
+}
+
+.title-option-wrapper {
+  @include flex-column(0.4rem);
+
+  width: 100%;
+}
+
+.title-wrapper {
+  @include flex-center-space-between;
+
+  width: 100%;
+}
+
+.title {
+  @include pretendard-16-400;
+
+  color: $black;
+}
+
+.button {
+  @include pretendard-14-500;
+
+  padding: 0.2rem 1rem;
+  border: 0.1rem solid $black;
+  border-radius: 0.8rem;
+  color: $black;
+  cursor: pointer;
+}
+
+.option-wrapper {
+  @include pretendard-16-400;
+
+  width: 100%;
+  height: 4.6rem;
+  color: $gray-50;
+}
+
+.option {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  white-space: nowrap;
+}
+
+.second-option-wrapper {
+  overflow: visible;
+}
+
+.count-price-wrapper {
+  @include flex-center-space-between;
+
+  width: 100%;
+}
+
+.count {
+  @include pretendard-16-400;
+
+  color: $gray-50;
+}
+
+.price {
+  @include pretendard-16-500;
+
+  color: $black;
+}
+
+.tooltip-wrapper {
+  visibility: hidden;
+  position: absolute;
+}
+
+.tooltip {
+  width: 44.6rem;
+  margin-top: 0.8rem;
+  padding: 1.6rem;
+  border-radius: 0.8rem;
+  opacity: 0.9;
+  background-color: $black;
+  color: $white;
+  word-break: keep-all;
+  white-space: normal;
+}
+
+.tooltip-visible {
+  visibility: visible;
+}
