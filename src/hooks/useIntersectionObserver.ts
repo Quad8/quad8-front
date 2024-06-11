@@ -1,6 +1,6 @@
 import { useEffect, useState, MutableRefObject } from 'react';
 
-const useIntersectionObserver = (
+export const useIntersectionObserver = (
   elementRef: MutableRefObject<HTMLElement | null>,
   options?: IntersectionObserverInit,
 ) => {
@@ -28,5 +28,3 @@ const useIntersectionObserver = (
 
   return isIntersecting;
 };
-
-export default useIntersectionObserver;
