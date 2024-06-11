@@ -1,5 +1,6 @@
 .breadcrumb-list {
-  // @include pretendard-16-400
+  @include pretendard-16-400;
+
   display: flex;
   align-items: center;
   color: #616161;
@@ -8,7 +9,6 @@
 }
 
 .current-category {
-  // color: $black;
-  color: #04002a;
+  color: $black;
   font-weight: 700;
 }
