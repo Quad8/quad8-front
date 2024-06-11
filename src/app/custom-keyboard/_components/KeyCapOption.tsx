@@ -28,7 +28,7 @@ export default function KeyCapOption() {
   } = useContext(KeyboardDataContext);
   const { focusKey, currentPointKeyColor, updateFocusKey, updateCurrentPointKeyColor } = useContext(KeyColorContext);
   const [colorList, setColorList] = useState<[CustomKeyboardKeyTypes, Color][]>(
-    Object.entries(individualColor).map(([key, value]) => [key as CustomKeyboardKeyTypes, value as Color]),
+    Object.entries(individualColor) as [CustomKeyboardKeyTypes, Color][],
   );
 
   const handleChangeBaseColor = (value: Color) => {
