@@ -1,17 +1,12 @@
 'use client';
 
-import LogoIcon from '@/public/svgs/logo.svg';
-import UserIcon from '@/public/svgs/user.svg';
+import { LogoIcon, UserIcon } from '@/public/index';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import CartButton from './CartButton';
 import styles from './Header.module.scss';
-import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
-import SearchBox from './SearchBox';
-import ShopButton from './ShopButton';
+import { CartButton, LoginButton, LogoutButton, SearchBox, ShopButton } from './HeaderParts';
 
 const cn = classNames.bind(styles);
 const URL_LIST = {
