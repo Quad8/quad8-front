@@ -1,0 +1,40 @@
+.container {
+  height: 250rem;
+}
+
+.tab-buttons {
+  display: flex;
+  position: sticky;
+  top: 0;
+  justify-content: center;
+  height: 6.4rem;
+  border-top: 0.1rem solid $gray-10;
+  border-bottom: 0.1rem solid $gray-10;
+  gap: 12.6rem;
+  background-color: $white;
+}
+
+.tab-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15.6rem;
+  color: $gray-50;
+
+  @include pretendard-20-600;
+}
+
+.active {
+  border-bottom: 0.2rem solid $primary;
+  color: $primary;
+}
+
+.content-container {
+  height: 50rem;
+}
+
+.tab-content {
+  height: 80rem;
+  margin-bottom: 5rem;
+  background-color: pink;
+}
