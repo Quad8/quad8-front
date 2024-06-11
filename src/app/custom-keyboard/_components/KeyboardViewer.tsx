@@ -4,7 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
 import { Suspense, useContext } from 'react';
 import classNames from 'classnames/bind';
-import { KeyColorContext } from '@/context/customKeyboardContext';
+import { KeyColorContext, StepContext } from '@/context/customKeyboardContext';
 import { Vector3 } from 'three';
 import styles from './KeyboardViewer.module.scss';
 import Keyboard from './Keyboard';
@@ -24,6 +24,7 @@ const GL = {
 
 export default function KeyboardViewer() {
   const { updateFocusKey } = useContext(KeyColorContext);
+  const { canvasRef, controlRef } = useContext(StepContext);
 
   const handleClickCanvas = () => {
     updateFocusKey(null);
@@ -34,11 +35,11 @@ export default function KeyboardViewer() {
       <div className={cn('option-wrapper')}>
         <Step />
       </div>
-      <Suspense fallback={<div>Loading</div>}>
-        <Canvas camera={CAMERA} className={cn('canvas')} gl={GL} onPointerMissed={handleClickCanvas}>
+      <Suspense>
+        <Canvas camera={CAMERA} className={cn('canvas')} gl={GL} onPointerMissed={handleClickCanvas} ref={canvasRef}>
           <Keyboard />
           <Environment preset='city' />
-          <OrbitControls />
+          <OrbitControls ref={controlRef} />
         </Canvas>
       </Suspense>
     </div>

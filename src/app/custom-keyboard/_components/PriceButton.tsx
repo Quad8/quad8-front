@@ -60,7 +60,8 @@ export default function PriceButton() {
     keyboardData: { type, texture, price, switchType, hasPointKeyCap, individualColor, pointKeyType },
     updateData,
   } = useContext(KeyboardDataContext);
-  const { currentStep, updateCurrentStep, updateStepStatus } = useContext(StepContext);
+  const { currentStep, canvasRef, controlRef, updateCurrentStep, updateStepStatus, updateKeyboardImage } =
+    useContext(StepContext);
   const { updateFocusKey } = useContext(KeyColorContext);
 
   const checkCompleted = (step: CustomKeyboardStepTypes) => {
@@ -84,51 +85,30 @@ export default function PriceButton() {
   };
 
   const handleClickNextButton = (value: CustomKeyboardStepTypes) => {
-    if (value === 'keyCap') {
-      if (isInitialOpenOptionModal) {
-        /* api로 데이터 가져오기 */
-        setOptionData([
-          {
-            id: '5',
-            name: '스테빌라이저',
-            image: '/images/optionProductMock.png',
-            price: 9000,
-          },
-          {
-            id: '42',
-            name: '스프링',
-            image: '/images/optionProductMock.png',
-            price: 1000,
-          },
-          {
-            id: '65',
-            name: '튜닝용품',
-            image: '/images/optionProductMock.png',
-            price: 4000,
-          },
-          {
-            id: '72',
-            name: '보강판',
-            image: '/images/optionProductMock.png',
-            price: 12000,
-          },
-          {
-            id: '95',
-            name: '기판',
-            image: '/images/optionProductMock.png',
-            price: 24000,
-          },
-        ]);
-        setIsInitialOpenOptionModal(true);
-        setIsOpenOptionModal(true);
-      }
-      return;
+    const canvas = canvasRef?.current;
+    const control = controlRef?.current;
+    if (canvas && control && (value === 'board' || value === 'keyCap')) {
+      updateFocusKey(null);
+      control.reset();
+      requestAnimationFrame(() => {
+        const image = canvas.toDataURL('image/png');
+        updateKeyboardImage(value, image);
+        if (value === 'board') {
+          updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
+          updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
+          return;
+        }
+
+        if (isInitialOpenOptionModal) {
+          setIsOpenOptionModal(true);
+        }
+      });
     }
-    if (value === 'switch' && !checkCompleted('switch')) {
-      return;
+
+    if (value === 'switch') {
+      updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
+      updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
     }
-    updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
-    updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
   };
 
   const handleClickPrevButton = (value: CustomKeyboardStepTypes) => {
@@ -152,7 +132,6 @@ export default function PriceButton() {
   const { prev, next } = BUTTONS[currentStep];
 
   const completed = checkCompleted(currentStep);
-
   const onCloseOptionModal = () => {
     setIsOpenOptionModal(false);
     setIsInitialOpenOptionModal(false);
@@ -162,8 +141,6 @@ export default function PriceButton() {
     setOptionPrice(value);
   };
 
-  const onOpenCartModal = () => {};
-
   useEffect(() => {
     const boardPrice = PRICE_LIST[type] + PRICE_LIST[texture];
     const keyCapPrice =
@@ -172,6 +149,42 @@ export default function PriceButton() {
         Number(pointKeyType === '세트 구성') * 5000);
     updateData('price', boardPrice + keyCapPrice + optionPrice);
   }, [hasPointKeyCap, individualColor, pointKeyType, texture, type, optionPrice, updateData]);
+
+  useEffect(() => {
+    /* api로 옵션 데이터 가져오기 */
+    setOptionData([
+      {
+        id: '5',
+        name: '스테빌라이저',
+        image: '/images/optionProductMock.png',
+        price: 9000,
+      },
+      {
+        id: '42',
+        name: '스프링',
+        image: '/images/optionProductMock.png',
+        price: 1000,
+      },
+      {
+        id: '65',
+        name: '튜닝용품',
+        image: '/images/optionProductMock.png',
+        price: 4000,
+      },
+      {
+        id: '72',
+        name: '보강판',
+        image: '/images/optionProductMock.png',
+        price: 12000,
+      },
+      {
+        id: '95',
+        name: '기판',
+        image: '/images/optionProductMock.png',
+        price: 24000,
+      },
+    ]);
+  }, []);
 
   return (
     <div className={cn('wrapper')}>
@@ -201,7 +214,7 @@ export default function PriceButton() {
           optionData={optionData}
           onClose={onCloseOptionModal}
           updateOptionPrice={updateOptionPrice}
-          onOpen={onOpenCartModal}
+          onOpen={() => {}}
         />
       </Modal>
     </div>
