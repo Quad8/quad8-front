@@ -1,0 +1,99 @@
+@mixin flex-center-space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper {
+  @include flex-column(2rem);
+
+  width: fit-content;
+  height: fit-content;
+  padding: 4rem;
+  border-radius: 1.6rem;
+  background-color: $white;
+}
+
+.overflow {
+  padding-right: 3rem;
+}
+
+.head-wrapper {
+  @include flex-center-space-between;
+  @include pretendard-18-600;
+
+  width: 100%;
+  color: $black;
+}
+
+.header-overflow {
+  width: calc(100% - 1rem);
+}
+
+.close-button {
+  cursor: pointer;
+}
+
+.content-wraper {
+  @include flex-column(4rem);
+}
+
+.order-wrapper {
+  @include flex-column(2rem);
+
+  max-height: 47.6rem;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 2.931rem;
+    border-radius: 0.8rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 1rem solid transparent;
+    border-radius: 10rem;
+    background-clip: padding-box;
+    background-color: $primary;
+  }
+
+  &::-webkit-scrollbar-track {
+    border: 1rem solid transparent;
+    border-radius: 10rem;
+    background-clip: padding-box;
+    background-color: $gray-10;
+  }
+
+  &::-webkit-scrollbar-thumb:focus {
+    background-color: $primary-60;
+  }
+}
+
+.price-wrapper {
+  @include flex-center-space-between;
+  @include pretendard-16-500;
+
+  width: 42.2rem;
+}
+
+.button-wrapper {
+  width: 42.2rem;
+  height: fit-content;
+}
+
+.button {
+  @include pretendard-18-400;
+  @include flex-center;
+
+  width: 100%;
+  height: 6.6rem;
+  background-color: $primary;
+  color: $white;
+}
+
+.disabled {
+  background-color: $gray-10;
+}
+
+.content {
+  width: 42.2rem;
+}

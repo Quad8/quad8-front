@@ -7,6 +7,7 @@ import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyb
 import { Modal } from '@/components';
 import styles from './PriceButton.module.scss';
 import OptionProductModal from './OptionProductModal';
+import CartModal from './CartModal';
 
 const cn = classNames.bind(styles);
 
@@ -54,6 +55,7 @@ const PRICE_LIST = {
 export default function PriceButton() {
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
+  const [isOpenCartModal, setIsOpenCartModal] = useState(false);
   const [optionData, setOptionData] = useState<OptionDataType[]>([]);
   const [optionPrice, setOptionPrice] = useState(0);
   const {
@@ -101,7 +103,9 @@ export default function PriceButton() {
 
         if (isInitialOpenOptionModal) {
           setIsOpenOptionModal(true);
+          return;
         }
+        setIsOpenCartModal(true);
       });
     }
 
@@ -135,6 +139,14 @@ export default function PriceButton() {
   const onCloseOptionModal = () => {
     setIsOpenOptionModal(false);
     setIsInitialOpenOptionModal(false);
+  };
+
+  const onOpenCartModal = () => {
+    setIsOpenCartModal(true);
+  };
+
+  const onCloseCartMoal = () => {
+    setIsOpenCartModal(false);
   };
 
   const updateOptionPrice = (value: number) => {
@@ -214,8 +226,11 @@ export default function PriceButton() {
           optionData={optionData}
           onClose={onCloseOptionModal}
           updateOptionPrice={updateOptionPrice}
-          onOpen={() => {}}
+          onOpen={onOpenCartModal}
         />
+      </Modal>
+      <Modal isOpen={isOpenCartModal} onClose={onCloseCartMoal}>
+        <CartModal optionData={optionData} onClose={onCloseCartMoal} />
       </Modal>
     </div>
   );
