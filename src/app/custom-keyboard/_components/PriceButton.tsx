@@ -45,10 +45,10 @@ const UPDATE_NEXT_STEP_STATUS: { [key in 'board' | 'switch']: { [key: string]: '
 };
 
 const PRICE_LIST = {
-  tkl: 30000,
-  full: 35000,
-  metal: 35000,
-  plastic: 30000,
+  텐키리스: 30000,
+  '풀 배열': 35000,
+  금속: 35000,
+  플라스틱: 30000,
 };
 
 export default function PriceButton() {

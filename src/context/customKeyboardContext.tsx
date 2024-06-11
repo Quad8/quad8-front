@@ -10,13 +10,18 @@ import type {
   CustomKeyboardPointKeyType,
 } from '@/types/CustomKeyboardTypes';
 import { Color } from '@react-three/fiber';
-import { PropsWithChildren, createContext, useCallback, useMemo, useState } from 'react';
+import { RefObject, PropsWithChildren, createContext, useRef, useCallback, useMemo, useState } from 'react';
+import { OrbitControls } from 'three-stdlib';
 
 interface StepContextType {
   currentStep: CustomKeyboardStepTypes;
   stepStatus: Record<CustomKeyboardStepTypes, CustomKeyboardStepStatusTypes>;
+  canvasRef: RefObject<HTMLCanvasElement> | null;
+  controlRef: RefObject<OrbitControls> | null;
+  keyboardImage: Record<Exclude<CustomKeyboardStepTypes, 'switch'>, string>;
   updateStepStatus: (value: Partial<Record<CustomKeyboardStepTypes, CustomKeyboardStepStatusTypes>>) => void;
   updateCurrentStep: (data: CustomKeyboardStepTypes) => void;
+  updateKeyboardImage: (type: Exclude<CustomKeyboardStepTypes, 'switch'>, value: string | null) => void;
 }
 
 interface KeyboardDataType {
@@ -29,7 +34,7 @@ interface KeyboardDataType {
   pointKeyType: CustomKeyboardPointKeyType;
   pointKeySetColor: Color;
   price: number;
-  option: Partial<Record<string, boolean>>;
+  option: Record<string, boolean> | null;
   individualColor: Partial<Record<CustomKeyboardKeyTypes, Color>>;
 }
 
@@ -56,14 +61,18 @@ export const StepContext = createContext<StepContextType>({
     switch: 'pending',
     keyCap: 'pending',
   },
+  canvasRef: null,
+  controlRef: null,
+  keyboardImage: { board: '', keyCap: '' },
   updateCurrentStep: () => {},
   updateStepStatus: () => {},
+  updateKeyboardImage: () => {},
 });
 
 export const KeyboardDataContext = createContext<KeyboardDataContextType>({
   keyboardData: {
-    type: 'tkl',
-    texture: 'metal',
+    type: '풀 배열',
+    texture: '금속',
     boardColor: '#ffffff',
     switchType: null,
     baseKeyColor: '#ffffff',
@@ -71,7 +80,7 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
     pointKeyType: '세트 구성',
     pointKeySetColor: '#ffffff',
     price: 0,
-    option: {},
+    option: null,
     individualColor: {},
   },
   updateData: () => {},
@@ -89,13 +98,15 @@ export const KeyColorContext = createContext<KeyColorContextType>({
 });
 
 export function StepContextProvider({ children }: PropsWithChildren) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const controlRef = useRef<OrbitControls>(null);
+  const [keyboardImage, setKeyboardImage] = useState({ board: '', keyCap: '' });
   const [currentStep, setCurrentStep] = useState<CustomKeyboardStepTypes>('board');
   const [stepStatus, setStapStatus] = useState<Record<CustomKeyboardStepTypes, CustomKeyboardStepStatusTypes>>({
     board: 'current',
     switch: 'pending',
     keyCap: 'pending',
   });
-
   const updateCurrentStep = useCallback((value: CustomKeyboardStepTypes) => {
     setCurrentStep(value);
   }, []);
@@ -107,9 +118,31 @@ export function StepContextProvider({ children }: PropsWithChildren) {
     [],
   );
 
+  const updateKeyboardImage = useCallback((type: Exclude<CustomKeyboardStepTypes, 'switch'>, value: string | null) => {
+    setKeyboardImage((prev) => ({ ...prev, [type]: value }));
+  }, []);
+
   const contextValue = useMemo(
-    () => ({ currentStep, stepStatus, updateCurrentStep, updateStepStatus }),
-    [currentStep, stepStatus, updateCurrentStep, updateStepStatus],
+    () => ({
+      currentStep,
+      stepStatus,
+      canvasRef,
+      controlRef,
+      keyboardImage,
+      updateCurrentStep,
+      updateStepStatus,
+      updateKeyboardImage,
+    }),
+    [
+      currentStep,
+      stepStatus,
+      canvasRef,
+      controlRef,
+      keyboardImage,
+      updateCurrentStep,
+      updateStepStatus,
+      updateKeyboardImage,
+    ],
   );
 
   return <StepContext.Provider value={contextValue}>{children}</StepContext.Provider>;
@@ -117,8 +150,8 @@ export function StepContextProvider({ children }: PropsWithChildren) {
 
 export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
   const [keyboardData, setKeyboardData] = useState<KeyboardDataType>({
-    type: 'full',
-    texture: 'metal',
+    type: '풀 배열',
+    texture: '금속',
     boardColor: '#ffffff',
     switchType: null,
     baseKeyColor: '#ffffff',
@@ -126,7 +159,7 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     pointKeyType: '세트 구성',
     pointKeySetColor: '#ffffff',
     price: 70000,
-    option: {},
+    option: null,
     individualColor: {},
   });
 
