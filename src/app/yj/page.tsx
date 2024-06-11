@@ -1,18 +1,20 @@
 'use client';
 
-import Rating from '@/components/Rating/Rating';
+import LikeButton from '@/components/buttons/LikeButton/LikeButton';
 import { useState } from 'react';
 
 export default function Page() {
-  const [userRating, setUserRating] = useState(1);
+  const [isChecked, setIsChecked] = useState(false);
 
-  const handleRatingChange = (rating: number) => {
-    setUserRating(rating);
+  const handleClick = () => {
+    setIsChecked((prev) => !prev);
   };
 
   return (
     <div>
-      <Rating rating={userRating} onRatingChange={handleRatingChange} isEditable />
+      <LikeButton onClick={handleClick} isChecked={isChecked} />
+      <LikeButton forDetail onClick={handleClick} isChecked={isChecked} />
+      <LikeButton forReview onClick={handleClick} isChecked={isChecked} count={8} />
     </div>
   );
 }

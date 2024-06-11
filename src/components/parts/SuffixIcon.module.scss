@@ -1,0 +1,15 @@
+.suffix-icon {
+  position: absolute;
+  z-index: $zindex-fixed;
+  top: 50%;
+  right: 1.6rem;
+  transform: translateY(-50%);
+}
+
+.arrow-icon {
+  pointer-events: none;
+}
+
+.rotate {
+  transform: rotate(180deg) translateY(70%);
+}

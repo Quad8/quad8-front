@@ -6,8 +6,21 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'quad8-nextjs-static.s3.amazonaws.com',
         port: '',
+        pathname: '/src/app/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'quad8-nextjs-static.s3.amazonaws.com',
+        port: '',
+        pathname: '/src/component/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'd1wt2ljvmyxns0.cloudfront.net',
+        port: '',
+        pathname: '/**',
       },
     ],
   },
@@ -42,6 +55,8 @@ const nextConfig = {
     includePaths: ['styles'],
     additionalData: `@import "src/styles/_globals.scss";`,
   },
+
+  transpilePackages: ['three'],
 };
 
 export default nextConfig;

@@ -1,0 +1,37 @@
+@mixin md {
+  height: 16.4rem;
+  padding: 1rem 1.6rem;
+  @include pretendard-16-400;
+}
+
+@mixin option {
+  position: absolute;
+  z-index: -1;
+  top: -2rem;
+  height: 10.4rem;
+  padding: 2.8rem 1.6rem 0.8rem;
+  @include pretendard-16-400;
+}
+
+.default {
+  width: 100%;
+  border: 0.1rem solid $gray-40;
+  border-radius: 0.8rem;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $gray-40;
+  }
+}
+
+.md {
+  @include md;
+}
+
+.option {
+  @include option;
+}

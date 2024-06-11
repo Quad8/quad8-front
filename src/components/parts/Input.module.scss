@@ -1,0 +1,149 @@
+@mixin header {
+  padding: 0.8rem 4rem 0.8rem 1.6rem;
+  @include poppins-18-400;
+}
+
+@mixin xs {
+  height: 3.8rem;
+  padding: 0.8rem 3.2rem 1.2rem 1.6rem;
+  @include pretendard-14-400;
+}
+
+@mixin sm {
+  height: 4rem;
+  padding: 0.8rem 3.2rem 0.8rem 1.6rem;
+  @include pretendard-16-400;
+}
+
+@mixin md {
+  height: 4.4rem;
+  padding: 1rem 3.2rem 1rem 1.6rem;
+  @include pretendard-16-400;
+}
+
+@mixin lg {
+  height: 4.4rem;
+  padding: 1rem 3.2rem 1rem 1.6rem;
+  @include pretendard-18-400;
+}
+
+.default {
+  width: 100%;
+  border: 0.1rem solid $gray-40;
+  border-radius: 0.8rem;
+  outline: none;
+  color: $black;
+
+  &.red {
+    border: 0.1rem solid $red;
+  }
+
+  &.dropdown-textarea-case {
+    border-radius: 0.4rem 0.4rem 0 0;
+  }
+
+  &:focus {
+    border: 0.1rem solid $primary;
+  }
+
+  &::placeholder {
+    color: $gray-40;
+  }
+
+  &:disabled {
+    background: $gray-10;
+    color: $gray-50;
+  }
+}
+
+.radio {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: 0;
+  margin-right: 0.8rem;
+  margin-bottom: 0.4rem;
+  border: 0.1em solid $gray-40;
+  border-radius: 9999rem;
+  vertical-align: middle;
+  appearance: none;
+  @include pretendard-18-400;
+
+  &:hover {
+    border: 0.4rem solid $primary-60;
+  }
+
+  &:checked {
+    border: 0.4rem solid $primary;
+
+    &:disabled {
+      border: 0.4rem solid $gray-50;
+    }
+  }
+}
+
+.select {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  width: 100%;
+  border-radius: 0.4rem;
+  background: $white;
+  cursor: pointer;
+
+  &::placeholder {
+    color: $gray-50;
+  }
+
+  &:focus {
+    border: 0.1rem solid $gray-50;
+  }
+}
+
+.option {
+  display: flex;
+  z-index: $zindex-dropdown + 1;
+  flex-wrap: wrap;
+  align-content: center;
+  width: 100%;
+  border: 0.1rem solid $white;
+  background-color: $white;
+
+  &:hover {
+    background: $primary-20;
+  }
+
+  &:focus {
+    border: none;
+  }
+}
+
+.header {
+  @include header;
+}
+
+.xs {
+  border: none;
+  background: none;
+  text-align: center;
+  @include xs;
+
+  &.checked {
+    color: $primary;
+  }
+
+  &:focus {
+    border: none;
+  }
+}
+
+.sm {
+  @include sm;
+}
+
+.md {
+  @include md;
+}
+
+.lg {
+  @include lg;
+}
