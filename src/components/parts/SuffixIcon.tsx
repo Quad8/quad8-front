@@ -30,7 +30,11 @@ export default function SuffixIcon({ type, icon, isOpen, onClick }: SuffixIconPr
   const isArrow = icon === 'arrow';
 
   return (
-    <button type='button' className={cn('suffix-icon', { rotate: isOpen, 'arrow-icon': isArrow })} onClick={onClick}>
+    <button
+      type={icon === 'search' ? 'submit' : 'button'}
+      className={cn('suffix-icon', { rotate: isOpen, 'arrow-icon': isArrow })}
+      onClick={onClick}
+    >
       {renderIcon()}
     </button>
   );

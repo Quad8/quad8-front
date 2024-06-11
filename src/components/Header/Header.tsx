@@ -14,7 +14,7 @@ const cn = classNames.bind(styles);
 export default function Header() {
   const pathname = usePathname();
   const BLACK = pathname === '/' || pathname === 'sign-up';
-  const { data: userData } = useQuery({ queryKey: ['userData'] });
+  const { data: userData } = useQuery({ queryKey: ['userData'] }); // 여기에서 캐싱되어있는 userData를 불러와서 사용
   const cartCount = 0;
 
   return (
@@ -34,7 +34,7 @@ export default function Header() {
         </div>
       </div>
       <div className={cn('left-wrapper')}>
-        <SearchBox />
+        <SearchBox isBlack={BLACK} />
         <div className={cn('status-wrapper')}>
           {!userData ? <LoginButton /> : <LogoutButton />}
           <Link href='/mypage' className={cn('user-icon')}>
