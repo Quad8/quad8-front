@@ -128,7 +128,7 @@ export default function PriceButton() {
       return;
     }
     updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
-    updateCurrentStep(value);
+    updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
   };
 
   const handleClickPrevButton = (value: CustomKeyboardStepTypes) => {

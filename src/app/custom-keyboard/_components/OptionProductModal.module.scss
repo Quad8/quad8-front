@@ -24,7 +24,9 @@
 }
 
 .card-wrapper {
-  @include flex-column(1.2rem);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
 }
 
 .button-wrapper {
