@@ -8,29 +8,28 @@ interface StarProps {
   onClick: () => void;
   onMouseOver: () => void;
   onMouseOut: () => void;
-  isEditable?: boolean;
+  usage?: 'edit' | 'show';
 }
-
 interface RatingProps {
   rating: number;
   onRatingChange?: (rating: number) => void;
-  isEditable?: boolean;
+  usage?: 'edit' | 'show';
 }
 
 const cn = classNames.bind(styles);
 
-function Star({ checked, onClick, onMouseOver, onMouseOut, isEditable }: StarProps) {
+function Star({ checked, onClick, onMouseOver, onMouseOut, usage }: StarProps) {
   return (
     <StarIcon
-      className={cn(checked ? 'checked' : 'not-checked', isEditable && 'edit')}
-      onClick={() => isEditable && onClick()}
-      onMouseOver={() => isEditable && onMouseOver()}
-      onMouseOut={() => isEditable && onMouseOut()}
+      className={cn('star', checked ? 'checked' : 'not-checked', { edit: usage === 'edit', big: usage })}
+      onClick={() => usage === 'edit' && onClick()}
+      onMouseOver={() => usage === 'edit' && onMouseOver()}
+      onMouseOut={() => usage === 'edit' && onMouseOut()}
     />
   );
 }
 
-export default function Rating({ rating, onRatingChange, isEditable }: RatingProps) {
+export default function Rating({ rating, onRatingChange, usage }: RatingProps) {
   const STARS = [1, 2, 3, 4, 5];
   const [hoverRating, setHoverRating] = useState<number>(0);
 
@@ -41,7 +40,7 @@ export default function Rating({ rating, onRatingChange, isEditable }: RatingPro
   };
 
   return (
-    <div>
+    <div className={cn('stars', { 'big-stars': usage })}>
       {STARS.map((star) => (
         <Star
           key={star}
@@ -49,7 +48,7 @@ export default function Rating({ rating, onRatingChange, isEditable }: RatingPro
           onClick={() => handleRating(star)}
           onMouseOver={() => star > rating && setHoverRating(star)}
           onMouseOut={() => setHoverRating(0)}
-          isEditable={isEditable}
+          usage={usage}
         />
       ))}
     </div>
