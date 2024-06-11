@@ -1,10 +1,9 @@
 'use client';
 
+import ScrollUpButton from '@/components/ScrollUpButton/ScrollUpButton';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { ReactNode, useRef } from 'react';
-import ScrollUpButton from '@/components/ScrollUpButton/ScrollUpButton';
 
 interface ProvidersProps {
   children: ReactNode;
@@ -25,9 +24,10 @@ let browserQueryClient: QueryClient | undefined;
 function getQueryClient() {
   if (typeof window === 'undefined') {
     return makeQueryClient();
+  } else {
+    if (!browserQueryClient) browserQueryClient = makeQueryClient();
+    return browserQueryClient;
   }
-  if (!browserQueryClient) browserQueryClient = makeQueryClient();
-  return browserQueryClient;
 }
 
 export function Providers({ children }: ProvidersProps) {
@@ -36,12 +36,10 @@ export function Providers({ children }: ProvidersProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryStreamedHydration>
-        <div ref={scrollRef} />
-        {children}
-        <ScrollUpButton headerRef={scrollRef} />
-        <div id='modal' />
-      </ReactQueryStreamedHydration>
+      <div ref={scrollRef} />
+      {children}
+      <ScrollUpButton headerRef={scrollRef} />
+      <div id='modal' />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
