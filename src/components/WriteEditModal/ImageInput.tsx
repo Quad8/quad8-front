@@ -3,8 +3,8 @@
 import { useState, ChangeEvent, MouseEvent } from 'react';
 import Image from 'next/image';
 import CarmeraIcon from '@/public/svgs/camera.svg';
-import DeleteImageIcon from '@/public/svgs/deleteImage.svg';
 import classNames from 'classnames/bind';
+import DeleteImageIcon from '@/public/svgs/delete';
 import styles from './ImageInput.module.scss';
 
 const cn = classNames.bind(styles);
@@ -20,7 +20,7 @@ export default function ImageInput() {
     const imageUrl = URL.createObjectURL(files[0]);
     setSelectedImageFile((prev) => [...prev, imageUrl]);
   };
-  const handleClickDeleteImage = (e: MouseEvent<SVGElement, globalThis.MouseEvent>, clickedImageIndex: number) => {
+  const handleClickDeleteImage = (e: MouseEvent<HTMLDivElement>, clickedImageIndex: number) => {
     e.stopPropagation();
     setSelectedImageFile((prev) => [...prev.slice(0, clickedImageIndex), ...prev.slice(clickedImageIndex + 1)]);
   };
@@ -36,10 +36,9 @@ export default function ImageInput() {
             selectedImageFile.map((imageUrl, index) => (
               <div key={imageUrl} className={cn('image-div')}>
                 <Image alt='선택된 이미지' src={imageUrl} fill id={cn('image')} />
-                <DeleteImageIcon
-                  className={cn('delete-image-icon')}
-                  onClick={(e) => handleClickDeleteImage(e, index)}
-                />
+                <div className={cn('delete-image-icon')} onClick={(e) => handleClickDeleteImage(e, index)}>
+                  <DeleteImageIcon fill='#ffffff' width={42} height={42} />
+                </div>
                 {index === 0 && <div className={cn('main-image-tag')}>대표</div>}
               </div>
             ))}

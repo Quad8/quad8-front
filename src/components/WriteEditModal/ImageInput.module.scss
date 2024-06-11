@@ -51,9 +51,13 @@
 }
 
 .delete-image-icon {
+  @include flex-center;
+
   position: absolute;
   top: -1.2rem;
   right: -1.2rem;
+  border-radius: 99rem;
+  background-color: $gray-40;
   cursor: pointer;
 }
 

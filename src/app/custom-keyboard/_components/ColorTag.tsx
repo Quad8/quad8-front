@@ -1,9 +1,9 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import DeleteTagIcon from '@/public/svgs/deleteTag.svg';
 import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 import { Color } from '@react-three/fiber';
+import DeleteTagIcon from '@/public/svgs/delete';
 import styles from './ColorTag.module.scss';
 
 const cn = classNames.bind(styles);
