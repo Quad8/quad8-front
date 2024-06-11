@@ -19,7 +19,8 @@ export default async function RootLayout({
   const queryClient = new QueryClient();
 
   // 유저 data api 호출
-  // await queryClient.prefetchQuery({ queryKey: ['userData'], queryFn: getUserData });
+  // const Token = cookies().get('accessToken')?.value ?? null;
+  // await queryClient.prefetchQuery({ queryKey: ['userData'], queryFn: () => getUserData(Token), });
 
   return (
     <html lang='ko'>
