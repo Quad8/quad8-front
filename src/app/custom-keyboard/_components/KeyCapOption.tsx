@@ -2,7 +2,7 @@
 
 import classNames from 'classnames/bind';
 import { HexColorPicker } from 'react-colorful';
-import { useCallback, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { KeyColorContext, KeyboardDataContext } from '@/context/customKeyboardContext';
 import { Color } from '@react-three/fiber';
 import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
@@ -76,17 +76,13 @@ export default function KeyCapOption() {
     updateCurrentPointKeyColor(baseKeyColor);
   };
 
-  const handleClickDeleteTag = useCallback(
-    (key: CustomKeyboardKeyTypes) => {
-      setColorList((prev) => prev.filter((element) => element[0] !== key));
-      deleteIndividualColor(key);
-      if (focusKey === key) {
-        updateFocusKey(null);
-      }
-    },
-    [deleteIndividualColor, focusKey, updateFocusKey],
-  );
-
+  const handleClickDeleteTag = (key: CustomKeyboardKeyTypes) => {
+    setColorList((prev) => prev.filter((element) => element[0] !== key));
+    deleteIndividualColor(key);
+    if (focusKey === key) {
+      updateFocusKey(null);
+    }
+  };
   return (
     <div className={cn('wrapper')}>
       <div className={cn('content-wrapper')}>

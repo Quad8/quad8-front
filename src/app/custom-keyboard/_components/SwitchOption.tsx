@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { useCallback, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import Modal from '@/components/Modal/Modal';
 import type { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
@@ -33,9 +33,9 @@ export default function SwitchOption() {
     updateData('switchType', value);
   };
 
-  const onCloseModal = useCallback(() => {
+  const onCloseModal = () => {
     setIsOpenModal(false);
-  }, []);
+  };
 
   return (
     <div className={cn('wrapper')}>
