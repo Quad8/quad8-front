@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState, MutableRefObject } from 'react';
+import { useEffect, useState, MutableRefObject } from 'react';
 
-const useObserver = (options?: IntersectionObserverInit): [MutableRefObject<HTMLElement | null>, boolean] => {
+const useIntersectionObserver = (
+  elementRef: MutableRefObject<HTMLElement | null>,
+  options?: IntersectionObserverInit,
+) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
-  const elementRef = useRef(null);
 
   useEffect(() => {
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -22,9 +24,9 @@ const useObserver = (options?: IntersectionObserverInit): [MutableRefObject<HTML
         observer.unobserve(observerRef);
       }
     };
-  }, [options]);
+  }, [options, elementRef]);
 
-  return [elementRef, isIntersecting];
+  return isIntersecting;
 };
 
-export default useObserver;
+export default useIntersectionObserver;
