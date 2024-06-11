@@ -1,27 +1,5 @@
 #!/bin/sh
 
-# 금지된 저장소 URL과 브랜치
-FORBIDDEN_HTTPS_URL="https://github.com/Quad8/quad8-front.git"
-FORBIDDEN_SSH_URL="git@github.com/Quad8/quad8-front.git"
-FORBIDDEN_REF_MAIN="refs/heads/main"
-FORBIDDEN_REF_DEV="refs/heads/develop"
-
-remote="$1"
-url="$2"
-
-if [ "$url" != "$FORBIDDEN_HTTPS_URL" ] && [ "$url" != "$FORBIDDEN_SSH_URL" ]; then
-    echo "🌟 Forked branch can push your commits 🌟"
-    exit 0 # 포크된 프로젝트에서는 제한하지 않음
-fi
-
-while read -r local_ref local_sha remote_ref remote_sha; do
-  echo "🚀 현재 푸쉬하는 브랜치는 $local_ref 입니다. 🚀"
-    if [ "$remote_ref" = "$FORBIDDEN_REF_MAIN" ] || [ "$remote_ref" = "$FORBIDDEN_REF_DEV" ]; then
-        echo "🛑 DO NOT PUSH TO MAIN OR DEV 🛑"
-        exit 1 # 금지된 ref로 push를 실행하면 에러
-    fi
-done
-
 # 빌드 스크립트를 실행하고 실패하면 푸쉬를 중단합니다.
 echo "✨ Running npm build... ✨"
 if ! npm run build; then
