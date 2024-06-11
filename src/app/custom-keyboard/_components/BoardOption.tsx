@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import { useContext } from 'react';
 import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import { HexColorPicker } from 'react-colorful';
-import { CustomKeyboardTypeTypes, CustomKeyboardTextureTypes } from '@/types/CustomKeyboardTypes';
+import type { CustomKeyboardTypeTypes, CustomKeyboardTextureTypes } from '@/types/CustomKeyboardTypes';
 import styles from './BoardOption.module.scss';
 
 const cn = classNames.bind(styles);
