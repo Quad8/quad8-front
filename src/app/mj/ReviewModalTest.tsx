@@ -9,14 +9,14 @@ import styles from './ReviewModalTest.module.scss';
 const cn = classNames.bind(styles);
 
 export default function ReviewModalTest() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCloseModal = () => {
-    setIsOpenModal(false);
+    setIsModalOpen(false);
   };
 
   const handleOpenModal = () => {
-    setIsOpenModal(true);
+    setIsModalOpen(true);
   };
 
   const handleButtonClick = () => {
@@ -42,7 +42,7 @@ export default function ReviewModalTest() {
       >
         button
       </Button>
-      <Modal isOpen={isOpenModal} onClose={handleCloseModal}>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <WriteEditModal isCustomReview />
       </Modal>
     </div>

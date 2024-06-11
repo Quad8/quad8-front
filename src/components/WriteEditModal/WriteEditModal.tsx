@@ -17,16 +17,13 @@ const CONTENT_PLACEHOLDER = '최소 20자 이상 입력해주세요';
 export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) {
   const titleInputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState('');
-  const [titleLength, setTitleLength] = useState(0);
 
   const contentInputRef = useRef<HTMLTextAreaElement>(null);
   const [content, setContent] = useState('');
 
   const handleTitleInputChange = (e: Event) => {
     const target = e.target as HTMLInputElement;
-    const newTitle = target.value.slice(0, TITLE_MAX_LENGTH);
-    setTitleLength(newTitle.length);
-    setTitle(newTitle);
+    setTitle(target.value);
   };
 
   useEffect(() => {
@@ -39,17 +36,11 @@ export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) 
 
   const handleSubmit = () => {
     /** 등록 버튼 누르면 실행되는 함수 */
-    const titleValue = titleInputRef.current?.value;
-    if (titleValue) {
-      setTitle(titleValue);
-    } else {
-      setTitle('키득 커스텀 키보드');
-    }
+    const titleValue = titleInputRef.current?.value || '키드 커스텀 키보드';
+    setTitle(titleValue);
 
-    const contentValue = contentInputRef.current?.value;
-    if (contentValue) {
-      setContent(contentValue);
-    }
+    const contentValue = contentInputRef.current?.value || '';
+    setContent(contentValue);
   };
 
   return (
@@ -66,7 +57,7 @@ export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) 
             maxLength={TITLE_MAX_LENGTH}
           />
           <div className={cn('character-limit')}>
-            {titleLength} / {TITLE_MAX_LENGTH}
+            {title.length} / {TITLE_MAX_LENGTH}
           </div>
         </div>
         <ImageInput />
