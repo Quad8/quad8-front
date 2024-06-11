@@ -40,6 +40,7 @@
   padding: 1rem 1.6rem;
   border: 0.1rem solid $gray-40;
   border-radius: 0.8rem;
+  resize: none;
 
   &::placeholder {
     @include pretendard-16-400;

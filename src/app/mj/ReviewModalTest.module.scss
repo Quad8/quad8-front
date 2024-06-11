@@ -2,12 +2,10 @@
   width: 100vw;
   height: 2000rem;
   padding: 1rem;
-  background-color: lightgray;
+  background-color: $gray-20;
 }
 
 .buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
   font-size: 2rem;
+  @include flex-column(1rem);
 }
