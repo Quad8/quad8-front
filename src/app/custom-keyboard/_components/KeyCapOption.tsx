@@ -131,7 +131,7 @@ export default function KeyCapOption() {
           {pointKeyType === '내 맘대로 바꾸기' && (
             <div className={cn('tag-wrapper')}>
               {colorList.map(([key, color]) => (
-                <ColorTag key={key} keyCap={key} color={color} onClose={() => handleClickDeleteTag(key)} />
+                <ColorTag key={key} keyCap={key} color={color} onDelete={() => handleClickDeleteTag(key)} />
               ))}
             </div>
           )}
