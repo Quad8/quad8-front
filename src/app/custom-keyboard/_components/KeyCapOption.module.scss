@@ -92,16 +92,19 @@
 }
 
 .help-title {
-  color: $black;
   @include pretendard-16-500;
+
+  color: $black;
 }
 
 .help-content {
-  color: $black;
   @include pretendard-14-400;
+
+  color: $black;
 }
 
 .help-cost {
-  color: $gray-50;
   @include pretendard-14-400;
+
+  color: $gray-50;
 }

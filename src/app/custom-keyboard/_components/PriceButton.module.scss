@@ -11,9 +11,10 @@
 }
 
 .price-title {
+  @include pretendard-18-400;
+
   color: $black;
   text-align: right;
-  @include pretendard-18-400;
 }
 
 .price {
@@ -24,14 +25,15 @@
 }
 
 .price-number {
-  color: $black;
   @include pretendard-20-600;
+
+  color: $black;
 }
 
 .price-unit {
-  color: $black;
-
   @include pretendard-16-400;
+
+  color: $black;
 }
 
 .button-wrapper {
@@ -44,12 +46,12 @@
 
 .button {
   @include flex-center;
+  @include pretendard-18-400;
 
   width: 15.4rem;
   height: 6.6rem;
   border: 0.1rem solid $black;
   border-radius: 0.4rem;
-  @include pretendard-18-400;
 }
 
 .hidden {
