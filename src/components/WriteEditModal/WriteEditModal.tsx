@@ -1,10 +1,10 @@
-import KEYBOARD_DATA from '@/app/mj/customData';
+import KEYBOARD_DATA from '@/app/(test)/mj/customData';
 import { WRITE_EIDT_MODAL_TYPE, WriteEditModalType } from '@/constants/writeEditModalType';
 import classNames from 'classnames/bind';
+import Button from '../Button/Button';
 import ImageInput from './ImageInput';
 import KeyboardInfoBox from './KeyboardInfoBox';
 import styles from './WriteEditModal.module.scss';
-import Button from '../Button/Button';
 
 interface WriteEditModalProps {
   type: WriteEditModalType;

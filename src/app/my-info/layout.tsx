@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import SNB from './_component/SNB/SNB';
+import SNB from './_components/SNB/SNB';
 
 interface MyInfoLayoutProps {
   children: ReactNode;
