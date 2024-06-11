@@ -3,9 +3,10 @@
 import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import type { CustomKeyboardStepTypes } from '@/types/CustomKeyboardTypes';
+import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
 import { Modal } from '@/components';
 import styles from './PriceButton.module.scss';
+import OptionProductModal from './OptionProductModal';
 
 const cn = classNames.bind(styles);
 
@@ -53,6 +54,8 @@ const PRICE_LIST = {
 export default function PriceButton() {
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
+  const [optionData, setOptionData] = useState<OptionDataType[]>([]);
+  const [optionPrice, setOptionPrice] = useState(0);
   const {
     keyboardData: { type, texture, price, switchType, hasPointKeyCap, individualColor, pointKeyType },
     updateData,
@@ -83,6 +86,39 @@ export default function PriceButton() {
   const handleClickNextButton = (value: CustomKeyboardStepTypes) => {
     if (value === 'keyCap') {
       if (isInitialOpenOptionModal) {
+        /* api로 데이터 가져오기 */
+        setOptionData([
+          {
+            id: '5',
+            name: '스테빌라이저',
+            image: '/images/optionProductMock.png',
+            price: 9000,
+          },
+          {
+            id: '42',
+            name: '스프링',
+            image: '/images/optionProductMock.png',
+            price: 1000,
+          },
+          {
+            id: '65',
+            name: '튜닝용품',
+            image: '/images/optionProductMock.png',
+            price: 4000,
+          },
+          {
+            id: '72',
+            name: '보강판',
+            image: '/images/optionProductMock.png',
+            price: 12000,
+          },
+          {
+            id: '95',
+            name: '기판',
+            image: '/images/optionProductMock.png',
+            price: 24000,
+          },
+        ]);
         setIsInitialOpenOptionModal(true);
         setIsOpenOptionModal(true);
       }
@@ -122,14 +158,20 @@ export default function PriceButton() {
     setIsInitialOpenOptionModal(false);
   };
 
+  const updateOptionPrice = (value: number) => {
+    setOptionPrice(value);
+  };
+
+  const onOpenCartModal = () => {};
+
   useEffect(() => {
     const boardPrice = PRICE_LIST[type] + PRICE_LIST[texture];
     const keyCapPrice =
       Number(hasPointKeyCap) *
       (Object.keys(individualColor).length * 500 * Number(pointKeyType === '내 맘대로 바꾸기') +
         Number(pointKeyType === '세트 구성') * 5000);
-    updateData('price', boardPrice + keyCapPrice);
-  }, [hasPointKeyCap, individualColor, pointKeyType, texture, type, updateData]);
+    updateData('price', boardPrice + keyCapPrice + optionPrice);
+  }, [hasPointKeyCap, individualColor, pointKeyType, texture, type, optionPrice, updateData]);
 
   return (
     <div className={cn('wrapper')}>
@@ -155,7 +197,12 @@ export default function PriceButton() {
         </button>
       </div>
       <Modal isOpen={isOpenOptionModal} onClose={onCloseOptionModal}>
-        test
+        <OptionProductModal
+          optionData={optionData}
+          onClose={onCloseOptionModal}
+          updateOptionPrice={updateOptionPrice}
+          onOpen={onOpenCartModal}
+        />
       </Modal>
     </div>
   );
