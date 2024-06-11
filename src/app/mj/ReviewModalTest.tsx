@@ -31,15 +31,7 @@ export default function ReviewModalTest() {
           커스텀 리뷰 모달창 열기
         </button>
       </div>
-      <Button
-        backgroundColor='background-gray-40'
-        radius={8}
-        width={90}
-        paddingVertical={20}
-        hoverColor='background-primary-60'
-        onClick={handleButtonClick}
-        className={cn('test')}
-      >
+      <Button radius={8} width={90} paddingVertical={20} onClick={handleButtonClick} className={cn('test')}>
         button
       </Button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
