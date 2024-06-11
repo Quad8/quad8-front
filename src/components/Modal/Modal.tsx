@@ -31,6 +31,14 @@ export default function Modal({ children, isOpen, onClose }: PropsWithChildren<M
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick(modalRef, onClose);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.setAttribute('style', 'overflow: hidden');
+    }
+
+    return () => document.body.setAttribute('style', 'overflow: auto');
+  }, [isOpen]);
+
   if (!isOpen) {
     return null;
   }

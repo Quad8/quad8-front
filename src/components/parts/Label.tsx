@@ -9,7 +9,7 @@ interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   children: ReactNode;
 }
 
-export default function Label({ sizeVariant = 'md', htmlFor, children }: LabelProps) {
+export default function Label({ sizeVariant, htmlFor, children }: LabelProps) {
   const className = cn('default', sizeVariant);
 
   return (
