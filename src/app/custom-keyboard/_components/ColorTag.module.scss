@@ -1,6 +1,6 @@
 .wrapper {
-  display: flex;
-  align-items: center;
+  @include flex-center;
+
   gap: 0.4rem;
   padding: 0.8rem 2rem;
   border-radius: 2rem;
