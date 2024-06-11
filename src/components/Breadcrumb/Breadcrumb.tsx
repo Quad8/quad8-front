@@ -1,6 +1,6 @@
 'use client';
 
-import RightArrow from '@/public/svgs/rightArrow.svg';
+import RightArrow from '@/public/svgs/arrow.svg';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
