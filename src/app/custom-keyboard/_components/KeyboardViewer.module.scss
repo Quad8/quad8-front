@@ -1,0 +1,20 @@
+.wrapper {
+  position: sticky;
+  top: 8rem;
+  width: calc(100vw - 68rem);
+  height: calc(100vh - 16rem);
+  background-color: $gray-5;
+}
+
+.option-wrapper {
+  display: flex;
+  position: absolute;
+  z-index: $zindex-offcanvas;
+  top: 50%;
+  left: 2rem;
+  align-items: center;
+  justify-content: center;
+  width: 16.2rem;
+  height: 21.8rem;
+  transform: translateY(-50%);
+}
