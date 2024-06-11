@@ -1,4 +1,5 @@
-import { HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { Header } from '@/components';
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import { Providers } from './providers';
@@ -17,15 +18,18 @@ export default async function RootLayout({
 }>) {
   const queryClient = new QueryClient();
 
-  // await queryClient.prefetchQuery({ queryKey: ['token'], queryFn: getToken });
+  // 유저 data api 호출
+  // await queryClient.prefetchQuery({ queryKey: ['userData'], queryFn: getUserData });
 
   return (
     <html lang='ko'>
       <body>
-        <HydrationBoundary state={queryClient}>
-          {/* <Header /> */}
-          <Providers>{children}</Providers>
-        </HydrationBoundary>
+        <Providers>
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <Header />
+            {children}
+          </HydrationBoundary>
+        </Providers>
       </body>
     </html>
   );
