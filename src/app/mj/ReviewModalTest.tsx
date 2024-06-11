@@ -31,7 +31,15 @@ export default function ReviewModalTest() {
           커스텀 리뷰 모달창 열기
         </button>
       </div>
-      <Button radius={8} width={90} paddingVertical={20} onClick={handleButtonClick} className={cn('test')}>
+      <Button
+        as='a'
+        href='/'
+        radius={8}
+        width={90}
+        paddingVertical={20}
+        onClick={handleButtonClick}
+        className={cn('test')}
+      >
         button
       </Button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
