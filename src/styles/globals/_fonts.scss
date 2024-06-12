@@ -15,7 +15,9 @@
 @function line-height-calc($font-family, $font-size) {
   @if $font-family == 'Pretendard' {
     @return if($font-size >= 3.5, $font-size + 1rem, $font-size + 0.8rem);
-  } @else if $font-family == 'Poppins' {
+  }
+
+  @if $font-family == 'Poppins' {
     @return 2.2rem;
   }
 }
