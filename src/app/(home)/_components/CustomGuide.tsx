@@ -9,7 +9,7 @@ import Guide from './Guide';
 
 const cn = classNames.bind(styles);
 
-const guide = [
+const GUIDE = [
   {
     step: 1,
     title: '배열 및 소재 선택',
@@ -43,7 +43,7 @@ export default function CustomGuide() {
       <h1 className={cn('title')}>커스텀 용어가 어렵다면 키득이 도와줄게요</h1>
       <p className={cn('sub-title')}>3D 시뮬레이션으로 원하는 느낌 그대로 재현 할 수 있어요</p>
       <ul className={cn('guide-list')}>
-        {guide.map(({ step, title, desc, src }) => (
+        {GUIDE.map(({ step, title, desc, src }) => (
           <AnimatedSection key={step}>
             <Guide step={step} title={title} desc={desc} src={src} />
           </AnimatedSection>
