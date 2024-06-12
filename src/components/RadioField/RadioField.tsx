@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames/bind';
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useEffect, useState } from 'react';
 import { ErrorMessage, Radio } from '../parts';
