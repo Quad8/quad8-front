@@ -68,7 +68,9 @@ export default function OptionProductModal({
           ))}
         </div>
         <div className={cn('button-wrapper')}>
-          <Button onClick={handleClickAddButton}>추가하기</Button>
+          <Button onClick={handleClickAddButton} width={154}>
+            추가하기
+          </Button>
         </div>
       </div>
     </div>
