@@ -11,8 +11,11 @@ interface PostInteractionsProps {
   commentCount: number;
 }
 
+const MAX_COUNT = 99;
+
 export function PostInteractions({ goodCount, commentCount }: PostInteractionsProps) {
   const [isChecked, setIsChecked] = useState(false);
+
   const handleContainerClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
@@ -24,11 +27,11 @@ export function PostInteractions({ goodCount, commentCount }: PostInteractionsPr
     <div className={cn('container')} onClick={handleContainerClick}>
       <div className={cn('icon-and-count')}>
         <LikeButton isChecked={isChecked} onClick={handleLikeButtonClick} />
-        <p id={cn('count')}>{goodCount > 99 ? '99+' : goodCount}</p>
+        <p id={cn('count')}>{goodCount > MAX_COUNT ? '99+' : goodCount}</p>
       </div>
       <div className={cn('icon-and-count')}>
         <CommentIcon />
-        <p id={cn('count')}>{commentCount > 99 ? '99+' : commentCount}</p>
+        <p id={cn('count')}>{commentCount > MAX_COUNT ? '99+' : commentCount}</p>
       </div>
     </div>
   );

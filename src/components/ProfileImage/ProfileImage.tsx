@@ -10,14 +10,16 @@ import styles from './ProfileImage.module.scss';
 const cn = classNames.bind(styles);
 
 type ProfileImageProp = {
-  profile?: StaticImageData;
+  profileImage: StaticImageData | string | null;
   width?: number;
   height?: number;
   isEditable?: boolean;
 };
 
-export default function ProfileImage({ profile, width = 64, height = 64, isEditable = false }: ProfileImageProp) {
-  const [currentImageFile, setCurrentImageFile] = useState<string | null | StaticImageData | undefined>(profile);
+export default function ProfileImage({ profileImage, width = 64, height = 64, isEditable = false }: ProfileImageProp) {
+  const [currentImageFile, setCurrentImageFile] = useState<string | StaticImageData | null>(profileImage);
+  const [isImageError, setIsImageError] = useState<boolean>(false);
+
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (!files) {
@@ -30,11 +32,12 @@ export default function ProfileImage({ profile, width = 64, height = 64, isEdita
   return (
     <div className={cn('profile-image-wrapper')}>
       <Image
-        src={currentImageFile || defaultImage}
+        src={!isImageError && currentImageFile ? currentImageFile : defaultImage}
         alt='프로필 이미지'
         width={width}
         height={height}
         className={cn('profile-image')}
+        onError={() => setIsImageError(true)}
       />
       {isEditable && (
         <div className={cn('image-input-wrapper')}>

@@ -10,7 +10,7 @@ export default function Page() {
   return (
     <div className={cn('container')}>
       <Header />
-      <ProfileImage isEditable width={139} height={139} />
+      <ProfileImage isEditable width={139} height={139} profileImage={null} />
       <ReviewModalTest />
     </div>
   );

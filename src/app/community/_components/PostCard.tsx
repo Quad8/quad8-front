@@ -22,12 +22,7 @@ interface PostCardProps {
 
 export default function PostCard({ cardData }: PostCardProps) {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
-  const handleClickPostModal = () => {
-    setIsPostModalOpen(true);
-  };
-  const handleClosePostModal = () => {
-    setIsPostModalOpen(false);
-  };
+
   const {
     user_nickname: nickname,
     created_at: createdAt,
@@ -36,9 +31,17 @@ export default function PostCard({ cardData }: PostCardProps) {
     good_count: goodCount,
     comment_count: commentCount,
   } = cardData;
+
   const nowDate = new Date();
   const createdDate = new Date(createdAt);
   const timeToString = calculateTimeDifference(createdDate, nowDate);
+
+  const handleClickPostModal = () => {
+    setIsPostModalOpen(true);
+  };
+  const handleClosePostModal = () => {
+    setIsPostModalOpen(false);
+  };
 
   return (
     <div className={cn('container')} onClick={handleClickPostModal}>
