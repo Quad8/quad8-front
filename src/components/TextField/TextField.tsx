@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames/bind';
 import { ChangeEvent, TextareaHTMLAttributes, forwardRef, useState } from 'react';
 import { Label, Textarea } from '../parts';
