@@ -4,7 +4,7 @@ import { useState, ChangeEvent, MouseEvent } from 'react';
 import Image from 'next/image';
 import CarmeraIcon from '@/public/svgs/camera.svg';
 import classNames from 'classnames/bind';
-import DeleteImageIcon from '@/public/svgs/delete';
+import DeleteImageIcon from '@/public/svgs/delete.svg';
 import styles from './ImageInput.module.scss';
 
 const cn = classNames.bind(styles);
