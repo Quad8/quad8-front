@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
 import Header from '@/components/Header/Header';
+import ProfileImage from '@/components/ProfileImage/ProfileImage';
 import styles from './page.module.scss';
 import ReviewModalTest from './ReviewModalTest';
-import ProfileImage from '../../components/ProfileImage/ProfileImage';
 
 const cn = classNames.bind(styles);
 

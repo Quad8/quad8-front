@@ -20,6 +20,14 @@
   line-height: 2.2rem;
 }
 
+@mixin pretendard-14-500 {
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.2rem;
+}
+
 @mixin pretendard-16-400 {
   font-family: Pretendard-Regular, sans-serif;
   font-size: 1.6rem;
@@ -33,6 +41,14 @@
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 500;
+  line-height: 2.4rem; /* 150% */
+}
+
+@mixin pretendard-16-600 {
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 600;
   line-height: 2.4rem; /* 150% */
 }
 
@@ -52,6 +68,22 @@
   line-height: 2.8rem;
 }
 
+@mixin pretendard-18-600 {
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2.8rem;
+}
+
+@mixin pretendard-20-500 {
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.6rem;
+}
+
 @mixin pretendard-20-600 {
   font-family: Pretendard-Regular, sans-serif;
   font-size: 2rem;
@@ -60,12 +92,28 @@
   line-height: 2.6rem;
 }
 
+@mixin pretendard-20-700 {
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 2.8rem;
+}
+
 @mixin pretendard-24-700 {
   font-family: Pretendard-Regular, sans-serif;
   font-size: 2.4rem;
   font-style: normal;
   font-weight: 700;
   line-height: 3.2rem;
+}
+
+@mixin pretendard-30-700 {
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 3.8rem;
 }
 
 @mixin poppins-18-400 {
