@@ -1,18 +1,18 @@
 'use client';
 
-import useObserver from '@/hooks/useIntersectionObserver';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import classNames from 'classnames/bind';
 
-import { PropsWithChildren, RefObject } from 'react';
+import { PropsWithChildren, useRef } from 'react';
 import styles from './AnimatedSection.module.scss';
 
 const cn = classNames.bind(styles);
 
 export default function AnimatedSection({ children }: PropsWithChildren) {
-  const [ref, isIntersecting] = useObserver({ threshold: 0.3 });
-  const divRef = ref as RefObject<HTMLDivElement>;
+  const ref = useRef<HTMLDivElement>(null);
+  const isIntersecting = useIntersectionObserver(ref, { threshold: 0.5 });
   return (
-    <div ref={divRef} className={cn('fade-zoom-in', { visible: isIntersecting })}>
+    <div ref={ref} className={cn('fade-zoom-in', { visible: isIntersecting })}>
       {children}
     </div>
   );
