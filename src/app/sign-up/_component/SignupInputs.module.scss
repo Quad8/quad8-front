@@ -1,0 +1,15 @@
+.input-wrapper {
+  margin-bottom: 6.8rem;
+  @include flex-column(4rem);
+}
+
+.phone-number-input {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.phone-number {
+  width: 7.3rem;
+  padding-right: 1rem;
+  font-size: small;
+}
