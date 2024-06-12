@@ -38,10 +38,16 @@ export default function ProfileImage({ profile, width = 64, height = 64, isEdita
       />
       {isEditable && (
         <div className={cn('image-input-wrapper')}>
-          <label htmlFor='imageInput' className={cn('label')}>
+          <label htmlFor='profileInput' className={cn('label')}>
             <CameraIcon fill='white' width={25} height={22.5} />
           </label>
-          <input type='file' className={cn('file-input')} id='imageInput' onChange={handleChangeImage} />
+          <input
+            type='file'
+            className={cn('file-input')}
+            id='profileInput'
+            onChange={handleChangeImage}
+            accept='image/png, image/jpeg, image/jpg'
+          />
         </div>
       )}
     </div>
