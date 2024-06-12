@@ -1,13 +1,10 @@
 .snb {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
+  @include flex-column(4rem);
 
   .snb-sections {
-    display: flex;
-    flex-direction: column;
+    @include flex-column(1.6rem);
+
     color: $black;
-    gap: 1.6rem;
 
     &.snb-section-1 {
       @include pretendard-30-700;
@@ -20,9 +17,7 @@
     }
 
     .snb-items {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
+      @include flex-column(1.2rem);
 
       .snb-item {
         @include pretendard-18-400;
