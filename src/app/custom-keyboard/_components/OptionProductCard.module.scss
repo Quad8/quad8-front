@@ -1,0 +1,31 @@
+.wrapper {
+  @include flex-column(2rem);
+
+  cursor: pointer;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 22.1rem;
+  height: 21.3rem;
+}
+
+.checkbox-icon {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  fill: $gray-40;
+}
+
+.content-wrapper {
+  @include flex-column(0.4rem);
+  @include pretendard-18-600;
+}
+
+.image {
+  border-radius: 0.8rem;
+}
+
+.checked {
+  fill: $primary;
+}

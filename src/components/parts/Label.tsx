@@ -5,7 +5,7 @@ import styles from './Label.module.scss';
 const cn = classNames.bind(styles);
 
 interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
-  sizeVariant?: 'sm' | 'md' | 'lg';
+  sizeVariant?: 'sm' | 'md' | 'lg' | 'header';
   children: ReactNode;
 }
 

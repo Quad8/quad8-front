@@ -1,3 +1,5 @@
+'use client';
+
 import StarIcon from '@/public/svgs/star.svg';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
