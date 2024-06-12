@@ -1,0 +1,32 @@
+.profile-image-wrapper {
+  @include flex-center;
+
+  position: relative;
+  width: max-content;
+}
+
+.profile-image {
+  overflow: hidden;
+  border-radius: 999rem;
+}
+
+.image-input-wrapper {
+  @include flex-center;
+
+  position: absolute;
+  right: -2rem;
+  bottom: 0;
+  width: 5.2rem;
+  height: 5.2rem;
+  border-radius: 99rem;
+  background-color: $gray-50;
+  cursor: pointer;
+}
+
+.label {
+  cursor: pointer;
+}
+
+.file-input {
+  display: none;
+}

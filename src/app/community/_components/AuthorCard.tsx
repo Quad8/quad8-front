@@ -1,9 +1,8 @@
 import classNames from 'classnames/bind';
-
-import myProfileImage from '@/public/images/myProfile.jpeg';
+// import myProfileImage from '@/public/images/myProfile.jpeg';
 import ShowMoreIcon from '@/public/svgs/showMore.svg';
 
-import ProfileImage from './ProfileImage';
+import ProfileImage from '../../../components/ProfileImage/ProfileImage';
 
 import styles from './AuthorCard.module.scss';
 
@@ -17,7 +16,8 @@ interface AuthorCardProps {
 export default function AuthorCard({ nickname, timeAgo }: AuthorCardProps) {
   return (
     <div className={cn('container')}>
-      <ProfileImage profile={myProfileImage} />
+      {/* <ProfileImage profile={myProfileImage} /> */}
+      <ProfileImage />
       <div className={cn('info-textbox')}>
         <p id={cn('user-name')}>{nickname}</p>
         <p id={cn('sub-info')}>{timeAgo}</p>
