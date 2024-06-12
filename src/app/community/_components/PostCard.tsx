@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import Image from 'next/image';
 
 import ContentImage from '@/public/images/myProfile.jpeg';
-import { CommunityCardDataType } from '@/app/mj/CommunityData';
+import { CommunityCardDataType } from '@/app/mj/communityData';
 import { calculateTimeDifference } from '@/libs/calculateDate';
 
 import { Modal } from '@/components';

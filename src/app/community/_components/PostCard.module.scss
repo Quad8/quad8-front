@@ -1,8 +1,9 @@
 .container {
+  @include flex-column(2rem);
+
   width: 39.5rem;
   height: 27rem;
-
-  @include flex-column(2rem);
+  cursor: pointer;
 }
 
 .keyboard-image-wrapper {
