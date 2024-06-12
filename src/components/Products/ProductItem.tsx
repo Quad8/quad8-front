@@ -17,24 +17,26 @@ interface ProductItemProps {
 
 export default function ProductItem({ id, size, name, reviewscount, price, thumbnail }: ProductItemProps) {
   return (
-    <Link href={`/products/${id}`}>
-      <div className={cn('product-item', size)}>
-        <div className={cn('product-image-wrap')}>
-          <Image src={thumbnail} alt={`${name} 이미지`} fill className={cn('product-image', size)} />
-        </div>
-        <div className={cn('product-info')}>
-          <h3 className={cn('product-title')}>{name}</h3>
-          <div className={cn('product-details')}>
-            <p className={cn('product-price')}>{price.toLocaleString()}원</p>
-            <div className={cn('product-review-wishlist')}>
-              <p className={cn('product-reviews')}>리뷰 {reviewscount > 99 ? '99+' : reviewscount}</p>
-              <button type='button' className={cn('product-wishlist')}>
-                찜버튼 영역
-              </button>
+    <li>
+      <Link href={`/products/${id}`}>
+        <div className={cn('product-item', size)}>
+          <div className={cn('product-image-wrap')}>
+            <Image src={thumbnail} alt={`${name} 이미지`} fill className={cn('product-image', size)} />
+          </div>
+          <div className={cn('product-info')}>
+            <h3 className={cn('product-title')}>{name}</h3>
+            <div className={cn('product-details')}>
+              <p className={cn('product-price')}>{price.toLocaleString()}원</p>
+              <div className={cn('product-review-wishlist')}>
+                <p className={cn('product-reviews')}>리뷰 {reviewscount > 99 ? '99+' : reviewscount}</p>
+                <button type='button' className={cn('product-wishlist')}>
+                  찜버튼 영역
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </li>
   );
 }
