@@ -52,6 +52,14 @@
   line-height: 2.8rem;
 }
 
+@mixin pretendard-18-700 {
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 2.8rem;
+}
+
 @mixin pretendard-20-600 {
   font-family: Pretendard-Regular, sans-serif;
   font-size: 2rem;

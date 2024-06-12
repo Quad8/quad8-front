@@ -1,16 +1,21 @@
 .snb {
   @include flex-column(4rem);
 
+  position: absolute;
+  top: 18.6rem;
+  left: 12rem;
+  width: 20rem;
+
+  .snb-main {
+    @include pretendard-30-700;
+
+    margin-bottom: 2rem;
+  }
+
   .snb-sections {
     @include flex-column(1.6rem);
 
     color: $black;
-
-    &.snb-section-1 {
-      @include pretendard-30-700;
-
-      margin-bottom: 0.4rem;
-    }
 
     .snb-category {
       @include pretendard-20-700;
@@ -22,7 +27,20 @@
       .snb-item {
         @include pretendard-18-400;
 
+        padding: 0.4rem 0;
         color: $gray-50;
+
+        /* stylelint-disable-next-line max-nesting-depth */
+        &:focus {
+          @include pretendard-18-700;
+
+          color: $primary;
+        }
+
+        /* stylelint-disable-next-line max-nesting-depth */
+        &:hover {
+          color: $primary-60;
+        }
       }
     }
   }
