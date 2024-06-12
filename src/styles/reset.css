@@ -164,3 +164,8 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+.react-colorful {
+  width: 32rem !important;
+  height: 16rem !important;
+}

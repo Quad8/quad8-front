@@ -9,7 +9,7 @@ interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export default forwardRef<HTMLInputElement, RadioProps>(function Radio({ id, value, checked, isError, ...rest }, ref) {
   return (
-    <Label htmlFor={id}>
+    <Label htmlFor={id} sizeVariant='md'>
       <Input ref={ref} id={id} type='radio' value={value} checked={checked} isError={isError} {...rest} />
       {value}
     </Label>
