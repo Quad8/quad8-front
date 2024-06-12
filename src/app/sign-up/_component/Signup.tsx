@@ -2,7 +2,6 @@
 
 import classNames from 'classnames/bind';
 import { RadioField, InputField } from '@/components';
-import Button from '@/components/Button/Button';
 import styles from './Signup.module.scss';
 import { AgreementForm } from './AgreementForm';
 
@@ -55,9 +54,6 @@ export default function SignupModal() {
           <RadioField label='성별' options={['남자', '여자']} />
         </div>
         <AgreementForm />
-        <Button className={cn('button')} fontSize={24}>
-          회원가입
-        </Button>
       </div>
     </div>
   );

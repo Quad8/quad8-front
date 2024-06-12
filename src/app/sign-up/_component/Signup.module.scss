@@ -1,9 +1,9 @@
 .container {
-  width: 56.2rem;
+  width: 100%;
   margin: 0 auto;
-  margin-top: 17rem;
+  margin-bottom: 6rem;
   padding: 4rem;
-  border-radius: 2.4rem;
+  border-radius: 3.2rem;
   background-color: $white;
 }
 
@@ -29,8 +29,4 @@
   width: 7.3rem;
   padding-right: 1rem;
   font-size: small;
-}
-
-.button {
-  margin-bottom: 4rem;
 }
