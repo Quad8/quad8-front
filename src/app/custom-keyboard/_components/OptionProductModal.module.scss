@@ -1,0 +1,48 @@
+.wrapper {
+  @include flex-column(2rem);
+
+  width: fit-content;
+  height: fit-content;
+  padding: 4rem;
+  border-radius: 1.6rem;
+  background-color: $white;
+}
+
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.title {
+  @include pretendard-20-500;
+}
+
+.content-wrapper {
+  @include flex-column(4.8rem);
+}
+
+.card-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.2rem;
+}
+
+.button {
+  @include flex-center;
+  @include pretendard-18-400;
+
+  width: 15.4rem;
+  height: 6.6rem;
+  background-color: $primary;
+  color: $white;
+  cursor: pointer;
+}
