@@ -1,3 +1,4 @@
+import { ROUTER } from '@/constants/route';
 import CartIcon from '@/public/svgs/cart.svg';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
@@ -15,7 +16,7 @@ export default function CartButton({ cartCount, isBlack }: CartButtonProps) {
 
   return (
     <div className={cn('wrapper')}>
-      <Link href='/cart' className={cn('icon')}>
+      <Link href={ROUTER.MY_PAGE.CART} className={cn('icon')}>
         <CartIcon className={cn('cart-icon', { black: isBlack })} width={24} height={24} />
         {cartCount > 0 && <div className={cn('cart-count', cartCount > 9 && 'count-more-digit')}>{countStatus}</div>}
       </Link>

@@ -37,7 +37,7 @@ export default function Header() {
         <SearchBox isBlack={isBlack} />
         <div className={cn('status-wrapper')}>
           {!userData ? <LoginButton /> : <LogoutButton />}
-          <Link href='/mypage' className={cn('user-icon')}>
+          <Link href={ROUTER.MY_PAGE.MY_INFO} className={cn('user-icon')}>
             <UserIcon width={31} height={31} className={cn(isBlack ? 'user-black' : 'user-white')} />
           </Link>
           <CartButton cartCount={cartCount} isBlack={isBlack} />

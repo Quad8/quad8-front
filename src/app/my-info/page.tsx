@@ -1,3 +1,11 @@
+import DeliveryStatus from './_components/DeliveryStatus/DeliveryStatus';
+import UserProfile from './_components/UserProfile/UserProfile';
+
 export default function MyInfo() {
-  return <div>마이페이지 입니다</div>;
+  return (
+    <section>
+      <UserProfile />
+      <DeliveryStatus />
+    </section>
+  );
 }

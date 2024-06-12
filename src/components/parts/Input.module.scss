@@ -27,6 +27,12 @@
   @include pretendard-18-400;
 }
 
+@mixin phone {
+  height: 4.4rem;
+  padding: 1rem 1.6rem;
+  @include pretendard-16-400;
+}
+
 .default {
   width: 100%;
   border: 0.1rem solid $gray-40;
@@ -151,4 +157,10 @@
 
 .lg {
   @include lg;
+}
+
+.phone {
+  width: 7.3rem;
+  text-align: center;
+  @include phone;
 }

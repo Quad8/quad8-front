@@ -10,11 +10,12 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   isSelect?: boolean;
   isOption?: boolean;
   isChecked?: boolean;
+  isPhone?: boolean;
   className?: string;
 }
 
 export default forwardRef<HTMLInputElement, InputProps>(function Input(
-  { sizeVariant, type, value, isError, isSelect, isOption, isChecked, className, ...rest },
+  { sizeVariant, type, value, isError, isSelect, isOption, isChecked, isPhone, className, ...rest },
   ref,
 ) {
   const combinedClassName = cn('default', sizeVariant, type, className, {
@@ -22,7 +23,7 @@ export default forwardRef<HTMLInputElement, InputProps>(function Input(
     select: isSelect,
     option: isOption,
     checked: isChecked,
-
+    phone: isPhone,
     'dropdown-textarea-case': value === '직접 입력',
   });
 

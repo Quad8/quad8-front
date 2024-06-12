@@ -1,0 +1,22 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60.2rem;
+  padding: 6rem;
+  border-radius: 2.4rem;
+  background: $white;
+  gap: 4rem;
+
+  .modal-title {
+    color: $black;
+    @include pretendard-30-700;
+  }
+
+  .modal-inputs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 2.4rem;
+  }
+}

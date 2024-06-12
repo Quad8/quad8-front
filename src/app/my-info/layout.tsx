@@ -13,7 +13,7 @@ export default function MyInfoLayout({ children }: MyInfoLayoutProps) {
   return (
     <section className={cn('layout')}>
       <SNB />
-      {children}
+      <div className={cn('page')}>{children}</div>
     </section>
   );
 }
