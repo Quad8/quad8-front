@@ -11,6 +11,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   sizeVariant?: 'sm' | 'md' | 'lg';
   className?: string;
   label?: string;
+  labelSize?: 'sm' | 'md' | 'lg';
   errorMessage?: string;
   suffixIcon?: 'search' | 'eye';
   suffixUnit?: '원';
@@ -31,7 +32,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
  */
 
 export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField(
-  { id, type = 'text', sizeVariant = 'md', label, className, errorMessage, suffixIcon, suffixUnit, ...rest },
+  { id, type = 'text', sizeVariant = 'md', label, className, errorMessage, suffixIcon, suffixUnit, labelSize, ...rest },
   ref,
 ) {
   const [inputType, setInputType] = useState(type);
@@ -45,7 +46,7 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
   return (
     <div className={combinedClassName}>
       {label && (
-        <Label htmlFor={id} sizeVariant={sizeVariant}>
+        <Label htmlFor={id} sizeVariant={labelSize || sizeVariant}>
           {label}
         </Label>
       )}
