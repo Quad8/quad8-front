@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import classNames from 'classnames/bind';
-import { Modal, Button } from '@/components';
+import { Button, Modal } from '@/components';
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
+import classNames from 'classnames/bind';
+import { useState } from 'react';
 import styles from './ReviewModalTest.module.scss';
 
 const cn = classNames.bind(styles);

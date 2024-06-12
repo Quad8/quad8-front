@@ -60,12 +60,28 @@
   line-height: 2.6rem;
 }
 
+@mixin pretendard-20-700 {
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 2.8rem;
+}
+
 @mixin pretendard-24-700 {
   font-family: Pretendard-Regular, sans-serif;
   font-size: 2.4rem;
   font-style: normal;
   font-weight: 700;
   line-height: 3.2rem;
+}
+
+@mixin pretendard-30-700 {
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 3.8rem;
 }
 
 @mixin poppins-18-400 {

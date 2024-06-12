@@ -9,5 +9,8 @@ export { default as Modal } from './Modal/Modal';
 export { default as ImageInput } from './WriteEditModal/ImageInput';
 export { default as KeyboardInfoBox } from './WriteEditModal/KeyboardInfoBox';
 
+export { default as Header } from './Header/Header';
+
 export { default as Button } from './Button/Button';
+
 // export { default as ItemOverview } from './ItemOverview/ItemOverview';
