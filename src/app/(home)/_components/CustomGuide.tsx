@@ -1,4 +1,5 @@
 import Button from '@/components/Button/Button';
+import { ROUTER } from '@/constants/route';
 import keyduekImg from '@/public/images/keyduek.png';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
@@ -53,7 +54,7 @@ export default function CustomGuide() {
         <h1 className={cn('title')}>키보드 득템할 준비가 되었다면?</h1>
       </AnimatedSection>
       <AnimatedSection>
-        <Link href='/' className={cn('button-area')}>
+        <Link href={ROUTER.MAIN} className={cn('button-area')}>
           <Button className={cn('font-24')}>키보드 커스텀 하러 가기</Button>
         </Link>
       </AnimatedSection>
