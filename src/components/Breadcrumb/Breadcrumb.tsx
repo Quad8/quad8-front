@@ -1,6 +1,6 @@
 'use client';
 
-import RightArrow from '@/public/svgs/arrow.svg';
+import { ChevronIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -25,13 +25,13 @@ export default function Breadcrumb() {
       <li className={cn('breadcrumb-item')}>
         <Link href='/'>HOME</Link>
       </li>
-      <RightArrow />
+      <ChevronIcon className={cn('arrow-icon')} />
       <li className={cn('breadcrumb-item', { 'current-category': !category })}>
         <Link href='/shop'>SHOP</Link>
       </li>
       {category && (
         <>
-          <RightArrow />
+          <ChevronIcon className={cn('arrow-icon')} />
           <li className={cn('current-category')}>
             <Link href={`/shop/${category}`}>{CATEGORY_MAP[category]}</Link>
           </li>

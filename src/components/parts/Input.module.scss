@@ -118,7 +118,12 @@
 }
 
 .header {
+  background: none;
   @include header;
+
+  &:focus {
+    border: 0.1rem solid $gray-50;
+  }
 }
 
 .xs {

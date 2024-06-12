@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# 빌드 스크립트를 실행하고 실패하면 푸쉬를 중단합니다.
+echo "✨ Running npm build... ✨"
+if ! npm run build; then
+    echo "❌ Build failed. Push aborted. ❌"
+    exit 1
+fi
+
+echo "✅ Build succeeded. Proceeding with push. ✅"
+
+exit 0
