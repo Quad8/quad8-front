@@ -3,6 +3,8 @@ import Image from 'next/image';
 import CheckboxCircleIcon from '@/public/svgs/CheckboxCircle.svg';
 import styles from './OptionProductCard.module.scss';
 
+const cn = classNames.bind(styles);
+
 interface OptionProductCardProps {
   isChecked: boolean;
   onClick: () => void;
@@ -10,8 +12,6 @@ interface OptionProductCardProps {
   productName: string;
   price: number;
 }
-
-const cn = classNames.bind(styles);
 
 export default function OptionProductCard({
   isChecked,
