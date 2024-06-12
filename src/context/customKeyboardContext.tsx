@@ -38,6 +38,8 @@ interface KeyboardDataContextType {
   updateData: (key: keyof KeyboardDataType, value: KeyboardDataType[keyof KeyboardDataType]) => void;
   updateIndividualColor: (value: Partial<Record<CustomKeyboardKeyTypes, Color>>) => void;
   deleteIndividualColor: (key: CustomKeyboardKeyTypes) => void;
+  updatePrice: (value: number) => void;
+  updateOption: (id: string, value: boolean) => void;
 }
 
 interface KeyColorContextType {
@@ -75,6 +77,8 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
   updateData: () => {},
   updateIndividualColor: () => {},
   deleteIndividualColor: () => {},
+  updatePrice: () => {},
+  updateOption: () => {},
 });
 
 export const KeyColorContext = createContext<KeyColorContextType>({
@@ -142,9 +146,17 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     });
   }, []);
 
+  const updatePrice = useCallback((value: number) => {
+    setKeyboardData((prev) => ({ ...prev, price: prev.price + value }));
+  }, []);
+
+  const updateOption = useCallback((id: string, value: boolean) => {
+    setKeyboardData((prev) => ({ ...prev, option: { ...prev.option, [id]: value } }));
+  }, []);
+
   const value = useMemo(
-    () => ({ keyboardData, updateData, updateIndividualColor, deleteIndividualColor }),
-    [keyboardData, updateData, updateIndividualColor, deleteIndividualColor],
+    () => ({ keyboardData, updateData, updateIndividualColor, deleteIndividualColor, updatePrice, updateOption }),
+    [keyboardData, updateData, updateIndividualColor, deleteIndividualColor, updatePrice, updateOption],
   );
 
   return <KeyboardDataContext.Provider value={value}>{children}</KeyboardDataContext.Provider>;

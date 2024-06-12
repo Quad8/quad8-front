@@ -18,7 +18,7 @@ export default function ColorTag({ keyCap, color, onDelete }: ColorTagProps) {
   return (
     <div className={cn('wrapper')}>
       <div>{`${keyCap}: ${color}`}</div>
-      <DeleteTagIcon width={20} height={20} fill='#4968F6' onClick={onDelete} />
+      <DeleteTagIcon width={20} height={20} onClick={onDelete} className={cn('delete-icon')} />
     </div>
   );
 }

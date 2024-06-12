@@ -20,3 +20,10 @@ export type CustomKeyboardTypeTypes = 'full' | 'tkl';
 export type CustomKeyboardTextureTypes = 'metal' | 'plastic';
 export type CustomKeyboardSwitchTypes = 'blue' | 'red' | 'brown' | 'black';
 export type CustomKeyboardPointKeyType = '내 맘대로 바꾸기' | '세트 구성';
+
+export interface OptionDataType {
+  id: string;
+  name: string;
+  image: string;
+  price: number;
+}
