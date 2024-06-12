@@ -1,7 +1,9 @@
+'use client';
+
 import classNames from 'classnames/bind';
 import { RadioField, InputField } from '@/components';
 import Button from '@/components/Button/Button';
-import styles from './SignupModal.module.scss';
+import styles from './Signup.module.scss';
 import { AgreementForm } from './AgreementForm';
 
 const cn = classNames.bind(styles);
@@ -54,7 +56,7 @@ export default function SignupModal() {
         </div>
         <AgreementForm />
         <Button className={cn('button')} fontSize={24}>
-          로그인
+          회원가입
         </Button>
       </div>
     </div>

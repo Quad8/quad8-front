@@ -1,5 +1,7 @@
 .container {
   width: 56.2rem;
+  margin: 0 auto;
+  margin-top: 17rem;
   padding: 4rem;
   border-radius: 2.4rem;
   background-color: $white;
@@ -11,11 +13,6 @@
   font-size: 3rem;
   font-weight: bold;
   text-align: center;
-}
-
-.content-wrapper {
-  height: 80rem;
-  overflow-y: scroll;
 }
 
 .input-wrapper {
