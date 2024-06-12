@@ -6,6 +6,10 @@
   color: #616161;
   font-size: 16px;
   gap: 0.8rem;
+
+  .arrow-icon {
+    rotate: (-90deg);
+  }
 }
 
 .current-category {

@@ -1,4 +1,4 @@
-import { ArrowDownIcon, EyeOffIcon, EyeOnIcon, SearchIcon } from '@/public/index';
+import { ChevronIcon, EyeOffIcon, EyeOnIcon, SearchIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import { InputHTMLAttributes } from 'react';
 import styles from './SuffixIcon.module.scss';
@@ -17,7 +17,7 @@ export default function SuffixIcon({ type, icon, isOpen, onClick }: SuffixIconPr
       case 'search':
         return <SearchIcon />;
       case 'arrow':
-        return <ArrowDownIcon />;
+        return <ChevronIcon />;
       default:
         if (type === 'password') {
           return <EyeOffIcon />;

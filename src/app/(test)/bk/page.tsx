@@ -5,6 +5,7 @@ import Dropdown from '@/components/Dropdown/Dropdown';
 import classNames from 'classnames/bind';
 import { FormEvent } from 'react';
 
+import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
@@ -67,6 +68,7 @@ export default function Page() {
       <br />
       {/* <RadioField options={OPTIONS} label='숫자' value='6' /> */}
       {/* <ItemOverview /> */}
+      <Breadcrumb />
       <br />
       <br />
       <br />
