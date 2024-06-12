@@ -36,16 +36,28 @@ export default function CartModalOptionCard({
 
   useEffect(() => {
     if (isHover && tooltipRef.current && targetRef.current) {
-      const viewportTop = targetRef.current.getBoundingClientRect().top + 20;
+      const { top: targetTop, left: targetLeft } = targetRef.current.getBoundingClientRect();
       const tooltipHeight = tooltipRef.current.clientHeight;
       const viewportHeight = window.innerHeight;
 
-      if (viewportHeight < viewportTop + tooltipHeight) {
-        tooltipRef.current.style.bottom = '0px';
-        tooltipRef.current.style.top = 'auto';
+      if (viewportHeight < targetTop + 20 + tooltipHeight) {
+        const NEW_STYLE = {
+          top: 'auto',
+          bottom: '10px',
+          left: `${targetLeft + 296}px`,
+          paddingLeft: '4px',
+          paddingTop: '0px',
+        };
+        Object.assign(tooltipRef.current.style, NEW_STYLE);
       } else {
-        tooltipRef.current.style.top = `${viewportTop}px`;
-        tooltipRef.current.style.bottom = 'auto';
+        const NEW_STYLE = {
+          top: `${targetTop + 20}px`,
+          bottom: 'auto',
+          left: `${targetLeft + 40}px`,
+          paddingLeft: '0px',
+          paddingTop: '4px',
+        };
+        Object.assign(tooltipRef.current.style, NEW_STYLE);
       }
     }
   }, [isHover]);
@@ -67,17 +79,12 @@ export default function CartModalOptionCard({
               className={cn('second-option-wrapper')}
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
-              ref={targetRef}
             >
-              <div className={cn('option')}>{option2}</div>
+              <div className={cn('option')} ref={targetRef}>
+                {option2}
+              </div>
               <div className={cn('tooltip-wrapper', { 'tooltip-visible': isHover })} ref={tooltipRef}>
-                <div
-                  className={cn('tooltip')}
-                  onMouseEnter={() => setIsHover(true)}
-                  onMouseLeave={() => setIsHover(false)}
-                >
-                  {option2}
-                </div>
+                <div className={cn('tooltip')}>{option2}</div>
               </div>
             </div>
           </div>

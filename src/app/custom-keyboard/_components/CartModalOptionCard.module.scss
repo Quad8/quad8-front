@@ -92,12 +92,14 @@
 
 .tooltip-wrapper {
   visibility: hidden;
-  position: absolute;
+  position: fixed;
+  z-index: $zindex-tooltip;
+  width: fit-content;
+  height: fit-content;
 }
 
 .tooltip {
   width: 44.6rem;
-  margin-top: 0.8rem;
   padding: 1.6rem;
   border-radius: 0.8rem;
   opacity: 0.9;
