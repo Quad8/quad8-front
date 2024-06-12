@@ -1,35 +1,69 @@
-import KEYBOARD_DATA from '@/app/mj/customData';
-import { WRITE_EIDT_MODAL_TYPE, WriteEditModalType } from '@/constants/writeEditModalType';
+import { ChangeEvent, useState } from 'react';
 import classNames from 'classnames/bind';
-import ImageInput from './ImageInput';
-import KeyboardInfoBox from './KeyboardInfoBox';
+import KEYBOARD_DATA from '@/app/mj/customData';
+import { InputField, ImageInput, KeyboardInfoBox, Button, TextField } from '@/components';
 import styles from './WriteEditModal.module.scss';
-import Button from '../Button/Button';
-
-interface WriteEditModalProps {
-  type: WriteEditModalType;
-}
 
 const cn = classNames.bind(styles);
-export default function WriteEditModal({ type }: WriteEditModalProps) {
-  const handleClickLeftButton = () => {
-    /** 닫기버튼 누르면 실행되는 함수 */
+
+interface WriteEditModalProps {
+  isCustomReview?: boolean;
+}
+
+const TITLE_MAX_LENGTH = 20;
+const TITLE_PLACEHOLDER = '미 입력 시 키득 커스텀 키보드로 등록됩니다.';
+const CONTENT_PLACEHOLDER = '최소 20자 이상 입력해주세요';
+
+export default function WriteEditModal({ isCustomReview }: WriteEditModalProps) {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
   };
-  const handleClickRightButton = () => {
+
+  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
+  };
+
+  const handleSubmit = () => {
     /** 등록 버튼 누르면 실행되는 함수 */
+    setTitle(title || '키드 커스텀 키보드');
   };
+
   return (
-    <div className={cn('container')}>
-      <KeyboardInfoBox keyboardInfo={KEYBOARD_DATA} isReview={type !== WRITE_EIDT_MODAL_TYPE.writePost} />
+    <form className={cn('container')} onSubmit={handleSubmit}>
+      <KeyboardInfoBox keyboardInfo={KEYBOARD_DATA} isCustomReview={isCustomReview} />
       <div className={cn('input-wrapper')}>
-        <input className={cn('input')} placeholder='제목 작성' />
-        <ImageInput />
-        <input className={cn('input')} placeholder='내용 작성' />
-        <div className={cn('button-wrapper')}>
-          <Button onClick={handleClickLeftButton}>닫기</Button>
-          <Button onClick={handleClickRightButton}>등록 </Button>
+        <div className={cn('title-input-wrapper')}>
+          <InputField
+            label='제목'
+            sizeVariant='md'
+            className={cn('title-input')}
+            placeholder={TITLE_PLACEHOLDER}
+            maxLength={TITLE_MAX_LENGTH}
+            onChange={handleTitleChange}
+            labelSize='lg'
+          />
+          <div className={cn('character-limit')}>
+            {title.length} / {TITLE_MAX_LENGTH}
+          </div>
         </div>
+        <ImageInput />
+        <TextField
+          label='내용'
+          className={cn('text-area-input')}
+          placeholder={CONTENT_PLACEHOLDER}
+          onChange={handleContentChange}
+          sizeVariant='md'
+        />
+        <div className={cn('button-wrapper')}>
+          <Button onClick={handleSubmit}>후기 등록하기</Button>
+        </div>
+        <p>
+          {title} {content}
+        </p>
       </div>
-    </div>
+    </form>
   );
 }
