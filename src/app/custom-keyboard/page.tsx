@@ -3,7 +3,7 @@ import Header from '@/components/Header/Header';
 import styles from './customKeyboard.module.scss';
 import Option from './_components/Option';
 import KeyboardViewer from './_components/KeyboardViewer';
-import PriceButton from './_components/PriceButton';
+import TotalCostWithNavigation from './_components/TotalCostWithNavigation';
 
 const cn = classNames.bind(styles);
 
@@ -18,7 +18,7 @@ export default function Page() {
             <Option />
           </div>
           <div className={cn('button-wrapper')}>
-            <PriceButton />
+            <TotalCostWithNavigation />
           </div>
         </div>
       </div>

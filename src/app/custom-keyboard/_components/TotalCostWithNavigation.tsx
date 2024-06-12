@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
 import { Modal } from '@/components';
-import styles from './PriceButton.module.scss';
+import styles from './TotalCostWithNavigation.module.scss';
 import OptionProductModal from './OptionProductModal';
 
 const cn = classNames.bind(styles);
@@ -51,7 +51,7 @@ const PRICE_LIST = {
   plastic: 30000,
 };
 
-export default function PriceButton() {
+export default function TotalCostWithNavigation() {
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
   const [optionData, setOptionData] = useState<OptionDataType[]>([]);
