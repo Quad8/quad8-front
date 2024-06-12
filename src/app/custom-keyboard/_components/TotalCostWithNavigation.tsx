@@ -153,7 +153,7 @@ export default function TotalCostWithNavigation() {
 
   const completed = checkCompleted(currentStep);
 
-  const onCloseOptionModal = () => {
+  const handleCloseOptionModal = () => {
     setIsOpenOptionModal(false);
     setIsInitialOpenOptionModal(false);
   };
@@ -161,8 +161,6 @@ export default function TotalCostWithNavigation() {
   const updateOptionPrice = (value: number) => {
     setOptionPrice(value);
   };
-
-  const onOpenCartModal = () => {};
 
   useEffect(() => {
     const boardPrice = PRICE_LIST[type] + PRICE_LIST[texture];
@@ -196,12 +194,12 @@ export default function TotalCostWithNavigation() {
           {BUTTON[next]}
         </button>
       </div>
-      <Modal isOpen={isOpenOptionModal} onClose={onCloseOptionModal}>
+      <Modal isOpen={isOpenOptionModal} onClose={handleCloseOptionModal}>
         <OptionProductModal
           optionData={optionData}
-          onClose={onCloseOptionModal}
+          onClose={handleCloseOptionModal}
           updateOptionPrice={updateOptionPrice}
-          onOpen={onOpenCartModal}
+          onOpen={() => {}}
         />
       </Modal>
     </div>

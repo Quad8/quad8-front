@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import { useContext, useState } from 'react';
 import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import type { OptionDataType } from '@/types/CustomKeyboardTypes';
+import Button from '@/components/Button/Button';
 import styles from './OptionProductModal.module.scss';
 import OptionProductCard from './OptionProductCard';
 
@@ -34,7 +35,7 @@ export default function OptionProductModal({
     return checkList;
   });
 
-  const onClick = (id: keyof typeof optionsChecked) => {
+  const handleClickOption = (id: keyof typeof optionsChecked) => {
     setOptionsChecked((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
@@ -62,14 +63,12 @@ export default function OptionProductModal({
               productImage={element.image}
               price={element.price}
               isChecked={optionsChecked[element.id]}
-              onClick={() => onClick(element.id)}
+              onClick={() => handleClickOption(element.id)}
             />
           ))}
         </div>
         <div className={cn('button-wrapper')}>
-          <div className={cn('button')} onClick={handleClickAddButton}>
-            추가하기
-          </div>
+          <Button onClick={handleClickAddButton}>추가하기</Button>
         </div>
       </div>
     </div>
