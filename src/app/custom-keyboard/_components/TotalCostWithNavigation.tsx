@@ -64,7 +64,7 @@ export default function TotalCostWithNavigation() {
   } = useContext(KeyboardDataContext);
   const { currentStep, canvasRef, controlRef, updateCurrentStep, updateStepStatus, updateKeyboardImage } =
     useContext(StepContext);
-  const { focusKey, updateFocusKey } = useContext(KeyColorContext);
+  const { updateFocusKey } = useContext(KeyColorContext);
 
   const checkCompleted = (step: CustomKeyboardStepTypes) => {
     if (step === 'board') {
@@ -112,20 +112,15 @@ export default function TotalCostWithNavigation() {
   };
   const handleClickNextButton = (value: CustomKeyboardStepTypes) => {
     if (value === 'board' || value === 'keyCap') {
-      if (focusKey) {
-        updateFocusKey(null);
-        setTimeout(() => {
-          captureKeyboard(value);
-        }, 1);
-      } else {
+      updateFocusKey(null);
+      setTimeout(() => {
         captureKeyboard(value);
-      }
+      }, 1);
+      return;
     }
 
-    if (value === 'switch') {
-      updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
-      updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
-    }
+    updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
+    updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
   };
 
   const handleClickPrevButton = (value: CustomKeyboardStepTypes) => {
