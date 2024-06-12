@@ -6,13 +6,11 @@ import { useState } from 'react';
 import { Modal } from '@/components';
 import styles from './page.module.scss';
 import SignInModal from './_component/SignInModal';
-import SignupModal from '../sign-up/_component/Signup';
 
 const cn = classNames.bind(styles);
 
 export default function Page() {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [modalType, setOpenModalType] = useState('');
 
   const handleCloseModal = () => {
     setIsOpenModal(false);
@@ -20,7 +18,6 @@ export default function Page() {
 
   const handleSignin = () => {
     setIsOpenModal(true);
-    setOpenModalType('signin');
   };
 
   return (
@@ -28,7 +25,7 @@ export default function Page() {
       <Button onClick={handleSignin}> 로그인 모달창</Button>
       <a href='/sign-up'> 회원가입 하러가기</a>
       <Modal isOpen={isOpenModal} onClose={handleCloseModal}>
-        {modalType === 'signin' ? <SignInModal /> : <SignupModal />}
+        <SignInModal />
       </Modal>
     </div>
   );
