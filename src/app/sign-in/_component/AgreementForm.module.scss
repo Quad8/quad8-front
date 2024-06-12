@@ -5,3 +5,17 @@
   border-radius: 1.6rem;
   background-color: $gray-5;
 }
+
+.title {
+  display: flex;
+  gap: 0.8rem;
+
+  & > h2 {
+    color: $black;
+    @include pretendard-16-700;
+  }
+}
+
+.check-icon {
+  cursor: pointer;
+}
