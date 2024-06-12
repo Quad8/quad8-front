@@ -1,0 +1,11 @@
+.container {
+  width: 100vw;
+  height: 2000rem;
+  padding: 1rem;
+  background-color: $gray-20;
+}
+
+.buttons {
+  font-size: 2rem;
+  @include flex-column(1rem);
+}
