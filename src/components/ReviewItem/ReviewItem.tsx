@@ -23,6 +23,18 @@ export default function ReviewItem({ isDisplayOnMyPage, data }: ReviewItemProps)
     }
   };
 
+  const renderImages = (className: string, width: number, height: number, altPrefix: string) =>
+    data.imgList.map((item, idx) => (
+      <Image
+        key={item.id}
+        className={cn(className)}
+        src={item.imgUrl}
+        width={width}
+        height={height}
+        alt={`${altPrefix} ${idx + 1}`}
+      />
+    ));
+
   return (
     <div className={cn('review-item', { expand: isExpanded, 'mypage-review': isDisplayOnMyPage })}>
       {!isDisplayOnMyPage && (
@@ -74,33 +86,9 @@ export default function ReviewItem({ isDisplayOnMyPage, data }: ReviewItemProps)
             </div>
           )}
           {!isDisplayOnMyPage && isExpanded && (
-            <div className={cn('expand-image-section')}>
-              {data.imgList.map((item) => (
-                <Image
-                  key={item.id}
-                  className={cn('big-image')}
-                  src={item.imgUrl}
-                  width={600}
-                  height={600}
-                  alt='펼친 리뷰 이미지'
-                />
-              ))}
-            </div>
+            <div className={cn('expand-image-section')}>{renderImages('big-image', 600, 600, '펼친 리뷰 이미지')}</div>
           )}
-          {isDisplayOnMyPage && (
-            <div>
-              {data.imgList.map((item) => (
-                <Image
-                  key={item.id}
-                  className={cn('mypage-review-image')}
-                  src={item.imgUrl}
-                  width={80}
-                  height={80}
-                  alt='마이페이지 리뷰 이미지'
-                />
-              ))}
-            </div>
-          )}
+          {isDisplayOnMyPage && <div>{renderImages('mypage-review-image', 80, 80, '마이페이지 리뷰 이미지')}</div>}
         </div>
       </div>
       {!isDisplayOnMyPage && (
