@@ -32,48 +32,44 @@
   }
 }
 
-.hero-item-container {
+.hero-item {
   position: absolute;
-  width: 100%;
-  height: 100rem;
 
-  .hero-item {
-    position: absolute;
+  &:nth-child(even) {
+    animation: bounce-in-fwd 1.3s both;
+  }
+
+  &:nth-child(1) {
+    bottom: 29.3rem;
+    left: 9.2rem;
+    animation: bounce-in-fwd 1.3s both;
+  }
+
+  &:nth-child(2) {
+    right: 10rem;
+    bottom: 22rem;
+  }
+
+  &:nth-child(3) {
+    top: 10rem;
+    right: 39rem;
     animation: bounce-in-fwd 1.7s both;
+  }
 
-    &:nth-child(even) {
-      animation: bounce-in-fwd 1.3s both;
-    }
+  &:nth-child(4) {
+    bottom: 22.2rem;
+    left: 52.2rem;
+  }
 
-    &:nth-child(1) {
-      bottom: 29.3rem;
-      left: 9.2rem;
-    }
+  &:nth-child(5) {
+    top: 20rem;
+    left: 28rem;
+    animation: bounce-in-fwd 1.7s both;
+  }
 
-    &:nth-child(2) {
-      right: 10rem;
-      bottom: 22rem;
-    }
-
-    &:nth-child(3) {
-      top: 10rem;
-      right: 39rem;
-    }
-
-    &:nth-child(4) {
-      bottom: 22.2rem;
-      left: 52.2rem;
-    }
-
-    &:nth-child(5) {
-      top: 20rem;
-      left: 28rem;
-    }
-
-    &:nth-child(6) {
-      top: 30rem;
-      right: 10rem;
-    }
+  &:nth-child(6) {
+    top: 30rem;
+    right: 10rem;
   }
 }
 
