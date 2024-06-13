@@ -1,5 +1,10 @@
 import { FieldValues } from 'react-hook-form';
 
+interface PutEditProfileProps {
+  payload: FieldValues;
+  token: string | null;
+}
+
 /**
  * 주어진 토큰을 사용하여 사용자 데이터를 가져
  *
@@ -32,12 +37,13 @@ export async function getUserData(token: string) {
  * @returns {Promise<Object>} - 응답 데이터를 반환합니다.
  * @throws {Error} - 요청이 실패한 경우 에러를 던집니다.
  */
-export async function putEditProfile(payload: FieldValues) {
+export async function putEditProfile({ payload, token }: PutEditProfileProps) {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/users/me`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(payload),
     });

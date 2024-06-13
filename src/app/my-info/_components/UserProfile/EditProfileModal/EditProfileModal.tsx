@@ -17,6 +17,7 @@ const GENDER_OPTION = ['남자', '여자'];
 export default function EditProfileModal() {
   const { data: userData } = useQuery<{ data: Users }>({ queryKey: ['userData'] });
   const users = userData?.data ?? { nickname: '', email: '', phone: '', gender: 'MALE', birth: '' };
+  const token = localStorage.getItem('accessToken') || null;
 
   const {
     register,
@@ -41,19 +42,20 @@ export default function EditProfileModal() {
     },
   });
 
-  const { mutate: editProfileMutation } = useMutation({
+  const { mutate: putProfileMutation } = useMutation({
     mutationFn: putEditProfile,
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (payload) => {
-    console.log(payload);
-
-    editProfileMutation(payload, {
-      onSuccess: (res) => {
-        console.log('onSubmit 성공', payload, res);
+    putProfileMutation(
+      { payload, token },
+      {
+        // onSuccess: (res) => {
+        //   console.log('onSubmit 성공', payload, res);
+        // },
+        onError: () => {},
       },
-      onError: () => {},
-    });
+    );
   };
 
   const handleNicknameBlur = (e: FocusEvent<HTMLInputElement>) => {
