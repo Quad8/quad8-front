@@ -36,6 +36,7 @@ function SignupInputs() {
     register,
     formState: { errors },
     getValues,
+    setError,
   } = useForm<Inputs>({
     mode: 'onBlur',
     defaultValues: initalInputValues,
@@ -43,11 +44,30 @@ function SignupInputs() {
 
   const handleCheckEmailInput = async () => {
     const emailValue = getValues('email');
+    if (emailValue === undefined) {
+      setError('email', {
+        message: '이메일을 입력해주세요.',
+      });
+    }
+    const emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+    if (!emailPattern.test(emailValue)) {
+      setError('email', {
+        message: '유효한 이메일을 입력해주세요.',
+      });
+      return;
+    }
+
     await checkEmailDuplication(emailValue);
   };
 
   const handleCheckNicknameInput = async () => {
     const nicknameValue = getValues('nickname');
+    if (nicknameValue === undefined) {
+      setError('nickname', {
+        message: '이름을 입력해주세요.',
+      });
+      return;
+    }
     await checkNicknameDuplication(nicknameValue);
   };
 
@@ -58,7 +78,7 @@ function SignupInputs() {
         value: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
         message: '유효한 이메일을 입력해주세요',
       },
-      onBlur: () => errors.email || handleCheckEmailInput(),
+      onBlur: () => handleCheckEmailInput(),
     }),
     password: register('password', {
       required: '비밀번호를 입력해주세요.',
@@ -85,8 +105,8 @@ function SignupInputs() {
     birth: register('birth', {
       required: '생년원일을 입력해주세요.',
       pattern: {
-        value: /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/i,
-        message: '생년원일을 확인해주세요.',
+        value: /^(19[0-9][0-9]|20\d{2})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/,
+        message: '유효한 생년월일을 입력해주세요. 예: YYYYMMDD',
       },
     }),
     gender: register('gender'),
