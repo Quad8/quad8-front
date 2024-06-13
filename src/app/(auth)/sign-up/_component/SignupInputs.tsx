@@ -1,11 +1,14 @@
-'use client';
-
 import { RadioField, InputField } from '@/components';
+import { useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
-import { useReducer } from 'react';
+import { SignupInfoTypes } from '@/types';
 import styles from './SignupInputs.module.scss';
 
 const cn = classNames.bind(styles);
+
+interface Inputs extends SignupInfoTypes {
+  passwordConfirm: string;
+}
 
 const PLACEHOLDER = {
   EMAIL: '이메일을 입력해주세요',
@@ -16,73 +19,31 @@ const PLACEHOLDER = {
   BIRTHDAY: 'YYYY / MM / DD',
 };
 
-interface InputDataType {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  phoneNumber: string;
-  birthday: string;
-  sex: '남성' | '여성' | null;
-}
+function SignupInputs() {
+  const {
+    register,
+    formState: { errors },
+  } = useForm<Inputs>({ mode: 'onBlur' });
 
-interface InputErrorDataType {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  phoneNumber: string;
-  birthday: string;
-  sex: '남성' | '여성' | null;
-}
-
-interface ActionType {
-  type: 'CHANGE_FIELD' | 'FOCUS_OUT_FIELD';
-  field: keyof InputDataType | keyof InputErrorDataType;
-  value: string;
-}
-
-const initalState = {
-  email: '',
-  password: '',
-  passwordConfirm: '',
-  name: '',
-  phoneNumber: '',
-  birthday: '',
-  sex: null,
-};
-
-const reducer = (state: InputDataType | InputErrorDataType, action: ActionType) => {
-  switch (action.type) {
-    case 'FOCUS_OUT_FIELD':
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-    default:
-      return state;
-  }
-};
-
-export default function SignupInputs() {
-  const [state, dispatch] = useReducer(reducer, initalState);
-
-  const handleChange = (field: keyof InputDataType, value: string) => {
-    dispatch({ type: 'CHANGE_FIELD', field, value });
-    console.log(state);
+  const registers = {
+    email: register('email', { required: '이메일을 입력해주세요.' }),
+    password: register('password', { required: '비밀번호를 입력해주세요.' }),
+    passwordConfirm: register('passwordConfirm', { required: '비밀번호를 한번 더 입력해주세요.' }),
+    nickname: register('nickname', { required: '이름을 입력해주세요.' }),
+    phone: register('phone', { required: '휴대폰 번호를 입력해주세요.' }),
+    birth: register('birth', { required: '생년원일을 입력해주세요.' }),
+    gender: register('gender'),
   };
 
-  const handleFocusOut = (field: keyof InputErrorDataType, value: string) => {
-    dispatch({ type: 'FOCUS_OUT_FIELD', field, value });
-  };
   return (
-    <div className={cn('input-wrapper')}>
+    <form className={cn('input-wrapper')}>
       <InputField
         label='이메일'
         placeholder={PLACEHOLDER.EMAIL}
         sizeVariant='md'
         labelSize='sm'
-        onBlur={(e) => handleFocusOut('email', e.target.value)}
+        errorMessage={errors.email?.message}
+        {...registers.email}
       />
       <InputField
         label='비밀번호'
@@ -91,7 +52,8 @@ export default function SignupInputs() {
         labelSize='sm'
         type='password'
         suffixIcon='eye'
-        onChange={(e) => handleChange('password', e.target.value)}
+        errorMessage={errors.password?.message}
+        {...registers.password}
       />
       <InputField
         label='비밀번호 확인'
@@ -100,14 +62,16 @@ export default function SignupInputs() {
         labelSize='sm'
         type='password'
         suffixIcon='eye'
-        onChange={(e) => handleChange('passwordConfirm', e.target.value)}
+        errorMessage={errors?.passwordConfirm?.message}
+        {...registers.passwordConfirm}
       />
       <InputField
         label='이름'
         placeholder={PLACEHOLDER.NAME}
         sizeVariant='md'
         labelSize='sm'
-        onChange={(e) => handleChange('name', e.target.value)}
+        errorMessage={errors.nickname?.message}
+        {...registers.nickname}
       />
       <div className={cn('phone-number-input')}>
         <InputField
@@ -121,7 +85,8 @@ export default function SignupInputs() {
           placeholder={PLACEHOLDER.PHONE_NUMBER}
           sizeVariant='md'
           labelSize='sm'
-          onChange={(e) => handleChange('phoneNumber', e.target.value)}
+          errorMessage={errors.phone?.message}
+          {...registers.phone}
         />
       </div>
       <InputField
@@ -129,9 +94,11 @@ export default function SignupInputs() {
         placeholder={PLACEHOLDER.BIRTHDAY}
         sizeVariant='md'
         labelSize='sm'
-        onChange={(e) => handleChange('birthday', e.target.value)}
+        errorMessage={errors.birth?.message}
+        {...registers.birth}
       />
-      <RadioField label='성별' options={['남자', '여자']} onChange={(e) => handleChange('sex', e.target.value)} />
-    </div>
+      <RadioField label='성별' options={['남자', '여자']} errorMessage={errors.gender?.message} {...registers.gender} />
+    </form>
   );
 }
+export default SignupInputs;
