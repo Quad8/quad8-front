@@ -1,7 +1,8 @@
 import { RadioField, InputField } from '@/components';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
-import { SignupInfoTypes } from '@/types';
+import type { SignupInfoTypes } from '@/types';
+import { checkEmailDuplication, checkNicknameDuplication } from '@/api';
 import styles from './SignupInputs.module.scss';
 
 const cn = classNames.bind(styles);
@@ -12,24 +13,68 @@ interface Inputs extends SignupInfoTypes {
 
 const PLACEHOLDER = {
   EMAIL: '이메일을 입력해주세요',
-  PASSWORD: '비밀번호를 입력해주세요',
+  PASSWORD: '숫자, 영어 포함 8~20자 이내',
   CONFIRM_PASSWORD: '비밀번호를 한번 더 입력해주세요',
   NAME: '이름을 입력해주세요',
   PHONE_NUMBER: '휴대폰 번호 (-없이)를 입력해주세요',
   BIRTHDAY: 'YYYY / MM / DD',
 };
 
+const initalInputValues = {
+  email: '',
+  password: '',
+  passwordConfirem: '',
+  birth: '',
+  phone: '',
+  gender: 'MALE',
+  nickname: '',
+  imgUrl: '',
+};
+
 function SignupInputs() {
   const {
     register,
     formState: { errors },
-  } = useForm<Inputs>({ mode: 'onBlur' });
+    getValues,
+  } = useForm<Inputs>({
+    mode: 'onBlur',
+    defaultValues: initalInputValues,
+  });
+
+  const handleCheckEmailInput = async () => {
+    const emailValue = getValues('email');
+    await checkEmailDuplication(emailValue);
+  };
+
+  const handleCheckNicknameInput = async () => {
+    const nicknameValue = getValues('nickname');
+    await checkNicknameDuplication(nicknameValue);
+  };
 
   const registers = {
-    email: register('email', { required: '이메일을 입력해주세요.' }),
-    password: register('password', { required: '비밀번호를 입력해주세요.' }),
-    passwordConfirm: register('passwordConfirm', { required: '비밀번호를 한번 더 입력해주세요.' }),
-    nickname: register('nickname', { required: '이름을 입력해주세요.' }),
+    email: register('email', {
+      required: '이메일을 입력해주세요.',
+      pattern: {
+        value: /^\S+@\S+$/i,
+        message: '유효한 이메일을 입력해주세요',
+      },
+      onBlur: () => errors.email || handleCheckEmailInput(),
+    }),
+    password: register('password', {
+      required: '비밀번호를 입력해주세요.',
+      pattern: {
+        value: /^[a-zA-ZZ0-9]{8,20}/i,
+        message: '비밀번호는 숫자와 영문자 조합으로 8~20자리를 사용해야 합니다.',
+      },
+    }),
+    passwordConfirm: register('passwordConfirm', {
+      required: '비밀번호를 한번 더 입력해주세요.',
+      validate: (value) => value === getValues('password') || '비밀번호가 일치하지 않습니다',
+    }),
+    nickname: register('nickname', {
+      required: '이름을 입력해주세요.',
+      onBlur: () => errors.nickname || handleCheckNicknameInput(),
+    }),
     phone: register('phone', { required: '휴대폰 번호를 입력해주세요.' }),
     birth: register('birth', { required: '생년원일을 입력해주세요.' }),
     gender: register('gender'),
@@ -73,19 +118,20 @@ function SignupInputs() {
         errorMessage={errors.nickname?.message}
         {...registers.nickname}
       />
-      <div className={cn('phone-number-input')}>
+      <div className={cn('phone-number-wrapper')}>
         <InputField
           disabled
           value='010'
           placeholder={PLACEHOLDER.NAME}
           sizeVariant='md'
-          className={cn('phone-number')}
+          className={cn('phone-number-010')}
         />
         <InputField
           placeholder={PLACEHOLDER.PHONE_NUMBER}
           sizeVariant='md'
           labelSize='sm'
           errorMessage={errors.phone?.message}
+          className={cn('phone-number-input')}
           {...registers.phone}
         />
       </div>

@@ -3,13 +3,16 @@
   @include flex-column(4rem);
 }
 
-.phone-number-input {
+.phone-number-wrapper {
   display: flex;
   gap: 0.8rem;
 }
 
-.phone-number {
+.phone-number-010 {
   width: 7.3rem;
-  padding-right: 1rem;
   font-size: small;
+}
+
+.phone-number-input {
+  width: 100%;
 }
