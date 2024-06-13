@@ -1,6 +1,6 @@
+import CheckboxCircleIcon from '@/public/svgs/checkboxCircle.svg';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
-import CheckboxCircleIcon from '@/public/svgs/CheckboxCircle.svg';
 import styles from './OptionProductCard.module.scss';
 
 const cn = classNames.bind(styles);
