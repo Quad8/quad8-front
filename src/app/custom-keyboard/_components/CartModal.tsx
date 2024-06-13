@@ -5,6 +5,7 @@ import { POINT_KEY } from '@/constants/keyboardData';
 import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
 import { blackSwitchImg, blueSwitchImg, brownSwitchImg, redSwitchImg } from '@/public/index';
 import { StaticImageData } from 'next/image';
+import { Button } from '@/components';
 import styles from './CartModal.module.scss';
 import CartModalOptionCard from './CartModalOptionCard';
 import CartModalToast from './CartModalToast';
@@ -69,6 +70,7 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
   const pointKeyCount = pointKeyType === '내 맘대로 바꾸기' ? Object.keys(individualColor).length : POINT_KEY.length;
 
   const isOverFlow = (option ? Object.entries(option).filter((element) => element[1]).length : 0) > 1;
+  const buttonDisabled = dataStatus !== null;
 
   const getKeyCapOption = () => {
     if (!hasPointKeyCap) {
@@ -76,11 +78,11 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
     }
     if (pointKeyType === '내 맘대로 바꾸기') {
       const optionText = Object.entries(individualColor)
-        .map(([key, color]) => `${key}:${color}`)
+        .map(([key, color]) => `${key}:${color.toString().toUpperCase()}`)
         .join(' / ');
       return optionText;
     }
-    const optionText = POINT_KEY.map((key) => `${key}:${pointKeySetColor}`).join(' / ');
+    const optionText = POINT_KEY.map((key) => `${key}:${pointKeySetColor.toString().toUpperCase()}`).join(' / ');
     return optionText;
   };
 
@@ -121,7 +123,7 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
     }, 1500);
   };
 
-  const onClickEditButton = (e: MouseEvent<HTMLElement>, step: CustomKeyboardStepTypes) => {
+  const onClickEditButton = (e: MouseEvent<HTMLButtonElement>, step: CustomKeyboardStepTypes) => {
     e.stopPropagation();
     onClose();
     if (step !== 'keyCap') {
@@ -130,7 +132,7 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
     updateCurrentStep(step);
   };
 
-  const onClickDeleteButton = (e: MouseEvent<HTMLElement>, id: string) => {
+  const onClickDeleteButton = (e: MouseEvent<HTMLButtonElement>, id: string) => {
     e.stopPropagation();
     // eslint-disable-next-line no-alert
     if (window.confirm('정말 삭제하시겠습니까?')) {
@@ -185,14 +187,9 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
         </div>
       </div>
       <div className={cn('button-wrapper')}>
-        <button
-          type='button'
-          className={cn('button', dataStatus !== null && 'disabled')}
-          onClick={handleClickPutButton}
-          disabled={dataStatus !== null}
-        >
+        <Button className={cn({ disabled: buttonDisabled })} onClick={handleClickPutButton} disabled={buttonDisabled}>
           장바구니 담기
-        </button>
+        </Button>
       </div>
       {dataStatus === 'completed' && <CartModalToast />}
     </div>

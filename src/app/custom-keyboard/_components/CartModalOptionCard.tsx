@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import Image, { StaticImageData } from 'next/image';
 import { MouseEvent, useRef, useState, useEffect, RefObject, useCallback } from 'react';
+import { Button } from '@/components';
 import styles from './CartModalOptionCard.module.scss';
 
 const cn = classNames.bind(styles);
@@ -13,7 +14,7 @@ interface CartModalOptionCardProps {
   count?: number;
   price: number;
   imageSrc: string | StaticImageData;
-  buttonOnClick: (e: MouseEvent<HTMLDivElement>) => void;
+  buttonOnClick: (e: MouseEvent<HTMLButtonElement>) => void;
   wrapperRef?: RefObject<HTMLDivElement>;
 }
 
@@ -116,9 +117,14 @@ export default function CartModalOptionCard({
         <div className={cn('title-option-wrapper')}>
           <div className={cn('title-wrapper')}>
             <p className={cn('title')}>{name}</p>
-            <div className={cn('button')} onClick={(e) => buttonOnClick(e)}>
+            <Button
+              width={72}
+              fontSize={14}
+              className={cn('button')}
+              onClick={(e: MouseEvent<HTMLButtonElement>) => buttonOnClick(e)}
+            >
               {BUTTON_TYPE[buttonType]}
-            </div>
+            </Button>
           </div>
           <div className={cn('option-wrapper')}>
             <div className={cn('option')}>{option1}</div>

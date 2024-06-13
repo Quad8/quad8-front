@@ -43,13 +43,10 @@
 }
 
 .button {
-  @include pretendard-14-500;
-
-  padding: 0.2rem 1rem;
+  padding: 0.2rem 0;
   border: 0.1rem solid $black;
-  border-radius: 0.8rem;
+  background-color: $white;
   color: $black;
-  cursor: pointer;
 }
 
 .option-wrapper {
@@ -96,6 +93,8 @@
 }
 
 .tooltip {
+  @include pretendard-14-400;
+
   width: 44.6rem;
   padding: 1.6rem;
   border-radius: 0.8rem;
