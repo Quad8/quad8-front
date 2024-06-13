@@ -39,6 +39,7 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
 ) {
   const [inputType, setInputType] = useState(type);
   const isPhone = label === '휴대폰 번호' || label === '연락처';
+  const isBirth = label === '생년월일';
 
   const onSuffixEyeIconClick = () => {
     setInputType((prevType) => (prevType === 'password' ? 'text' : 'password'));
@@ -60,7 +61,7 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
             type={inputType}
             sizeVariant={sizeVariant}
             value={defaultPhonePrefix}
-            isPhone={isPhone}
+            isPhonePrefix={isPhone}
             disabled
             {...rest}
           />
@@ -70,6 +71,8 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
           type={inputType}
           sizeVariant={sizeVariant}
           isError={!!errorMessage}
+          isBirth={isBirth}
+          isPhone={isPhone}
           ref={ref}
           className={className}
           {...rest}

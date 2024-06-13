@@ -1,3 +1,4 @@
+import { formatBirthDate } from '@/libs/formatBirthDate';
 import classNames from 'classnames/bind';
 import { InputHTMLAttributes, forwardRef } from 'react';
 import styles from './Input.module.scss';
@@ -11,21 +12,48 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   isOption?: boolean;
   isChecked?: boolean;
   isPhone?: boolean;
+  isPhonePrefix?: boolean;
+  isBirth?: boolean;
   className?: string;
 }
 
 export default forwardRef<HTMLInputElement, InputProps>(function Input(
-  { sizeVariant, type, value, isError, isSelect, isOption, isChecked, isPhone, className, ...rest },
+  {
+    sizeVariant,
+    type,
+    value,
+    isError,
+    isSelect,
+    isOption,
+    isChecked,
+    isPhonePrefix,
+    isPhone,
+    isBirth,
+    className,
+    ...rest
+  },
   ref,
 ) {
+  const formattedPlaceholder = isBirth ? 'YYYY / MM / DD' : rest.placeholder;
+  const formattedBirthValue = isBirth && typeof value === 'string' ? formatBirthDate(value) : value;
+
   const combinedClassName = cn('default', sizeVariant, type, className, {
     red: isError,
     select: isSelect,
     option: isOption,
     checked: isChecked,
-    phone: isPhone,
+    phone: isPhonePrefix,
     'dropdown-textarea-case': value === '직접 입력',
   });
 
-  return <input className={combinedClassName} ref={ref} type={type} value={value} {...rest} />;
+  return (
+    <input
+      className={combinedClassName}
+      ref={ref}
+      type={type}
+      value={formattedBirthValue}
+      placeholder={formattedPlaceholder}
+      {...rest}
+    />
+  );
 });
