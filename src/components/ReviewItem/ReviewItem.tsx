@@ -70,7 +70,7 @@ export default function ReviewItem({ isDisplayOnMyPage, data }: ReviewItemProps)
         </div>
         <div
           className={cn({ 'content-image-section': !isDisplayOnMyPage, 'my-page-section': isDisplayOnMyPage })}
-          onClick={() => handleToggleExpanded()}
+          onClick={handleToggleExpanded}
         >
           <p className={cn('content')}>{data.content}</p>
           {!isDisplayOnMyPage && !isExpanded && data.imgList.length > 0 && (
@@ -91,11 +91,7 @@ export default function ReviewItem({ isDisplayOnMyPage, data }: ReviewItemProps)
           {isDisplayOnMyPage && <div>{renderImages('mypage-review-image', 80, 80, '마이페이지 리뷰 이미지')}</div>}
         </div>
       </div>
-      {!isDisplayOnMyPage && (
-        <div className={cn('button-section')}>
-          {/* <LikeButton isChecked={false} forReview onClick={() => console.log('hi')} count={data.star} /> */}
-        </div>
-      )}
+      {!isDisplayOnMyPage && <div className={cn('button-section')} />}
     </div>
   );
 }
