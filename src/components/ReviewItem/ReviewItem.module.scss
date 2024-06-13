@@ -1,0 +1,146 @@
+.review-item {
+  display: flex;
+  min-height: 26rem;
+  padding: 4rem 6.8rem;
+  border-collapse: collapse;
+  border-bottom: 0.1rem solid $gray-10;
+}
+
+.mypage-review {
+  padding: 2rem 0;
+}
+
+.expand {
+  background-color: $gray-10;
+}
+
+.review-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-section {
+  @include flex-column(0.8rem);
+
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+
+.profile-image {
+  margin-right: 1.9rem;
+  border-radius: 50%;
+}
+
+.profile-info {
+  @include flex-column(0);
+}
+
+.rating-date {
+  display: flex;
+  align-items: center;
+}
+
+.date {
+  margin-left: 0.8rem;
+  padding-left: 0.8rem;
+  border-left: 0.1rem solid $gray-20;
+}
+
+.date,
+.name,
+.option {
+  color: $gray-50;
+
+  @include pretendard-16-400;
+}
+
+.star {
+  padding-left: 0.8rem;
+
+  @include pretendard-14-400;
+}
+
+.keywords {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.keyword {
+  color: $gray-50;
+
+  @include pretendard-14-400;
+}
+
+.key {
+  color: $black;
+
+  @include pretendard-14-500;
+}
+
+.content {
+  margin-bottom: 1rem;
+
+  @include pretendard-16-400;
+}
+
+.content-image-section {
+  cursor: pointer;
+}
+
+.my-page-section {
+  @include flex-column(0);
+
+  justify-content: space-between;
+  min-height: 15rem;
+}
+
+.image-section {
+  position: relative;
+  width: fit-content;
+}
+
+.small-image {
+  width: 12.3rem;
+  height: 12.3rem;
+  object-fit: cover;
+}
+
+.big-image {
+  max-width: 60rem;
+  max-height: 60rem;
+  object-fit: cover;
+}
+
+.mypage-review-image {
+  width: 8rem;
+  height: 8rem;
+  margin-right: 1.2rem;
+  border: 1px solid $gray-10;
+  border-radius: 0.8rem;
+  object-fit: cover;
+}
+
+.image-count {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 0.5rem 1rem;
+  background-color: rgb(0 0 0 / 50%);
+  color: $white;
+  text-align: center;
+
+  @include pretendard-16-400;
+}
+
+.expand-image-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.button-section {
+  @include flex-center;
+
+  margin-left: 17rem;
+}
