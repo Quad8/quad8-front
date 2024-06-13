@@ -20,7 +20,7 @@ interface CartModalProps {
 interface OrderListType {
   name: string;
   option1: string;
-  option2?: string;
+  option2?: boolean;
   price: number;
   count: number;
   imageSrc: string | StaticImageData;
@@ -48,7 +48,6 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
       hasPointKeyCap,
       pointKeyType,
       individualColor,
-      pointKeySetColor,
       price,
       option,
     },
@@ -72,24 +71,10 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
   const isOverFlow = (option ? Object.entries(option).filter((element) => element[1]).length : 0) > 1;
   const buttonDisabled = dataStatus !== null;
 
-  const getKeyCapOption = () => {
-    if (!hasPointKeyCap) {
-      return undefined;
-    }
-    if (pointKeyType === '내 맘대로 바꾸기') {
-      const optionText = Object.entries(individualColor)
-        .map(([key, color]) => `${key}:${color.toString().toUpperCase()}`)
-        .join(' / ');
-      return optionText;
-    }
-    const optionText = POINT_KEY.map((key) => `${key}:${pointKeySetColor.toString().toUpperCase()}`).join(' / ');
-    return optionText;
-  };
-
   const ORDER_LIST: OrderListType[] = [
     {
       name: '키득 베어본',
-      option1: `${type} / ${boardColor} / ${texture}`,
+      option1: `${type} / ${boardColor.toString().toUpperCase()} / ${texture}`,
       price: boardPrice,
       count: 0,
       imageSrc: keyboardImage.board,
@@ -105,8 +90,8 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
     },
     {
       name: '키득 키캡',
-      option1: `${baseKeyColor} / 포인트 키캡${hasPointKeyCap ? `o / ${pointKeyType}` : 'x'}`,
-      option2: getKeyCapOption(),
+      option1: `${baseKeyColor.toLocaleString().toUpperCase()} / 포인트 키캡${hasPointKeyCap ? `o / ${pointKeyType}` : 'x'}`,
+      option2: hasPointKeyCap,
       price: keyCapPrice,
       count: !hasPointKeyCap ? 0 : pointKeyCount,
       imageSrc: keyboardImage.keyCap,

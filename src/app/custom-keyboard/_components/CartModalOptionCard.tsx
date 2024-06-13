@@ -1,15 +1,19 @@
 import classNames from 'classnames/bind';
 import Image, { StaticImageData } from 'next/image';
-import { MouseEvent, useRef, useState, useEffect, RefObject, useCallback } from 'react';
+import { MouseEvent, useRef, useState, useEffect, RefObject, useCallback, useContext } from 'react';
 import { Button } from '@/components';
+import { KeyboardDataContext } from '@/context/customKeyboardContext';
+import { POINT_KEY } from '@/constants/keyboardData';
+import { Color } from '@react-three/fiber';
 import styles from './CartModalOptionCard.module.scss';
+import TooltipColor from './TooltipColor';
 
 const cn = classNames.bind(styles);
 
 interface CartModalOptionCardProps {
   name: string;
   option1: string;
-  option2?: string;
+  option2?: boolean;
   buttonType: 'edit' | 'delete';
   count?: number;
   price: number;
@@ -37,6 +41,22 @@ export default function CartModalOptionCard({
   const targetRef = useRef<HTMLDivElement>(null);
   const [isHover, setIsHover] = useState(false);
 
+  const {
+    keyboardData: { pointKeyType, individualColor, pointKeySetColor },
+  } = useContext(KeyboardDataContext);
+
+  const getKeyCapOption = () => {
+    if (pointKeyType === '내 맘대로 바꾸기') {
+      const optionText = Object.entries(individualColor);
+      return optionText;
+    }
+
+    const optionText = POINT_KEY.map((key) => [key, pointKeySetColor]) as [string, Color][];
+    return optionText;
+  };
+
+  const keyCapColor = getKeyCapOption();
+
   const handleMouseEnter = () => {
     if (targetRef.current && targetRef.current.offsetWidth !== targetRef.current.scrollWidth) {
       setIsHover(true);
@@ -45,6 +65,9 @@ export default function CartModalOptionCard({
 
   const handleMouseLeave = () => {
     setIsHover(false);
+    if (tooltipRef.current) {
+      Object.assign(tooltipRef.current.style, { visibility: 'hidden' });
+    }
   };
 
   const updateTooltipPosition = useCallback(() => {
@@ -78,6 +101,7 @@ export default function CartModalOptionCard({
         left: `${targetLeft + 296}px`,
         paddingLeft: '4px',
         paddingTop: '0px',
+        visibility: 'visible',
       };
       Object.assign(tooltip.style, newStyle);
       return;
@@ -88,6 +112,7 @@ export default function CartModalOptionCard({
       left: `${targetLeft + 40}px`,
       paddingLeft: '0px',
       paddingTop: '4px',
+      visibility: 'visible',
     };
     Object.assign(tooltipRef.current.style, newStyle);
   }, [isHover, wrapperRef]);
@@ -128,18 +153,22 @@ export default function CartModalOptionCard({
           </div>
           <div className={cn('option-wrapper')}>
             <div className={cn('option')}>{option1}</div>
-            <div
-              className={cn('second-option-wrapper')}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <p className={cn('option')} ref={targetRef}>
-                {option2}
-              </p>
-              <div className={cn('tooltip-wrapper', { 'tooltip-visible': isHover })} ref={tooltipRef}>
-                <div className={cn('tooltip')}>{option2}</div>
+            {option2 && (
+              <div
+                className={cn('second-option-wrapper')}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <p className={cn('option')} ref={targetRef}>
+                  {keyCapColor.map(([key, color]) => `${key}: ${color.toString().toUpperCase()}`).join(' / ')}
+                </p>
+                <div className={cn('tooltip-wrapper')} ref={tooltipRef}>
+                  <div className={cn('tooltip')}>
+                    {keyCapColor && keyCapColor.map((el) => <TooltipColor key={el[0]} colorInfo={el} />)}
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
         <div className={cn('count-price-wrapper')}>
