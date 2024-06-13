@@ -42,7 +42,7 @@ export function AgreementForm({ setIsAllChecked }: AgreementFormProps) {
 
     if (isAllNoCheck) setIconColors([NOT_CHECKED, NOT_CHECKED, NOT_CHECKED]);
     if (isAllCheck) setIconColors([CHECKED, CHECKED, CHECKED]);
-  }, [iconColors]);
+  }, [iconColors, setIsAllChecked]);
 
   return (
     <div className={cn('container')}>
