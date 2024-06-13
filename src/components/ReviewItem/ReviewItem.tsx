@@ -1,10 +1,10 @@
 'use client';
 
+import { Rating } from '@/components';
 import type { ReviewType } from '@/types/ReviewItem';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { useState } from 'react';
-import Rating from '../Rating/Rating';
 import styles from './ReviewItem.module.scss';
 
 const cn = classNames.bind(styles);
