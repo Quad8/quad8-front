@@ -1,6 +1,6 @@
 .product-list {
   display: grid;
-  row-gap: 8rem;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
+  gap: 8rem 2.667rem;
 }
