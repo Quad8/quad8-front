@@ -7,13 +7,12 @@
 }
 
 .option-wrapper {
-  display: flex;
+  @include flex-center;
+
   position: absolute;
   z-index: $zindex-offcanvas;
   top: 50%;
   left: 2rem;
-  align-items: center;
-  justify-content: center;
   width: 16.2rem;
   height: 21.8rem;
   transform: translateY(-50%);

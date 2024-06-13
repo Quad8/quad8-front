@@ -1,6 +1,7 @@
 'use client';
 
-import RightArrow from '@/public/svgs/arrow.svg';
+import { ROUTER } from '@/constants/route';
+import { ChevronIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -23,17 +24,17 @@ export default function Breadcrumb() {
   return (
     <ul className={cn('breadcrumb-list')}>
       <li className={cn('breadcrumb-item')}>
-        <Link href='/'>HOME</Link>
+        <Link href={ROUTER.MAIN}>HOME</Link>
       </li>
-      <RightArrow />
+      <ChevronIcon className={cn('arrow-icon')} />
       <li className={cn('breadcrumb-item', { 'current-category': !category })}>
-        <Link href='/shop'>SHOP</Link>
+        <Link href={ROUTER.SHOP.ALL}>SHOP</Link>
       </li>
       {category && (
         <>
-          <RightArrow />
+          <ChevronIcon className={cn('arrow-icon')} />
           <li className={cn('current-category')}>
-            <Link href={`/shop/${category}`}>{CATEGORY_MAP[category]}</Link>
+            <Link href={`${ROUTER.SHOP.ALL}/${category}`}>{CATEGORY_MAP[category]}</Link>
           </li>
         </>
       )}

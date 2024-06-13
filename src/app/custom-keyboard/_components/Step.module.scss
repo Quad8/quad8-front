@@ -1,8 +1,7 @@
 .wrapper {
-  display: flex;
+  @include flex-column(3.7rem);
+
   position: relative;
-  flex-direction: column;
-  gap: 3.7rem;
   width: 10rem;
   height: 17rem;
 }
