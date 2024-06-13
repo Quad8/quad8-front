@@ -1,13 +1,11 @@
-interface ReviewKeyword {
-  [key: string]: string;
-}
+type ReviewKeyword = Record<string, string>;
 
-interface ReviewImage {
+type ReviewImage = {
   id: number;
   imgUrl: string;
-}
+};
 
-export interface Review {
+export type ReviewType = {
   profile_img: string;
   star: number;
   name: string;
@@ -17,4 +15,4 @@ export interface Review {
   content: string;
   imgList: ReviewImage[];
   like: number;
-}
+};
