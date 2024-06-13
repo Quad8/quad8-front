@@ -5,8 +5,9 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import styles from './Rating.module.scss';
 
+const cn = classNames.bind(styles);
 interface StarProps {
-  checked: boolean;
+  isChecked: boolean;
   onClick: () => void;
   onMouseOver: () => void;
   onMouseOut: () => void;
@@ -18,15 +19,20 @@ interface RatingProps {
   usage?: 'edit' | 'show';
 }
 
-const cn = classNames.bind(styles);
+function Star({ isChecked, onClick, onMouseOver, onMouseOut, usage }: StarProps) {
+  const isEditable = usage === 'edit';
 
-function Star({ checked, onClick, onMouseOver, onMouseOut, usage }: StarProps) {
   return (
     <StarIcon
-      className={cn('star', checked ? 'checked' : 'not-checked', { edit: usage === 'edit', big: usage })}
-      onClick={() => usage === 'edit' && onClick()}
-      onMouseOver={() => usage === 'edit' && onMouseOver()}
-      onMouseOut={() => usage === 'edit' && onMouseOut()}
+      className={cn('star', {
+        checked: isChecked,
+        'not-checked': !isChecked,
+        edit: isEditable,
+        big: usage,
+      })}
+      onClick={() => isEditable && onClick()}
+      onMouseOver={() => isEditable && onMouseOver()}
+      onMouseOut={() => isEditable && onMouseOut()}
     />
   );
 }
@@ -46,7 +52,7 @@ export default function Rating({ rating, onRatingChange, usage }: RatingProps) {
       {STARS.map((star) => (
         <Star
           key={star}
-          checked={star <= (hoverRating || rating)}
+          isChecked={star <= (hoverRating || rating)}
           onClick={() => handleRating(star)}
           onMouseOver={() => star > rating && setHoverRating(star)}
           onMouseOut={() => setHoverRating(0)}
