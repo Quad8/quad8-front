@@ -127,9 +127,9 @@ export default function CartModalOptionCard({
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <div className={cn('option')} ref={targetRef}>
+              <p className={cn('option')} ref={targetRef}>
                 {option2}
-              </div>
+              </p>
               <div className={cn('tooltip-wrapper', { 'tooltip-visible': isHover })} ref={tooltipRef}>
                 <div className={cn('tooltip')}>{option2}</div>
               </div>

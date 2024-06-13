@@ -179,9 +179,9 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
                 ),
             )}
         </div>
-        <div className={cn('price-wrapper')}>
-          <p>총 합계</p>
-          <p>{price.toLocaleString()}원</p>
+        <div className={cn('count-price-wrapper')}>
+          <p className={cn('count')}>총 합계</p>
+          <p className={cn('price')}>{price.toLocaleString()}원</p>
         </div>
       </div>
       <div className={cn('button-wrapper')}>

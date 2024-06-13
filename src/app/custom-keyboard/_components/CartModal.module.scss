@@ -68,11 +68,19 @@
   }
 }
 
-.price-wrapper {
+.count-price-wrapper {
   @include flex-center-space-between;
-  @include pretendard-16-500;
 
   width: 42.2rem;
+  color: $black;
+}
+
+.count {
+  @include pretendard-16-500;
+}
+
+.price {
+  @include pretendard-16-700;
 }
 
 .button-wrapper {
