@@ -1,4 +1,4 @@
-import Button from '@/components/Button/Button';
+import { Button } from '@/components';
 import { ROUTER } from '@/constants/route';
 import keyduekImg from '@/public/images/keyduek.png';
 import classNames from 'classnames/bind';

@@ -5,26 +5,31 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import styles from './Rating.module.scss';
 
+const cn = classNames.bind(styles);
 interface StarProps {
-  checked: boolean;
+  isChecked: boolean;
   onClick: () => void;
   onMouseOver: () => void;
   onMouseOut: () => void;
-  isEditable?: boolean;
+  usage?: 'edit' | 'show';
 }
-
 interface RatingProps {
   rating: number;
   onRatingChange?: (rating: number) => void;
-  isEditable?: boolean;
+  usage?: 'edit' | 'show';
 }
 
-const cn = classNames.bind(styles);
+function Star({ isChecked, onClick, onMouseOver, onMouseOut, usage }: StarProps) {
+  const isEditable = usage === 'edit';
 
-function Star({ checked, onClick, onMouseOver, onMouseOut, isEditable }: StarProps) {
   return (
     <StarIcon
-      className={cn(checked ? 'checked' : 'not-checked', isEditable && 'edit')}
+      className={cn('star', {
+        checked: isChecked,
+        'not-checked': !isChecked,
+        edit: isEditable,
+        big: usage,
+      })}
       onClick={() => isEditable && onClick()}
       onMouseOver={() => isEditable && onMouseOver()}
       onMouseOut={() => isEditable && onMouseOut()}
@@ -32,7 +37,7 @@ function Star({ checked, onClick, onMouseOver, onMouseOut, isEditable }: StarPro
   );
 }
 
-export default function Rating({ rating, onRatingChange, isEditable }: RatingProps) {
+export default function Rating({ rating, onRatingChange, usage }: RatingProps) {
   const STARS = [1, 2, 3, 4, 5];
   const [hoverRating, setHoverRating] = useState<number>(0);
 
@@ -43,15 +48,15 @@ export default function Rating({ rating, onRatingChange, isEditable }: RatingPro
   };
 
   return (
-    <div>
+    <div className={cn('stars', { 'big-stars': usage })}>
       {STARS.map((star) => (
         <Star
           key={star}
-          checked={star <= (hoverRating || rating)}
+          isChecked={star <= (hoverRating || rating)}
           onClick={() => handleRating(star)}
           onMouseOver={() => star > rating && setHoverRating(star)}
           onMouseOut={() => setHoverRating(0)}
-          isEditable={isEditable}
+          usage={usage}
         />
       ))}
     </div>
