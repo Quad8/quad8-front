@@ -47,7 +47,7 @@ export default function Pagination({ count, limit }: PaginationProps) {
         disabled={currentPage === 1}
         aria-label='이전 페이지'
       >
-        <CaretLeftIcon stroke={currentPage === 1 ? '#B8B8B8' : '$primary'} />
+        <CaretLeftIcon stroke={currentPage === 1 ? '#B8B8B8' : '#4968f6'} />
       </button>
       <ul className={cn('pagination-list')}>
         {Array.from(
@@ -72,7 +72,7 @@ export default function Pagination({ count, limit }: PaginationProps) {
         disabled={currentPage === totalPageCount}
         aria-label='다음 페이지'
       >
-        <CaretRightIcon stroke={currentPage === totalPageCount ? '#B8B8B8' : '$primary'} />
+        <CaretRightIcon stroke={currentPage === totalPageCount ? '#B8B8B8' : '#4968f6'} />
       </button>
     </div>
   );
