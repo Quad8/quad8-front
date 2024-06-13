@@ -1,35 +1,44 @@
 'use client';
 
-import type { Review } from '@/types/ReviewItem';
+import type { ReviewType } from '@/types/ReviewItem';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { useState } from 'react';
 import Rating from '../Rating/Rating';
-import LikeButton from '../buttons/LikeButton/LikeButton';
 import styles from './ReviewItem.module.scss';
 
 const cn = classNames.bind(styles);
 
 interface ReviewItemProps {
-  isMyPage?: boolean;
-  data: Review;
+  isDisplayOnMyPage?: boolean;
+  data: ReviewType;
 }
 
-export default function ReviewItem({ isMyPage, data }: ReviewItemProps) {
-  const [isExpand, setIsExpand] = useState(false);
+export default function ReviewItem({ isDisplayOnMyPage, data }: ReviewItemProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleToggleExpanded = () => {
+    if (!isDisplayOnMyPage) {
+      setIsExpanded((prev) => !prev);
+    }
+  };
 
   return (
-    <div className={cn('review-item', { expand: isExpand, 'mypage-review': isMyPage })}>
-      {!isMyPage && (
+    <div className={cn('review-item', { expand: isExpanded, 'mypage-review': isDisplayOnMyPage })}>
+      {!isDisplayOnMyPage && (
         <Image className={cn('profile-image')} src={data.profile_img} width={64} height={64} alt='프로필 이미지' />
       )}
       <div className={cn('review-box')}>
         <div className={cn('info-section')}>
           <div className={cn('rating-date')}>
             <Rating rating={data.star} />
-            {isMyPage ? <h2 className={cn('star')}>{data.star}</h2> : <h2 className={cn('date')}>{data.date}</h2>}
+            {isDisplayOnMyPage ? (
+              <h2 className={cn('star')}>{data.star}</h2>
+            ) : (
+              <h2 className={cn('date')}>{data.date}</h2>
+            )}
           </div>
-          {!isMyPage && (
+          {!isDisplayOnMyPage && (
             <>
               <h2 className={cn('name')}>{data.name}</h2>
               <h2 className={cn('option')}>{data.option}</h2>
@@ -48,11 +57,11 @@ export default function ReviewItem({ isMyPage, data }: ReviewItemProps) {
           </h3>
         </div>
         <div
-          className={cn({ 'content-image-section': !isMyPage, 'my-page-section': isMyPage })}
-          onClick={() => !isMyPage && setIsExpand((prev) => !prev)}
+          className={cn({ 'content-image-section': !isDisplayOnMyPage, 'my-page-section': isDisplayOnMyPage })}
+          onClick={() => handleToggleExpanded()}
         >
           <p className={cn('content')}>{data.content}</p>
-          {!isMyPage && !isExpand && data.imgList.length > 0 && (
+          {!isDisplayOnMyPage && !isExpanded && data.imgList.length > 0 && (
             <div className={cn('image-section')}>
               <Image
                 src={data.imgList[0].imgUrl}
@@ -64,7 +73,7 @@ export default function ReviewItem({ isMyPage, data }: ReviewItemProps) {
               {data.imgList.length > 1 && <div className={cn('image-count')}>{data.imgList.length}</div>}
             </div>
           )}
-          {!isMyPage && isExpand && (
+          {!isDisplayOnMyPage && isExpanded && (
             <div className={cn('expand-image-section')}>
               {data.imgList.map((item) => (
                 <Image
@@ -78,7 +87,7 @@ export default function ReviewItem({ isMyPage, data }: ReviewItemProps) {
               ))}
             </div>
           )}
-          {isMyPage && (
+          {isDisplayOnMyPage && (
             <div>
               {data.imgList.map((item) => (
                 <Image
@@ -94,9 +103,9 @@ export default function ReviewItem({ isMyPage, data }: ReviewItemProps) {
           )}
         </div>
       </div>
-      {!isMyPage && (
+      {!isDisplayOnMyPage && (
         <div className={cn('button-section')}>
-          <LikeButton isChecked={false} forReview onClick={() => console.log('hi')} count={data.star} />
+          {/* <LikeButton isChecked={false} forReview onClick={() => console.log('hi')} count={data.star} /> */}
         </div>
       )}
     </div>

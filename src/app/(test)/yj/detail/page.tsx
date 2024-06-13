@@ -2,9 +2,9 @@
 
 import { Rating } from '@/components';
 import ReviewItem from '@/components/ReviewItem/ReviewItem';
-import type { Review } from '@/types/ReviewItem';
+import type { ReviewType } from '@/types/ReviewItem';
 
-const MOCK_REVIEW: Review = {
+const MOCK_REVIEW: ReviewType = {
   profile_img:
     'https://shop-phinf.pstatic.net/20240531_163/1717130380168HYcc2_JPEG/118266278871538393_1848108532.jpg?type=m510',
   star: 5,
@@ -38,7 +38,7 @@ export default function Page() {
   return (
     <div>
       <ReviewItem data={MOCK_REVIEW} />
-      <ReviewItem isMyPage data={MOCK_REVIEW} />
+      <ReviewItem isDisplayOnMyPage data={MOCK_REVIEW} />
       <Rating rating={5} usage='edit' />
       <Rating rating={3} usage='show' />
     </div>

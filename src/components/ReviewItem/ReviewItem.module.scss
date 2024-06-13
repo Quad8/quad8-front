@@ -1,6 +1,5 @@
 .review-item {
   display: flex;
-  flex-direction: row;
   min-height: 26rem;
   padding: 4rem 6.8rem;
   border-collapse: collapse;
@@ -21,9 +20,8 @@
 }
 
 .info-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+  @include flex-column(0.8rem);
+
   align-items: flex-start;
   margin-bottom: 0.8rem;
 }
@@ -34,8 +32,7 @@
 }
 
 .profile-info {
-  display: flex;
-  flex-direction: column;
+  @include flex-column(0);
 }
 
 .rating-date {
@@ -92,8 +89,8 @@
 }
 
 .my-page-section {
-  display: flex;
-  flex-direction: column;
+  @include flex-column(0);
+
   justify-content: space-between;
   min-height: 15rem;
 }
@@ -143,8 +140,7 @@
 }
 
 .button-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
+
   margin-left: 17rem;
 }
