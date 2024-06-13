@@ -55,7 +55,7 @@ function SignupInputs() {
     email: register('email', {
       required: '이메일을 입력해주세요.',
       pattern: {
-        value: /^\S+@\S+$/i,
+        value: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
         message: '유효한 이메일을 입력해주세요',
       },
       onBlur: () => errors.email || handleCheckEmailInput(),
@@ -75,8 +75,20 @@ function SignupInputs() {
       required: '이름을 입력해주세요.',
       onBlur: () => errors.nickname || handleCheckNicknameInput(),
     }),
-    phone: register('phone', { required: '휴대폰 번호를 입력해주세요.' }),
-    birth: register('birth', { required: '생년원일을 입력해주세요.' }),
+    phone: register('phone', {
+      required: '휴대폰 번호를 입력해주세요.',
+      pattern: {
+        value: /^[0-9]{7,8}/i,
+        message: '휴대폰 번호를 확인해주세요.',
+      },
+    }),
+    birth: register('birth', {
+      required: '생년원일을 입력해주세요.',
+      pattern: {
+        value: /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/i,
+        message: '생년원일을 확인해주세요.',
+      },
+    }),
     gender: register('gender'),
   };
 
