@@ -1,0 +1,10 @@
+.recent {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  .recent-title {
+    color: $black;
+    @include pretendard-20-600;
+  }
+}

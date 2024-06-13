@@ -9,7 +9,7 @@ import { FieldValues } from 'react-hook-form';
  */
 export async function getUserData(token: string) {
   try {
-    const res = await fetch(`${process.env.KEYDEUK_API_BASE_URL}/users/me`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -17,7 +17,8 @@ export async function getUserData(token: string) {
       },
     });
 
-    return await res.json();
+    const data = await res.json();
+    return data;
   } catch (error) {
     console.error('회원정보 가져오기 실패!', error);
     throw error;
@@ -33,7 +34,7 @@ export async function getUserData(token: string) {
  */
 export async function putEditProfile(payload: FieldValues) {
   try {
-    const res = await fetch(`${process.env.KEYDEUK_API_BASE_URL}/users/me`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/users/me`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -57,14 +58,18 @@ export async function putEditProfile(payload: FieldValues) {
  */
 export async function checkNickname(nickname: string) {
   try {
-    const res = await fetch(`${process.env.KEYDEUK_API_BASE_URL}/users/check/nickname?nickname=${nickname}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/users/check/nickname?nickname=${nickname}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    });
+    );
 
-    return await res.json();
+    const result = await res.json();
+    return result;
   } catch (error) {
     console.error('checkEmail 실패', error);
     throw error;

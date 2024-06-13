@@ -1,9 +1,9 @@
 'use client';
 
 import { Modal } from '@/components';
-import defaultIamge from '@/public/images/defaultProfile.png';
+import type { Users } from '@/types/profileType';
+import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
-import Image from 'next/image';
 import { useState } from 'react';
 import EditProfileModal from './EditProfileModal/EditProfileModal';
 import styles from './UserProfile.module.scss';
@@ -11,10 +11,11 @@ import styles from './UserProfile.module.scss';
 const cn = classNames.bind(styles);
 
 export default function UserProfile() {
-  const [isImageError, setIsImageError] = useState(false);
+  // const [isImageError, setIsImageError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const { data: userData } = useQuery({ queryKey: ['UserData'] });
-  // const { userImage, name, email } = userData;
+  const { data: userData } = useQuery<{ data: Users }>({ queryKey: ['userData'] });
+
+  const users = userData?.data ?? { nickname: '', email: '' };
 
   const handleEditProfileButton = () => {
     setIsModalOpen(true);
@@ -24,18 +25,19 @@ export default function UserProfile() {
     <article className={cn('user')}>
       <div className={cn('user-profile')}>
         <div className={cn('user-image')}>
-          <Image
-            src={isImageError ? defaultIamge : defaultIamge}
+          {/* <Image
+            src={isImageError ? defaultIamge.src : imgUrl}
             alt='user-iamge'
             width={53}
+            height={53}
             onError={() => {
               setIsImageError(true);
             }}
-          />
+          /> */}
         </div>
         <div className={cn('user-info')}>
-          <h1 className={cn('user-name')}>고양고양고양이 님</h1>
-          <p className={cn('user-email')}>email@email.com</p>
+          <h1 className={cn('user-name')}>{users.nickname} 님</h1>
+          <p className={cn('user-email')}>{users.email}</p>
         </div>
       </div>
       <button className={cn('user-edit-button')} type='button' onClick={handleEditProfileButton}>

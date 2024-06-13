@@ -76,6 +76,10 @@
 
   &:hover {
     border: 0.4rem solid $primary-60;
+
+    &:disabled {
+      border: 0.1em solid $gray-40;
+    }
   }
 
   &:checked {

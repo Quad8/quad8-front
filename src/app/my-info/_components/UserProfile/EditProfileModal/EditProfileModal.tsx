@@ -2,11 +2,9 @@
 
 import { checkNickname, putEditProfile } from '@/api/profileAPI';
 import { Button, InputField, RadioField } from '@/components';
-import defaultIamge from '@/public/images/defaultProfile.png';
-import { useMutation } from '@tanstack/react-query';
+import type { Users } from '@/types/profileType';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
-import Image from 'next/image';
-import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import styles from './EditProfileModal.module.scss';
 
@@ -15,19 +13,19 @@ const cn = classNames.bind(styles);
 const GENDER_OPTION = ['남자', '여자'];
 
 export default function EditProfileModal() {
-  const [isImageError, setIsImageError] = useState(false);
-  // const { data: userData } = useQuery({ queryKey: ['userData'] });
+  const { data: userData } = useQuery<{ data: Users }>({ queryKey: ['userData'] });
+  const users = userData?.data ?? { nickname: '', email: '', phone: '', gender: 'MALE', birth: '' };
 
   const {
     register,
-    formState: { errors },
     handleSubmit,
     setError,
+    formState: { errors },
   } = useForm({
-    mode: 'onTouched',
+    mode: 'onBlur',
     defaultValues: {
-      nickname: '',
-      phoneNumber: '',
+      nickname: users.nickname,
+      phone: users.phone,
     },
   });
 
@@ -45,6 +43,8 @@ export default function EditProfileModal() {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (payload) => {
+    console.log(payload);
+
     editProfileMutation(payload, {
       onSuccess: (res) => {
         console.log('onSubmit 성공', payload, res);
@@ -56,30 +56,34 @@ export default function EditProfileModal() {
   return (
     <form className={cn('modal')} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={cn('modal-title')}>회원 정보 변경</h1>
-      <Image
+      {/* <Image
         src={isImageError ? defaultIamge : defaultIamge}
         alt='user-iamge'
         width={140}
         onError={() => {
           setIsImageError(true);
         }}
-      />
+      /> */}
 
       {/* <input /> 이미지 수정 인풋 */}
 
       <div className={cn('modal-inputs')}>
         <InputField
+          id='nickname'
           label='닉네임'
-          placeholder='기존 유저 이름'
+          errorMessage={errors.nickname?.message}
           {...register('nickname', {
             onBlur: (e) => {
-              checkNicknameMutation(e.target.value);
+              const nickname = e.target.value;
+              if (nickname !== users.nickname) {
+                checkNicknameMutation(nickname);
+              }
             },
           })}
         />
-        <InputField label='생년월일' disabled placeholder='기존 유저 생년월일' />
-        <RadioField label='성별' options={GENDER_OPTION} value='남자' />
-        <InputField label='휴대폰 번호' placeholder='기존 유저 폰번호' {...register('phoneNumber')} />
+        <InputField label='생년월일' disabled value={users.birth} />
+        <RadioField label='성별' options={GENDER_OPTION} disabled value={users.gender === 'MALE' ? '남자' : '여자'} />
+        <InputField label='휴대폰 번호' placeholder='0000-0000' {...register('phone')} />
       </div>
       <Button type='submit'>저장</Button>
     </form>
