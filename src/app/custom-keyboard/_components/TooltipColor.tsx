@@ -39,7 +39,7 @@ export default function TooltipColor({ colorInfo }: TooltipColorProps) {
     return { h, s: max === 0 ? 0 : (delta / max) * 100, v: max * 100, a: 1 };
   };
 
-  const hsvaToHsla = ({ h, s, v, a }: { h: number; s: number; v: number; a: number }) => {
+  const hsvaToHsla = ({ h, s, v, a }: Record<'h' | 's' | 'v' | 'a', number>) => {
     let ns = s / 100;
     const nv = v / 100;
 
