@@ -16,6 +16,24 @@ const nextConfig = {
         port: '',
         pathname: '/src/component/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.imweb.me',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'shop-phinf.pstatic.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn-optimized.imweb.me',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 
