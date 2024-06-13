@@ -1,8 +1,8 @@
 'use client';
 
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+// import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import classNames from 'classnames/bind';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styles from './DetailTab.module.scss';
 
 const cn = classNames.bind(styles);
@@ -32,17 +32,17 @@ export default function DetailTab() {
       });
   };
 
-  const isNextIntersecting = useIntersectionObserver(tabRefs[activeTab + 1], { threshold: 0.5 });
-  const isBeforeIntersecting = useIntersectionObserver(tabRefs[activeTab - 1], { threshold: 0.5 });
+  // const isNextIntersecting = useIntersectionObserver(tabRefs[activeTab + 1], { threshold: 0.5 });
+  // const isBeforeIntersecting = useIntersectionObserver(tabRefs[activeTab - 1], { threshold: 0.5 });
 
-  useEffect(() => {
-    if (isNextIntersecting) {
-      setActiveTab(activeTab + 1);
-    }
-    if (isBeforeIntersecting && activeTab > 0) {
-      setActiveTab(activeTab - 1);
-    }
-  }, [isNextIntersecting, isBeforeIntersecting]);
+  // useEffect(() => {
+  //   if (isNextIntersecting) {
+  //     setActiveTab(activeTab + 1);
+  //   }
+  //   if (isBeforeIntersecting && activeTab > 0) {
+  //     setActiveTab(activeTab - 1);
+  //   }
+  // }, [isNextIntersecting, isBeforeIntersecting, activeTab]);
 
   return (
     <div className={cn('container')}>
