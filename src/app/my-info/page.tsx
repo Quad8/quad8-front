@@ -1,5 +1,4 @@
-import DeliveryStatus from './_components/DeliveryStatus/DeliveryStatus';
-import UserProfile from './_components/UserProfile/UserProfile';
+import { DeliveryStatus, UserProfile } from './_components';
 
 export default function MyInfo() {
   return (
