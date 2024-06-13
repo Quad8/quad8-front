@@ -1,5 +1,5 @@
-import { ReactNode, ButtonHTMLAttributes } from 'react';
 import classNames from 'classnames/bind';
+import { AnchorHTMLAttributes, ButtonHTMLAttributes, ElementType, ReactNode } from 'react';
 import styles from './Button.module.scss';
 
 const cn = classNames.bind(styles);
@@ -13,9 +13,7 @@ const BUTTON_COLOR = {
   OUTLINE_PRIMARY_60: 'outline-primary-60',
 } as const;
 
-type ButtonColorType = (typeof BUTTON_COLOR)[keyof typeof BUTTON_COLOR];
-
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonCustomProps {
   backgroundColor?: ButtonColorType;
   hoverColor?: ButtonColorType;
   radius?: 4 | 8;
@@ -24,7 +22,17 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   paddingVertical?: 8 | 20;
   children: ReactNode;
   className?: string;
+  as?: ElementType;
 }
+
+type ButtonPropsAsButton = ButtonCustomProps & ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonPropsAsAnchor = ButtonCustomProps & AnchorHTMLAttributes<HTMLAnchorElement>;
+
+type ButtonProps = {
+  as?: ElementType;
+} & (ButtonPropsAsButton | ButtonPropsAsAnchor);
+
+type ButtonColorType = (typeof BUTTON_COLOR)[keyof typeof BUTTON_COLOR];
 
 /**
  * button component documentation
@@ -48,8 +56,9 @@ export default function Button({
   paddingVertical = 20,
   children,
   className,
+  as: Component = 'button',
   ...rest
-}: ButtonProps): JSX.Element {
+}: ButtonProps) {
   const widthClassName = width ? `width-${width}` : 'parent-full';
   const combinedClassName = cn(
     widthClassName,
@@ -62,8 +71,8 @@ export default function Button({
     `padding-${paddingVertical}`,
   );
   return (
-    <button className={combinedClassName} type='button' {...rest}>
+    <Component className={combinedClassName} {...rest}>
       {children}
-    </button>
+    </Component>
   );
 }

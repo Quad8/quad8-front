@@ -8,7 +8,7 @@ import styles from './InputFiled.module.scss';
 const cn = classNames.bind(styles);
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  sizeVariant?: 'sm' | 'md' | 'lg';
+  sizeVariant?: 'sm' | 'md' | 'lg' | 'header';
   className?: string;
   label?: string;
   labelSize?: 'sm' | 'md' | 'lg';
@@ -41,7 +41,7 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
     setInputType((prevType) => (prevType === 'password' ? 'text' : 'password'));
   };
 
-  const combinedClassName = cn('default', sizeVariant, className);
+  const combinedClassName = cn('default', sizeVariant);
 
   return (
     <div className={combinedClassName}>
@@ -51,7 +51,15 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
         </Label>
       )}
       <div className={cn('input-wrapper')}>
-        <Input id={id} type={inputType} sizeVariant={sizeVariant} isError={!!errorMessage} ref={ref} {...rest} />
+        <Input
+          id={id}
+          type={inputType}
+          sizeVariant={sizeVariant}
+          isError={!!errorMessage}
+          ref={ref}
+          className={className}
+          {...rest}
+        />
         {suffixUnit && <SuffixUnit unit={suffixUnit} />}
         {suffixIcon && (
           <SuffixIcon
