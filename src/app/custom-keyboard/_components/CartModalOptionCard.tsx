@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import Image, { StaticImageData } from 'next/image';
-import { MouseEvent, useEffect, useRef, useState } from 'react';
+import { MouseEvent, useRef, useState, useEffect, RefObject, useCallback } from 'react';
 import styles from './CartModalOptionCard.module.scss';
 
 const cn = classNames.bind(styles);
@@ -14,6 +14,7 @@ interface CartModalOptionCardProps {
   price: number;
   imageSrc: string | StaticImageData;
   buttonOnClick: (e: MouseEvent<HTMLDivElement>) => void;
+  wrapperRef?: RefObject<HTMLDivElement>;
 }
 
 export default function CartModalOptionCard({
@@ -25,6 +26,7 @@ export default function CartModalOptionCard({
   price,
   imageSrc,
   buttonOnClick,
+  wrapperRef,
 }: CartModalOptionCardProps) {
   const BUTTON_TYPE = {
     edit: '주문 수정',
@@ -34,33 +36,78 @@ export default function CartModalOptionCard({
   const targetRef = useRef<HTMLDivElement>(null);
   const [isHover, setIsHover] = useState(false);
 
-  useEffect(() => {
-    if (isHover && tooltipRef.current && targetRef.current) {
-      const { top: targetTop, left: targetLeft } = targetRef.current.getBoundingClientRect();
-      const tooltipHeight = tooltipRef.current.clientHeight;
-      const viewportHeight = window.innerHeight;
-
-      if (viewportHeight < targetTop + 20 + tooltipHeight) {
-        const NEW_STYLE = {
-          top: 'auto',
-          bottom: '10px',
-          left: `${targetLeft + 296}px`,
-          paddingLeft: '4px',
-          paddingTop: '0px',
-        };
-        Object.assign(tooltipRef.current.style, NEW_STYLE);
-      } else {
-        const NEW_STYLE = {
-          top: `${targetTop + 20}px`,
-          bottom: 'auto',
-          left: `${targetLeft + 40}px`,
-          paddingLeft: '0px',
-          paddingTop: '4px',
-        };
-        Object.assign(tooltipRef.current.style, NEW_STYLE);
-      }
+  const handleMouseEnter = () => {
+    if (targetRef.current && targetRef.current.offsetWidth !== targetRef.current.scrollWidth) {
+      setIsHover(true);
     }
-  }, [isHover]);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHover(false);
+  };
+
+  const updateTooltipPosition = useCallback(() => {
+    /* 
+      wrapper보다 target(옵션 텍스트)이 높은 경우, isHover 비활성화(툴팁 안 보이게 하기)
+      전체 화면 높이에 대해서, 현재 target(옵션 텍스트)의 top 위치 + tooltip의 높이의 값이 전체 화면 보다 큰 경우(tooltip이 커서 화면을 벗어나는 경우), bottom 10으로 위치 고정
+      이외에는 target(옵션 텍스트)top 위치의 아래에(글자 높이 더하기) 위치시키기.
+      => hover시점에 위치 업데이트 + 스크롤 이벤트 발생했을 때 위치 업데이트(wrapper의 scroll 이벤트에 등록)
+    */
+    const tooltip = tooltipRef.current;
+    const target = targetRef.current;
+    const wrapper = wrapperRef?.current;
+
+    if (!isHover || !tooltip || !target || !wrapper) {
+      return;
+    }
+
+    const { top: targetTop, left: targetLeft } = target.getBoundingClientRect();
+    const tooltipHeight = tooltip.clientHeight;
+    const viewportHeight = window.innerHeight;
+
+    if (wrapper.offsetTop > targetTop) {
+      setIsHover(false);
+      return;
+    }
+
+    if (viewportHeight < targetTop + 20 + tooltipHeight) {
+      const newStyle = {
+        top: 'auto',
+        bottom: '10px',
+        left: `${targetLeft + 296}px`,
+        paddingLeft: '4px',
+        paddingTop: '0px',
+      };
+      Object.assign(tooltip.style, newStyle);
+      return;
+    }
+    const newStyle = {
+      top: `${targetTop + 20}px`,
+      bottom: 'auto',
+      left: `${targetLeft + 40}px`,
+      paddingLeft: '0px',
+      paddingTop: '4px',
+    };
+    Object.assign(tooltipRef.current.style, newStyle);
+  }, [isHover, wrapperRef]);
+
+  useEffect(() => {
+    if (isHover) {
+      updateTooltipPosition();
+    }
+  }, [isHover, updateTooltipPosition]);
+
+  useEffect(() => {
+    const ref = wrapperRef?.current;
+    if (ref) {
+      ref.addEventListener('scroll', updateTooltipPosition);
+    }
+    return () => {
+      if (ref) {
+        ref.removeEventListener('scroll', updateTooltipPosition);
+      }
+    };
+  }, [isHover, wrapperRef, updateTooltipPosition]);
 
   return (
     <div className={cn('wrapper')}>
@@ -77,8 +124,8 @@ export default function CartModalOptionCard({
             <div className={cn('option')}>{option1}</div>
             <div
               className={cn('second-option-wrapper')}
-              onMouseEnter={() => setIsHover(true)}
-              onMouseLeave={() => setIsHover(false)}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
               <div className={cn('option')} ref={targetRef}>
                 {option2}

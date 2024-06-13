@@ -68,10 +68,6 @@
   white-space: nowrap;
 }
 
-.second-option-wrapper {
-  overflow: visible;
-}
-
 .count-price-wrapper {
   @include flex-center-space-between;
 
@@ -92,8 +88,9 @@
 
 .tooltip-wrapper {
   visibility: hidden;
-  position: fixed;
+  position: absolute;
   z-index: $zindex-tooltip;
+  top: 2rem;
   width: fit-content;
   height: fit-content;
 }

@@ -36,6 +36,10 @@
   @include font-mixin('Pretendard', 1.4, 400);
 }
 
+@mixin pretendard-14-500 {
+  @include font-mixin('Pretendard', 1.4, 500);
+}
+
 @mixin pretendard-16-400 {
   @include font-mixin('Pretendard', 1.6, 400);
 }

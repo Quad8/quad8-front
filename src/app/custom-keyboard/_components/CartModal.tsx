@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { MouseEvent, useContext, useState } from 'react';
+import { MouseEvent, useContext, useState, useRef, RefObject } from 'react';
 import { KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { POINT_KEY } from '@/constants/keyboardData';
 import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
@@ -24,6 +24,7 @@ interface OrderListType {
   count: number;
   imageSrc: string | StaticImageData;
   step: CustomKeyboardStepTypes;
+  wrapperRef?: RefObject<HTMLDivElement>;
 }
 
 const SWITCH_LIST = {
@@ -34,6 +35,7 @@ const SWITCH_LIST = {
 };
 
 export default function CartModal({ optionData, onClose }: CartModalProps) {
+  const orderWrapperRef = useRef<HTMLDivElement>(null);
   const [dataStatus, setDataStatus] = useState<null | 'pending' | 'completed'>(null);
   const {
     keyboardData: {
@@ -107,6 +109,7 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
       count: !hasPointKeyCap ? 0 : pointKeyCount,
       imageSrc: keyboardImage.keyCap,
       step: 'keyCap',
+      wrapperRef: orderWrapperRef,
     },
   ];
 
@@ -145,7 +148,7 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
         <p className={cn('title')}>담은 상품</p>
       </div>
       <div className={cn('content-wraper')}>
-        <div className={cn('order-wrapper')}>
+        <div className={cn('order-wrapper')} ref={orderWrapperRef}>
           {ORDER_LIST.map((element) => (
             <CartModalOptionCard
               key={element.name}
@@ -157,6 +160,7 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
               count={element.count}
               imageSrc={element.imageSrc}
               buttonOnClick={(e) => onClickEditButton(e, element.step)}
+              wrapperRef={orderWrapperRef}
             />
           ))}
           {option &&
