@@ -30,29 +30,29 @@ export default function ProfileImage({ profileImage, width = 64, height = 64, is
   };
 
   return (
-    <div className={cn('profile-image-wrapper')}>
-      <Image
-        src={!isImageError && currentImageFile ? currentImageFile : defaultImage}
-        alt='프로필 이미지'
-        width={width}
-        height={height}
-        className={cn('profile-image')}
-        onError={() => setIsImageError(true)}
-      />
-      {isEditable && (
-        <div className={cn('image-input-wrapper')}>
-          <label htmlFor='profileInput' className={cn('label')}>
+    <label htmlFor='profileInput' className={cn({ label: isEditable })}>
+      <div className={cn('profile-image-wrapper')}>
+        <Image
+          src={!isImageError && currentImageFile ? currentImageFile : defaultImage}
+          alt='프로필 이미지'
+          width={width}
+          height={height}
+          className={cn('profile-image')}
+          onError={() => setIsImageError(true)}
+        />
+        {isEditable && (
+          <div className={cn('image-input-wrapper')}>
             <CameraIcon fill='white' width={25} height={22.5} />
-          </label>
-          <input
-            type='file'
-            className={cn('file-input')}
-            id='profileInput'
-            onChange={handleChangeImage}
-            accept='image/png, image/jpeg, image/jpg'
-          />
-        </div>
-      )}
-    </div>
+            <input
+              type='file'
+              className={cn('file-input')}
+              id='profileInput'
+              onChange={handleChangeImage}
+              accept='image/png, image/jpeg, image/jpg'
+            />
+          </div>
+        )}
+      </div>
+    </label>
   );
 }
