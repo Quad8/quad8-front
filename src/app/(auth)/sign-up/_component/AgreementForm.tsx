@@ -2,13 +2,17 @@
 
 import classNames from 'classnames/bind';
 import CheckIcon from '@/public/svgs/check';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import RightArrow from '@/public/svgs/caretRight.svg';
 import styles from './AgreementForm.module.scss';
 
 const cn = classNames.bind(styles);
 
-export function AgreementForm() {
+interface AgreementFormProps {
+  setIsAllChecked: Dispatch<SetStateAction<boolean>>;
+}
+
+export function AgreementForm({ setIsAllChecked }: AgreementFormProps) {
   const NOT_CHECKED = '#A5A5A5';
   const CHECKED = '#4968f6';
 
@@ -27,6 +31,12 @@ export function AgreementForm() {
   };
 
   useEffect(() => {
+    if (iconColors[0] === CHECKED && iconColors[1] === CHECKED && iconColors[2] === CHECKED) {
+      setIsAllChecked(true);
+    } else {
+      setIsAllChecked(false);
+    }
+
     const isAllNoCheck = iconColors[0] === CHECKED && iconColors[1] === NOT_CHECKED && iconColors[2] === NOT_CHECKED;
     const isAllCheck = iconColors[0] === NOT_CHECKED && iconColors[1] === CHECKED && iconColors[2] === CHECKED;
 
