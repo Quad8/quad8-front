@@ -17,10 +17,10 @@ interface ButtonType {
 }
 
 const BUTTONS: ButtonType[] = [
-  { name: '청축', value: 'blue' },
-  { name: '적축', value: 'red' },
-  { name: '갈축', value: 'brown' },
-  { name: '흑축', value: 'black' },
+  { name: '청축', value: '청축' },
+  { name: '적축', value: '적축' },
+  { name: '갈축', value: '갈축' },
+  { name: '흑축', value: '흑축' },
 ];
 
 export default function SwitchOption() {

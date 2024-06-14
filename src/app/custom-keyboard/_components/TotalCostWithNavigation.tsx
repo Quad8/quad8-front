@@ -7,6 +7,7 @@ import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyb
 import { Modal } from '@/components';
 import styles from './TotalCostWithNavigation.module.scss';
 import OptionProductModal from './OptionProductModal';
+import CartModal from './CartModal';
 
 const cn = classNames.bind(styles);
 
@@ -45,22 +46,24 @@ const UPDATE_NEXT_STEP_STATUS: { [key in 'board' | 'switch']: { [key: string]: '
 };
 
 const PRICE_LIST = {
-  tkl: 30000,
-  full: 35000,
-  metal: 35000,
-  plastic: 30000,
+  텐키리스: 30000,
+  '풀 배열': 35000,
+  금속: 35000,
+  플라스틱: 30000,
 };
 
 export default function TotalCostWithNavigation() {
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
+  const [isOpenCartModal, setIsOpenCartModal] = useState(false);
   const [optionData, setOptionData] = useState<OptionDataType[]>([]);
   const [optionPrice, setOptionPrice] = useState(0);
   const {
     keyboardData: { type, texture, price, switchType, hasPointKeyCap, individualColor, pointKeyType },
     updateData,
   } = useContext(KeyboardDataContext);
-  const { currentStep, updateCurrentStep, updateStepStatus } = useContext(StepContext);
+  const { currentStep, canvasRef, controlRef, updateCurrentStep, updateStepStatus, updateKeyboardImage } =
+    useContext(StepContext);
   const { updateFocusKey } = useContext(KeyColorContext);
 
   const checkCompleted = (step: CustomKeyboardStepTypes) => {
@@ -83,50 +86,39 @@ export default function TotalCostWithNavigation() {
     return false;
   };
 
-  const handleClickNextButton = (value: CustomKeyboardStepTypes) => {
-    if (value === 'keyCap') {
-      if (isInitialOpenOptionModal) {
-        /* api로 데이터 가져오기 */
-        setOptionData([
-          {
-            id: '5',
-            name: '스테빌라이저',
-            image: '/images/optionProductMock.png',
-            price: 9000,
-          },
-          {
-            id: '42',
-            name: '스프링',
-            image: '/images/optionProductMock.png',
-            price: 1000,
-          },
-          {
-            id: '65',
-            name: '튜닝용품',
-            image: '/images/optionProductMock.png',
-            price: 4000,
-          },
-          {
-            id: '72',
-            name: '보강판',
-            image: '/images/optionProductMock.png',
-            price: 12000,
-          },
-          {
-            id: '95',
-            name: '기판',
-            image: '/images/optionProductMock.png',
-            price: 24000,
-          },
-        ]);
-        setIsInitialOpenOptionModal(true);
-        setIsOpenOptionModal(true);
+  const captureKeyboard = (value: 'board' | 'keyCap') => {
+    const canvas = canvasRef?.current;
+    const control = controlRef?.current;
+
+    if (!canvas || !control) {
+      return;
+    }
+    control.reset();
+    requestAnimationFrame(() => {
+      const image = canvas.toDataURL('image/png');
+      updateKeyboardImage(value, image);
+      if (value === 'board') {
+        updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
+        updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
+        return;
       }
+
+      if (isInitialOpenOptionModal) {
+        setIsOpenOptionModal(true);
+        return;
+      }
+      setIsOpenCartModal(true);
+    });
+  };
+  const handleClickNextButton = (value: CustomKeyboardStepTypes) => {
+    if (value === 'board' || value === 'keyCap') {
+      updateFocusKey(null);
+      setTimeout(() => {
+        captureKeyboard(value);
+      }, 1);
       return;
     }
-    if (value === 'switch' && !checkCompleted('switch')) {
-      return;
-    }
+
     updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
     updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
   };
@@ -158,6 +150,14 @@ export default function TotalCostWithNavigation() {
     setIsInitialOpenOptionModal(false);
   };
 
+  const handleOpenCartModal = () => {
+    setIsOpenCartModal(true);
+  };
+
+  const handleCloseCartMoal = () => {
+    setIsOpenCartModal(false);
+  };
+
   const updateOptionPrice = (value: number) => {
     setOptionPrice(value);
   };
@@ -170,6 +170,42 @@ export default function TotalCostWithNavigation() {
         Number(pointKeyType === '세트 구성') * 5000);
     updateData('price', boardPrice + keyCapPrice + optionPrice);
   }, [hasPointKeyCap, individualColor, pointKeyType, texture, type, optionPrice, updateData]);
+
+  useEffect(() => {
+    /* api로 옵션 데이터 가져오기 */
+    setOptionData([
+      {
+        id: '5',
+        name: '스테빌라이저',
+        image: '/images/optionProductMock.png',
+        price: 9000,
+      },
+      {
+        id: '42',
+        name: '스프링',
+        image: '/images/optionProductMock.png',
+        price: 1000,
+      },
+      {
+        id: '65',
+        name: '튜닝용품',
+        image: '/images/optionProductMock.png',
+        price: 4000,
+      },
+      {
+        id: '72',
+        name: '보강판',
+        image: '/images/optionProductMock.png',
+        price: 12000,
+      },
+      {
+        id: '95',
+        name: '기판',
+        image: '/images/optionProductMock.png',
+        price: 24000,
+      },
+    ]);
+  }, []);
 
   return (
     <div className={cn('wrapper')}>
@@ -199,8 +235,11 @@ export default function TotalCostWithNavigation() {
           optionData={optionData}
           onClose={handleCloseOptionModal}
           updateOptionPrice={updateOptionPrice}
-          onOpen={() => {}}
+          onOpen={handleOpenCartModal}
         />
+      </Modal>
+      <Modal isOpen={isOpenCartModal} onClose={handleCloseCartMoal}>
+        <CartModal optionData={optionData} onClose={handleCloseCartMoal} />
       </Modal>
     </div>
   );
