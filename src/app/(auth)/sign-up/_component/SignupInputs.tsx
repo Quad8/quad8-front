@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import type { SignupInfoTypes } from '@/types';
 import { checkEmailDuplication, checkNicknameDuplication } from '@/api';
+import { forwardRef } from 'react';
 import styles from './SignupInputs.module.scss';
 
 const cn = classNames.bind(styles);
@@ -31,9 +32,13 @@ const initalInputValues = {
   imgUrl: '',
 };
 
-function SignupInputs() {
+interface SignupInputProps {
+  isAgreementAllChecked: boolean;
+}
+export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInputs({ isAgreementAllChecked }, ref) {
   const {
     register,
+    handleSubmit,
     formState: { errors },
     getValues,
     setError,
@@ -112,8 +117,30 @@ function SignupInputs() {
     gender: register('gender'),
   };
 
+  const handleFormSubmit = async (formData: Inputs) => {
+    // console.log(formData);
+    const fetchFormData = {
+      joinRequest: {
+        email: formData.email,
+        password: formData.password,
+        birth: formData.birth,
+        phone: '01012345678',
+        gender: 'MALE',
+        nickname: formData.nickname,
+        imgUrl: 'http://example.com/image.jpg',
+        provider: 'GOOGLE',
+        providerId: '1234567890',
+      },
+      imgFile: 'string',
+    };
+    // await postSignup(fetchFormData);
+    if (isAgreementAllChecked) {
+      console.log(fetchFormData);
+    }
+  };
+
   return (
-    <form className={cn('input-wrapper')}>
+    <form className={cn('input-wrapper')} onSubmit={handleSubmit(handleFormSubmit)} ref={ref}>
       <InputField
         label='이메일'
         placeholder={PLACEHOLDER.EMAIL}
@@ -175,8 +202,7 @@ function SignupInputs() {
         errorMessage={errors.birth?.message}
         {...registers.birth}
       />
-      <RadioField label='성별' options={['남자', '여자']} errorMessage={errors.gender?.message} {...registers.gender} />
+      <RadioField label='성별' options={['남자', '여자']} value='여자' />
     </form>
   );
-}
-export default SignupInputs;
+});

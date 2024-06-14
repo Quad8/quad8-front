@@ -9,3 +9,8 @@ export interface SignupInfoTypes {
   provider?: string;
   providerId?: string;
 }
+
+export interface FetchSignupInfoTypes {
+  joinRequest: SignupInfoTypes;
+  imgFile: string;
+}
