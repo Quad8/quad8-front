@@ -27,7 +27,7 @@ const initalInputValues = {
   passwordConfirem: '',
   birth: '',
   phone: '',
-  gender: 'MALE',
+  gender: '',
   nickname: '',
   imgUrl: '',
 };
@@ -114,7 +114,9 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         message: '유효한 생년월일을 입력해주세요. 예: YYYYMMDD',
       },
     }),
-    gender: register('gender'),
+    gender: register('gender', {
+      onChange: () => console.log(getValues('gender')),
+    }),
   };
 
   const handleFormSubmit = async (formData: Inputs) => {
@@ -124,8 +126,8 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         email: formData.email,
         password: formData.password,
         birth: formData.birth,
-        phone: '01012345678',
-        gender: 'MALE',
+        phone: `010${formData.phone}`,
+        gender: formData.gender === '여자' ? 'FEMALE' : 'MALE',
         nickname: formData.nickname,
         imgUrl: 'http://example.com/image.jpg',
         provider: 'GOOGLE',
@@ -202,7 +204,7 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         errorMessage={errors.birth?.message}
         {...registers.birth}
       />
-      <RadioField label='성별' options={['남자', '여자']} value='여자' />
+      <RadioField label='성별' options={['남자', '여자']} {...registers.gender} />
     </form>
   );
 });

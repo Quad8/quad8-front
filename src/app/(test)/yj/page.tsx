@@ -1,20 +1,20 @@
 'use client';
 
-import LikeButton from '@/components/buttons/LikeButton/LikeButton';
-import { useState } from 'react';
+// import { useState } from 'react';
+// import { LikeButton } from '@/components/LikeButton';
 
 export default function Page() {
-  const [isChecked, setIsChecked] = useState(false);
+  // const [isChecked, setIsChecked] = useState(false);
 
-  const handleClick = () => {
-    setIsChecked((prev) => !prev);
-  };
+  // const handleClick = () => {
+  //   setIsChecked((prev) => !prev);
+  // };
 
   return (
     <div>
-      <LikeButton onClick={handleClick} isChecked={isChecked} />
+      {/* <LikeButton onClick={handleClick} isChecked={isChecked} />
       <LikeButton forDetail onClick={handleClick} isChecked={isChecked} />
-      <LikeButton forReview onClick={handleClick} isChecked={isChecked} count={8} />
+      <LikeButton forReview onClick={handleClick} isChecked={isChecked} count={8} /> */}
     </div>
   );
 }
