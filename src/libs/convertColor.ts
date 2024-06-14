@@ -29,7 +29,7 @@ export const convertHexToHsva = (hexColor: string) => {
   const v = max * 100;
   const a = 1;
 
-  return { h: h > 0 ? h : h + 360, s, v, a };
+  return { h: h >= 0 ? h : h + 360, s, v, a };
 };
 
 export const convertHsvaToHsla = ({ h, s, v, a }: Record<'h' | 's' | 'v' | 'a', number>) => {
