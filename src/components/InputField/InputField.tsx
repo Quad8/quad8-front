@@ -63,7 +63,6 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
             value={defaultPhonePrefix}
             isPhonePrefix={isPhone}
             disabled
-            {...rest}
           />
         )}
         <Input

@@ -9,11 +9,12 @@ import styles from './Dropdown.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface DropdownProps extends InputHTMLAttributes<HTMLInputElement> {
+interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   options: string[];
   sizeVariant?: 'xs' | 'sm' | 'md' | 'lg';
   className?: string;
   onClick?: (e: MouseEvent<HTMLInputElement>) => void;
+  onChange?: (value: string) => void;
 }
 
 /**
@@ -29,11 +30,18 @@ interface DropdownProps extends InputHTMLAttributes<HTMLInputElement> {
  * @param {string} [props.placeholder] - placeholder 텍스트로 기본값 설정
  * placeholder값 선택시 inputValue === ('')
  * placeholder 설정하지 않을 시 options의 첫번째 값 렌더링
+ *       <Controller
+        name='드롭다운'
+        control={control}
+        render={({ field: { onChange: onDropdownChanege, ...field } }) => (
+          <Dropdown options={GENDER_OPTION} onChange={onDropdownChanege} {...field} />
+        )}
+      />
  * @returns {JSX.Element} 렌더링된 드롭다운 컴포넌트
  */
 
 export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
-  { type = 'text', sizeVariant = 'sm', options, className, onClick, ...rest },
+  { type = 'text', sizeVariant = 'sm', options, className, onClick, onChange, ...rest },
   ref,
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -41,12 +49,17 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   const [isTextFieldVisible, setIsTextFieldVisible] = useState(false);
   const DropdownRef = useRef<HTMLDivElement>(null);
   const TextareaRef = useRef<HTMLTextAreaElement>(null);
+  const optionRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!rest.placeholder) {
       setDropdownValue(options[0]);
+      onChange?.(options[0]);
+      return;
     }
-  }, [options, rest.placeholder]);
+
+    setDropdownValue('');
+  }, [onChange, options, rest.placeholder]);
 
   useOutsideClick(DropdownRef, () => {
     if (TextareaRef.current?.value) {
@@ -67,7 +80,8 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
     setDropdownValue(inputValue);
     setIsDropdownOpen(false);
     setIsTextFieldVisible(inputValue === '직접 입력');
-    console.log('Selected option:', inputValue);
+
+    onChange?.(inputValue);
 
     if (onClick) {
       onClick(e);
@@ -83,7 +97,6 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
           readOnly
           type={type}
           sizeVariant={sizeVariant}
-          value={dropdownValue}
           placeholder={rest.placeholder || options[0]}
           onClick={handleDropdownClick}
           {...rest}
@@ -121,8 +134,9 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
             </li>
           )}
           {options.map((option) => (
-            <li key={option}>
+            <li key={option} onClick={() => setDropdownValue(option)}>
               <Input
+                ref={optionRef}
                 type='button'
                 isOption
                 isChecked={dropdownValue === option}

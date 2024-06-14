@@ -3,7 +3,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { ChangeEvent, FocusEvent } from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import { checkNickname, getUserData, putEditProfile } from '@/api/profileAPI';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
@@ -30,6 +30,7 @@ export default function EditProfileModal() {
     // setError
     setValue,
     formState: { errors },
+    control,
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
@@ -37,6 +38,7 @@ export default function EditProfileModal() {
       phone: formatPhoneNumber(users.phone),
       gender: users.gender,
       드롭다운: '',
+      라디오: '',
     },
   });
 
@@ -104,7 +106,7 @@ export default function EditProfileModal() {
         <RadioField
           label='성별'
           options={GENDER_OPTION}
-          // disabled
+          disabled
           value={users.gender === 'MALE' ? '남자' : '여자'}
           {...register('gender')}
         />
@@ -118,11 +120,20 @@ export default function EditProfileModal() {
         />
       </div>
 
-      <Dropdown
-        options={GENDER_OPTION}
-        onClick={(e) => console.log('Selected option:', e.currentTarget.value)}
-        {...register('드롭다운')}
+      <Controller
+        name='드롭다운'
+        control={control}
+        render={({ field: { onChange: onDropdownChanege, ...field } }) => (
+          <Dropdown options={GENDER_OPTION} onChange={onDropdownChanege} {...field} />
+        )}
       />
+      <RadioField
+        options={GENDER_OPTION}
+        label='성별321'
+        value={users.gender === 'MALE' ? '남자' : '여자'}
+        {...register('라디오')}
+      />
+
       <Button type='submit'>저장</Button>
     </form>
   );
