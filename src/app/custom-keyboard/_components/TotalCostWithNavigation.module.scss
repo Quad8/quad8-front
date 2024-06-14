@@ -50,10 +50,24 @@
   @include flex-center;
   @include pretendard-18-400;
 
+  gap: 1rem;
   width: 19.9rem;
-  height: 6.6rem;
-  border: 0.1rem solid $black;
-  border-radius: 0.4rem;
+
+  &:hover {
+    .prev-button-icon {
+      fill: $primary-60;
+    }
+  }
+}
+
+.next-button-icon {
+  transform: rotate(-90deg);
+  fill: $white;
+}
+
+.prev-button-icon {
+  transform: rotate(90deg);
+  fill: $primary;
 }
 
 .hidden {

@@ -4,7 +4,8 @@ import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/cus
 import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
-import { Modal } from '@/components';
+import { Button, Modal } from '@/components';
+import { ChevronIcon } from '@/public/index';
 import styles from './TotalCostWithNavigation.module.scss';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
@@ -218,17 +219,27 @@ export default function TotalCostWithNavigation() {
       </div>
       <div className={cn('button-wrapper')}>
         {prev && (
-          <button
-            type='button'
+          <Button
+            backgroundColor='outline-primary'
+            hoverColor='outline-primary-60'
+            radius={4}
             className={cn('button', { disabled: completed })}
             onClick={() => handleClickPrevButton(currentStep)}
           >
+            <ChevronIcon width={16} height={16} className={cn('prev-button-icon')} />
             {BUTTON[prev]}
-          </button>
+          </Button>
         )}
-        <button type='button' className={cn('button')} onClick={() => completed && handleClickNextButton(currentStep)}>
+        <Button
+          backgroundColor='background-primary'
+          hoverColor='background-primary-60'
+          radius={4}
+          className={cn('button')}
+          onClick={() => completed && handleClickNextButton(currentStep)}
+        >
           {BUTTON[next]}
-        </button>
+          <ChevronIcon width={16} height={16} className={cn('next-button-icon')} />
+        </Button>
       </div>
       <Modal isOpen={isOpenOptionModal} onClose={handleCloseOptionModal}>
         <OptionProductModal
