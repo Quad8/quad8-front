@@ -7,7 +7,7 @@
 
 .profile-image {
   overflow: hidden;
-  border-radius: 999rem;
+  border-radius: 100%;
 }
 
 .image-input-wrapper {
@@ -18,7 +18,7 @@
   bottom: 0;
   width: 5.2rem;
   height: 5.2rem;
-  border-radius: 99rem;
+  border-radius: 100%;
   background-color: $gray-50;
   cursor: pointer;
 }

@@ -20,6 +20,8 @@ interface PostCardProps {
   cardData: CommunityCardDataType;
 }
 
+const MIN_IMAGE_COUNT = 1;
+
 export default function PostCard({ cardData }: PostCardProps) {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
 
@@ -48,7 +50,7 @@ export default function PostCard({ cardData }: PostCardProps) {
       <AuthorCard nickname={nickname} timeAgo={timeToString} />
       <div className={cn('keyboard-image-wrapper')}>
         <Image src={ContentImage} className={cn('keyboard-image')} alt='키보드 이미지' />
-        {image.length > 1 && <p id={cn('image-count')}>{image.length}</p>}
+        {image.length > MIN_IMAGE_COUNT && <p id={cn('image-count')}>{image.length}</p>}
       </div>
       <p className={cn('title')}>{title}</p>
       <PostInteractions goodCount={goodCount} commentCount={commentCount} />

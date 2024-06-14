@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import myProfileImage from '@/public/images/myProfile.jpeg';
-import ShowMoreIcon from '@/public/svgs/showMore.svg';
+import ShowMoreIcon from '@/public/svgs/verticalTripleDot.svg';
 
 import ProfileImage from '../../../components/ProfileImage/ProfileImage';
 
