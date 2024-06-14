@@ -1,10 +1,10 @@
-import classNames from 'classnames/bind';
-import { useContext, useState } from 'react';
+import { Button } from '@/components';
 import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import type { OptionDataType } from '@/types/CustomKeyboardTypes';
-import Button from '@/components/Button/Button';
-import styles from './OptionProductModal.module.scss';
+import classNames from 'classnames/bind';
+import { useContext, useState } from 'react';
 import OptionProductCard from './OptionProductCard';
+import styles from './OptionProductModal.module.scss';
 
 const cn = classNames.bind(styles);
 

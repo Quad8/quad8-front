@@ -1,7 +1,9 @@
-import { useState, useEffect, RefObject } from 'react';
-import classNames from 'classnames/bind';
-import UpArrowIcon from '@/public/svgs/upArrow.svg';
+'use client';
+
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import UpArrowIcon from '@/public/svgs/upArrow.svg';
+import classNames from 'classnames/bind';
+import { RefObject, useEffect, useState } from 'react';
 import styles from './ScrollUpButton.module.scss';
 
 const cn = classNames.bind(styles);
