@@ -22,13 +22,37 @@
 }
 
 .button {
+  @include pretendard-18-400;
+  @include flex-column(0);
+
+  width: 19.9rem;
+  padding: 0;
+  overflow: hidden;
+
+  &:hover {
+    .switch-image {
+      transform: scale(1.5);
+    }
+  }
+}
+
+.image-wrapper {
+  width: 19.9rem;
+  height: 11.6rem;
+  overflow: hidden;
+}
+
+.switch-image {
+  transition: transform 1s;
+  object-fit: cover;
+}
+
+.switch-text {
   @include flex-center;
   @include pretendard-18-400;
 
   width: 19.9rem;
-  height: 16.2rem;
-  border: 0.1rem solid $gray-50;
-  border-radius: 0.4rem;
+  padding: 1rem;
   color: $black;
 }
 

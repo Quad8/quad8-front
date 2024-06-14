@@ -28,7 +28,7 @@ interface KeyboardDataType {
   type: CustomKeyboardTypeTypes;
   texture: CustomKeyboardTextureTypes;
   boardColor: Color;
-  switchType: CustomKeyboardSwitchTypes | null;
+  switchType: CustomKeyboardSwitchTypes;
   baseKeyColor: Color;
   hasPointKeyCap: boolean;
   pointKeyType: CustomKeyboardPointKeyType;
@@ -74,7 +74,7 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
     type: '풀 배열',
     texture: '금속',
     boardColor: '#ffffff',
-    switchType: null,
+    switchType: '청축',
     baseKeyColor: '#ffffff',
     hasPointKeyCap: false,
     pointKeyType: '세트 구성',
@@ -153,7 +153,7 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     type: '풀 배열',
     texture: '금속',
     boardColor: '#ffffff',
-    switchType: null,
+    switchType: '청축',
     baseKeyColor: '#ffffff',
     hasPointKeyCap: false,
     pointKeyType: '세트 구성',
