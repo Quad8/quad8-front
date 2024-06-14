@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { RadioField } from '@/components';
+import ProfileImage from '@/components/ProfileImage/ProfileImage';
 import styles from './page.module.scss';
 import ReviewModalTest from './ReviewModalTest';
 
@@ -8,7 +8,7 @@ const cn = classNames.bind(styles);
 export default function Page() {
   return (
     <div className={cn('container')}>
-      <RadioField label='성별' options={['남자', '여자']} />
+      <ProfileImage isEditable width={139} height={139} profileImage={null} />
       <ReviewModalTest />
     </div>
   );
