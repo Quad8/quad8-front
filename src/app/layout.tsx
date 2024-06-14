@@ -27,14 +27,6 @@ export default async function RootLayout({
     await queryClient.prefetchQuery({ queryKey: ['userData'], queryFn: () => getUserData(token) });
   }
 
-  // await queryClient.prefetchQuery({
-  //   queryKey: ['userData'],
-  //   queryFn: () =>
-  //     getUserData(
-  //       `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MDAzQGdtYWlsLmNvbSIsImlhdCI6MTcxODI3OTQ2NiwiZXhwIjoxNzE4MjgzMDY2LCJ1c2VybmFtZSI6InRlc3QwMDNAZ21haWwuY29tIn0.W55sHhL_C4TxFAyBWAkL5JQYYhz6-aRNup8KIWVGKeM`,
-  //     ),
-  // });
-
   return (
     <html lang='ko'>
       <body>
