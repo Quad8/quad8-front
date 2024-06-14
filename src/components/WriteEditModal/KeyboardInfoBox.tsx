@@ -1,5 +1,8 @@
+'use client';
+
 import classNames from 'classnames/bind';
 import type { CustomKeyboardTypes } from '@/types/CustomKeyboardTypes';
+import { useState } from 'react';
 import styles from './KeyboardInfoBox.module.scss';
 
 const cn = classNames.bind(styles);
@@ -10,6 +13,7 @@ interface KeyboardInfoBoxProps {
 }
 
 export default function KeyboardInfoBox({ keyboardInfo, isCustomReview }: KeyboardInfoBoxProps) {
+  const [isClickedKeycapOptions, setIsClickedKeycapOptions] = useState(false);
   const {
     layout,
     appearance_texture: appearanceTexture,
@@ -39,7 +43,12 @@ export default function KeyboardInfoBox({ keyboardInfo, isCustomReview }: Keyboa
           <h3 className={cn('products-list')}>키득 베어본, 키득 스위치, 키득 키캡</h3>
           <div className={cn('options-div')}>
             {optionString}
-            <div className={cn('keycap-color')}>{keycapColors}</div>
+            <div
+              className={cn('keycap-color', { 'fold-option': !isClickedKeycapOptions })}
+              onClick={() => setIsClickedKeycapOptions(!isClickedKeycapOptions)}
+            >
+              {keycapColors}
+            </div>
           </div>
         </div>
       </div>
