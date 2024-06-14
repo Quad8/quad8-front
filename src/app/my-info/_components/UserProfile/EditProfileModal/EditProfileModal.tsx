@@ -55,7 +55,7 @@ export default function EditProfileModal() {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (payload) => {
-    console.log(payload);
+    // console.log(payload);
     putProfileMutation(
       { payload, token },
       // {
