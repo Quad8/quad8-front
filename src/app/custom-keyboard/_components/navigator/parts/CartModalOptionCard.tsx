@@ -7,7 +7,7 @@ import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import { Button } from '@/components';
 import { POINT_KEY } from '@/constants/keyboardData';
 import { getColorUpperCase } from '@/libs/getColorUpperCase';
-import TooltipColor from './parts/TooltipColor';
+import TooltipColor from './TooltipColor';
 
 import styles from './CartModalOptionCard.module.scss';
 
@@ -150,6 +150,7 @@ export default function CartModalOptionCard({
               fontSize={14}
               className={cn('button')}
               onClick={(e: MouseEvent<HTMLButtonElement>) => buttonOnClick(e)}
+              hoverColor='background-primary-60'
             >
               {BUTTON_TYPE[buttonType]}
             </Button>

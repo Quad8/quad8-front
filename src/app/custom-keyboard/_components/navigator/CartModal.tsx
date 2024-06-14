@@ -8,7 +8,7 @@ import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyb
 import { blackSwitchImg, blueSwitchImg, brownSwitchImg, redSwitchImg } from '@/public/index';
 import { Button } from '@/components';
 import { getColorUpperCase } from '@/libs/getColorUpperCase';
-import CartModalOptionCard from '../option/CartModalOptionCard';
+import CartModalOptionCard from './parts/CartModalOptionCard';
 import CartModalToast from './parts/CartModalToast';
 
 import styles from './CartModal.module.scss';
