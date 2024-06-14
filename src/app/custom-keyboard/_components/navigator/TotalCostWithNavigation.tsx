@@ -106,28 +106,28 @@ export default function TotalCostWithNavigation() {
       setIsOpenCartModal(true);
     });
   };
-  const handleClickNextButton = (value: CustomKeyboardStepTypes) => {
-    if (value === 'board' || value === 'keyCap') {
+  const handleClickNextButton = () => {
+    if (currentStep === 'board' || currentStep === 'keyCap') {
       updateFocusKey(null);
       setTimeout(() => {
-        captureKeyboard(value);
+        captureKeyboard(currentStep);
       }, 1);
       return;
     }
 
-    updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
-    updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
+    updateStepStatus(UPDATE_NEXT_STEP_STATUS[currentStep]);
+    updateCurrentStep(BUTTONS[currentStep].next as CustomKeyboardStepTypes);
   };
 
-  const handleClickPrevButton = (value: CustomKeyboardStepTypes) => {
-    if (value === 'keyCap') {
+  const handleClickPrevButton = () => {
+    if (currentStep === 'keyCap') {
       if (checkCompleted('keyCap')) {
         updateStepStatus({ switch: 'current', keyCap: 'completed' });
       } else {
         updateStepStatus({ switch: 'current', keyCap: 'pending' });
       }
     }
-    if (value === 'switch') {
+    if (currentStep === 'switch') {
       if (checkCompleted('switch')) {
         updateStepStatus({ board: 'current', switch: 'completed' });
       } else {
@@ -135,7 +135,7 @@ export default function TotalCostWithNavigation() {
       }
     }
     updateFocusKey(null);
-    updateCurrentStep(BUTTONS[value].prev as CustomKeyboardStepTypes);
+    updateCurrentStep(BUTTONS[currentStep].prev as CustomKeyboardStepTypes);
   };
   const { prev, next } = BUTTONS[currentStep];
 
@@ -219,12 +219,12 @@ export default function TotalCostWithNavigation() {
           <button
             type='button'
             className={cn('button', { disabled: completed })}
-            onClick={() => handleClickPrevButton(currentStep)}
+            onClick={() => handleClickPrevButton()}
           >
             {BUTTON[prev]}
           </button>
         )}
-        <button type='button' className={cn('button')} onClick={() => completed && handleClickNextButton(currentStep)}>
+        <button type='button' className={cn('button')} onClick={() => completed && handleClickNextButton()}>
           {BUTTON[next]}
         </button>
       </div>
