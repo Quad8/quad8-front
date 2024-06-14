@@ -44,7 +44,7 @@ export default function ImageInput() {
             ))}
           {selectedImageFile.length < 4 && (
             <label htmlFor='imageInput' className={cn('label-input')}>
-              <CarmeraIcon />
+              <CarmeraIcon fill='#999999' width={46} height={40} />
             </label>
           )}
           <input type='file' className={cn('input-image-input')} id='imageInput' onChange={handleChangeImage} />
