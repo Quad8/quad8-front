@@ -17,11 +17,14 @@
   @include flex-column(4rem);
 }
 
-.auth-section {
+.auth-section-wrapper {
   margin-bottom: 6rem;
-  gap: 1.2rem;
   @include flex-center;
   @include pretendard-14-400;
+}
+
+.auth-section {
+  display: flex;
 
   & > p {
     color: $gray-50;
@@ -29,6 +32,7 @@
   }
 
   & > .bar {
+    margin: 0 1.2rem;
     color: $gray-20;
     cursor: default;
   }
