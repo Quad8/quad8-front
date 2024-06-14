@@ -12,6 +12,6 @@ export { default as KeyboardInfoBox } from './WriteEditModal/KeyboardInfoBox';
 export { default as Header } from './Header/Header';
 
 export { default as Button } from './Buttons/Button/Button';
-// export { default as LikeButton } from './Buttons/LikeButton/LikeButton';
+export { default as LikeButton } from './Buttons/LikeButton/LikeButton';
 export { default as ScrollUpButton } from './Buttons/ScrollUpButton/ScrollUpButton';
 // export { default as ItemOverview } from './ItemOverview/ItemOverview';
