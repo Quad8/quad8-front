@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
-import { ChangeEvent, FocusEvent } from 'react';
+import { ChangeEvent, FocusEvent, useState } from 'react';
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import { checkNickname, getUserData, putEditProfile } from '@/api/profileAPI';
@@ -18,6 +18,7 @@ const cn = classNames.bind(styles);
 const GENDER_OPTION = ['남자', '여자'];
 
 export default function EditProfileModal() {
+  const [inputValue, setInputValue] = useState('');
   const token = localStorage.getItem('accessToken') || null;
 
   const { data: userData } = useQuery<{ data: Users }>({ queryKey: ['userData'], queryFn: () => getUserData(token) });
@@ -37,8 +38,10 @@ export default function EditProfileModal() {
       nickname: users.nickname,
       phone: formatPhoneNumber(users.phone),
       gender: users.gender,
+
       드롭다운: '',
       라디오: '',
+      드롭다운2: '',
     },
   });
 
@@ -86,6 +89,11 @@ export default function EditProfileModal() {
     }
   };
 
+  const handleChange = (value: string) => {
+    console.log(value);
+    setInputValue(value);
+  };
+
   return (
     <form className={cn('modal')} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={cn('modal-title')}>회원 정보 변경</h1>
@@ -127,6 +135,16 @@ export default function EditProfileModal() {
           <Dropdown options={GENDER_OPTION} onChange={onDropdownChanege} {...field} />
         )}
       />
+
+      <Dropdown
+        name='드롭다운2'
+        options={GENDER_OPTION}
+        sizeVariant='xs'
+        value={inputValue}
+        onClick={(e) => console.log(e.currentTarget.value)}
+        onChange={(value) => handleChange(value)}
+      />
+
       <RadioField
         options={GENDER_OPTION}
         label='성별321'

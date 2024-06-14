@@ -2,7 +2,7 @@
 
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import classNames from 'classnames/bind';
-import { InputHTMLAttributes, MouseEvent, forwardRef, useEffect, useRef, useState } from 'react';
+import { InputHTMLAttributes, MouseEvent, forwardRef, useRef, useState } from 'react';
 import TextField from '../TextField/TextField';
 import { Input, SuffixIcon } from '../parts';
 import styles from './Dropdown.module.scss';
@@ -30,42 +30,35 @@ interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onC
  * @param {string} [props.placeholder] - placeholder 텍스트로 기본값 설정
  * placeholder값 선택시 inputValue === ('')
  * placeholder 설정하지 않을 시 options의 첫번째 값 렌더링
- *       <Controller
-        name='드롭다운'
-        control={control}
-        render={({ field: { onChange: onDropdownChanege, ...field } }) => (
-          <Dropdown options={GENDER_OPTION} onChange={onDropdownChanege} {...field} />
-        )}
-      />
+ * @param {string} props.value - 드롭다운의 현재 값
+ * @param {function} props.onChange - 드롭다운 값이 변경될 때 호출되는 함수
  * @returns {JSX.Element} 렌더링된 드롭다운 컴포넌트
+ *
+ * <Controller
+ *   name='dropdown'
+ *   control={control}
+ *   render={({ field: { onChange: onDropdownChange, value, ...field } }) => (
+ *     <Dropdown options={GENDER_OPTION} onChange={onDropdownChange} value={value} {...field} />
+ *   )}
+ * />
  */
 
 export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
-  { type = 'text', sizeVariant = 'sm', options, className, onClick, onChange, ...rest },
+  { type = 'text', sizeVariant = 'sm', options, className, onClick, onChange, value, ...rest },
   ref,
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [dropdownValue, setDropdownValue] = useState('');
+  const [dropdownValue, setDropdownValue] = useState(!rest.placeholder ? options[0] : '');
   const [isTextFieldVisible, setIsTextFieldVisible] = useState(false);
   const DropdownRef = useRef<HTMLDivElement>(null);
   const TextareaRef = useRef<HTMLTextAreaElement>(null);
-  const optionRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (!rest.placeholder) {
-      setDropdownValue(options[0]);
-      onChange?.(options[0]);
-      return;
-    }
-
-    setDropdownValue('');
-  }, [onChange, options, rest.placeholder]);
 
   useOutsideClick(DropdownRef, () => {
     if (TextareaRef.current?.value) {
       setDropdownValue(TextareaRef.current.value);
       options.push(TextareaRef.current.value);
       setIsTextFieldVisible(false);
+      onChange?.(TextareaRef.current.value);
     }
 
     setIsDropdownOpen(false);
@@ -95,6 +88,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
           ref={ref}
           isSelect
           readOnly
+          value={onChange ? value : dropdownValue}
           type={type}
           sizeVariant={sizeVariant}
           placeholder={rest.placeholder || options[0]}
@@ -134,9 +128,8 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
             </li>
           )}
           {options.map((option) => (
-            <li key={option} onClick={() => setDropdownValue(option)}>
+            <li key={option}>
               <Input
-                ref={optionRef}
                 type='button'
                 isOption
                 isChecked={dropdownValue === option}

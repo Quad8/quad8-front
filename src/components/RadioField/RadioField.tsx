@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { ChangeEvent, InputHTMLAttributes, forwardRef } from 'react';
+import { ChangeEvent, InputHTMLAttributes, forwardRef, useEffect, useState } from 'react';
 import { ErrorMessage, Radio } from '../parts';
 import styles from './RadioField.module.scss';
 
@@ -30,16 +30,16 @@ export default forwardRef<HTMLInputElement, RadioFieldProps>(function RadioField
   { label, options, errorMessage, value, className, ...rest },
   ref,
 ) {
-  // const [isSelected, setIsSelected] = useState(value || options[0]);
+  const [isSelected, setIsSelected] = useState(value || options[0]);
 
-  // useEffect(() => {
-  //   if (value) {
-  //     setIsSelected(value);
-  //   }
-  // }, [value]);
+  useEffect(() => {
+    if (value) {
+      setIsSelected(value);
+    }
+  }, [value]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // setIsSelected(e.target.value);
+    setIsSelected(e.target.value);
     if (rest.onChange) {
       rest.onChange(e);
     }
@@ -56,7 +56,7 @@ export default forwardRef<HTMLInputElement, RadioFieldProps>(function RadioField
             id={option}
             value={option}
             onChange={handleChange}
-            // checked={isSelected === option}
+            checked={isSelected === option}
             isError={!!errorMessage}
             {...rest}
           />
