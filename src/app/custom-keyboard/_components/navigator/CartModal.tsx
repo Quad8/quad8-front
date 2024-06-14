@@ -1,14 +1,16 @@
 import classNames from 'classnames/bind';
 import { MouseEvent, useContext, useState, useRef, RefObject } from 'react';
+import { StaticImageData } from 'next/image';
+
 import { KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { POINT_KEY } from '@/constants/keyboardData';
 import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
 import { blackSwitchImg, blueSwitchImg, brownSwitchImg, redSwitchImg } from '@/public/index';
-import { StaticImageData } from 'next/image';
 import { Button } from '@/components';
+import CartModalOptionCard from '../option/CartModalOptionCard';
+import CartModalToast from './parts/CartModalToast';
+
 import styles from './CartModal.module.scss';
-import CartModalOptionCard from './CartModalOptionCard';
-import CartModalToast from './CartModalToast';
 
 const cn = classNames.bind(styles);
 

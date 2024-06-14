@@ -1,13 +1,15 @@
 'use client';
 
-import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
-import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
+import { useContext, useEffect, useState } from 'react';
+
 import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
+import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { Modal } from '@/components';
-import styles from './TotalCostWithNavigation.module.scss';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
+
+import styles from './TotalCostWithNavigation.module.scss';
 
 const cn = classNames.bind(styles);
 

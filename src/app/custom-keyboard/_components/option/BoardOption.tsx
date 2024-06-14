@@ -2,19 +2,31 @@
 
 import classNames from 'classnames/bind';
 import { useContext } from 'react';
-import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import { HexColorPicker } from 'react-colorful';
+
+import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import type { CustomKeyboardTypeTypes, CustomKeyboardTextureTypes } from '@/types/CustomKeyboardTypes';
+
 import styles from './BoardOption.module.scss';
 
 const cn = classNames.bind(styles);
 
-const TYPE_BUTTONS = [
+interface KeyboardTypeButtonType {
+  name: CustomKeyboardTypeTypes;
+  price: number;
+}
+
+interface KeyboardTextureButtonType {
+  name: CustomKeyboardTextureTypes;
+  price: number;
+}
+
+const TYPE_BUTTONS: KeyboardTypeButtonType[] = [
   { name: '풀 배열', price: 35000 },
   { name: '텐키리스', price: 30000 },
 ];
 
-const TEXTURE_BUTTONS = [
+const TEXTURE_BUTTONS: KeyboardTextureButtonType[] = [
   { name: '금속', price: 35000 },
   { name: '플라스틱', price: 30000 },
 ];
@@ -47,7 +59,7 @@ export default function BoardOption() {
               key={element.name}
               type='button'
               className={cn('button', { selected: type === element.name })}
-              onClick={() => handleClickTypeButton(element.name as CustomKeyboardTypeTypes)}
+              onClick={() => handleClickTypeButton(element.name)}
             >
               <div className={cn('button-content')}>{element.name}</div>
               <div className={cn('button-price')}>+{element.price.toLocaleString()}</div>
@@ -63,7 +75,7 @@ export default function BoardOption() {
               key={element.name}
               type='button'
               className={cn('button', { selected: texture === element.name })}
-              onClick={() => handleClickTextureButton(element.name as CustomKeyboardTextureTypes)}
+              onClick={() => handleClickTextureButton(element.name)}
             >
               <div className={cn('button-content')}>{element.name}</div>
               <div className={cn('button-price')}>+{element.price.toLocaleString()}</div>

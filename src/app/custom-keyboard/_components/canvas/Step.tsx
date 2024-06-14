@@ -1,11 +1,13 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useContext } from 'react';
+
 import type { CustomKeyboardStepStatusTypes, CustomKeyboardStepTypes } from '@/types/CustomKeyboardTypes';
+import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
+import StepIcon from './parts/StepIcon';
+
 import styles from './Step.module.scss';
-import StepIcon from './StepIcon';
 
 const cn = classNames.bind(styles);
 

@@ -1,6 +1,7 @@
 import { Color } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import classNames from 'classnames/bind';
+
 import styles from './TooltipColor.module.scss';
 
 const cn = classNames.bind(styles);

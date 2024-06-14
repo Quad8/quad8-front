@@ -1,12 +1,14 @@
 import classNames from 'classnames/bind';
 import Image, { StaticImageData } from 'next/image';
 import { MouseEvent, useRef, useState, useEffect, RefObject, useCallback, useContext } from 'react';
-import { Button } from '@/components';
-import { KeyboardDataContext } from '@/context/customKeyboardContext';
-import { POINT_KEY } from '@/constants/keyboardData';
 import { Color } from '@react-three/fiber';
+
+import { KeyboardDataContext } from '@/context/customKeyboardContext';
+import { Button } from '@/components';
+import { POINT_KEY } from '@/constants/keyboardData';
+import TooltipColor from './parts/TooltipColor';
+
 import styles from './CartModalOptionCard.module.scss';
-import TooltipColor from './TooltipColor';
 
 const cn = classNames.bind(styles);
 

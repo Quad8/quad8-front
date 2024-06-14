@@ -2,6 +2,7 @@
 
 import classNames from 'classnames/bind';
 import { useRouter } from 'next/navigation';
+
 import styles from './CartModalToast.module.scss';
 
 const cn = classNames.bind(styles);
