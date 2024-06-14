@@ -8,9 +8,7 @@
 .wrapper {
   @include flex-column(2rem);
 
-  width: 32rem;
-  padding-top: 2rem;
-  border-top: 0.1rem solid $gray-10;
+  width: 100%;
 }
 
 .price-wrapper {
@@ -52,7 +50,7 @@
   @include flex-center;
   @include pretendard-18-400;
 
-  width: 15.4rem;
+  width: 19.9rem;
   height: 6.6rem;
   border: 0.1rem solid $black;
   border-radius: 0.4rem;

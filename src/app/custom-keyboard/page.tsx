@@ -8,10 +8,10 @@ const cn = classNames.bind(styles);
 
 export default function Page() {
   return (
-    <div className={cn('content-wrapper')}>
+    <div className={cn('wrapper')}>
       <KeyboardViewer />
-      <div className={cn('option-wrapper')}>
-        <div className={cn('option-content-wrapper')}>
+      <div className={cn('content-wrapper')}>
+        <div className={cn('option-wrapper')}>
           <Option />
         </div>
         <div className={cn('button-wrapper')}>
