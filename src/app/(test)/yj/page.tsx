@@ -1,6 +1,6 @@
 'use client';
 
-import LikeButton from '@/components/buttons/LikeButton/LikeButton';
+import LikeButton from '@/components/temp/LikeButton';
 import { useState } from 'react';
 
 export default function Page() {

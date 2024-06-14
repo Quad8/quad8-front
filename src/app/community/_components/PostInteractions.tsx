@@ -1,7 +1,7 @@
 import { useState, MouseEvent } from 'react';
 import classNames from 'classnames/bind';
 import CommentIcon from '@/public/svgs/comment.svg';
-import LikeButton from '@/components/buttons/LikeButton/LikeButton';
+import LikeButton from '@/components/temp/LikeButton';
 import styles from './PostInteractions.module.scss';
 
 const cn = classNames.bind(styles);
