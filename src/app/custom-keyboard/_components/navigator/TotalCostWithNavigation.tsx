@@ -233,7 +233,7 @@ export default function TotalCostWithNavigation() {
           optionData={optionData}
           onClose={handleCloseOptionModal}
           updateOptionPrice={updateOptionPrice}
-          onOpen={handleOpenCartModal}
+          onClick={handleOpenCartModal}
         />
       </Modal>
       <Modal isOpen={isOpenCartModal} onClose={handleCloseCartMoal}>

@@ -14,14 +14,14 @@ interface OptionProductModalProps {
   optionData: OptionDataType[];
   onClose: () => void;
   updateOptionPrice: (value: number) => void;
-  onOpen: () => void;
+  onClick: () => void;
 }
 
 export default function OptionProductModal({
   optionData,
   onClose,
   updateOptionPrice,
-  onOpen,
+  onClick,
 }: OptionProductModalProps) {
   const {
     updateData,
@@ -48,7 +48,7 @@ export default function OptionProductModal({
       .reduce((prev, next) => prev + next, 0);
     updateOptionPrice(currentPrice);
     onClose();
-    onOpen();
+    onClick();
   };
 
   return (
