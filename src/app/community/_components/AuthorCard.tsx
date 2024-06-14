@@ -18,8 +18,8 @@ export default function AuthorCard({ nickname, timeAgo }: AuthorCardProps) {
     <div className={cn('container')}>
       <ProfileImage profileImage={myProfileImage} />
       <div className={cn('info-textbox')}>
-        <p id={cn('user-name')}>{nickname}</p>
-        <p id={cn('sub-info')}>{timeAgo}</p>
+        <p className={cn('user-name')}>{nickname}</p>
+        <p className={cn('sub-info')}>{timeAgo}</p>
       </div>
       <div className={cn('show-more-icon')}>
         <ShowMoreIcon />

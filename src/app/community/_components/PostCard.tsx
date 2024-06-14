@@ -11,6 +11,7 @@ import { calculateTimeDifference } from '@/libs/calculateDate';
 import { Modal } from '@/components';
 import AuthorCard from './AuthorCard';
 import { PostInteractions } from './PostInteractions';
+import PostCardDetailModal from './PostCardDetailModal';
 
 import styles from './PostCard.module.scss';
 
@@ -50,12 +51,12 @@ export default function PostCard({ cardData }: PostCardProps) {
       <AuthorCard nickname={nickname} timeAgo={timeToString} />
       <div className={cn('keyboard-image-wrapper')}>
         <Image src={ContentImage} className={cn('keyboard-image')} alt='키보드 이미지' />
-        {image.length > MIN_IMAGE_COUNT && <p id={cn('image-count')}>{image.length}</p>}
+        {image.length > MIN_IMAGE_COUNT && <p className={cn('image-count')}>{image.length}</p>}
       </div>
       <p className={cn('title')}>{title}</p>
       <PostInteractions goodCount={goodCount} commentCount={commentCount} />
       <Modal isOpen={isPostModalOpen} onClose={handleClosePostModal}>
-        modal
+        <PostCardDetailModal />
       </Modal>
     </div>
   );

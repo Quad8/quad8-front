@@ -14,7 +14,6 @@ export default function ImageInput() {
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (selectedImageFile.length >= 4 || !files) {
-      // alert('이미지 4개 이상 불가');
       return;
     }
     const imageUrl = URL.createObjectURL(files[0]);
@@ -27,15 +26,15 @@ export default function ImageInput() {
   return (
     <div className={cn('container')}>
       <div className={cn('title-div')}>
-        <h1 id={cn('title')}>사진/동영상 첨부하기</h1>
-        <h3 id={cn('sub-title')}>최대 4장</h3>
+        <h1 className={cn('title')}>사진/동영상 첨부하기</h1>
+        <h3 className={cn('sub-title')}>최대 4장</h3>
       </div>
       <div>
         <form className={cn('input-div')}>
           {selectedImageFile &&
             selectedImageFile.map((imageUrl, index) => (
               <div key={imageUrl} className={cn('image-div')}>
-                <Image alt='선택된 이미지' src={imageUrl} fill id={cn('image')} />
+                <Image alt='선택된 이미지' src={imageUrl} fill className={cn('image')} />
                 <div className={cn('delete-image-icon')} onClick={(e) => handleClickDeleteImage(e, index)}>
                   <DeleteImageIcon fill='#ffffff' width={42} height={42} />
                 </div>

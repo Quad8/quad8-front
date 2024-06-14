@@ -28,11 +28,11 @@
   display: flex;
   gap: 1.2rem;
 
-  & > #nickname {
+  & > .nickname {
     @include pretendard-16-400;
   }
 
-  & > #time-ago {
+  & > .time-ago {
     @include pretendard-14-400;
 
     color: $gray-50;

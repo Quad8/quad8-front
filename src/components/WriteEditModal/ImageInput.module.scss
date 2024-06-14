@@ -3,13 +3,13 @@
   gap: 1.2rem;
   align-items: center;
 
-  & > #title {
+  & > .title {
     @include pretendard-20-600;
 
     font-weight: bold;
   }
 
-  & > #sub-title {
+  & > .sub-title {
     @include pretendard-14-400;
 
     color: $gray-50;
@@ -45,7 +45,7 @@
   min-width: 16.8rem;
   height: 15.6rem;
 
-  & > #image {
+  & > .image {
     border-radius: 0.8rem;
   }
 }

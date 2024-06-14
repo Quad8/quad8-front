@@ -35,8 +35,8 @@ export default function KeyboardInfoBox({ keyboardInfo, isCustomReview }: Keyboa
       <div className={cn('container')}>
         <div className={cn('keyboard-image')} />
         <div className={cn('keyboard-info-text')}>
-          <h3 id={cn('title')}>키득 커스텀 기보드</h3>
-          <h3 id={cn('products-list')}>키득 베어본, 키득 스위치, 키득 키캡</h3>
+          <h3 className={cn('title')}>키득 커스텀 기보드</h3>
+          <h3 className={cn('products-list')}>키득 베어본, 키득 스위치, 키득 키캡</h3>
           <div className={cn('options-div')}>
             {optionString}
             <div className={cn('keycap-color')}>{keycapColors}</div>
