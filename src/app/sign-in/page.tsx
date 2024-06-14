@@ -1,9 +1,8 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import Button from '@/components/Button/Button';
 import { useState } from 'react';
-import { Modal } from '@/components';
+import { Modal, Button } from '@/components';
 import styles from './page.module.scss';
 import SignInModal from './_component/SignInModal';
 
