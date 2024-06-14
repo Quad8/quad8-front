@@ -35,9 +35,8 @@ export default function PostCard({ cardData }: PostCardProps) {
     comment_count: commentCount,
   } = cardData;
 
-  const nowDate = new Date();
   const createdDate = new Date(createdAt);
-  const timeToString = calculateTimeDifference(createdDate, nowDate);
+  const timeToString = calculateTimeDifference(createdDate);
 
   const handleClickPostModal = () => {
     setIsPostModalOpen(true);

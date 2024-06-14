@@ -17,8 +17,7 @@ interface CommentProps {
 
 export default function Comment({ nickname, profile, createdTime, comment }: CommentProps) {
   const createdTimeToDate = new Date(createdTime);
-  const currrentDate = new Date();
-  const timeAgo = calculateTimeDifference(createdTimeToDate, currrentDate);
+  const timeAgo = calculateTimeDifference(createdTimeToDate);
   return (
     <div className={cn('container')}>
       <ProfileImage profileImage={profile || null} />

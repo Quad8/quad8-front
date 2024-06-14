@@ -61,7 +61,6 @@ export default function PostCardDetailModal() {
 
   const handleMyCommentInput = () => {
     if (commentRef.current) {
-      console.log(commentRef.current.value);
       commentRef.current.value = '';
     }
   };
