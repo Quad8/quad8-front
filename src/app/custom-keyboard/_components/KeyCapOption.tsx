@@ -6,6 +6,7 @@ import { useContext, useState } from 'react';
 import { KeyColorContext, KeyboardDataContext } from '@/context/customKeyboardContext';
 import { Color } from '@react-three/fiber';
 import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
+import { Button } from '@/components';
 import styles from './KeyCapOption.module.scss';
 import ColorTag from './ColorTag';
 
@@ -90,20 +91,22 @@ export default function KeyCapOption() {
         <HexColorPicker color={baseKeyColor as string} onChange={handleChangeBaseColor} />
       </div>
       <div className={cn('button-wrapper')}>
-        <button
-          type='button'
+        <Button
+          radius={4}
+          backgroundColor={!hasPointKeyCap ? 'background-primary' : 'outline-gray-40'}
           className={cn('button', { selected: !hasPointKeyCap })}
           onClick={() => handleClickPointKeyCapButton(false)}
         >
-          <div className={cn('button-content')}>포인트 키캡 없음</div>
-        </button>
-        <button
-          type='button'
+          포인트 키캡 없음
+        </Button>
+        <Button
+          radius={4}
+          backgroundColor={hasPointKeyCap ? 'background-primary' : 'outline-gray-40'}
           className={cn('button', { selected: hasPointKeyCap })}
           onClick={() => handleClickPointKeyCapButton(true)}
         >
-          <div>포인트 키캡 추가</div>
-        </button>
+          포인트 키캡 추가
+        </Button>
       </div>
       {hasPointKeyCap && (
         <div className={cn('point-wrapper')}>

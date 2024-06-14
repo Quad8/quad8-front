@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import { HexColorPicker } from 'react-colorful';
 import type { CustomKeyboardTypeTypes, CustomKeyboardTextureTypes } from '@/types/CustomKeyboardTypes';
+import { Button } from '@/components';
 import styles from './BoardOption.module.scss';
 
 const cn = classNames.bind(styles);
@@ -43,15 +44,16 @@ export default function BoardOption() {
         <div className={cn('title')}>배열</div>
         <div className={cn('button-wrapper')}>
           {TYPE_BUTTONS.map((element) => (
-            <button
+            <Button
               key={element.name}
-              type='button'
+              radius={4}
+              backgroundColor={type === element.name ? 'background-primary' : 'outline-gray-40'}
               className={cn('button', { selected: type === element.name })}
               onClick={() => handleClickTypeButton(element.name as CustomKeyboardTypeTypes)}
             >
               <div className={cn('button-content')}>{element.name}</div>
               <div className={cn('button-price')}>+{element.price.toLocaleString()}</div>
-            </button>
+            </Button>
           ))}
         </div>
       </div>
@@ -59,15 +61,16 @@ export default function BoardOption() {
         <div className={cn('title')}>외관 재질</div>
         <div className={cn('button-wrapper')}>
           {TEXTURE_BUTTONS.map((element) => (
-            <button
+            <Button
               key={element.name}
-              type='button'
+              radius={4}
+              backgroundColor={texture === element.name ? 'background-primary' : 'outline-gray-40'}
               className={cn('button', { selected: texture === element.name })}
               onClick={() => handleClickTextureButton(element.name as CustomKeyboardTextureTypes)}
             >
               <div className={cn('button-content')}>{element.name}</div>
               <div className={cn('button-price')}>+{element.price.toLocaleString()}</div>
-            </button>
+            </Button>
           ))}
         </div>
       </div>

@@ -35,7 +35,7 @@ export default function KeyboardViewer() {
   return (
     <div className={cn('wrapper')}>
       <Suspense fallback={<CanvasLoading />}>
-        <div className={cn('option-wrapper')}>{isLoaded && <Step />}</div>
+        <div className={cn('step-wrapper')}>{isLoaded && <Step />}</div>
         <Canvas
           camera={CAMERA}
           className={cn('canvas')}

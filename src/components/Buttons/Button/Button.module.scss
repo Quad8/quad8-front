@@ -1,11 +1,13 @@
 @mixin background($color) {
   background-color: $color;
+  fill: $white;
   color: $white;
 }
 
 @mixin border($color) {
   border: 0.1rem solid $color;
   background-color: $white;
+  fill: $color;
   color: $color;
 }
 

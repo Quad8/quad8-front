@@ -25,21 +25,12 @@
 }
 
 .button {
-  @include flex-center;
   @include pretendard-16-400;
 
   width: 19.9rem;
-  height: 6.6rem;
-  border: 0.1rem solid $gray-50;
-  border-radius: 0.4rem;
-  gap: 1rem;
-  color: $black;
 }
 
 .selected {
-  border: none;
-  background-color: $primary;
-
   .button-content {
     color: $white;
   }

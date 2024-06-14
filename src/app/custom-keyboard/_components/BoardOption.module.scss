@@ -25,10 +25,6 @@
   @include flex-center;
 
   width: 19.9rem;
-  height: 6.6rem;
-  border: 0.1rem solid $gray-40;
-  border-radius: 0.4rem;
-  color: $black;
   gap: 1rem;
 }
 
@@ -43,9 +39,6 @@
 }
 
 .selected {
-  border: none;
-  background-color: $primary;
-
   .button-content {
     color: $white;
   }
