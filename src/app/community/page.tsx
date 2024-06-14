@@ -1,8 +1,12 @@
 import classNames from 'classnames/bind';
+
+import { Dropdown } from '@/components';
 import PostCard from './_components/PostCard';
 import WritePostButton from './_components/WritePostButton';
-import styles from './page.module.scss';
+
 import { COMMUNITY_DATA } from '../(test)/mj/communityData';
+
+import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
 
@@ -11,7 +15,7 @@ export default function Page() {
     <div className={cn('container')}>
       <p className={cn('page-name')}>커뮤니티</p>
       <div className={cn('filter-write-button-wrapper')}>
-        <div>최신글</div>
+        <Dropdown options={['인기순', '최신순', '가격 낮은순', '가격 높은순']} sizeVariant='xs' />
         <WritePostButton />
       </div>
       <div className={cn('post-wrapper')}>
