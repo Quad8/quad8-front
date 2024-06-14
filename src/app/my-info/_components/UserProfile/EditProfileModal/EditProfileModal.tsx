@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import { ChangeEvent, FocusEvent } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import { checkNickname, putEditProfile } from '@/api/profileAPI';
+import { checkNickname, getUserData, putEditProfile } from '@/api/profileAPI';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
 import type { Users } from '@/types/profileType';
 
@@ -18,14 +18,16 @@ const cn = classNames.bind(styles);
 const GENDER_OPTION = ['남자', '여자'];
 
 export default function EditProfileModal() {
-  const { data: userData } = useQuery<{ data: Users }>({ queryKey: ['userData'] });
-  const users = userData?.data ?? { nickname: '', email: '', phone: '', gender: 'MALE', birth: '' };
   const token = localStorage.getItem('accessToken') || null;
+
+  const { data: userData } = useQuery<{ data: Users }>({ queryKey: ['userData'], queryFn: () => getUserData(token) });
+
+  const users = userData?.data ?? { nickname: '', email: '', phone: '', gender: 'MALE', birth: '' };
 
   const {
     register,
     handleSubmit,
-    setError,
+    // setError
     setValue,
     formState: { errors },
   } = useForm({
@@ -39,11 +41,12 @@ export default function EditProfileModal() {
 
   const { mutate: checkNicknameMutation } = useMutation({
     mutationFn: checkNickname,
-    onSuccess: (res) => {
-      if (!res.ok && !errors.nickname) {
-        setError('nickname', { message: res.message });
-      }
-    },
+    /** 피드백 메세지 수정 필요 */
+    // onSuccess: (res) => {
+    //   if (!res.ok && !errors.nickname) {
+    //     setError('nickname', { message: res.message });
+    //   }
+    // },
   });
 
   const { mutate: putProfileMutation } = useMutation({
@@ -53,12 +56,13 @@ export default function EditProfileModal() {
   const onSubmit: SubmitHandler<FieldValues> = (payload) => {
     putProfileMutation(
       { payload, token },
-      {
-        // onSuccess: (res) => {
-        //   console.log('onSubmit 성공', payload, res);
-        // },
-        onError: () => {},
-      },
+      // {
+      //   /** 피드백에 따른 토스트 모달 추가 필요 */
+      //   onSuccess: (res) => {
+      //     console.log('회원정보가 변경되었습니다', res.message);
+      //   },
+      //   onError: () => {},
+      // },
     );
   };
 

@@ -12,7 +12,11 @@ interface PutEditProfileProps {
  * @returns {Promise<Object>} - 사용자 데이터를 반환합니다.
  * @throws {Error} - 요청이 실패한 경우 에러를 던집니다.
  */
-export async function getUserData(token: string) {
+export async function getUserData(token: string | null) {
+  if (!token) {
+    return null;
+  }
+
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/users/me`, {
       method: 'GET',

@@ -47,7 +47,7 @@ export default function Page() {
         <Dropdown
           options={OPTIONS}
           name='드롭다운'
-          sizeVariant='md'
+          sizeVariant='xs'
           placeholder='fdsa'
           onClick={handleClick}
           className={cn('dropdown')}
