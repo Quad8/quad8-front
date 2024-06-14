@@ -30,6 +30,7 @@ export default function EditProfileModal() {
     defaultValues: {
       nickname: users.nickname,
       phone: formatPhoneNumber(users.phone),
+      gender: users.gender,
     },
   });
 
@@ -89,7 +90,13 @@ export default function EditProfileModal() {
           })}
         />
         <InputField label='생년월일' disabled value={users.birth} />
-        <RadioField label='성별' options={GENDER_OPTION} disabled value={users.gender === 'MALE' ? '남자' : '여자'} />
+        <RadioField
+          label='성별'
+          options={GENDER_OPTION}
+          // disabled
+          value={users.gender === 'MALE' ? '남자' : '여자'}
+          {...register('gender')}
+        />
         <InputField
           label='휴대폰 번호'
           placeholder='0000-0000'

@@ -1,6 +1,6 @@
 'use client';
 
-import { InputField } from '@/components';
+import { InputField, RadioField } from '@/components';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import classNames from 'classnames/bind';
 import { FormEvent } from 'react';
@@ -66,7 +66,7 @@ export default function Page() {
       <br />
       <br />
       <br />
-      {/* <RadioField options={OPTIONS} label='숫자' value='6' /> */}
+      <RadioField options={OPTIONS} name='숫자' label='숫자' value='6' />
       {/* <ItemOverview /> */}
       <Breadcrumb />
       <br />
