@@ -1,7 +1,5 @@
 .recent {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
+  @include flex-column(4rem);
 
   .recent-title {
     color: $black;

@@ -8,15 +8,15 @@ import styles from './MyInfoEmptyCase.module.scss';
 const cn = classNames.bind(styles);
 
 interface MyInfoEmptyCaseProps {
-  text: string;
+  children: string;
   isBackgroundColor?: boolean;
 }
 
-export default function MyInfoEmptyCase({ text, isBackgroundColor }: MyInfoEmptyCaseProps) {
+export default function MyInfoEmptyCase({ children, isBackgroundColor }: MyInfoEmptyCaseProps) {
   return (
     <div className={cn('empty-case', { 'background-color': isBackgroundColor })}>
       <AlertIcon />
-      <p className={cn('empty-case-text')}>{text}</p>
+      <p className={cn('empty-case-text')}>{children}</p>
       <Button
         as={Link}
         href={ROUTER.SHOP.ALL}

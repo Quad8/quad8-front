@@ -8,7 +8,7 @@ export default function RecentProducts() {
   return (
     <article className={cn('recent')}>
       <h1 className={cn('recent-title')}>최근 본 상품</h1>
-      <MyInfoEmptyCase text='최근 본 상품이 없습니다.' isBackgroundColor />
+      <MyInfoEmptyCase isBackgroundColor>최근 본 상품이 없습니다</MyInfoEmptyCase>
     </article>
   );
 }
