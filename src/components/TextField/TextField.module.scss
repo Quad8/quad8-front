@@ -19,3 +19,10 @@
 .md {
   @include md;
 }
+
+.option {
+  .character-limit {
+    top: 5.6rem;
+    right: 1.6rem;
+  }
+}

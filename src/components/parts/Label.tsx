@@ -5,12 +5,12 @@ import styles from './Label.module.scss';
 const cn = classNames.bind(styles);
 
 interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
-  size?: 'sm' | 'md' | 'lg';
+  sizeVariant?: 'sm' | 'md' | 'lg' | 'header';
   children: ReactNode;
 }
 
-export default function Label({ size = 'md', htmlFor, children }: LabelProps) {
-  const className = cn('default', size);
+export default function Label({ sizeVariant, htmlFor, children }: LabelProps) {
+  const className = cn('default', sizeVariant);
 
   return (
     <label className={className} htmlFor={htmlFor}>

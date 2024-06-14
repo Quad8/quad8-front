@@ -1,0 +1,29 @@
+.content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  .item-image {
+    width: 14.4rem;
+    height: 14.4rem;
+  }
+
+  .item-text {
+    color: $black;
+
+    .item-name {
+      color: $black;
+      @include pretendard-16-500;
+    }
+
+    .item-selected {
+      @include pretendard-16-700;
+    }
+
+    .item-options,
+    .item-detail {
+      color: $gray-50;
+      @include pretendard-14-400;
+    }
+  }
+}

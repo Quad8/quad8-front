@@ -1,20 +1,30 @@
+'use client';
+
+import { useState } from 'react';
 import classNames from 'classnames/bind';
-import ContentImage from '@/public/images/myProfile.jpeg';
 import Image from 'next/image';
-import { CommunityCardDataType } from '@/app/mj/CommunityData';
+
+import ContentImage from '@/public/images/myProfile.jpeg';
+import { CommunityCardDataType } from '@/app/(test)/mj/communityData';
 import { calculateTimeDifference } from '@/libs/calculateDate';
-import styles from './PostCard.module.scss';
+
+import { Modal } from '@/components';
 import AuthorCard from './AuthorCard';
 import { PostInteractions } from './PostInteractions';
+
+import styles from './PostCard.module.scss';
 
 const cn = classNames.bind(styles);
 
 interface PostCardProps {
   cardData: CommunityCardDataType;
-  onClick: () => void;
 }
 
-export default function PostCard({ cardData, onClick }: PostCardProps) {
+const MIN_IMAGE_COUNT = 1;
+
+export default function PostCard({ cardData }: PostCardProps) {
+  const [isPostModalOpen, setIsPostModalOpen] = useState(false);
+
   const {
     user_nickname: nickname,
     created_at: createdAt,
@@ -23,20 +33,30 @@ export default function PostCard({ cardData, onClick }: PostCardProps) {
     good_count: goodCount,
     comment_count: commentCount,
   } = cardData;
+
   const nowDate = new Date();
   const createdDate = new Date(createdAt);
-
   const timeToString = calculateTimeDifference(createdDate, nowDate);
 
+  const handleClickPostModal = () => {
+    setIsPostModalOpen(true);
+  };
+  const handleClosePostModal = () => {
+    setIsPostModalOpen(false);
+  };
+
   return (
-    <button type='button' className={cn('container')} onClick={onClick}>
-      <AuthorCard nickname={nickname} timeAgoString={timeToString} />
+    <div className={cn('container')} onClick={handleClickPostModal}>
+      <AuthorCard nickname={nickname} timeAgo={timeToString} />
       <div className={cn('keyboard-image-wrapper')}>
         <Image src={ContentImage} className={cn('keyboard-image')} alt='키보드 이미지' />
-        {image.length > 1 && <p id={cn('image-count')}>{image.length}</p>}
+        {image.length > MIN_IMAGE_COUNT && <p id={cn('image-count')}>{image.length}</p>}
       </div>
       <p className={cn('title')}>{title}</p>
       <PostInteractions goodCount={goodCount} commentCount={commentCount} />
-    </button>
+      <Modal isOpen={isPostModalOpen} onClose={handleClosePostModal}>
+        modal
+      </Modal>
+    </div>
   );
 }

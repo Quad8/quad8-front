@@ -1,23 +1,11 @@
-$breakpoint-desktop: 1025px;
-$breakpoint-tablet: 758px;
-$breakpoint-mobile: 280px;
-
-@mixin desktop {
-  @media (min-width: #{$breakpoint-desktop}) {
-    @content;
-  }
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@mixin tablet {
-  @media (min-width: #{$breakpoint-tablet}) 
-    and (max-width: #{$breakpoint-desktop - 1px}) {
-    @content;
-  }
-}
-
-@mixin mobile {
-  @media (min-width: #{$breakpoint-mobile}) 
-      and (max-width: #{$breakpoint-tablet - 1px}) {
-    @content;
-  }
+@mixin flex-column($gap) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
 }

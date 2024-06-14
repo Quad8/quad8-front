@@ -26,27 +26,23 @@
 }
 
 .label-input {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
+
   width: 100%;
   height: 100%;
-  border: 0.1rem solid $gray-50;
+  border: 0.1rem dotted $gray-40;
   border-radius: 0.8rem;
   cursor: pointer;
 }
 
-.width-quater {
-  width: 16.8rem;
-}
-
 .input-image-input {
   display: none;
+  width: 100%;
 }
 
 .image-div {
   position: relative;
-  width: 16.8rem;
+  min-width: 16.8rem;
   height: 15.6rem;
 
   & > #image {
@@ -55,21 +51,25 @@
 }
 
 .delete-image-icon {
+  @include flex-center;
+
   position: absolute;
   top: -1.2rem;
   right: -1.2rem;
+  border-radius: 99rem;
+  background-color: $gray-40;
   cursor: pointer;
 }
 
-.main-image {
-  @include pretendard-14-400;
-
+.main-image-tag {
   position: absolute;
   top: 0.8rem;
   left: 1rem;
   padding: 0.4rem 1rem;
   border-radius: 3rem;
-  background-color: $gray-50;
-  color: $white;
+  background-color: $primary-20;
+  color: $primary;
+  font-size: 1.4rem;
+  font-weight: 700;
   line-height: 2.2rem;
 }

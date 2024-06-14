@@ -7,11 +7,12 @@ export const calculateTimeDifference = (pastTime: Date, currentTime: Date) => {
 
   if (days > 0) {
     return `${days}일 전`;
-  } else if (hours > 0) {
-    return `${hours}시간 전`;
-  } else if (minutes > 0) {
-    return `${minutes}분 전`;
-  } else {
-    return '방금 전';
   }
+  if (hours > 0) {
+    return `${hours}시간 전`;
+  }
+  if (minutes > 0) {
+    return `${minutes}분 전`;
+  }
+  return '방금 전';
 };

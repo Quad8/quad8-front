@@ -1,0 +1,35 @@
+.content-wrapper {
+  display: flex;
+  position: relative;
+  width: 100%;
+  padding: 0 10rem 8rem;
+  background-color: $white;
+  gap: 10rem;
+}
+
+.option-wrapper {
+  @include flex-column(3rem);
+
+  width: 36rem;
+  margin-top: 6rem;
+  padding-bottom: 19.6rem;
+  overflow: hidden auto;
+}
+
+.option-content-wrapper {
+  width: 34rem;
+  padding-left: 2rem;
+}
+
+.button-wrapper {
+  @include flex-column(3rem);
+
+  position: fixed;
+  z-index: $zindex-fixed;
+  right: 0;
+  bottom: 0;
+  width: 56rem;
+  height: 24.6rem;
+  padding-left: 10rem;
+  background-color: $white;
+}

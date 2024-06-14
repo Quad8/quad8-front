@@ -22,6 +22,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'shop-phinf.pstatic.net',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 
@@ -41,7 +47,25 @@ const nextConfig = {
         test: /\.svg$/i,
         issuer: fileLoaderRule.issuer,
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
-        use: ['@svgr/webpack'],
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: 'preset-default',
+                    params: {
+                      overrides: {
+                        removeViewBox: false,
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
       },
     );
 
@@ -55,6 +79,8 @@ const nextConfig = {
     includePaths: ['styles'],
     additionalData: `@import "src/styles/_globals.scss";`,
   },
+
+  transpilePackages: ['three'],
 };
 
 export default nextConfig;
