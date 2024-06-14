@@ -2,6 +2,7 @@ import { Color } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 
+import { getColorUpperCase } from '@/libs/getColorUpperCase';
 import styles from './TooltipColor.module.scss';
 
 const cn = classNames.bind(styles);
@@ -82,7 +83,7 @@ export default function TooltipColor({ colorInfo }: TooltipColorProps) {
             </div>
           )}
         </div>
-        <div className={cn('color')}>{color.toString().toUpperCase()},</div>
+        <div className={cn('color')}>{getColorUpperCase(color)},</div>
       </div>
     </div>
   );

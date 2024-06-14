@@ -7,6 +7,7 @@ import { POINT_KEY } from '@/constants/keyboardData';
 import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
 import { blackSwitchImg, blueSwitchImg, brownSwitchImg, redSwitchImg } from '@/public/index';
 import { Button } from '@/components';
+import { getColorUpperCase } from '@/libs/getColorUpperCase';
 import CartModalOptionCard from '../option/CartModalOptionCard';
 import CartModalToast from './parts/CartModalToast';
 
@@ -76,7 +77,7 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
   const ORDER_LIST: OrderListType[] = [
     {
       name: '키득 베어본',
-      option1: `${type} / ${boardColor.toString().toUpperCase()} / ${texture}`,
+      option1: `${type} / ${getColorUpperCase(boardColor)} / ${texture}`,
       price: boardPrice,
       count: 0,
       imageSrc: keyboardImage.board,
@@ -92,7 +93,7 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
     },
     {
       name: '키득 키캡',
-      option1: `${baseKeyColor.toLocaleString().toUpperCase()} / 포인트 키캡${hasPointKeyCap ? `o / ${pointKeyType}` : 'x'}`,
+      option1: `${getColorUpperCase(baseKeyColor)} / 포인트 키캡${hasPointKeyCap ? `o / ${pointKeyType}` : 'x'}`,
       option2: hasPointKeyCap,
       price: keyCapPrice,
       count: !hasPointKeyCap ? 0 : pointKeyCount,

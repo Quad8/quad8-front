@@ -6,6 +6,7 @@ import { Color } from '@react-three/fiber';
 import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import { Button } from '@/components';
 import { POINT_KEY } from '@/constants/keyboardData';
+import { getColorUpperCase } from '@/libs/getColorUpperCase';
 import TooltipColor from './parts/TooltipColor';
 
 import styles from './CartModalOptionCard.module.scss';
@@ -162,7 +163,7 @@ export default function CartModalOptionCard({
                 onMouseLeave={handleMouseLeave}
               >
                 <p className={cn('option')} ref={targetRef}>
-                  {keyCapColor.map(([key, color]) => `${key}: ${color.toString().toUpperCase()}`).join(' / ')}
+                  {keyCapColor.map(([key, color]) => `${key}: ${getColorUpperCase(color)}`).join(' / ')}
                 </p>
                 <div className={cn('tooltip-wrapper')} ref={tooltipRef}>
                   <div className={cn('tooltip')}>
