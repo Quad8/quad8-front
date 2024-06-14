@@ -48,7 +48,7 @@ export default function PostCard({ cardData }: PostCardProps) {
 
   return (
     <div className={cn('container')} onClick={handleClickPostModal}>
-      <AuthorCard nickname={nickname} timeAgo={timeToString} />
+      <AuthorCard nickname={nickname} dateText={timeToString} />
       <div className={cn('keyboard-image-wrapper')}>
         <Image src={ContentImage} className={cn('keyboard-image')} alt='키보드 이미지' />
         {image.length > MIN_IMAGE_COUNT && <p className={cn('image-count')}>{image.length}</p>}
