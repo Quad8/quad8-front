@@ -1,12 +1,13 @@
 'use client';
 
-import { KEY, TEN_KEY, POINT_KEY } from '@/constants/keyboardData';
-import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useGLTF } from '@react-three/drei';
 import { ThreeEvent } from '@react-three/fiber';
 import { useContext } from 'react';
 import { Euler, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 import { GLTF } from 'three-stdlib';
+
+import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
+import { KEY, TEN_KEY, POINT_KEY } from '@/constants/keyboardData';
 import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 
 interface KeyboardNodes {

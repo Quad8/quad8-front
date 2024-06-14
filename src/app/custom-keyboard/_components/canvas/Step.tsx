@@ -1,11 +1,13 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useContext } from 'react';
+
 import type { CustomKeyboardStepStatusTypes, CustomKeyboardStepTypes } from '@/types/CustomKeyboardTypes';
+import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
+import StepIcon from './parts/StepIcon';
+
 import styles from './Step.module.scss';
-import StepIcon from './StepIcon';
 
 const cn = classNames.bind(styles);
 
@@ -16,7 +18,8 @@ interface StepIconDataType {
 }
 
 export default function Step() {
-  const { stepStatus, currentStep, updateCurrentStep, updateStepStatus } = useContext(StepContext);
+  const { stepStatus, currentStep, canvasRef, controlRef, updateCurrentStep, updateStepStatus, updateKeyboardImage } =
+    useContext(StepContext);
   const {
     keyboardData: { switchType },
   } = useContext(KeyboardDataContext);
@@ -27,6 +30,24 @@ export default function Step() {
     { ID: 'keyCap', STATUS: stepStatus.keyCap, NAME: '키캡' },
   ];
 
+  const captureBoard = (value: CustomKeyboardStepTypes) => {
+    const canvas = canvasRef?.current;
+    const control = controlRef?.current;
+
+    if (!canvas || !control) {
+      return;
+    }
+    control.reset();
+    requestAnimationFrame(() => {
+      const image = canvas.toDataURL('image/png');
+      updateKeyboardImage('board', image);
+      updateStepStatus({
+        board: 'completed',
+        [value]: 'current',
+      });
+      updateCurrentStep(value);
+    });
+  };
   /* 연결된 선은 해당 단계들(이전과 이후)이 모두 pending이 아니면 파란색(활성화) 상태 둘 중 하나라도 pending일 경우 비활성화(회색) 상태 */
   const FIRST_LINE_COMPLETED = stepStatus.board !== 'pending' && stepStatus.switch !== 'pending';
   const SECOND_LINE_COMPLETED = stepStatus.switch !== 'pending' && stepStatus.keyCap !== 'pending';
@@ -46,6 +67,10 @@ export default function Step() {
       return;
     }
     /* Step 이동 시에, 현재 단계를 pending(swtichType의 경우 체크 안하고 이동할 때) 또는 completed처리, 이동하려는 Step은 current 처리 */
+    if (currentStep === 'board') {
+      captureBoard(value);
+      return;
+    }
     updateStepStatus({
       [currentStep]: currentStep === 'switch' && !switchType ? 'pending' : 'completed',
       [value]: 'current',

@@ -2,6 +2,8 @@
 
 import classNames from 'classnames/bind';
 import { useRouter } from 'next/navigation';
+
+import { ROUTER } from '@/constants/route';
 import styles from './CartModalToast.module.scss';
 
 const cn = classNames.bind(styles);
@@ -9,7 +11,7 @@ const cn = classNames.bind(styles);
 export default function CartModalToast() {
   const router = useRouter();
   const handleEnimationEnd = () => {
-    router.push('/', { scroll: false });
+    router.push(ROUTER.MAIN, { scroll: false });
   };
   return (
     <div className={cn('wrapper')} onAnimationEnd={handleEnimationEnd}>

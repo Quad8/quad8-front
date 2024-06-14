@@ -1,15 +1,18 @@
 'use client';
 
+import classNames from 'classnames/bind';
 import { Canvas } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
 import { Suspense, useContext, useState } from 'react';
-import classNames from 'classnames/bind';
-import { KeyColorContext, StepContext } from '@/context/customKeyboardContext';
+
 import { Vector3 } from 'three';
-import styles from './KeyboardViewer.module.scss';
-import Keyboard from './Keyboard';
+
+import { KeyColorContext, StepContext } from '@/context/customKeyboardContext';
+import Keyboard from './parts/Keyboard';
 import Step from './Step';
 import CanvasLoading from './CanvasLoading';
+
+import styles from './KeyboardViewer.module.scss';
 
 const cn = classNames.bind(styles);
 

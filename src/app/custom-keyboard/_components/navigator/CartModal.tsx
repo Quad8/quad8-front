@@ -1,14 +1,18 @@
 import classNames from 'classnames/bind';
 import { MouseEvent, useContext, useState, useRef, RefObject } from 'react';
+import { StaticImageData } from 'next/image';
+
 import { KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { POINT_KEY } from '@/constants/keyboardData';
 import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
 import { blackSwitchImg, blueSwitchImg, brownSwitchImg, redSwitchImg } from '@/public/index';
-import { StaticImageData } from 'next/image';
 import { Button } from '@/components';
+import { getColorUpperCase } from '@/libs/getColorUpperCase';
+import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
+import CartModalOptionCard from './parts/CartModalOptionCard';
+import CartModalToast from './parts/CartModalToast';
+
 import styles from './CartModal.module.scss';
-import CartModalOptionCard from './CartModalOptionCard';
-import CartModalToast from './CartModalToast';
 
 const cn = classNames.bind(styles);
 
@@ -57,15 +61,13 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
 
   const { keyboardImage, updateCurrentStep, updateStepStatus } = useContext(StepContext);
 
-  const boardPrice =
-    Number(type === '풀 배열') * 35000 +
-    Number(type === '텐키리스') * 30000 +
-    Number(texture === '금속') * 35000 +
-    Number(texture === '플라스틱') * 30000;
-  const keyCapPrice =
-    Number(hasPointKeyCap) *
-    (Number(pointKeyType === '세트 구성') * 5000 +
-      Number(pointKeyType === '내 맘대로 바꾸기') * Object.keys(individualColor).length * 500);
+  const { boardPrice, keyCapPrice } = getCustomKeyboardPrice({
+    type,
+    texture,
+    hasPointKeyCap,
+    pointKeyType,
+    individualColor,
+  });
   const pointKeyCount = pointKeyType === '내 맘대로 바꾸기' ? Object.keys(individualColor).length : POINT_KEY.length;
 
   const isOverFlow = (option ? Object.entries(option).filter((element) => element[1]).length : 0) > 1;
@@ -74,7 +76,7 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
   const ORDER_LIST: OrderListType[] = [
     {
       name: '키득 베어본',
-      option1: `${type} / ${boardColor.toString().toUpperCase()} / ${texture}`,
+      option1: `${type} / ${getColorUpperCase(boardColor)} / ${texture}`,
       price: boardPrice,
       count: 0,
       imageSrc: keyboardImage.board,
@@ -90,7 +92,7 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
     },
     {
       name: '키득 키캡',
-      option1: `${baseKeyColor.toLocaleString().toUpperCase()} / 포인트 키캡${hasPointKeyCap ? `o / ${pointKeyType}` : 'x'}`,
+      option1: `${getColorUpperCase(baseKeyColor)} / 포인트 키캡${hasPointKeyCap ? `o / ${pointKeyType}` : 'x'}`,
       option2: hasPointKeyCap,
       price: keyCapPrice,
       count: !hasPointKeyCap ? 0 : pointKeyCount,

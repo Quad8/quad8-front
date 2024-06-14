@@ -1,3 +1,4 @@
+import { Color } from '@react-three/fiber';
 import { TEN_KEY, KEY } from '@/constants/keyboardData';
 
 export interface CustomKeyboardTypes {
@@ -26,4 +27,18 @@ export interface OptionDataType {
   name: string;
   image: string;
   price: number;
+}
+
+export interface KeyboardDataType {
+  type: CustomKeyboardTypeTypes;
+  texture: CustomKeyboardTextureTypes;
+  boardColor: Color;
+  switchType: CustomKeyboardSwitchTypes | null;
+  baseKeyColor: Color;
+  hasPointKeyCap: boolean;
+  pointKeyType: CustomKeyboardPointKeyType;
+  pointKeySetColor: Color;
+  price: number;
+  option: Record<string, boolean> | null;
+  individualColor: Partial<Record<CustomKeyboardKeyTypes, Color>>;
 }

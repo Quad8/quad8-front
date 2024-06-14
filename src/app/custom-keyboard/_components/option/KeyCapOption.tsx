@@ -3,16 +3,22 @@
 import classNames from 'classnames/bind';
 import { HexColorPicker } from 'react-colorful';
 import { useContext, useState } from 'react';
-import { KeyColorContext, KeyboardDataContext } from '@/context/customKeyboardContext';
 import { Color } from '@react-three/fiber';
-import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
+
+import { KeyColorContext, KeyboardDataContext } from '@/context/customKeyboardContext';
+import type { CustomKeyboardKeyTypes, CustomKeyboardPointKeyType } from '@/types/CustomKeyboardTypes';
 import { Button } from '@/components';
+import ColorTag from './parts/ColorTag';
 import styles from './KeyCapOption.module.scss';
-import ColorTag from './ColorTag';
 
 const cn = classNames.bind(styles);
 
-const HELP_CONTENT = {
+interface HelpContentType {
+  content: string;
+  cost: string;
+}
+
+const HELP_CONTENT: Record<CustomKeyboardPointKeyType, HelpContentType> = {
   '세트 구성': { content: 'W, A, S, D, 방향키, Esc, Enter, Space Bar', cost: '(+5,500원의 추가요금이 있습니다)' },
   '내 맘대로 바꾸기': {
     content: '원하는 색상으로 바꾸고 싶은 키를 선택해주세요',

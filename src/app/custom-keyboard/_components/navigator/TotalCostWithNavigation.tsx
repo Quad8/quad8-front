@@ -1,14 +1,18 @@
 'use client';
 
-import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
-import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
+import { useContext, useEffect, useState } from 'react';
+
 import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
-import { Button, Modal } from '@/components';
+
+import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
+import { Modal, Button } from '@/components';
+import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import { ChevronIcon } from '@/public/index';
-import styles from './TotalCostWithNavigation.module.scss';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
+
+import styles from './TotalCostWithNavigation.module.scss';
 
 const cn = classNames.bind(styles);
 
@@ -44,13 +48,6 @@ const BUTTONS: DualButtonType = {
 const UPDATE_NEXT_STEP_STATUS: { [key in 'board' | 'switch']: { [key: string]: 'completed' | 'current' } } = {
   board: { board: 'completed', switch: 'current' },
   switch: { switch: 'completed', keyCap: 'current' },
-};
-
-const PRICE_LIST = {
-  텐키리스: 30000,
-  '풀 배열': 35000,
-  금속: 35000,
-  플라스틱: 30000,
 };
 
 export default function TotalCostWithNavigation() {
@@ -111,28 +108,28 @@ export default function TotalCostWithNavigation() {
       setIsOpenCartModal(true);
     });
   };
-  const handleClickNextButton = (value: CustomKeyboardStepTypes) => {
-    if (value === 'board' || value === 'keyCap') {
+  const handleClickNextButton = () => {
+    if (currentStep === 'board' || currentStep === 'keyCap') {
       updateFocusKey(null);
       setTimeout(() => {
-        captureKeyboard(value);
+        captureKeyboard(currentStep);
       }, 1);
       return;
     }
 
-    updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
-    updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
+    updateStepStatus(UPDATE_NEXT_STEP_STATUS[currentStep]);
+    updateCurrentStep(BUTTONS[currentStep].next as CustomKeyboardStepTypes);
   };
 
-  const handleClickPrevButton = (value: CustomKeyboardStepTypes) => {
-    if (value === 'keyCap') {
+  const handleClickPrevButton = () => {
+    if (currentStep === 'keyCap') {
       if (checkCompleted('keyCap')) {
         updateStepStatus({ switch: 'current', keyCap: 'completed' });
       } else {
         updateStepStatus({ switch: 'current', keyCap: 'pending' });
       }
     }
-    if (value === 'switch') {
+    if (currentStep === 'switch') {
       if (checkCompleted('switch')) {
         updateStepStatus({ board: 'current', switch: 'completed' });
       } else {
@@ -140,7 +137,7 @@ export default function TotalCostWithNavigation() {
       }
     }
     updateFocusKey(null);
-    updateCurrentStep(BUTTONS[value].prev as CustomKeyboardStepTypes);
+    updateCurrentStep(BUTTONS[currentStep].prev as CustomKeyboardStepTypes);
   };
   const { prev, next } = BUTTONS[currentStep];
 
@@ -164,11 +161,13 @@ export default function TotalCostWithNavigation() {
   };
 
   useEffect(() => {
-    const boardPrice = PRICE_LIST[type] + PRICE_LIST[texture];
-    const keyCapPrice =
-      Number(hasPointKeyCap) *
-      (Object.keys(individualColor).length * 500 * Number(pointKeyType === '내 맘대로 바꾸기') +
-        Number(pointKeyType === '세트 구성') * 5000);
+    const { boardPrice, keyCapPrice } = getCustomKeyboardPrice({
+      type,
+      texture,
+      hasPointKeyCap,
+      individualColor,
+      pointKeyType,
+    });
     updateData('price', boardPrice + keyCapPrice + optionPrice);
   }, [hasPointKeyCap, individualColor, pointKeyType, texture, type, optionPrice, updateData]);
 
@@ -224,7 +223,7 @@ export default function TotalCostWithNavigation() {
             hoverColor='outline-primary-60'
             radius={4}
             className={cn('button', { disabled: completed })}
-            onClick={() => handleClickPrevButton(currentStep)}
+            onClick={() => handleClickPrevButton()}
           >
             <ChevronIcon width={16} height={16} className={cn('prev-button-icon')} />
             {BUTTON[prev]}
@@ -235,7 +234,7 @@ export default function TotalCostWithNavigation() {
           hoverColor='background-primary-60'
           radius={4}
           className={cn('button')}
-          onClick={() => completed && handleClickNextButton(currentStep)}
+          onClick={() => completed && handleClickNextButton()}
         >
           {BUTTON[next]}
           <ChevronIcon width={16} height={16} className={cn('next-button-icon')} />
@@ -246,7 +245,7 @@ export default function TotalCostWithNavigation() {
           optionData={optionData}
           onClose={handleCloseOptionModal}
           updateOptionPrice={updateOptionPrice}
-          onOpen={handleOpenCartModal}
+          onClick={handleOpenCartModal}
         />
       </Modal>
       <Modal isOpen={isOpenCartModal} onClose={handleCloseCartMoal}>

@@ -4,10 +4,7 @@ import type {
   CustomKeyboardStepTypes,
   CustomKeyboardStepStatusTypes,
   CustomKeyboardKeyTypes,
-  CustomKeyboardTypeTypes,
-  CustomKeyboardTextureTypes,
-  CustomKeyboardSwitchTypes,
-  CustomKeyboardPointKeyType,
+  KeyboardDataType,
 } from '@/types/CustomKeyboardTypes';
 import { Color } from '@react-three/fiber';
 import { RefObject, PropsWithChildren, createContext, useRef, useCallback, useMemo, useState } from 'react';
@@ -22,20 +19,6 @@ interface StepContextType {
   updateStepStatus: (value: Partial<Record<CustomKeyboardStepTypes, CustomKeyboardStepStatusTypes>>) => void;
   updateCurrentStep: (data: CustomKeyboardStepTypes) => void;
   updateKeyboardImage: (type: Exclude<CustomKeyboardStepTypes, 'switch'>, value: string | null) => void;
-}
-
-interface KeyboardDataType {
-  type: CustomKeyboardTypeTypes;
-  texture: CustomKeyboardTextureTypes;
-  boardColor: Color;
-  switchType: CustomKeyboardSwitchTypes;
-  baseKeyColor: Color;
-  hasPointKeyCap: boolean;
-  pointKeyType: CustomKeyboardPointKeyType;
-  pointKeySetColor: Color;
-  price: number;
-  option: Record<string, boolean> | null;
-  individualColor: Partial<Record<CustomKeyboardKeyTypes, Color>>;
 }
 
 interface KeyboardDataContextType {
