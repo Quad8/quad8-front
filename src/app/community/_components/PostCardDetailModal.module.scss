@@ -33,13 +33,12 @@
 }
 
 .content-wrapper {
-  display: flex;
   position: relative;
-  flex-direction: column;
   width: 48rem;
   height: 53.6rem;
   overflow-y: scroll;
-  gap: 1.2rem;
+
+  @include flex-column(1.2rem);
 
   & > * {
     width: 44.5rem;

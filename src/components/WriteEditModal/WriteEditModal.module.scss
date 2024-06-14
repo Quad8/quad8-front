@@ -8,9 +8,8 @@
 }
 
 .input-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  @include flex-column(2rem);
+
   width: 100%;
 }
 

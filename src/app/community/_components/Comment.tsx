@@ -1,7 +1,9 @@
 import React from 'react';
 import classNames from 'classnames/bind';
+
 import ProfileImage from '@/components/ProfileImage/ProfileImage';
 import { calculateTimeDifference } from '@/libs/calculateDate';
+
 import styles from './Comment.module.scss';
 
 const cn = classNames.bind(styles);

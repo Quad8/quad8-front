@@ -18,20 +18,20 @@ import Comment from './Comment';
 const cn = classNames.bind(styles);
 
 export default function PostCardDetailModal() {
-  const images = [
+  const tempKeyboardimages = [
     { id: 1, src: contentImage },
     { id: 2, src: defaultImage },
   ];
-  const [selectedImage, setSelectedImage] = useState(images[0].src);
+  const [selectedImage, setSelectedImage] = useState(tempKeyboardimages[0].src);
 
   return (
     <div className={cn('container')}>
       <div className={cn('images-wrapper')}>
         <Image src={selectedImage} alt='키보드 이미지' className={cn('selected-image')} />
-        {images.length > 1 && (
+        {tempKeyboardimages.length > 1 && (
           <div className={cn('unselected-image-wrapper')}>
-            {images.map((image, i) => (
-              <div onClick={() => setSelectedImage(images[i].src)} key={image.id}>
+            {tempKeyboardimages.map((image, i) => (
+              <div onClick={() => setSelectedImage(tempKeyboardimages[i].src)} key={image.id}>
                 <Image src={image.src} alt='키보드 이미지' className={cn('images')} />
               </div>
             ))}

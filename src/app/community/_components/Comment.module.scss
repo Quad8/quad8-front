@@ -6,10 +6,9 @@
 }
 
 .profile-image {
-  display: flex;
+  @include flex-center;
+
   position: relative;
-  align-items: center;
-  justify-content: center;
   width: 6.4rem;
   height: 6.4rem;
   overflow: hidden;
@@ -18,9 +17,8 @@
 }
 
 .content-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  @include flex-column(0.4rem);
+
   padding: 0.6rem 0;
 }
 
