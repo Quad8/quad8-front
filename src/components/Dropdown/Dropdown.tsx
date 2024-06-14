@@ -38,7 +38,7 @@ interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onC
  *   name='dropdown'
  *   control={control}
  *   render={({ field: { onChange: onDropdownChange, value, ...field } }) => (
- *     <Dropdown options={GENDER_OPTION} onChange={onDropdownChange} value={value} {...field} />
+ *     <Dropdown options={대충 옵션값} onChange={onDropdownChange} value={value} {...field} />
  *   )}
  * />
  */

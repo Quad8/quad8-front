@@ -2,14 +2,14 @@
 
 import { useMutation, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
-import { ChangeEvent, FocusEvent, useState } from 'react';
-import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { ChangeEvent, FocusEvent } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import { checkNickname, getUserData, putEditProfile } from '@/api/profileAPI';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
 import type { Users } from '@/types/profileType';
 
-import { Button, Dropdown, InputField, RadioField } from '@/components';
+import { Button, InputField, RadioField } from '@/components';
 
 import styles from './EditProfileModal.module.scss';
 
@@ -18,12 +18,11 @@ const cn = classNames.bind(styles);
 const GENDER_OPTION = ['남자', '여자'];
 
 export default function EditProfileModal() {
-  const [inputValue, setInputValue] = useState('');
   const token = localStorage.getItem('accessToken') || null;
 
   const { data: userData } = useQuery<{ data: Users }>({ queryKey: ['userData'], queryFn: () => getUserData(token) });
 
-  const users = userData?.data ?? { nickname: '', email: '', phone: '', gender: 'MALE', birth: '' };
+  const users = userData?.data ?? { nickname: '', email: '', phone: '', gender: 'FEMALE', birth: '' };
 
   const {
     register,
@@ -31,17 +30,12 @@ export default function EditProfileModal() {
     // setError
     setValue,
     formState: { errors },
-    control,
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
       nickname: users.nickname,
       phone: formatPhoneNumber(users.phone),
       gender: users.gender,
-
-      드롭다운: '',
-      라디오: '',
-      드롭다운2: '',
     },
   });
 
@@ -89,11 +83,6 @@ export default function EditProfileModal() {
     }
   };
 
-  const handleChange = (value: string) => {
-    console.log(value);
-    setInputValue(value);
-  };
-
   return (
     <form className={cn('modal')} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={cn('modal-title')}>회원 정보 변경</h1>
@@ -111,13 +100,7 @@ export default function EditProfileModal() {
           })}
         />
         <InputField label='생년월일' disabled value={users.birth} />
-        <RadioField
-          label='성별'
-          options={GENDER_OPTION}
-          disabled
-          value={users.gender === 'MALE' ? '남자' : '여자'}
-          {...register('gender')}
-        />
+        <RadioField label='성별' options={GENDER_OPTION} disabled defaultValue={users.gender} />
         <InputField
           label='휴대폰 번호'
           placeholder='0000-0000'
@@ -127,31 +110,6 @@ export default function EditProfileModal() {
           })}
         />
       </div>
-
-      <Controller
-        name='드롭다운'
-        control={control}
-        render={({ field: { onChange: onDropdownChanege, ...field } }) => (
-          <Dropdown options={GENDER_OPTION} onChange={onDropdownChanege} {...field} />
-        )}
-      />
-
-      <Dropdown
-        name='드롭다운2'
-        options={GENDER_OPTION}
-        sizeVariant='xs'
-        value={inputValue}
-        onClick={(e) => console.log(e.currentTarget.value)}
-        onChange={(value) => handleChange(value)}
-      />
-
-      <RadioField
-        options={GENDER_OPTION}
-        label='성별321'
-        value={users.gender === 'MALE' ? '남자' : '여자'}
-        {...register('라디오')}
-      />
-
       <Button type='submit'>저장</Button>
     </form>
   );

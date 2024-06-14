@@ -10,7 +10,6 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   isError?: boolean;
   isSelect?: boolean;
   isOption?: boolean;
-  isChecked?: boolean;
   isPhone?: boolean;
   isPhonePrefix?: boolean;
   isBirth?: boolean;
@@ -18,20 +17,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export default forwardRef<HTMLInputElement, InputProps>(function Input(
-  {
-    sizeVariant,
-    type,
-    value,
-    isError,
-    isSelect,
-    isOption,
-    isChecked,
-    isPhonePrefix,
-    isPhone,
-    isBirth,
-    className,
-    ...rest
-  },
+  { sizeVariant, type, value, isError, isSelect, isOption, isPhonePrefix, isPhone, isBirth, className, ...rest },
   ref,
 ) {
   const formattedPlaceholder = isBirth ? 'YYYY / MM / DD' : rest.placeholder;
@@ -41,7 +27,7 @@ export default forwardRef<HTMLInputElement, InputProps>(function Input(
     red: isError,
     select: isSelect,
     option: isOption,
-    checked: isChecked,
+    checked: rest.checked,
     phone: isPhonePrefix,
     'dropdown-textarea-case': value === '직접 입력',
   });
