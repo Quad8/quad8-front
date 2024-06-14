@@ -13,7 +13,7 @@ interface DropdownProps extends InputHTMLAttributes<HTMLInputElement> {
   options: string[];
   sizeVariant?: 'xs' | 'sm' | 'md' | 'lg';
   className?: string;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLInputElement>) => void;
 }
 
 /**
@@ -46,11 +46,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
     if (!rest.placeholder) {
       setDropdownValue(options[0]);
     }
-
-    if (rest.placeholder === dropdownValue) {
-      setDropdownValue('');
-    }
-  }, [options, rest.placeholder, dropdownValue]);
+  }, [options, rest.placeholder]);
 
   useOutsideClick(DropdownRef, () => {
     if (TextareaRef.current?.value) {
@@ -71,9 +67,10 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
     setDropdownValue(inputValue);
     setIsDropdownOpen(false);
     setIsTextFieldVisible(inputValue === '직접 입력');
+    console.log('Selected option:', inputValue);
 
     if (onClick) {
-      onClick();
+      onClick(e);
     }
   };
 

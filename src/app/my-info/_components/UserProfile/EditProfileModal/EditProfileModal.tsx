@@ -9,7 +9,7 @@ import { checkNickname, getUserData, putEditProfile } from '@/api/profileAPI';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
 import type { Users } from '@/types/profileType';
 
-import { Button, InputField, RadioField } from '@/components';
+import { Button, Dropdown, InputField, RadioField } from '@/components';
 
 import styles from './EditProfileModal.module.scss';
 
@@ -36,11 +36,13 @@ export default function EditProfileModal() {
       nickname: users.nickname,
       phone: formatPhoneNumber(users.phone),
       gender: users.gender,
+      드롭다운: '',
     },
   });
 
   const { mutate: checkNicknameMutation } = useMutation({
     mutationFn: checkNickname,
+    onSuccess: () => {},
     /** 피드백 메세지 수정 필요 */
     // onSuccess: (res) => {
     //   if (!res.ok && !errors.nickname) {
@@ -54,6 +56,7 @@ export default function EditProfileModal() {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (payload) => {
+    console.log(payload);
     putProfileMutation(
       { payload, token },
       // {
@@ -93,6 +96,7 @@ export default function EditProfileModal() {
           label='닉네임'
           errorMessage={errors.nickname?.message}
           {...register('nickname', {
+            maxLength: { value: 16, message: '닉네임 초과' },
             onBlur: handleNicknameBlur,
           })}
         />
@@ -113,6 +117,12 @@ export default function EditProfileModal() {
           })}
         />
       </div>
+
+      <Dropdown
+        options={GENDER_OPTION}
+        onClick={(e) => console.log('Selected option:', e.currentTarget.value)}
+        {...register('드롭다운')}
+      />
       <Button type='submit'>저장</Button>
     </form>
   );
