@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
 import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { Modal } from '@/components';
+import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
 
@@ -45,13 +46,6 @@ const BUTTONS: DualButtonType = {
 const UPDATE_NEXT_STEP_STATUS: { [key in 'board' | 'switch']: { [key: string]: 'completed' | 'current' } } = {
   board: { board: 'completed', switch: 'current' },
   switch: { switch: 'completed', keyCap: 'current' },
-};
-
-const PRICE_LIST = {
-  텐키리스: 30000,
-  '풀 배열': 35000,
-  금속: 35000,
-  플라스틱: 30000,
 };
 
 export default function TotalCostWithNavigation() {
@@ -165,11 +159,13 @@ export default function TotalCostWithNavigation() {
   };
 
   useEffect(() => {
-    const boardPrice = PRICE_LIST[type] + PRICE_LIST[texture];
-    const keyCapPrice =
-      Number(hasPointKeyCap) *
-      (Object.keys(individualColor).length * 500 * Number(pointKeyType === '내 맘대로 바꾸기') +
-        Number(pointKeyType === '세트 구성') * 5000);
+    const { boardPrice, keyCapPrice } = getCustomKeyboardPrice({
+      type,
+      texture,
+      hasPointKeyCap,
+      individualColor,
+      pointKeyType,
+    });
     updateData('price', boardPrice + keyCapPrice + optionPrice);
   }, [hasPointKeyCap, individualColor, pointKeyType, texture, type, optionPrice, updateData]);
 

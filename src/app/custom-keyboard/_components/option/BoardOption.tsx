@@ -6,30 +6,24 @@ import { HexColorPicker } from 'react-colorful';
 
 import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import type { CustomKeyboardTypeTypes, CustomKeyboardTextureTypes } from '@/types/CustomKeyboardTypes';
+import { BOARD_PRICE_LIST } from '@/constants/keyboardData';
 
 import styles from './BoardOption.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface KeyboardTypeButtonType {
-  name: CustomKeyboardTypeTypes;
-  price: number;
-}
+const BOARD_TYPE: CustomKeyboardTypeTypes[] = ['풀 배열', '텐키리스'];
+const BOARD_TEXTURE: CustomKeyboardTextureTypes[] = ['금속', '플라스틱'];
 
-interface KeyboardTextureButtonType {
-  name: CustomKeyboardTextureTypes;
-  price: number;
-}
+const TYPE_BUTTONS = BOARD_TYPE.map((type) => ({
+  name: type,
+  price: BOARD_PRICE_LIST[type],
+}));
 
-const TYPE_BUTTONS: KeyboardTypeButtonType[] = [
-  { name: '풀 배열', price: 35000 },
-  { name: '텐키리스', price: 30000 },
-];
-
-const TEXTURE_BUTTONS: KeyboardTextureButtonType[] = [
-  { name: '금속', price: 35000 },
-  { name: '플라스틱', price: 30000 },
-];
+const TEXTURE_BUTTONS = BOARD_TEXTURE.map((texture) => ({
+  name: texture,
+  price: BOARD_PRICE_LIST[texture],
+}));
 
 export default function BoardOption() {
   const {

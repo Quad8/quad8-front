@@ -8,6 +8,7 @@ import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyb
 import { blackSwitchImg, blueSwitchImg, brownSwitchImg, redSwitchImg } from '@/public/index';
 import { Button } from '@/components';
 import { getColorUpperCase } from '@/libs/getColorUpperCase';
+import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import CartModalOptionCard from './parts/CartModalOptionCard';
 import CartModalToast from './parts/CartModalToast';
 
@@ -60,15 +61,13 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
 
   const { keyboardImage, updateCurrentStep, updateStepStatus } = useContext(StepContext);
 
-  const boardPrice =
-    Number(type === '풀 배열') * 35000 +
-    Number(type === '텐키리스') * 30000 +
-    Number(texture === '금속') * 35000 +
-    Number(texture === '플라스틱') * 30000;
-  const keyCapPrice =
-    Number(hasPointKeyCap) *
-    (Number(pointKeyType === '세트 구성') * 5000 +
-      Number(pointKeyType === '내 맘대로 바꾸기') * Object.keys(individualColor).length * 500);
+  const { boardPrice, keyCapPrice } = getCustomKeyboardPrice({
+    type,
+    texture,
+    hasPointKeyCap,
+    pointKeyType,
+    individualColor,
+  });
   const pointKeyCount = pointKeyType === '내 맘대로 바꾸기' ? Object.keys(individualColor).length : POINT_KEY.length;
 
   const isOverFlow = (option ? Object.entries(option).filter((element) => element[1]).length : 0) > 1;
