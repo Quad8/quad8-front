@@ -1,13 +1,16 @@
 'use client';
 
-import { checkNickname, putEditProfile } from '@/api/profileAPI';
-import { Button, InputField, RadioField } from '@/components';
-import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
-import type { Users } from '@/types/profileType';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { ChangeEvent, FocusEvent } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+
+import { checkNickname, putEditProfile } from '@/api/profileAPI';
+import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
+import type { Users } from '@/types/profileType';
+
+import { Button, InputField, RadioField } from '@/components';
+
 import styles from './EditProfileModal.module.scss';
 
 const cn = classNames.bind(styles);

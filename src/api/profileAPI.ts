@@ -25,7 +25,6 @@ export async function getUserData(token: string) {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error('회원정보 가져오기 실패!', error);
     throw error;
   }
 }
@@ -48,9 +47,9 @@ export async function putEditProfile({ payload, token }: PutEditProfileProps) {
       body: JSON.stringify(payload),
     });
 
-    return await res.json();
+    const result = await res.json();
+    return result;
   } catch (error) {
-    console.error('짜잔 ~ putEditProfile 실패', error);
     throw error;
   }
 }
