@@ -24,7 +24,6 @@ export default function ScrollUpButton({ headerRef }: ScrollUpButtonProps) {
   const handleScrollUpButtonClick = () => {
     headerRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
   return (
     <button
       type='button'
