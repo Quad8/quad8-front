@@ -4,7 +4,6 @@ import classNames from 'classnames/bind';
 import { Canvas } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
 import { Suspense, useContext, useState } from 'react';
-
 import { Vector3 } from 'three';
 
 import { KeyColorContext, StepContext } from '@/context/customKeyboardContext';
@@ -48,7 +47,7 @@ export default function KeyboardViewer() {
           onCreated={() => setIsLoaded(true)}
         >
           <Keyboard />
-          <Environment preset='warehouse' />
+          <Environment preset='city' />
           <OrbitControls ref={controlRef} />
         </Canvas>
       </Suspense>

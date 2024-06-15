@@ -52,7 +52,7 @@ export default function SwitchOption() {
               key={element.name}
               backgroundColor={switchType === element.name ? 'outline-primary' : 'outline-gray-40'}
               radius={4}
-              hoverColor='background-primary-60'
+              hoverColor='outline-primary-60'
               className={cn('button')}
               onClick={() => handleClickSwitchButton(element.name)}
             >
