@@ -59,10 +59,52 @@ export default function CartModalOptionCard({
   };
 
   const keyCapColor = getKeyCapOption();
+  const updateTooltipPosition = useCallback(() => {
+    /* 
+      wrapper보다 target(옵션 텍스트)이 높은 경우, isHover 비활성화(툴팁 안 보이게 하기)
+      전체 화면 높이에 대해서, 현재 target(옵션 텍스트)의 top 위치 + tooltip의 높이의 값이 전체 화면 보다 큰 경우(tooltip이 커서 화면을 벗어나는 경우), bottom 10으로 위치 고정
+      이외에는 target(옵션 텍스트)top 위치의 아래에(글자 높이 더하기) 위치시키기.
+      => hover시점에 위치 업데이트 + 스크롤 이벤트 발생했을 때 위치 업데이트(wrapper의 scroll 이벤트에 등록)
+    */
+    const [tooltip, target, wrapper] = [tooltipRef.current, targetRef.current, wrapperRef?.current];
+
+    if (!tooltip || !target || !wrapper) {
+      return;
+    }
+
+    const { top: targetTop, left: targetLeft } = target.getBoundingClientRect();
+    const tooltipHeight = tooltip.clientHeight;
+    const viewportHeight = window.innerHeight;
+
+    const isOverFlow = viewportHeight < targetTop + 20 + tooltipHeight;
+
+    if (wrapper.offsetTop > targetTop) {
+      setIsHover(false);
+      Object.assign(tooltip.style, { visibility: 'hidden' });
+      return;
+    }
+    const newStyle = isOverFlow
+      ? {
+          top: 'auto',
+          bottom: '10px',
+          left: `${targetLeft + 296}px`,
+          paddingLeft: '4px',
+          paddingTop: '0px',
+        }
+      : {
+          top: `${targetTop + 20}px`,
+          bottom: 'auto',
+          left: `${targetLeft + 40}px`,
+          paddingLeft: '0px',
+          paddingTop: '4px',
+        };
+    Object.assign(tooltip.style, newStyle);
+  }, [wrapperRef]);
 
   const handleMouseEnter = () => {
-    if (targetRef.current && targetRef.current.offsetWidth !== targetRef.current.scrollWidth) {
-      setIsHover(true);
+    setIsHover(true);
+    if (tooltipRef.current) {
+      Object.assign(tooltipRef.current.style, { visibility: 'visible' });
     }
   };
 
@@ -72,59 +114,6 @@ export default function CartModalOptionCard({
       Object.assign(tooltipRef.current.style, { visibility: 'hidden' });
     }
   };
-
-  const updateTooltipPosition = useCallback(() => {
-    /* 
-      wrapper보다 target(옵션 텍스트)이 높은 경우, isHover 비활성화(툴팁 안 보이게 하기)
-      전체 화면 높이에 대해서, 현재 target(옵션 텍스트)의 top 위치 + tooltip의 높이의 값이 전체 화면 보다 큰 경우(tooltip이 커서 화면을 벗어나는 경우), bottom 10으로 위치 고정
-      이외에는 target(옵션 텍스트)top 위치의 아래에(글자 높이 더하기) 위치시키기.
-      => hover시점에 위치 업데이트 + 스크롤 이벤트 발생했을 때 위치 업데이트(wrapper의 scroll 이벤트에 등록)
-    */
-    const tooltip = tooltipRef.current;
-    const target = targetRef.current;
-    const wrapper = wrapperRef?.current;
-
-    if (!isHover || !tooltip || !target || !wrapper) {
-      return;
-    }
-
-    const { top: targetTop, left: targetLeft } = target.getBoundingClientRect();
-    const tooltipHeight = tooltip.clientHeight;
-    const viewportHeight = window.innerHeight;
-
-    if (wrapper.offsetTop > targetTop) {
-      setIsHover(false);
-      return;
-    }
-
-    if (viewportHeight < targetTop + 20 + tooltipHeight) {
-      const newStyle = {
-        top: 'auto',
-        bottom: '10px',
-        left: `${targetLeft + 296}px`,
-        paddingLeft: '4px',
-        paddingTop: '0px',
-        visibility: 'visible',
-      };
-      Object.assign(tooltip.style, newStyle);
-      return;
-    }
-    const newStyle = {
-      top: `${targetTop + 20}px`,
-      bottom: 'auto',
-      left: `${targetLeft + 40}px`,
-      paddingLeft: '0px',
-      paddingTop: '4px',
-      visibility: 'visible',
-    };
-    Object.assign(tooltipRef.current.style, newStyle);
-  }, [isHover, wrapperRef]);
-
-  useEffect(() => {
-    if (isHover) {
-      updateTooltipPosition();
-    }
-  }, [isHover, updateTooltipPosition]);
 
   useEffect(() => {
     const ref = wrapperRef?.current;
@@ -138,6 +127,10 @@ export default function CartModalOptionCard({
     };
   }, [isHover, wrapperRef, updateTooltipPosition]);
 
+  useEffect(() => {
+    updateTooltipPosition();
+  }, [updateTooltipPosition]);
+
   return (
     <div className={cn('wrapper')}>
       <Image src={imageSrc} width={104} height={104} alt='장바구니 이미지' className={cn('image')} />
@@ -150,7 +143,7 @@ export default function CartModalOptionCard({
               fontSize={14}
               className={cn('button')}
               onClick={(e: MouseEvent<HTMLButtonElement>) => buttonOnClick(e)}
-              hoverColor='background-primary-60'
+              hoverColor='outline-primary'
             >
               {BUTTON_TYPE[buttonType]}
             </Button>
