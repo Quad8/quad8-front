@@ -3,10 +3,15 @@
 import classNames from 'classnames/bind';
 import { useContext, useEffect, useState } from 'react';
 
-import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
+import type {
+  CustomKeyboardStepStatusTypes,
+  CustomKeyboardStepTypes,
+  OptionDataType,
+} from '@/types/CustomKeyboardTypes';
 import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { Modal } from '@/components';
 import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
+import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
 
@@ -20,6 +25,11 @@ type DualButtonType = {
     next: CustomKeyboardStepTypes | 'cart';
   };
 };
+
+type UpdateStepType<T> = Record<
+  Exclude<CustomKeyboardStepTypes, T>,
+  Partial<Record<CustomKeyboardStepTypes, CustomKeyboardStepStatusTypes>>
+>;
 
 const BUTTON = {
   board: '배열, 외관',
@@ -43,7 +53,12 @@ const BUTTONS: DualButtonType = {
   },
 };
 
-const UPDATE_NEXT_STEP_STATUS: { [key in 'board' | 'switch']: { [key: string]: 'completed' | 'current' } } = {
+const UPDATE_PREV_STEP_STATUS: UpdateStepType<'board'> = {
+  switch: { board: 'current', switch: 'completed' },
+  keyCap: { switch: 'current', keyCap: 'completed' },
+};
+
+const UPDATE_NEXT_STEP_STATUS: UpdateStepType<'keyCap'> = {
   board: { board: 'completed', switch: 'current' },
   switch: { switch: 'completed', keyCap: 'current' },
 };
@@ -54,64 +69,29 @@ export default function TotalCostWithNavigation() {
   const [isOpenCartModal, setIsOpenCartModal] = useState(false);
   const [optionData, setOptionData] = useState<OptionDataType[]>([]);
   const [optionPrice, setOptionPrice] = useState(0);
+  const { captureCanvas } = useCaptureCanvas();
   const {
-    keyboardData: { type, texture, price, switchType, hasPointKeyCap, individualColor, pointKeyType },
+    keyboardData: { type, texture, price, hasPointKeyCap, individualColor, pointKeyType },
     updateData,
   } = useContext(KeyboardDataContext);
-  const { currentStep, canvasRef, controlRef, updateCurrentStep, updateStepStatus, updateKeyboardImage } =
-    useContext(StepContext);
+  const { currentStep, updateCurrentStep, updateStepStatus } = useContext(StepContext);
   const { updateFocusKey } = useContext(KeyColorContext);
 
-  const checkCompleted = (step: CustomKeyboardStepTypes) => {
-    if (step === 'board') {
-      if (type && texture) {
-        return true;
-      }
-    }
-
-    if (step === 'switch') {
-      if (switchType) {
-        return true;
-      }
-    }
-
-    if (step === 'keyCap') {
-      return true;
-    }
-
-    return false;
-  };
-
-  const captureKeyboard = (value: 'board' | 'keyCap') => {
-    const canvas = canvasRef?.current;
-    const control = controlRef?.current;
-
-    if (!canvas || !control) {
-      return;
-    }
-    control.reset();
-    requestAnimationFrame(() => {
-      const image = canvas.toDataURL('image/png');
-      updateKeyboardImage(value, image);
-      if (value === 'board') {
-        updateStepStatus(UPDATE_NEXT_STEP_STATUS[value]);
-        updateCurrentStep(BUTTONS[value].next as CustomKeyboardStepTypes);
-        return;
-      }
-
-      if (isInitialOpenOptionModal) {
-        setIsOpenOptionModal(true);
-        return;
-      }
-      setIsOpenCartModal(true);
-    });
-  };
   const handleClickNextButton = () => {
     if (currentStep === 'board' || currentStep === 'keyCap') {
-      updateFocusKey(null);
-      setTimeout(() => {
-        captureKeyboard(currentStep);
-      }, 1);
+      captureCanvas(() => {
+        if (currentStep === 'board') {
+          const nextStep = BUTTONS[currentStep].next as CustomKeyboardStepTypes;
+          updateStepStatus(UPDATE_NEXT_STEP_STATUS[currentStep]);
+          updateCurrentStep(nextStep);
+          return;
+        }
+        if (isInitialOpenOptionModal) {
+          setIsOpenOptionModal(true);
+          return;
+        }
+        setIsOpenCartModal(true);
+      });
       return;
     }
 
@@ -120,26 +100,14 @@ export default function TotalCostWithNavigation() {
   };
 
   const handleClickPrevButton = () => {
-    if (currentStep === 'keyCap') {
-      if (checkCompleted('keyCap')) {
-        updateStepStatus({ switch: 'current', keyCap: 'completed' });
-      } else {
-        updateStepStatus({ switch: 'current', keyCap: 'pending' });
-      }
-    }
-    if (currentStep === 'switch') {
-      if (checkCompleted('switch')) {
-        updateStepStatus({ board: 'current', switch: 'completed' });
-      } else {
-        updateStepStatus({ board: 'current', switch: 'pending' });
-      }
-    }
     updateFocusKey(null);
     updateCurrentStep(BUTTONS[currentStep].prev as CustomKeyboardStepTypes);
+    if (currentStep === 'board') {
+      return;
+    }
+    updateStepStatus(UPDATE_PREV_STEP_STATUS[currentStep]);
   };
   const { prev, next } = BUTTONS[currentStep];
-
-  const completed = checkCompleted(currentStep);
 
   const handleCloseOptionModal = () => {
     setIsOpenOptionModal(false);
@@ -216,15 +184,11 @@ export default function TotalCostWithNavigation() {
       </div>
       <div className={cn('button-wrapper')}>
         {prev && (
-          <button
-            type='button'
-            className={cn('button', { disabled: completed })}
-            onClick={() => handleClickPrevButton()}
-          >
+          <button type='button' className={cn('button')} onClick={handleClickPrevButton}>
             {BUTTON[prev]}
           </button>
         )}
-        <button type='button' className={cn('button')} onClick={() => completed && handleClickNextButton()}>
+        <button type='button' className={cn('button')} onClick={handleClickNextButton}>
           {BUTTON[next]}
         </button>
       </div>
