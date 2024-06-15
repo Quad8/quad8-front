@@ -48,7 +48,7 @@ export default function KeyboardViewer() {
           onCreated={() => setIsLoaded(true)}
         >
           <Keyboard />
-          <Environment preset='city' />
+          <Environment preset='warehouse' />
           <OrbitControls ref={controlRef} />
         </Canvas>
       </Suspense>
