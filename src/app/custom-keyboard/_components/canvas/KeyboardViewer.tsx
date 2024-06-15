@@ -10,7 +10,7 @@ import { Vector3 } from 'three';
 import { KeyColorContext, StepContext } from '@/context/customKeyboardContext';
 import Keyboard from './parts/Keyboard';
 import Step from './Step';
-import CanvasLoading from './CanvasLoading';
+import CanvasLoading from './parts/CanvasLoading';
 
 import styles from './KeyboardViewer.module.scss';
 

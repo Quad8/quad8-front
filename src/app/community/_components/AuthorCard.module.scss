@@ -1,0 +1,29 @@
+.container {
+  @include flex-center;
+
+  width: 100%;
+  height: 6.4rem;
+}
+
+.info-textbox {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  justify-content: space-between;
+  height: 100%;
+  margin-right: auto;
+  margin-left: 0.8rem;
+
+  & > #user-name {
+    @include pretendard-18-400;
+  }
+
+  & > #sub-info {
+    color: $gray-50;
+    @include pretendard-16-400;
+  }
+}
+
+.show-more-icon {
+  cursor: pointer;
+}

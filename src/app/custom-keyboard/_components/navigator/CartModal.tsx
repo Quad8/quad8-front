@@ -174,7 +174,12 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
         </div>
       </div>
       <div className={cn('button-wrapper')}>
-        <Button className={cn({ disabled: buttonDisabled })} onClick={handleClickPutButton} disabled={buttonDisabled}>
+        <Button
+          className={cn({ disabled: buttonDisabled })}
+          onClick={handleClickPutButton}
+          disabled={buttonDisabled}
+          hoverColor='background-primary-60'
+        >
           장바구니 담기
         </Button>
       </div>

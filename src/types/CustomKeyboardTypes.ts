@@ -33,7 +33,7 @@ export interface KeyboardDataType {
   type: CustomKeyboardTypeTypes;
   texture: CustomKeyboardTextureTypes;
   boardColor: Color;
-  switchType: CustomKeyboardSwitchTypes | null;
+  switchType: CustomKeyboardSwitchTypes;
   baseKeyColor: Color;
   hasPointKeyCap: boolean;
   pointKeyType: CustomKeyboardPointKeyType;
