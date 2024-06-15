@@ -2,7 +2,7 @@ import { RadioField, InputField } from '@/components';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import type { SignupInfoTypes } from '@/types';
-import { checkEmailDuplication, checkNicknameDuplication } from '@/api';
+import { checkEmailDuplication, checkNicknameDuplication, postSignup } from '@/api';
 import { forwardRef } from 'react';
 import styles from './SignupInputs.module.scss';
 
@@ -135,8 +135,8 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
       },
       imgFile: 'string',
     };
-    // await postSignup(fetchFormData);
     if (isAgreementAllChecked) {
+      await postSignup(fetchFormData);
       console.log(fetchFormData);
     }
   };

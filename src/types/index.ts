@@ -14,3 +14,8 @@ export interface FetchSignupInfoTypes {
   joinRequest: SignupInfoTypes;
   imgFile: string;
 }
+
+export interface FetchSigninInfoTypes {
+  email: string;
+  password: string;
+}
