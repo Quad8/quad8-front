@@ -4,7 +4,6 @@ import { useState } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 
-import ContentImage from '@/public/images/myProfile.jpeg';
 import type { CommunityCardDataType } from '@/app/(test)/mj/communityData';
 import { calculateTimeDifference } from '@/libs/calculateDate';
 
@@ -49,7 +48,7 @@ export default function PostCard({ cardData }: PostCardProps) {
     <div className={cn('container')} onClick={handleClickPostModal}>
       <AuthorCard nickname={nickname} dateText={timeToString} />
       <div className={cn('keyboard-image-wrapper')}>
-        <Image src={ContentImage} className={cn('keyboard-image')} alt='키보드 이미지' />
+        <Image src={image[0]} className={cn('keyboard-image')} alt='키보드 이미지' />
         {image.length > MIN_IMAGE_COUNT && <p className={cn('image-count')}>{image.length}</p>}
       </div>
       <p className={cn('title')}>{title}</p>
