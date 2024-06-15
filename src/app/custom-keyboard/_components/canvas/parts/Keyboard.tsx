@@ -1,12 +1,13 @@
 'use client';
 
-import { KEY, TEN_KEY, POINT_KEY } from '@/constants/keyboardData';
-import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useGLTF } from '@react-three/drei';
 import { ThreeEvent } from '@react-three/fiber';
 import { useContext } from 'react';
 import { Euler, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 import { GLTF } from 'three-stdlib';
+
+import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
+import { KEY, TEN_KEY, POINT_KEY } from '@/constants/keyboardData';
 import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 
 interface KeyboardNodes {
@@ -31,14 +32,14 @@ export default function Keyboard() {
   const { focusKey, updateFocusKey, updateCurrentPointKeyColor } = useContext(KeyColorContext);
   const { currentStep } = useContext(StepContext);
   const { nodes, materials } = useGLTF(
-    type === 'tkl' ? '/glbs/tklKeyboard.glb' : '/glbs/keyboard.glb',
+    type === '텐키리스' ? '/glbs/tklKeyboard.glb' : '/glbs/keyboard.glb',
   ) as unknown as GLTF & KeyboardNodes;
 
-  const SCALE = type === 'tkl' ? 3.2 : 0.05;
-  const KEY_BUTTONS = type === 'tkl' ? [...KEY] : [...KEY, ...TEN_KEY];
-  const MATELNESS = texture === 'metal' ? 0.9 : 0;
-  const ROUGHNESS = texture === 'metal' ? 0.1 : 0.7;
-  const ROTATION = new Euler(type === 'tkl' ? -1.55 : 0, 0, 0);
+  const SCALE = type === '텐키리스' ? 3.2 : 0.05;
+  const KEY_BUTTONS = type === '텐키리스' ? [...KEY] : [...KEY, ...TEN_KEY];
+  const MATELNESS = texture === '금속' ? 0.9 : 0;
+  const ROUGHNESS = texture === '금속' ? 0.1 : 0.7;
+  const ROTATION = new Euler(type === '텐키리스' ? -1.55 : 0, 0, 0);
   const POSITION = new Vector3(0.1, 0, 0);
 
   const handleClickKey = (e: ThreeEvent<MouseEvent>) => {

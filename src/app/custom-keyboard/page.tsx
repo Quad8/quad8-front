@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
-import KeyboardViewer from './_components/KeyboardViewer';
-import TotalCostWithNavigation from './_components/TotalCostWithNavigation';
-import Option from './_components/Option';
+import KeyboardViewer from './_components/canvas/KeyboardViewer';
+import TotalCostWithNavigation from './_components/navigator/TotalCostWithNavigation';
+import Option from './_components/option/Option';
 import styles from './customKeyboard.module.scss';
 
 const cn = classNames.bind(styles);

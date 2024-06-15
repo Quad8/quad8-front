@@ -121,3 +121,10 @@ export const POINT_KEY: ((typeof KEY)[number] | (typeof TEN_KEY)[number])[] = [
   'Enter',
   'Space',
 ] as const;
+
+export const BOARD_PRICE_LIST = {
+  텐키리스: 30000,
+  '풀 배열': 35000,
+  금속: 35000,
+  플라스틱: 30000,
+};
