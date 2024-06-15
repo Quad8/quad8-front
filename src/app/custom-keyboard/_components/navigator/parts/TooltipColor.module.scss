@@ -1,0 +1,52 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 0.3rem;
+}
+
+.color-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.key {
+  @include pretendard-14-600;
+
+  color: $white;
+}
+
+.color {
+  @include pretendard-14-400;
+
+  color: $white;
+}
+
+.palette-wrapper {
+  position: relative;
+}
+
+.color-picker-wrapper {
+  position: absolute;
+  z-index: $zindex-tooltip;
+  top: -10rem;
+  width: 10rem;
+  height: 10rem;
+  border: 0.1rem solid $black;
+  background-image: linear-gradient(0deg, #000, transparent), linear-gradient(90deg, #fff, hsl(0deg 0% 100% / 0%));
+}
+
+.color-picker-dot {
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 0.1rem solid $white;
+  border-radius: 0.5rem;
+}
+
+.palette {
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 0.1rem solid $white;
+}
