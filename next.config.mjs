@@ -16,6 +16,18 @@ const nextConfig = {
         port: '',
         pathname: '/src/component/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'd1wt2ljvmyxns0.cloudfront.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'shop-phinf.pstatic.net',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 

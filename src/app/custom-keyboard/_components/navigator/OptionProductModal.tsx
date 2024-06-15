@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 
 import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import type { OptionDataType } from '@/types/CustomKeyboardTypes';
-import Button from '@/components/Button/Button';
+import { Button } from '@/components';
 import OptionProductCard from './parts/OptionProductCard';
 
 import styles from './OptionProductModal.module.scss';
