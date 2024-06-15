@@ -2,26 +2,18 @@
 
 import classNames from 'classnames/bind';
 import { useContext, useState } from 'react';
+
 import { KeyboardDataContext } from '@/context/customKeyboardContext';
-import Modal from '@/components/Modal/Modal';
 import type { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
+import Modal from '@/components/Modal/Modal';
 import CrossCircleIcon from '@/public/svgs/crossCircle.svg';
-import styles from './SwitchOption.module.scss';
 import SwitchHelp from './SwitchHelp';
+
+import styles from './SwitchOption.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface ButtonType {
-  name: string;
-  value: CustomKeyboardSwitchTypes;
-}
-
-const BUTTONS: ButtonType[] = [
-  { name: '청축', value: 'blue' },
-  { name: '적축', value: 'red' },
-  { name: '갈축', value: 'brown' },
-  { name: '흑축', value: 'black' },
-];
+const BUTTONS = ['청축', '적축', '갈축', '흑축'];
 
 export default function SwitchOption() {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -44,12 +36,12 @@ export default function SwitchOption() {
         <div className={cn('button-wrapper')}>
           {BUTTONS.map((element) => (
             <button
-              key={element.name}
+              key={element}
               type='button'
-              className={cn('button', { selected: switchType === element.value })}
-              onClick={() => handleClickSwitchButton(element.value)}
+              className={cn('button', { selected: switchType === element })}
+              onClick={() => handleClickSwitchButton(element as CustomKeyboardSwitchTypes)}
             >
-              {element.name}
+              {element}
             </button>
           ))}
         </div>

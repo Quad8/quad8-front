@@ -2,22 +2,28 @@
 
 import classNames from 'classnames/bind';
 import { useContext } from 'react';
-import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import { HexColorPicker } from 'react-colorful';
+
+import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import type { CustomKeyboardTypeTypes, CustomKeyboardTextureTypes } from '@/types/CustomKeyboardTypes';
+import { BOARD_PRICE_LIST } from '@/constants/keyboardData';
+
 import styles from './BoardOption.module.scss';
 
 const cn = classNames.bind(styles);
 
-const TYPE_BUTTONS = [
-  { type: 'full', name: '풀 배열', price: 35000 },
-  { type: 'tkl', name: '텐키리스', price: 30000 },
-];
+const BOARD_TYPE: CustomKeyboardTypeTypes[] = ['풀 배열', '텐키리스'];
+const BOARD_TEXTURE: CustomKeyboardTextureTypes[] = ['금속', '플라스틱'];
 
-const TEXTURE_BUTTONS = [
-  { texture: 'metal', name: '금속', price: 35000 },
-  { texture: 'plastic', name: '플라스틱', price: 30000 },
-];
+const TYPE_BUTTONS = BOARD_TYPE.map((type) => ({
+  name: type,
+  price: BOARD_PRICE_LIST[type],
+}));
+
+const TEXTURE_BUTTONS = BOARD_TEXTURE.map((texture) => ({
+  name: texture,
+  price: BOARD_PRICE_LIST[texture],
+}));
 
 export default function BoardOption() {
   const {
@@ -46,8 +52,8 @@ export default function BoardOption() {
             <button
               key={element.name}
               type='button'
-              className={cn('button', { selected: type === element.type })}
-              onClick={() => handleClickTypeButton(element.type as CustomKeyboardTypeTypes)}
+              className={cn('button', { selected: type === element.name })}
+              onClick={() => handleClickTypeButton(element.name)}
             >
               <div className={cn('button-content')}>{element.name}</div>
               <div className={cn('button-price')}>+{element.price.toLocaleString()}</div>
@@ -62,8 +68,8 @@ export default function BoardOption() {
             <button
               key={element.name}
               type='button'
-              className={cn('button', { selected: texture === element.texture })}
-              onClick={() => handleClickTextureButton(element.texture as CustomKeyboardTextureTypes)}
+              className={cn('button', { selected: texture === element.name })}
+              onClick={() => handleClickTextureButton(element.name)}
             >
               <div className={cn('button-content')}>{element.name}</div>
               <div className={cn('button-price')}>+{element.price.toLocaleString()}</div>
