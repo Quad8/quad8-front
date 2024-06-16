@@ -52,7 +52,7 @@ export default function Pagination({
     const Icon = direction === 'prev' ? CaretLeftIcon : CaretRightIcon;
 
     return isDisabled ? (
-      <span className={cn('arrow-button', { disabled: isDisabled })}>
+      <span className={cn('arrow-button')}>
         <Icon stroke='#B8B8B8' />
       </span>
     ) : (
