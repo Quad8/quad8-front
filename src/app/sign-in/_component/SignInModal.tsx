@@ -36,6 +36,10 @@ export default function SignInModal() {
     await postSignin(formData);
   };
 
+  const handleKakaoOauth = async (oauth: string) => {
+    window.location.href = `http://43.201.71.50:8080/oauth2/authorization/${oauth}`;
+  };
+
   return (
     <div className={cn('container')}>
       <h1 className={cn('title')}>로그인</h1>
@@ -76,9 +80,9 @@ export default function SignInModal() {
       <div className={cn('o-auth-wrapper')}>
         <p>간편 로그인 하기</p>
         <div className={cn('icons')}>
-          <GitIcon />
-          <GoogleIcon />
-          <KakaoIcon />
+          <GitIcon onClick={() => handleKakaoOauth('github')} />
+          <GoogleIcon onClick={() => handleKakaoOauth('google')} />
+          <KakaoIcon onClick={() => handleKakaoOauth('kakao')} />
         </div>
       </div>
     </div>
