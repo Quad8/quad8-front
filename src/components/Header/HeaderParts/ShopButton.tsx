@@ -1,8 +1,8 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 import styles from './ShopButton.module.scss';
 
 const cn = classNames.bind(styles);
@@ -23,7 +23,7 @@ export default function ShopButton({ pathname }: ShopButtonProps) {
 
   return (
     <div className={cn('wrapper')} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-      <Link href='/' className={cn('button', { 'current-page': pathname === 'shop' })}>
+      <Link href='/shop' className={cn('button', { 'current-page': pathname === 'shop' })}>
         SHOP
       </Link>
       {isHover && (

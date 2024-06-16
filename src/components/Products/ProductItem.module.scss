@@ -19,7 +19,7 @@
 .product-image-wrap {
   position: relative;
   width: 100%;
-  padding-bottom: 68.5%;
+  height: 27.4rem;
   overflow: hidden;
   border-radius: 0.8rem;
 }
@@ -47,9 +47,7 @@
 }
 
 .product-price {
-  // @include pretendard-18-400;
-
-  font-size: 1.8rem;
+  @include pretendard-18-400;
 }
 
 .product-review-wishlist {
@@ -58,6 +56,6 @@
   gap: 1.2rem;
 }
 
-.product-review {
-  // @include pretendard-16-400;
+.product-reviews {
+  @include pretendard-16-400;
 }
