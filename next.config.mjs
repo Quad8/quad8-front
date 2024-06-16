@@ -49,6 +49,51 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+
+      {
+        protocol: 'https',
+        hostname: 'img.danawa.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.011st.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'static2.e-himart.co.kr',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'sitem.ssgcdn.com',
+        port: '',
+        pathname: '/**',
+      },
+
+      {
+        protocol: 'https',
+        hostname: 'gdimg.gmarket.co.kr',
+        port: '',
+        pathname: '/**',
+      },
+
+      {
+        protocol: 'https',
+        hostname: 'tbnws.hgodo.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'contents.lotteon.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 
