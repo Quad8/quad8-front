@@ -10,7 +10,7 @@ import CrossCircleIcon from '@/public/svgs/crossCircle.svg';
 import { blueSwitchImg, redSwitchImg, brownSwitchImg, blackSwitchImg } from '@/public/index';
 import { Button } from '@/components';
 import Image, { StaticImageData } from 'next/image';
-import SwitchHelp from './SwitchHelp';
+import SwitchHelpModal from './SwitchHelpModal';
 
 import styles from './SwitchOption.module.scss';
 
@@ -79,7 +79,7 @@ export default function SwitchOption() {
         <div className={cn('help-content')}>종류에 따라 타건감이나 소리가 다를 수 있습니다.</div>
       </div>
       <Modal isOpen={isOpenModal} onClose={onCloseModal}>
-        <SwitchHelp />
+        <SwitchHelpModal />
       </Modal>
     </div>
   );
