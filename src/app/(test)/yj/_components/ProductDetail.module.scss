@@ -1,0 +1,152 @@
+.detail-container {
+  display: flex;
+  gap: 7.2rem;
+  padding-bottom: 18rem;
+}
+
+.right-section {
+  width: 40%;
+}
+
+.name-button-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+
+  h1 {
+    @include pretendard-20-500;
+  }
+}
+
+.rate-section {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+
+  h4 {
+    @include pretendard-14-400;
+
+    color: $gray-50;
+  }
+}
+
+.price {
+  @include pretendard-24-700;
+
+  margin-bottom: 2rem;
+}
+
+@mixin box {
+  padding: 2rem 0;
+  border-top: 0.1rem solid $gray-10;
+}
+
+.explain-text {
+  @include pretendard-16-400;
+
+  padding-bottom: 0.8rem;
+
+  span {
+    @include pretendard-16-500;
+
+    padding-right: 2rem;
+  }
+}
+
+.explain-title {
+  @include pretendard-20-500;
+
+  margin-bottom: 2rem;
+}
+
+.delivery-section {
+  @include box;
+}
+
+.point-section {
+  @include box;
+}
+
+.option-section {
+  @include box;
+}
+
+.button-section {
+  display: flex;
+  gap: 2rem;
+  padding-top: 12rem;
+}
+
+.option-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  border-radius: 0.8rem;
+  background-color: $primary-5;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.option-text {
+  width: 30%;
+  @include pretendard-16-400;
+}
+
+.option-price {
+  @include pretendard-16-700;
+}
+
+.count-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  span {
+    @include pretendard-16-400;
+  }
+}
+
+.icon {
+  fill: $black;
+  cursor: pointer;
+}
+
+.gray-icon {
+  fill: $gray-40;
+  cursor: default;
+}
+
+.delete-icon {
+  width: 3.4rem;
+  height: 3.4rem;
+  fill: $gray-40;
+  cursor: pointer;
+}
+
+.total-price-box {
+  @include box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 2rem;
+
+  h3 {
+    @include pretendard-16-400;
+  }
+
+  h1 {
+    @include pretendard-24-700;
+
+    span {
+      color: $primary;
+    }
+  }
+}
