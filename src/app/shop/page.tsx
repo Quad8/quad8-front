@@ -1,6 +1,7 @@
 import { getProductList } from '@/api/getProductList';
 import { Dropdown } from '@/components';
 import Pagination from '@/components/Pagination/Pagination';
+import { LIST_SORT_OPTIONS } from '@/constants/drodownOptions';
 import { ProductParams } from '@/types/ProductItem';
 import classNames from 'classnames/bind';
 import CategoryMenu from './_components/Category/CategoryMenu';
@@ -9,8 +10,6 @@ import ProductList from './_components/Product/ProductList';
 import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
-
-const option = ['인기순', '조회순', '최신순', '가격 낮은순', '가격 높은순'];
 
 export default async function ShopAllPage({
   searchParams,
@@ -28,7 +27,7 @@ export default async function ShopAllPage({
     <>
       <div className={cn('title-wrap')}>
         <CategoryTitle totalCount={rest.totalElements}>전체상품</CategoryTitle>
-        <Dropdown sizeVariant='xs' options={option} />
+        <Dropdown sizeVariant='xs' options={LIST_SORT_OPTIONS} />
       </div>
       <CategoryMenu />
       <section className={cn('list-section')}>
