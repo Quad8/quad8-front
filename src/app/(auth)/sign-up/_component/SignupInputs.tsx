@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import type { SignupInfoTypes } from '@/types';
 import { checkEmailDuplication, checkNicknameDuplication, postSignup } from '@/api';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import styles from './SignupInputs.module.scss';
 
 const cn = classNames.bind(styles);
@@ -32,10 +32,17 @@ const initalInputValues = {
   imgUrl: '',
 };
 
+interface ResponseType {
+  status: 'SUCCESS' | 'FAIL';
+  message: string | null;
+  data: boolean;
+}
+
 interface SignupInputProps {
   isAgreementAllChecked: boolean;
 }
 export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInputs({ isAgreementAllChecked }, ref) {
+  const [signupResult, SetSignupResult] = useState<ResponseType | null>(null);
   const {
     register,
     handleSubmit,
@@ -114,30 +121,26 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         message: '유효한 생년월일을 입력해주세요. 예: YYYYMMDD',
       },
     }),
-    gender: register('gender', {
-      onChange: () => console.log(getValues('gender')),
-    }),
+    gender: register('gender'),
   };
 
   const handleFormSubmit = async (formData: Inputs) => {
-    // console.log(formData);
-    const fetchFormData = {
-      joinRequest: {
-        email: formData.email,
-        password: formData.password,
-        birth: formData.birth,
-        phone: `010${formData.phone}`,
-        gender: formData.gender === '여자' ? 'FEMALE' : 'MALE',
-        nickname: formData.nickname,
-        imgUrl: 'http://example.com/image.jpg',
-        provider: 'GOOGLE',
-        providerId: '1234567890',
-      },
-      imgFile: 'string',
+    const fetchFormData = new FormData();
+
+    const joinRequest = {
+      gender: `${formData.gender === '여자' ? 'FEMALE' : 'MALE'}`,
+      nickname: formData.nickname,
+      phone: `010${formData.phone}`,
+      password: formData.password,
+      email: formData.email,
+      birth: '1990-01-01',
     };
+
     if (isAgreementAllChecked) {
-      await postSignup(fetchFormData);
-      console.log(fetchFormData);
+      fetchFormData.append('joinRequest', JSON.stringify(joinRequest));
+      const result = await postSignup(fetchFormData);
+      console.log(result);
+      SetSignupResult(result);
     }
   };
 
@@ -205,6 +208,7 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         {...registers.birth}
       />
       <RadioField label='성별' options={['남자', '여자']} {...registers.gender} />
+      {signupResult?.status === 'FAIL' && <div>{signupResult.message}</div>}
     </form>
   );
 });

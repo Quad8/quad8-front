@@ -28,7 +28,6 @@ export default function Signup() {
           <AgreementForm setIsAllChecked={setIsAgreementAllChecked} />
         </div>
       </div>
-      <div className={cn({ 'not-checked': !isAgreementAllChecked })}>약관 동의 다 했니</div>
       <Button className={cn('button')} fontSize={24} onClick={handleSubmitButtonClick}>
         회원가입
       </Button>
