@@ -3,3 +3,9 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.list-section {
+  @include flex-column(11rem);
+
+  margin-bottom: 10rem;
+}

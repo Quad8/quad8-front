@@ -1,8 +1,8 @@
 import { getProductList } from '@/api/getProductList';
 import { Dropdown } from '@/components';
 import Pagination from '@/components/Pagination/Pagination';
+import { ProductParams } from '@/types/ProductItem';
 import classNames from 'classnames/bind';
-import { Suspense } from 'react';
 import CategoryMenu from './_components/CategoryMenu';
 import CategoryTitle from './_components/CategoryTitle';
 import ProductList from './_components/ProductList';
@@ -12,20 +12,29 @@ const cn = classNames.bind(styles);
 
 const option = ['인기순', '조회순', '최신순', '가격 낮은순', '가격 높은순'];
 
-export default async function ShopAllPage() {
-  const { data } = await getProductList('all', 'createdAt_desc', 0, 16);
-  const { content } = data;
+export default async function ShopAllPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const getAllProductParams: ProductParams = {
+    sort: searchParams.sort,
+    page: searchParams.page || '0',
+    size: '16',
+  };
+  const { data } = await getProductList(getAllProductParams);
+  const { content, ...rest } = data;
   return (
     <>
       <div className={cn('title-wrap')}>
-        <CategoryTitle totalCount={data.totalElements}>전체상품</CategoryTitle>
+        <CategoryTitle totalCount={rest.totalElements}>전체상품</CategoryTitle>
         <Dropdown sizeVariant='xs' options={option} />
       </div>
       <CategoryMenu />
-      <ProductList content={content} size='lg' />
-      <Suspense>
-        <Pagination count={data.totalElements} limit={data.size} />
-      </Suspense>
+      <section className={cn('list-section')}>
+        <ProductList content={content} size='lg' />
+        <Pagination {...rest} searchParams={searchParams} />
+      </section>
     </>
   );
 }
