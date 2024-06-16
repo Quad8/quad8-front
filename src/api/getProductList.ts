@@ -1,29 +1,15 @@
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  reviewscount: number;
-  views: number;
-  thumbnail: string;
-}
+import { ProductListResponse, ProductParams } from '@/types/ProductItem';
 
-interface ProductListResponse {
-  data: {
-    totalPages: number;
-    totalElements: number;
-    size: number;
-    content: Product[];
-  };
-}
+const baseURL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
-export async function getProductList(
-  keyword: 'all' | 'keyboard' | 'keycap' | 'switch' | 'others',
-  sort: 'createdAt_desc' | 'views_desc' | 'price_asc' | 'price_desc',
-  page: number,
-  size: number,
-): Promise<ProductListResponse> {
-  const baseURL = process.env.KEYDEUK_API_BASE_URL;
-  const res = await fetch(`${baseURL}/product/get-list?keyword=${keyword}&sort=${sort}&page=${page}&size=${size}`);
-  const data: ProductListResponse = await res.json();
-  return data;
+export async function getProductList({ sort, page, size }: ProductParams): Promise<ProductListResponse> {
+  const response = await fetch(`${baseURL}/api/v1/product/get/all-list?&sort=${sort}&page=${page}&size=${size}`);
+
+  if (!response.ok) {
+    throw new Error('전체데이터를 불러오는데 실패함!');
+  }
+
+  const rawData: ProductListResponse = await response.json();
+
+  return rawData;
 }
