@@ -1,5 +1,5 @@
-import { Product } from '@/api/getProductList';
 import ProductItem from '@/components/Products/ProductItem';
+import { Product } from '@/types/ProductItem';
 import classNames from 'classnames/bind';
 import styles from './ProductList.module.scss';
 
