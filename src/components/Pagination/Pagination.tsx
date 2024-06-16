@@ -1,13 +1,13 @@
-'use client';
-
 import { ProductDataResponse } from '@/api/getProductList';
 import CaretLeftIcon from '@/public/svgs/caretLeft.svg';
 import CaretRightIcon from '@/public/svgs/caretRight.svg';
 import classNames from 'classnames/bind';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import styles from './Pagination.module.scss';
 
-type PaginationProps = Omit<ProductDataResponse, 'content' | 'size'>;
+interface PaginationProps extends Omit<ProductDataResponse, 'content' | 'size'> {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
 
 const cn = classNames.bind(styles);
 
@@ -17,57 +17,48 @@ export default function Pagination({
   number: currentPage,
   first,
   last,
+  searchParams,
 }: PaginationProps) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  if (!totalElements) {
+  if (!totalElements || totalPageCount === 0) {
     return null;
   }
 
-  const handlePageChange = (newPage: number) => {
-    if (newPage < 0 || newPage > totalPageCount) {
-      return;
-    }
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('page', newPage.toString());
-    router.push(`${pathname}?${params.toString()}`);
+  const renderPageLink = (pageNum: number, isSelected: boolean) => {
+    const linkProps = {
+      href: {
+        query: { ...searchParams, page: pageNum - 1 },
+      },
+    };
+
+    return isSelected ? <span className={cn('selected-page')}>{pageNum}</span> : <Link {...linkProps}>{pageNum}</Link>;
+  };
+
+  const renderArrowLink = (direction: 'prev' | 'next', isDisabled: boolean) => {
+    const pageChange = direction === 'prev' ? currentPage - 1 : currentPage + 1;
+    const Icon = direction === 'prev' ? CaretLeftIcon : CaretRightIcon;
+
+    return isDisabled ? (
+      <span className={cn('arrow-button', 'disabled')}>
+        <Icon stroke='#B8B8B8' />
+      </span>
+    ) : (
+      <Link href={{ query: { ...searchParams, page: pageChange } }} className={cn('arrow-button')}>
+        <Icon stroke='#4968f6' />
+      </Link>
+    );
   };
 
   return (
     <div className={cn('pagination-container')}>
-      <button
-        type='button'
-        onClick={() => handlePageChange(currentPage - 1)}
-        className={cn('arrow-button')}
-        disabled={first}
-        aria-label='이전 페이지'
-      >
-        <CaretLeftIcon stroke={first ? '#B8B8B8' : '#4968f6'} />
-      </button>
+      {renderArrowLink('prev', first)}
       <ul className={cn('pagination-list')}>
         {Array.from({ length: totalPageCount }, (_, i) => i + 1).map((pageNum) => (
           <li key={pageNum} className={cn('pagination-item')}>
-            {currentPage + 1 === pageNum ? (
-              <span className={cn('selected-page')}>{pageNum}</span>
-            ) : (
-              <button type='button' onClick={() => handlePageChange(pageNum - 1)} aria-label={`Page ${pageNum}`}>
-                {pageNum}
-              </button>
-            )}
+            {renderPageLink(pageNum, currentPage + 1 === pageNum)}
           </li>
         ))}
       </ul>
-      <button
-        type='button'
-        onClick={() => handlePageChange(currentPage + 1)}
-        className={cn('arrow-button')}
-        disabled={last}
-        aria-label='다음 페이지'
-      >
-        <CaretRightIcon stroke={last ? '#B8B8B8' : '#4968f6'} />
-      </button>
+      {renderArrowLink('next', last)}
     </div>
   );
 }
