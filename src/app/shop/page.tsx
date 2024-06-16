@@ -3,9 +3,9 @@ import { Dropdown } from '@/components';
 import Pagination from '@/components/Pagination/Pagination';
 import { ProductParams } from '@/types/ProductItem';
 import classNames from 'classnames/bind';
-import CategoryMenu from './_components/CategoryMenu';
-import CategoryTitle from './_components/CategoryTitle';
-import ProductList from './_components/ProductList';
+import CategoryMenu from './_components/Category/CategoryMenu';
+import CategoryTitle from './_components/Category/CategoryTitle';
+import ProductList from './_components/Product/ProductList';
 import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
