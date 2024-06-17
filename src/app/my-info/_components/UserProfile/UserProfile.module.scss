@@ -1,0 +1,45 @@
+.user {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.8rem;
+  border: 0.1rem solid $gray-10;
+  border-radius: 0.8rem;
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+
+    .user-image {
+      position: relative;
+      width: 8.3rem;
+      height: 8.3rem;
+      border-radius: 99rem;
+      background-color: $gray-10;
+      @include flex-center;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      color: $black;
+
+      .user-name {
+        @include pretendard-18-700;
+      }
+
+      .user-email {
+        @include pretendard-16-400;
+      }
+    }
+  }
+
+  .user-edit-button {
+    @include pretendard-14-400;
+
+    color: $gray-50;
+  }
+}

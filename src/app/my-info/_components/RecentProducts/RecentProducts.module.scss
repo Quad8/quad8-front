@@ -1,0 +1,8 @@
+.recent {
+  @include flex-column(4rem);
+
+  .recent-title {
+    color: $black;
+    @include pretendard-20-600;
+  }
+}
