@@ -1,0 +1,23 @@
+.empty-case {
+  flex-direction: column;
+  width: 100%;
+  gap: 2.4rem;
+  padding: 8rem 3.2rem;
+  border-radius: 0.8rem;
+  @include flex-center;
+
+  .empty-case-text {
+    color: $gray-40;
+    @include pretendard-20-600;
+  }
+
+  .empty-case-button {
+    width: 12.8rem;
+    height: 4rem;
+    @include pretendard-16-500;
+  }
+}
+
+.background-color {
+  background-color: $gray-10;
+}

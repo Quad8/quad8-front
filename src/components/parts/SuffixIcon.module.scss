@@ -1,6 +1,6 @@
 .suffix-icon {
   position: absolute;
-  z-index: $zindex-fixed;
+  z-index: $zindex-fixed - 1;
   top: 50%;
   right: 1.6rem;
   transform: translateY(-50%);

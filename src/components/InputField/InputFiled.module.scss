@@ -5,8 +5,10 @@
   width: 100%;
 
   .input-wrapper {
+    display: flex;
     position: relative;
     width: 100%;
+    gap: 0.8rem;
   }
 }
 

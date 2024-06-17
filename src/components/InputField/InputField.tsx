@@ -17,6 +17,8 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   suffixUnit?: '원';
 }
 
+const PHONE_PREFIX = '010';
+
 /**
  * InputField component documentation
  *
@@ -36,12 +38,14 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
   ref,
 ) {
   const [inputType, setInputType] = useState(type);
+  const isPhone = label === '휴대폰 번호' || label === '연락처';
+  const isBirth = label === '생년월일';
 
   const onSuffixEyeIconClick = () => {
     setInputType((prevType) => (prevType === 'password' ? 'text' : 'password'));
   };
 
-  const combinedClassName = cn('default', sizeVariant);
+  const combinedClassName = cn('default', sizeVariant, { phone: isPhone });
 
   return (
     <div className={combinedClassName}>
@@ -51,11 +55,23 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
         </Label>
       )}
       <div className={cn('input-wrapper')}>
+        {isPhone && (
+          <Input
+            id={id}
+            type={inputType}
+            sizeVariant={sizeVariant}
+            value={PHONE_PREFIX}
+            isPhonePrefix={isPhone}
+            disabled
+          />
+        )}
         <Input
           id={id}
           type={inputType}
           sizeVariant={sizeVariant}
           isError={!!errorMessage}
+          isBirth={isBirth}
+          isPhone={isPhone}
           ref={ref}
           className={className}
           {...rest}
