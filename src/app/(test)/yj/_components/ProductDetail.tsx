@@ -1,5 +1,5 @@
 import { Rating } from '@/components';
-import { ProductType } from '@/types/ProductTypes';
+import type { ProductType } from '@/types/ProductTypes';
 import classNames from 'classnames/bind';
 import OptionWithButton from './OptionWithButtons';
 import styles from './ProductDetail.module.scss';

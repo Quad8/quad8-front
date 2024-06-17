@@ -2,7 +2,7 @@
 
 import { Button, Dropdown } from '@/components';
 import { DeleteIcon, MinusIcon, PlusIcon } from '@/public/index';
-import { OptionTypes } from '@/types/ProductTypes';
+import type { OptionTypes } from '@/types/ProductTypes';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import styles from './ProductDetail.module.scss';
