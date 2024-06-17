@@ -4,7 +4,7 @@ import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
 
-export default function MyInfo() {
+export default async function MyInfoPage() {
   return (
     <section className={cn('my-page')}>
       <UserProfile />

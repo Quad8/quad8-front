@@ -33,7 +33,6 @@ export default function Header() {
         <Link className={cn('logo')} href={ROUTER.MAIN}>
           <LogoIcon width={131} height={24} />
         </Link>
-
         <div className={cn('button-wrapper')}>
           <Link
             href={ROUTER.CUSTOM_KEYBOARD}
@@ -41,25 +40,19 @@ export default function Header() {
           >
             커스텀 키보드 만들기
           </Link>
-
           <ShopButton pathname={pathname} />
-
           <Link href={ROUTER.COMMUNITY} className={cn('button', { 'current-page': pathname === ROUTER.COMMUNITY })}>
             커뮤니티
           </Link>
         </div>
       </div>
-
       <div className={cn('left-wrapper')}>
         <SearchBox isBlack={isBlack} />
-
         <div className={cn('status-wrapper')}>
           {!users ? <LoginButton /> : <LogoutButton />}
-
           <Link href={ROUTER.MY_PAGE.MY_INFO} className={cn('user-icon')}>
             <UserIcon width={31} height={31} className={cn(isBlack ? 'user-black' : 'user-white')} />
           </Link>
-
           <CartButton cartCount={cartCount} isBlack={isBlack} />
         </div>
       </div>

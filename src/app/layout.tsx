@@ -20,7 +20,7 @@ export default async function RootLayout({
 }>) {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({ queryKey: ['userData'], queryFn: () => getUserData() });
+  await queryClient.prefetchQuery({ queryKey: ['userData'], queryFn: getUserData });
 
   return (
     <html lang='ko'>
