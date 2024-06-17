@@ -2,7 +2,6 @@
   @include flex-column(3.7rem);
 
   position: relative;
-  width: 10rem;
   height: 17rem;
 }
 
@@ -15,7 +14,7 @@
 .content-text {
   @include pretendard-14-400;
 
-  text-shadow: 0.01rem 0.01rem $white;
+  stroke: 0.01rem 0.01rem $white;
   user-select: none;
 }
 

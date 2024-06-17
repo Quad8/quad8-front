@@ -1,11 +1,14 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useContext } from 'react';
+
 import type { CustomKeyboardStepStatusTypes, CustomKeyboardStepTypes } from '@/types/CustomKeyboardTypes';
+import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
+import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
+import StepIcon from './parts/StepIcon';
+
 import styles from './Step.module.scss';
-import StepIcon from './StepIcon';
 
 const cn = classNames.bind(styles);
 
@@ -21,6 +24,7 @@ export default function Step() {
     keyboardData: { switchType },
   } = useContext(KeyboardDataContext);
   const { updateFocusKey } = useContext(KeyColorContext);
+  const { captureCanvas } = useCaptureCanvas();
   const STEP_ICON: StepIconDataType[] = [
     { ID: 'board', STATUS: stepStatus.board, NAME: '배열, 외관' },
     { ID: 'switch', STATUS: stepStatus.switch, NAME: '스위치' },
@@ -46,11 +50,18 @@ export default function Step() {
       return;
     }
     /* Step 이동 시에, 현재 단계를 pending(swtichType의 경우 체크 안하고 이동할 때) 또는 completed처리, 이동하려는 Step은 current 처리 */
-    updateStepStatus({
-      [currentStep]: currentStep === 'switch' && !switchType ? 'pending' : 'completed',
-      [value]: 'current',
-    });
+    if (currentStep === 'board') {
+      captureCanvas(() => {
+        updateStepStatus({
+          board: 'completed',
+          [value]: 'current',
+        });
+        updateCurrentStep(value);
+      });
+      return;
+    }
     updateFocusKey(null);
+    updateStepStatus({ [currentStep]: 'completed', [value]: 'current' });
     updateCurrentStep(value);
   };
 

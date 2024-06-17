@@ -1,9 +1,11 @@
-import { Button } from '@/components';
-import { KeyboardDataContext } from '@/context/customKeyboardContext';
-import type { OptionDataType } from '@/types/CustomKeyboardTypes';
 import classNames from 'classnames/bind';
 import { useContext, useState } from 'react';
-import OptionProductCard from './OptionProductCard';
+
+import { KeyboardDataContext } from '@/context/customKeyboardContext';
+import type { OptionDataType } from '@/types/CustomKeyboardTypes';
+import { Button } from '@/components';
+import OptionProductCard from './parts/OptionProductCard';
+
 import styles from './OptionProductModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -12,14 +14,14 @@ interface OptionProductModalProps {
   optionData: OptionDataType[];
   onClose: () => void;
   updateOptionPrice: (value: number) => void;
-  onOpen: () => void;
+  onClick: () => void;
 }
 
 export default function OptionProductModal({
   optionData,
   onClose,
   updateOptionPrice,
-  onOpen,
+  onClick,
 }: OptionProductModalProps) {
   const {
     updateData,
@@ -46,7 +48,7 @@ export default function OptionProductModal({
       .reduce((prev, next) => prev + next, 0);
     updateOptionPrice(currentPrice);
     onClose();
-    onOpen();
+    onClick();
   };
 
   return (

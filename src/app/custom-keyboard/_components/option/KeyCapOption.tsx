@@ -3,11 +3,13 @@
 import classNames from 'classnames/bind';
 import { HexColorPicker } from 'react-colorful';
 import { useContext, useState } from 'react';
-import { KeyColorContext, KeyboardDataContext } from '@/context/customKeyboardContext';
 import { Color } from '@react-three/fiber';
+
+import { KeyColorContext, KeyboardDataContext } from '@/context/customKeyboardContext';
 import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
+import ColorTag from './parts/ColorTag';
+
 import styles from './KeyCapOption.module.scss';
-import ColorTag from './ColorTag';
 
 const cn = classNames.bind(styles);
 

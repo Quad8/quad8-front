@@ -1,6 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
+
 import CompleteIcon from '@/public/svgs/stepComplete.svg';
 import type { CustomKeyboardStepStatusTypes } from '@/types/CustomKeyboardTypes';
 import styles from './StepIcon.module.scss';
