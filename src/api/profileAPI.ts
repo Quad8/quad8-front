@@ -1,5 +1,7 @@
 import { FieldValues } from 'react-hook-form';
 
+const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
+
 interface PutEditProfileProps {
   payload: FieldValues;
   token: string | null;
@@ -18,7 +20,7 @@ export async function getUserData(token: string | null) {
   }
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/users/me`, {
+    const res = await fetch(`${BASE_URL}/api/v1/users/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -42,7 +44,7 @@ export async function getUserData(token: string | null) {
  */
 export async function putEditProfile({ payload, token }: PutEditProfileProps) {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/users/me`, {
+    const res = await fetch(`${BASE_URL}/api/v1/users/me`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -67,20 +69,16 @@ export async function putEditProfile({ payload, token }: PutEditProfileProps) {
  */
 export async function checkNickname(nickname: string) {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/users/check/nickname?nickname=${nickname}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const res = await fetch(`${BASE_URL}/api/v1/users/check/nickname?nickname=${nickname}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     const result = await res.json();
     return result;
   } catch (error) {
-    console.error('checkEmail 실패', error);
     throw error;
   }
 }
