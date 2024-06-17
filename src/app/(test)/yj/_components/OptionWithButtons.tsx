@@ -74,12 +74,24 @@ function OptionContainer({ optionText, price }: OptionCountProps) {
 
 export default function OptionWithButton({ optionList, price }: OptionWithButtonProps) {
   const optionNames = optionList?.map((option) => option.optionName);
+  // const [selectedOption, setSelectedOption] = useState<string | undefined>(undefined);
+
+  // const handleChangeOption = (value: string) => {
+  //   setSelectedOption(value);
+  // };
 
   return (
     <>
       <div className={cn('option-section')}>
         <h2 className={cn('explain-title')}>상품 선택</h2>
-        {optionList && <Dropdown options={optionNames} placeholder='스위치 (필수)' />}
+        {optionList && (
+          <Dropdown
+            options={optionNames}
+            placeholder='스위치 (필수)'
+            // value={selectedOption}
+            // onChange={handleChangeOption}
+          />
+        )}
         <OptionContainer price={price} optionText='리니어' />
       </div>
       <div className={cn('button-section')}>
