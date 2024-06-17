@@ -1,4 +1,4 @@
-import { ProductType } from '@/types/ProductTypes';
+import type { ProductType } from '@/types/ProductTypes';
 
 const getProductDetail = async (productId: string): Promise<ProductType> => {
   try {
