@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
-import { ChangeEvent, FocusEvent } from 'react';
+import { ChangeEvent, FocusEvent, useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import { checkNickname, getUserData, putEditProfile } from '@/api/profileAPI';
@@ -11,6 +11,7 @@ import type { Users } from '@/types/profileType';
 
 import { Button, InputField, RadioField } from '@/components';
 
+import { getCookie } from '@/libs/manageCookie';
 import styles from './EditProfileModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -18,9 +19,22 @@ const cn = classNames.bind(styles);
 const GENDER_OPTION = ['남자', '여자'];
 
 export default function EditProfileModal() {
-  const token = localStorage.getItem('accessToken') || null;
+  const [token, setToken] = useState<string | null>(null);
 
-  const { data: userData } = useQuery<{ data: Users }>({ queryKey: ['userData'], queryFn: () => getUserData(token) });
+  useEffect(() => {
+    const getToken = async () => {
+      const accessToken = await getCookie('accessToken');
+      setToken(accessToken);
+    };
+
+    getToken();
+  }, []);
+
+  const { data: userData } = useQuery<{ data: Users }>({
+    queryKey: ['userData', token],
+    queryFn: () => getUserData(token),
+    enabled: !!token,
+  });
 
   const users = userData?.data ?? { nickname: '', email: '', phone: '', gender: 'FEMALE', birth: '' };
 

@@ -8,7 +8,7 @@ interface PutEditProfileProps {
 }
 
 /**
- * 주어진 토큰을 사용하여 사용자 데이터를 가져
+ * 주어진 토큰을 사용하여 사용자 데이터를 호출
  *
  * @param {string} token - 인증 토큰입니다.
  * @returns {Promise<Object>} - 사용자 데이터를 반환합니다.

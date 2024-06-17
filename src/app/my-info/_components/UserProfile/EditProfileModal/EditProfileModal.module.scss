@@ -1,6 +1,6 @@
 .modal {
-  display: flex;
-  flex-direction: column;
+  @include flex-column(4rem);
+
   align-items: center;
   width: 60.2rem;
   padding: 6rem;
@@ -9,14 +9,14 @@
   gap: 4rem;
 
   .modal-title {
-    color: $black;
     @include pretendard-30-700;
+
+    color: $black;
   }
 
   .modal-inputs {
-    display: flex;
-    flex-direction: column;
+    @include flex-column(2.4rem);
+
     width: 100%;
-    gap: 2.4rem;
   }
 }
