@@ -8,10 +8,7 @@ import { usePathname } from 'next/navigation';
 
 import { LogoIcon, UserIcon } from '@/public/index';
 
-import { getUserData } from '@/api/profileAPI';
-import { getCookie } from '@/libs/manageCookie';
 import { Users } from '@/types/profileType';
-import { useEffect, useState } from 'react';
 import { CartButton, LoginButton, LogoutButton, SearchBox, ShopButton } from './HeaderParts';
 
 import styles from './Header.module.scss';
@@ -19,23 +16,11 @@ import styles from './Header.module.scss';
 const cn = classNames.bind(styles);
 
 export default function Header() {
-  const [token, setToken] = useState<string | null>(null);
   const pathname = usePathname();
   const isBlack = pathname === '/' || pathname === 'sign-up';
 
-  useEffect(() => {
-    const getToken = async () => {
-      const accessToken = await getCookie('accessToken');
-      setToken(accessToken);
-    };
-
-    getToken();
-  });
-
   const { data: userData } = useQuery<{ data: Users }>({
-    queryKey: ['userData', token],
-    queryFn: () => getUserData(token),
-    enabled: !!token,
+    queryKey: ['userData'],
   });
 
   const cartCount = 0;

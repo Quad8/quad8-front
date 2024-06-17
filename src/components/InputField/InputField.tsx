@@ -17,7 +17,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   suffixUnit?: '원';
 }
 
-const defaultPhonePrefix = '010';
+const PHONE_PREFIX = '010';
 
 /**
  * InputField component documentation
@@ -60,7 +60,7 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
             id={id}
             type={inputType}
             sizeVariant={sizeVariant}
-            value={defaultPhonePrefix}
+            value={PHONE_PREFIX}
             isPhonePrefix={isPhone}
             disabled
           />

@@ -5,13 +5,12 @@ import classNames from 'classnames/bind';
 import { ChangeEvent, FocusEvent, useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import { checkNickname, getUserData, putEditProfile } from '@/api/profileAPI';
+import { checkNickname, putEditProfile } from '@/api/profileAPI';
+import { Button, InputField, RadioField } from '@/components';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
+import { getCookie } from '@/libs/manageCookie';
 import type { Users } from '@/types/profileType';
 
-import { Button, InputField, RadioField } from '@/components';
-
-import { getCookie } from '@/libs/manageCookie';
 import styles from './EditProfileModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -31,12 +30,10 @@ export default function EditProfileModal() {
   }, []);
 
   const { data: userData } = useQuery<{ data: Users }>({
-    queryKey: ['userData', token],
-    queryFn: () => getUserData(token),
-    enabled: !!token,
+    queryKey: ['userData'],
   });
 
-  const users = userData?.data ?? { nickname: '', email: '', phone: '', gender: 'FEMALE', birth: '' };
+  const users = userData?.data ?? { nickname: '', phone: '', gender: '', birth: '' };
 
   const {
     register,
@@ -114,7 +111,7 @@ export default function EditProfileModal() {
           })}
         />
         <InputField label='생년월일' disabled value={users.birth} />
-        <RadioField label='성별' options={GENDER_OPTION} disabled defaultValue={users.gender} />
+        <RadioField label='성별' options={GENDER_OPTION} disabled defaultValue={users?.gender} />
         <InputField
           label='휴대폰 번호'
           placeholder='0000-0000'

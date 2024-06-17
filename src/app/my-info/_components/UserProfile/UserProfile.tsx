@@ -1,11 +1,13 @@
 'use client';
 
-import { Modal } from '@/components';
-import type { Users } from '@/types/profileType';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
+
+import { Modal } from '@/components';
+import type { Users } from '@/types/profileType';
 import EditProfileModal from './EditProfileModal/EditProfileModal';
+
 import styles from './UserProfile.module.scss';
 
 const cn = classNames.bind(styles);

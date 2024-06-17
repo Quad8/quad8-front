@@ -24,7 +24,7 @@ export default async function RootLayout({
   const token = cookies().get('accessToken')?.value || null;
 
   if (token) {
-    await queryClient.prefetchQuery({ queryKey: ['userData', token], queryFn: () => getUserData(token) });
+    await queryClient.prefetchQuery({ queryKey: ['userData'], queryFn: () => getUserData(token) });
   }
 
   return (
