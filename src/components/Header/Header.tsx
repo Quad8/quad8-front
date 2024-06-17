@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 
 import { LogoIcon, UserIcon } from '@/public/index';
 
-import { Users } from '@/types/profileType';
+import type { Users } from '@/types/profileType';
 import { CartButton, LoginButton, LogoutButton, SearchBox, ShopButton } from './HeaderParts';
 
 import styles from './Header.module.scss';
