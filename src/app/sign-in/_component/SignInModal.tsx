@@ -36,8 +36,8 @@ export default function SignInModal() {
     await postSignin(formData);
   };
 
-  const handleKakaoOauth = async (oauth: string) => {
-    window.location.href = `http://43.201.71.50:8080/oauth2/authorization/${oauth}`;
+  const handleKakaoOauth = async (provider: string) => {
+    window.location.href = `http://43.201.71.50:8080/oauth2/authorization/${provider}`;
   };
 
   return (

@@ -55,32 +55,46 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
   });
 
   const handleCheckEmailInput = async () => {
+    const emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+
     const emailValue = getValues('email');
-    if (emailValue === undefined) {
+    const isEmpty = !!emailValue === undefined;
+    const isNotValid = !emailPattern.test(emailValue);
+    const isDuplicated = await checkEmailDuplication(emailValue);
+
+    if (isEmpty) {
       setError('email', {
         message: '이메일을 입력해주세요.',
       });
     }
-    const emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
-    if (!emailPattern.test(emailValue)) {
+    if (isNotValid) {
       setError('email', {
         message: '유효한 이메일을 입력해주세요.',
       });
-      return;
     }
-
-    await checkEmailDuplication(emailValue);
+    if (isDuplicated.data === true) {
+      setError('email', {
+        message: '중복된 이메일입니다.',
+      });
+    }
   };
 
   const handleCheckNicknameInput = async () => {
     const nicknameValue = getValues('nickname');
-    if (nicknameValue === undefined) {
+    const isEmpty = !!nicknameValue === undefined;
+    const isDuplicated = await checkNicknameDuplication(nicknameValue);
+
+    if (isEmpty) {
       setError('nickname', {
         message: '이름을 입력해주세요.',
       });
       return;
     }
-    await checkNicknameDuplication(nicknameValue);
+    if (isDuplicated.data === true) {
+      setError('nickname', {
+        message: '중복된 닉네임입니다.',
+      });
+    }
   };
 
   const registers = {
@@ -139,7 +153,6 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
     if (isAgreementAllChecked) {
       fetchFormData.append('joinRequest', JSON.stringify(joinRequest));
       const result = await postSignup(fetchFormData);
-      console.log(result);
       SetSignupResult(result);
     }
   };
