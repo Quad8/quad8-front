@@ -1,3 +1,4 @@
+import { getCookie } from '@/libs/manageCookie';
 import { FieldValues } from 'react-hook-form';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
@@ -14,7 +15,9 @@ interface PutEditProfileProps {
  * @returns {Promise<Object>} - 사용자 데이터를 반환합니다.
  * @throws {Error} - 요청이 실패한 경우 에러를 던집니다.
  */
-export async function getUserData(token: string | null) {
+export const getUserData = async () => {
+  const token = await getCookie('accessToken');
+
   if (!token) {
     return null;
   }
@@ -29,11 +32,12 @@ export async function getUserData(token: string | null) {
     });
 
     const data = await res.json();
+    console.log(data);
     return data;
   } catch (error) {
     throw error;
   }
-}
+};
 
 /**
  * 주어진 payload로 사용자 프로필을 업데이트
@@ -42,7 +46,7 @@ export async function getUserData(token: string | null) {
  * @returns {Promise<Object>} - 응답 데이터를 반환합니다.
  * @throws {Error} - 요청이 실패한 경우 에러를 던집니다.
  */
-export async function putEditProfile({ payload, token }: PutEditProfileProps) {
+export const putEditProfile = async ({ payload, token }: PutEditProfileProps) => {
   try {
     const res = await fetch(`${BASE_URL}/api/v1/users/me`, {
       method: 'PUT',
@@ -58,7 +62,7 @@ export async function putEditProfile({ payload, token }: PutEditProfileProps) {
   } catch (error) {
     throw error;
   }
-}
+};
 
 /**
  * 주어진 닉네임이 사용 가능한지 확인
@@ -67,7 +71,7 @@ export async function putEditProfile({ payload, token }: PutEditProfileProps) {
  * @returns {Promise<Object>} - 닉네임이 사용 가능한지 여부를 나타내는 응답 데이터를 반환합니다.
  * @throws {Error} - 요청이 실패한 경우 에러를 던집니다.
  */
-export async function checkNickname(nickname: string) {
+export const checkNickname = async (nickname: string) => {
   try {
     const res = await fetch(`${BASE_URL}/api/v1/users/check/nickname?nickname=${nickname}`, {
       method: 'GET',
@@ -81,4 +85,4 @@ export async function checkNickname(nickname: string) {
   } catch (error) {
     throw error;
   }
-}
+};

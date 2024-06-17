@@ -1,3 +1,3 @@
-export default function unformatPhoneNumber(value: string): string {
+export const unFormatPhoneNumber = (value: string) => {
   return `010${value.replace(/-/g, '')}`;
-}
+};

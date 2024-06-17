@@ -1,4 +1,4 @@
-export default function changePhoneNumber(value: string) {
+export const changePhoneNumber = (value: string) => {
   let changeValue = value.replace(/[^0-9-]/g, '');
 
   changeValue = changeValue.replace(/-/g, '');
@@ -11,4 +11,4 @@ export default function changePhoneNumber(value: string) {
   }
 
   return changeValue;
-}
+};

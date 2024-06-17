@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import { ChangeEvent, FocusEvent, useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import { checkNickname, putEditProfile } from '@/api/profileAPI';
+import { checkNickname, putEditProfile } from '@/api/usersAPI';
 import { Button, InputField, RadioField } from '@/components';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
 import { getCookie } from '@/libs/manageCookie';
@@ -101,15 +101,18 @@ export default function EditProfileModal() {
       {/* <input /> 이미지 수정 인풋 */}
 
       <div className={cn('modal-inputs')}>
-        <InputField
-          id='nickname'
-          label='닉네임'
-          errorMessage={errors.nickname?.message}
-          {...register('nickname', {
-            maxLength: { value: 16, message: '닉네임 초과' },
-            onBlur: handleNicknameBlur,
-          })}
-        />
+        <div className={cn('modal-inputs-nickname')}>
+          <InputField
+            id='nickname'
+            label='닉네임'
+            errorMessage={errors.nickname?.message}
+            {...register('nickname', {
+              maxLength: { value: 16, message: '닉네임 초과' },
+              onBlur: handleNicknameBlur,
+            })}
+          />
+          <Button>중복 확인</Button>
+        </div>
         <InputField label='생년월일' disabled value={users.birth} />
         <RadioField label='성별' options={GENDER_OPTION} disabled defaultValue={users?.gender} />
         <InputField

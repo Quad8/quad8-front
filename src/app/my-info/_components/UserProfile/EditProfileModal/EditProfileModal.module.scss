@@ -18,5 +18,11 @@
     @include flex-column(2.4rem);
 
     width: 100%;
+
+    .modal-inputs-nickname {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
   }
 }
