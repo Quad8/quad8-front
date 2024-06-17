@@ -5,7 +5,7 @@ import { StaticImageData } from 'next/image';
 export const COMMUNITY_DATA = {
   id: 1032,
   user_id: 2337,
-  user_nickname: '고양이는고양닉네임',
+  user_nickname: '고양이는고양닉네임인데인데인데인',
   title: '나는 키보드예요',
   content: '이것은 나의 키보드다다닫다ㅏㄷ다다다다',
   image: [image1, image2],

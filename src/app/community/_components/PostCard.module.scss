@@ -1,8 +1,7 @@
 .container {
   @include flex-column(2rem);
 
-  width: 39.5rem;
-  height: 27rem;
+  width: 100%;
   cursor: pointer;
 }
 
