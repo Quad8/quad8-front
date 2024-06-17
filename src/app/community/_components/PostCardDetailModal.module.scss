@@ -68,9 +68,7 @@
 }
 
 .comment-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
+  @include flex-column(1.6rem);
 }
 
 .comment-input {

@@ -1,6 +1,5 @@
 .write-button-content {
-  display: flex;
+  @include flex-center;
+
   gap: 0.8rem;
-  align-items: center;
-  justify-content: center;
 }
