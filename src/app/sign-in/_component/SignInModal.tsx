@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { InputField, Button } from '@/components';
 import { GitIcon, GoogleIcon, KakaoIcon } from '@/public/index';
 import { useForm } from 'react-hook-form';
-import { postSignin } from '@/api';
+import { postSignin } from '@/api/authAPI';
 import styles from './SigninModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -33,7 +33,13 @@ export default function SignInModal() {
   };
 
   const handleLogin = async (formData: Inputs) => {
-    await postSignin(formData);
+    const responseData = await postSignin(formData);
+
+    if (responseData.status === 'SUCCESS') {
+      window.location.reload();
+    } else if (responseData.status === 'FAIL') {
+      console.log(responseData.message);
+    }
   };
 
   const handleKakaoOauth = async (provider: string) => {

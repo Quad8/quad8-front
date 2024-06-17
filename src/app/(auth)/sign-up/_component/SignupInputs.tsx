@@ -2,8 +2,8 @@ import { RadioField, InputField } from '@/components';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import type { SignupInfoTypes } from '@/types';
-import { checkEmailDuplication, checkNicknameDuplication, postSignup } from '@/api';
 import { forwardRef, useState } from 'react';
+import { checkEmailDuplication, checkNicknameDuplication, postSignup } from '@/api/authAPI';
 import styles from './SignupInputs.module.scss';
 
 const cn = classNames.bind(styles);
