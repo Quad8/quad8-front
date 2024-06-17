@@ -12,3 +12,8 @@ export const getCookie = (key: string) => {
   const value = cookieStore.get(key)?.value ?? null;
   return value;
 };
+
+export const setCookie = (key: string, value: string) => {
+  const cookieStore = cookies();
+  cookieStore.set(key, value);
+};

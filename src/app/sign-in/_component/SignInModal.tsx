@@ -3,6 +3,9 @@ import { InputField, Button } from '@/components';
 import { GitIcon, GoogleIcon, KakaoIcon } from '@/public/index';
 import { useForm } from 'react-hook-form';
 import { postSignin } from '@/api/authAPI';
+import { toast } from 'react-toastify';
+import { getCookie, setCookie } from '@/libs/manageCookie';
+import { useEffect } from 'react';
 import styles from './SigninModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -15,6 +18,21 @@ interface Inputs {
 const AUTH_SECTION = ['아이디 찾기', '비밀번호 찾기', '회원가입'];
 
 export default function SignInModal() {
+  useEffect(() => {
+    const checkAccessToken = async () => {
+      try {
+        const response = await getCookie('accessToken');
+        if (response) {
+          toast.info('이미 로그인 되어있습니다');
+        }
+      } catch (error) {
+        console.error('토큰 가져오기 실패');
+      }
+    };
+
+    checkAccessToken();
+  }, []);
+
   const {
     register,
     formState: { errors },
@@ -33,12 +51,19 @@ export default function SignInModal() {
   };
 
   const handleLogin = async (formData: Inputs) => {
-    const responseData = await postSignin(formData);
+    try {
+      const responseData = await postSignin(formData);
 
-    if (responseData.status === 'SUCCESS') {
-      window.location.reload();
-    } else if (responseData.status === 'FAIL') {
-      console.log(responseData.message);
+      if (responseData.status === 'SUCCESS') {
+        setCookie('accessToken', responseData.data.accessToken);
+        setCookie('refreshToken', responseData.data.refreshToken); // 리프레시 토큰 저장
+
+        window.location.reload();
+      } else if (responseData.status === 'FAIL') {
+        toast.error(responseData.message);
+      }
+    } catch (error) {
+      console.error('로그인 요청 실패', error);
     }
   };
 

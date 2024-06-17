@@ -2,7 +2,9 @@ import { Header } from '@/components';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
+import { ToastContainer } from 'react-toastify';
 import { Providers } from './providers';
+import 'react-toastify/dist/ReactToastify.css';
 
 import '@/styles/reset.css';
 
@@ -27,6 +29,13 @@ export default async function RootLayout({
       <body>
         <Providers>
           <HydrationBoundary state={dehydrate(queryClient)}>
+            <ToastContainer
+              position='top-center'
+              style={{ width: 'max-content', padding: '2rem', fontSize: '1.6rem' }}
+              autoClose={2000}
+              closeButton={false}
+              hideProgressBar
+            />
             <Header />
             {children}
           </HydrationBoundary>

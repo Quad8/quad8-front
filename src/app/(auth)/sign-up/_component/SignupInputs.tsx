@@ -2,8 +2,10 @@ import { RadioField, InputField } from '@/components';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import type { SignupInfoTypes } from '@/types';
-import { forwardRef, useState } from 'react';
+import { forwardRef } from 'react';
 import { checkEmailDuplication, checkNicknameDuplication, postSignup } from '@/api/authAPI';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 import styles from './SignupInputs.module.scss';
 
 const cn = classNames.bind(styles);
@@ -32,17 +34,10 @@ const initalInputValues = {
   imgUrl: '',
 };
 
-interface ResponseType {
-  status: 'SUCCESS' | 'FAIL';
-  message: string | null;
-  data: boolean;
-}
-
 interface SignupInputProps {
   isAgreementAllChecked: boolean;
 }
 export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInputs({ isAgreementAllChecked }, ref) {
-  const [signupResult, SetSignupResult] = useState<ResponseType | null>(null);
   const {
     register,
     handleSubmit,
@@ -53,6 +48,8 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
     mode: 'onBlur',
     defaultValues: initalInputValues,
   });
+
+  const router = useRouter();
 
   const handleCheckEmailInput = async () => {
     const emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
@@ -152,8 +149,12 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
 
     if (isAgreementAllChecked) {
       fetchFormData.append('joinRequest', JSON.stringify(joinRequest));
-      const result = await postSignup(fetchFormData);
-      SetSignupResult(result);
+      const responseData = await postSignup(fetchFormData);
+      if (responseData.status === 'SUCCESS') {
+        router.back();
+      } else if (responseData.status === 'FAIL') {
+        toast.error(responseData.message);
+      }
     }
   };
 
@@ -221,7 +222,6 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         {...registers.birth}
       />
       <RadioField label='성별' options={['남자', '여자']} {...registers.gender} />
-      {signupResult?.status === 'FAIL' && <div>{signupResult.message}</div>}
     </form>
   );
 });
