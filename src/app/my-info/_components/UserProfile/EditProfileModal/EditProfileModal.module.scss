@@ -20,9 +20,17 @@
     width: 100%;
 
     .modal-inputs-nickname {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
+      @include flex-column(0.4rem);
+
+      .input-wrapper {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nickname-button {
+        width: 10.7rem * 1.4;
+        @include pretendard-18-400;
+      }
     }
   }
 }

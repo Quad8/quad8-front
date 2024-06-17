@@ -2,13 +2,13 @@
 
 import { useMutation, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
-import { ChangeEvent, FocusEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import { checkNickname, putEditProfile } from '@/api/usersAPI';
 import { Button, InputField, RadioField } from '@/components';
+import { Label } from '@/components/parts';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
-import { getCookie } from '@/libs/manageCookie';
 import type { Users } from '@/types/profileType';
 
 import styles from './EditProfileModal.module.scss';
@@ -18,16 +18,7 @@ const cn = classNames.bind(styles);
 const GENDER_OPTION = ['남자', '여자'];
 
 export default function EditProfileModal() {
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const getToken = async () => {
-      const accessToken = await getCookie('accessToken');
-      setToken(accessToken);
-    };
-
-    getToken();
-  }, []);
+  const [nickname, setNickname] = useState('');
 
   const { data: userData } = useQuery<{ data: Users }>({
     queryKey: ['userData'],
@@ -38,7 +29,7 @@ export default function EditProfileModal() {
   const {
     register,
     handleSubmit,
-    // setError
+    setError,
     setValue,
     formState: { errors },
   } = useForm({
@@ -52,13 +43,13 @@ export default function EditProfileModal() {
 
   const { mutate: checkNicknameMutation } = useMutation({
     mutationFn: checkNickname,
-    onSuccess: () => {},
     /** 피드백 메세지 수정 필요 */
-    // onSuccess: (res) => {
-    //   if (!res.ok && !errors.nickname) {
-    //     setError('nickname', { message: res.message });
-    //   }
-    // },
+    onSuccess: (res) => {
+      // console.log(res);
+      if (!res.ok && !errors.nickname) {
+        setError('nickname', { message: res.message });
+      }
+    },
   });
 
   const { mutate: putProfileMutation } = useMutation({
@@ -68,7 +59,7 @@ export default function EditProfileModal() {
   const onSubmit: SubmitHandler<FieldValues> = (payload) => {
     // console.log(payload);
     putProfileMutation(
-      { payload, token },
+      { payload },
       // {
       //   /** 피드백에 따른 토스트 모달 추가 필요 */
       //   onSuccess: (res) => {
@@ -79,8 +70,11 @@ export default function EditProfileModal() {
     );
   };
 
-  const handleNicknameBlur = (e: FocusEvent<HTMLInputElement>) => {
-    const nickname = e.target.value;
+  const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+  };
+
+  const handleNicknameCheck = () => {
     if (nickname !== users.nickname) {
       checkNicknameMutation(nickname);
     }
@@ -101,18 +95,28 @@ export default function EditProfileModal() {
       {/* <input /> 이미지 수정 인풋 */}
 
       <div className={cn('modal-inputs')}>
-        <div className={cn('modal-inputs-nickname')}>
-          <InputField
-            id='nickname'
-            label='닉네임'
-            errorMessage={errors.nickname?.message}
-            {...register('nickname', {
-              maxLength: { value: 16, message: '닉네임 초과' },
-              onBlur: handleNicknameBlur,
-            })}
-          />
-          <Button>중복 확인</Button>
-        </div>
+        <Label htmlFor='nickname' sizeVariant='sm' className={cn('modal-inputs-nickname')}>
+          닉네임
+          <div className={cn('input-wrapper')}>
+            <InputField
+              id='nickname'
+              errorMessage={errors.nickname?.message}
+              {...register('nickname', {
+                maxLength: { value: 16, message: '닉네임 초과' },
+                onChange: handleNicknameChange,
+              })}
+            />
+            <Button
+              type='button'
+              onClick={handleNicknameCheck}
+              radius={4}
+              paddingVertical={8}
+              className={cn('nickname-button')}
+            >
+              중복 확인
+            </Button>
+          </div>
+        </Label>
         <InputField label='생년월일' disabled value={users.birth} />
         <RadioField label='성별' options={GENDER_OPTION} disabled defaultValue={users?.gender} />
         <InputField

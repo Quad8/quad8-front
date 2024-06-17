@@ -3,11 +3,6 @@ import { FieldValues } from 'react-hook-form';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
-interface PutEditProfileProps {
-  payload: FieldValues;
-  token: string | null;
-}
-
 /**
  * 주어진 토큰을 사용하여 사용자 데이터를 호출
  *
@@ -32,7 +27,6 @@ export const getUserData = async () => {
     });
 
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     throw error;
@@ -46,7 +40,9 @@ export const getUserData = async () => {
  * @returns {Promise<Object>} - 응답 데이터를 반환합니다.
  * @throws {Error} - 요청이 실패한 경우 에러를 던집니다.
  */
-export const putEditProfile = async ({ payload, token }: PutEditProfileProps) => {
+export const putEditProfile = async (payload: FieldValues) => {
+  const token = await getCookie('accessToken');
+
   try {
     const res = await fetch(`${BASE_URL}/api/v1/users/me`, {
       method: 'PUT',
@@ -73,12 +69,7 @@ export const putEditProfile = async ({ payload, token }: PutEditProfileProps) =>
  */
 export const checkNickname = async (nickname: string) => {
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/users/check/nickname?nickname=${nickname}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const res = await fetch(`${BASE_URL}/api/v1/users/check/nickname?nickname=${nickname}`);
 
     const result = await res.json();
     return result;

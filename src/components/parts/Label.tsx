@@ -7,13 +7,14 @@ const cn = classNames.bind(styles);
 interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   sizeVariant?: 'sm' | 'md' | 'lg' | 'header';
   children: ReactNode;
+  className?: string;
 }
 
-export default function Label({ sizeVariant, htmlFor, children }: LabelProps) {
-  const className = cn('default', sizeVariant);
+export default function Label({ sizeVariant, htmlFor, className, children }: LabelProps) {
+  const combinedClassName = cn('default', sizeVariant, className);
 
   return (
-    <label className={className} htmlFor={htmlFor}>
+    <label className={combinedClassName} htmlFor={htmlFor}>
       {children}
     </label>
   );
