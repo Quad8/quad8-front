@@ -30,15 +30,15 @@
 
       color: $gray-50;
 
-      &:focus {
-        @include pretendard-18-700;
-
-        color: $primary;
-      }
-
       &:hover {
         color: $primary-60;
       }
+    }
+
+    .selected {
+      @include pretendard-18-700;
+
+      color: $primary;
     }
   }
 }

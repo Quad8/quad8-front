@@ -3,6 +3,7 @@
 import { ROUTER } from '@/constants/route';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
+import { useState } from 'react';
 import styles from './SNB.module.scss';
 
 const cn = classNames.bind(styles);
@@ -26,6 +27,12 @@ const SECTIONS = [
 ];
 
 export default function SNB() {
+  const [selectedButton, setSelectedButton] = useState('');
+
+  const handleSideButtonClick = (value: string) => {
+    setSelectedButton(value);
+  };
+
   return (
     <nav className={cn('snb')}>
       <Link href={ROUTER.MY_PAGE.MY_INFO} className={cn('snb-main')}>
@@ -37,7 +44,12 @@ export default function SNB() {
           <div className={cn('snb-items')}>
             {section.items?.map((item) => (
               <Link key={item.name} href={item.route}>
-                <div className={cn('snb-item')}>{item.name}</div>
+                <div
+                  className={cn('snb-item', { selected: item.name === selectedButton })}
+                  onClick={() => handleSideButtonClick(item.name)}
+                >
+                  {item.name}
+                </div>
               </Link>
             ))}
           </div>
