@@ -73,7 +73,7 @@ const UPDATE_NEXT_STEP_STATUS: UpdateStepType<'keyCap'> = {
 
 export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNavigationProps) {
   const { data, isSuccess } = useQuery({
-    queryKey: ['posts'],
+    queryKey: ['customRandomProduct'],
     queryFn: getRandomOptionProduct,
     staleTime: 0,
   }) as { data: OptionDataType[]; isSuccess: boolean };
