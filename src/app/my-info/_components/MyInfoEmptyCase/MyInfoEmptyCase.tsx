@@ -15,7 +15,7 @@ interface MyInfoEmptyCaseProps {
 export default function MyInfoEmptyCase({ children, isBackgroundColor }: MyInfoEmptyCaseProps) {
   return (
     <div className={cn('empty-case', { 'background-color': isBackgroundColor })}>
-      <AlertIcon />
+      <AlertIcon className={cn('alert-icon')} />
       <p className={cn('empty-case-text')}>{children}</p>
       <Button
         as={Link}
