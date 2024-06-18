@@ -22,6 +22,7 @@ const cn = classNames.bind(styles);
 
 interface TotalCostWithNavigationProps {
   optionData: OptionDataType[];
+  accessToken: string;
 }
 
 type DualButtonType = {
@@ -40,7 +41,7 @@ const BUTTON = {
   board: '배열, 외관',
   switch: '스위치',
   keyCap: '키캡',
-  cart: '장바구니',
+  cart: '장바구니 담기',
 };
 
 const BUTTONS: DualButtonType = {
@@ -68,10 +69,11 @@ const UPDATE_NEXT_STEP_STATUS: UpdateStepType<'keyCap'> = {
   switch: { switch: 'completed', keyCap: 'current' },
 };
 
-export default function TotalCostWithNavigation({ optionData }: TotalCostWithNavigationProps) {
+export default function TotalCostWithNavigation({ optionData, accessToken }: TotalCostWithNavigationProps) {
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
   const [isOpenCartModal, setIsOpenCartModal] = useState(false);
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [optionPrice, setOptionPrice] = useState(0);
   const { captureCanvas } = useCaptureCanvas();
   const {
@@ -127,7 +129,11 @@ export default function TotalCostWithNavigation({ optionData }: TotalCostWithNav
   };
 
   const updateOptionPrice = (value: number) => {
-    setOptionPrice(value);
+    setOptionPrice((prevOptionPrice) => prevOptionPrice + value);
+  };
+
+  const handleLoginModal = (value: boolean) => {
+    setIsOpenLoginModal(value);
   };
 
   useEffect(() => {
@@ -138,7 +144,7 @@ export default function TotalCostWithNavigation({ optionData }: TotalCostWithNav
       individualColor,
       pointKeyType,
     });
-    updateData('price', boardPrice + keyCapPrice + optionPrice);
+    updateData('price', boardPrice + keyCapPrice);
   }, [hasPointKeyCap, individualColor, pointKeyType, texture, type, optionPrice, updateData]);
 
   return (
@@ -146,7 +152,7 @@ export default function TotalCostWithNavigation({ optionData }: TotalCostWithNav
       <div className={cn('price-wrapper')}>
         <div className={cn('price-title')}>총 가격</div>
         <div className={cn('price')}>
-          <div className={cn('price-number')}>{price.toLocaleString()}</div>
+          <div className={cn('price-number')}>{(price + optionPrice).toLocaleString()}</div>
           <div className={cn('price-unit')}>원</div>
         </div>
       </div>
@@ -183,7 +189,17 @@ export default function TotalCostWithNavigation({ optionData }: TotalCostWithNav
         />
       </Modal>
       <Modal isOpen={isOpenCartModal} onClose={handleCloseCartMoal}>
-        <CartModal optionData={optionData} onClose={handleCloseCartMoal} />
+        <CartModal
+          optionData={optionData}
+          optionPrice={optionPrice}
+          onClose={handleCloseCartMoal}
+          onChangeLoginModal={handleLoginModal}
+          onUpdateOptionPrice={updateOptionPrice}
+          accessToken={accessToken}
+        />
+      </Modal>
+      <Modal isOpen={isOpenLoginModal} onClose={() => handleLoginModal(false)}>
+        <div style={{ width: '300px', height: '300px', backgroundColor: '#ffffff' }}>로그인 모달</div>
       </Modal>
     </div>
   );

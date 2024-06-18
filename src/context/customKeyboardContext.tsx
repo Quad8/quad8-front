@@ -27,7 +27,7 @@ interface KeyboardDataContextType {
   updateIndividualColor: (value: Partial<Record<CustomKeyboardKeyTypes, Color>>) => void;
   deleteIndividualColor: (key: CustomKeyboardKeyTypes) => void;
   updatePrice: (value: number) => void;
-  updateOption: (id: string, value: boolean) => void;
+  deleteOption: (id: number) => void;
 }
 
 interface KeyColorContextType {
@@ -63,14 +63,14 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
     pointKeyType: '세트 구성',
     pointKeySetColor: '#ffffff',
     price: 0,
-    option: null,
+    option: [],
     individualColor: {},
   },
   updateData: () => {},
   updateIndividualColor: () => {},
   deleteIndividualColor: () => {},
   updatePrice: () => {},
-  updateOption: () => {},
+  deleteOption: () => {},
 });
 
 export const KeyColorContext = createContext<KeyColorContextType>({
@@ -142,7 +142,7 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     pointKeyType: '세트 구성',
     pointKeySetColor: '#ffffff',
     price: 70000,
-    option: null,
+    option: [],
     individualColor: {},
   });
 
@@ -166,13 +166,13 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     setKeyboardData((prev) => ({ ...prev, price: prev.price + value }));
   }, []);
 
-  const updateOption = useCallback((id: string, value: boolean) => {
-    setKeyboardData((prev) => ({ ...prev, option: { ...prev.option, [id]: value } }));
+  const deleteOption = useCallback((id: number) => {
+    setKeyboardData((prev) => ({ ...prev, option: [...prev.option.filter((element) => element !== id)] }));
   }, []);
 
   const value = useMemo(
-    () => ({ keyboardData, updateData, updateIndividualColor, deleteIndividualColor, updatePrice, updateOption }),
-    [keyboardData, updateData, updateIndividualColor, deleteIndividualColor, updatePrice, updateOption],
+    () => ({ keyboardData, updateData, updateIndividualColor, deleteIndividualColor, updatePrice, deleteOption }),
+    [keyboardData, updateData, updateIndividualColor, deleteIndividualColor, updatePrice, deleteOption],
   );
 
   return <KeyboardDataContext.Provider value={value}>{children}</KeyboardDataContext.Provider>;

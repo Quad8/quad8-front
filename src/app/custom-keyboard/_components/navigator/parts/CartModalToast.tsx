@@ -11,7 +11,7 @@ const cn = classNames.bind(styles);
 export default function CartModalToast() {
   const router = useRouter();
   const handleEnimationEnd = () => {
-    router.push(ROUTER.MAIN, { scroll: false });
+    router.push(ROUTER.MY_PAGE.CART, { scroll: false });
   };
   return (
     <div className={cn('wrapper')} onAnimationEnd={handleEnimationEnd}>

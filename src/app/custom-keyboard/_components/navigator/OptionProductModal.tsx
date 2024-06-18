@@ -25,15 +25,9 @@ export default function OptionProductModal({
   updateOptionPrice,
   onClick,
 }: OptionProductModalProps) {
-  const {
-    updateData,
-    keyboardData: { option },
-  } = useContext(KeyboardDataContext);
+  const { updateData } = useContext(KeyboardDataContext);
 
   const [optionsChecked, setOptionsChecked] = useState<Record<string, boolean>>(() => {
-    if (option) {
-      return option as Record<string, boolean>;
-    }
     const checkList = {};
     optionData.forEach((element) => Object.assign(checkList, { [element.id]: false }));
     return checkList;
@@ -44,7 +38,12 @@ export default function OptionProductModal({
   };
 
   const handleClickAddButton = () => {
-    updateData('option', optionsChecked);
+    updateData(
+      'option',
+      Object.keys(optionsChecked)
+        .filter((key) => optionsChecked[key])
+        .map((element) => +element),
+    );
     const currentPrice = optionData
       .map((element) => (optionsChecked[element.id] ? element.price : 0))
       .reduce((prev, next) => prev + next, 0);
@@ -66,8 +65,8 @@ export default function OptionProductModal({
               productName={element.name}
               productImage={element.thumbnail}
               price={element.price}
-              isChecked={optionsChecked[element.id]}
-              onClick={() => handleClickOption(element.id)}
+              isChecked={optionsChecked[String(element.id)]}
+              onClick={() => handleClickOption(String(element.id))}
               blurImage={element.blurImage}
             />
           ))}

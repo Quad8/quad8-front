@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
+import { cookies } from 'next/headers';
 
 import { getRandomOptionProduct } from '@/api/customKeyboardAPI';
 import type { OptionDataType } from '@/types/CustomKeyboardTypes';
 import { getBlurImageList } from '@/libs/getBlurImage';
+
 import KeyboardViewer from './_components/canvas/KeyboardViewer';
 import TotalCostWithNavigation from './_components/navigator/TotalCostWithNavigation';
 import Option from './_components/option/Option';
@@ -14,6 +16,8 @@ export default async function Page() {
   const optionAPI: OptionDataType[] = await getRandomOptionProduct();
   const blurImage = await getBlurImageList(optionAPI.map((data) => data.thumbnail));
   const optionData = optionAPI.map((data, i) => ({ ...data, blurImage: blurImage[i] }));
+  const accessToken = cookies().get('accessToken')?.value ?? '';
+
   return (
     <div className={cn('wrapper')}>
       <KeyboardViewer />
@@ -22,7 +26,7 @@ export default async function Page() {
           <Option />
         </div>
         <div className={cn('button-wrapper')}>
-          <TotalCostWithNavigation optionData={optionData} />
+          <TotalCostWithNavigation optionData={optionData} accessToken={accessToken} />
         </div>
       </div>
     </div>
