@@ -91,6 +91,7 @@
 }
 
 .black {
+  border-bottom: 0.1rem solid $black;
   background-color: $black;
 
   a:hover,
