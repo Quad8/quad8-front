@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-
 import CanvasLoadingIcon from '@/public/svgs/canvasLoading.svg';
 import styles from './CanvasLoading.module.scss';
 

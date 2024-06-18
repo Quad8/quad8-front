@@ -166,6 +166,15 @@ a {
 }
 
 .react-colorful {
-  width: 32rem !important;
-  height: 16rem !important;
+  width: 41rem !important;
+  height: 20.5rem !important;
+}
+.react-colorful__hue-pointer {
+  width: 2.4rem !important;
+  height: 2.4rem !important;
+}
+
+.react-colorful__saturation-pointer {
+  width: 2.2rem !important;
+  height: 2.2rem !important;
 }

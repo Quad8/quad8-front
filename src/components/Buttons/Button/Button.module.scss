@@ -1,17 +1,19 @@
 @mixin background($color) {
+  border: 0.1rem solid $color;
   background-color: $color;
+  fill: $white;
   color: $white;
 }
 
 @mixin border($color) {
   border: 0.1rem solid $color;
   background-color: $white;
+  fill: $color;
   color: $color;
 }
 
 @mixin hover($color, $type) {
   &:hover {
-    transition: all 0.5s ease-in-out;
     @if ($type == 'background') {
       @include background($color);
     } @else if($type == 'outline') {

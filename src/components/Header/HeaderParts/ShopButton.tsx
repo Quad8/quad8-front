@@ -1,5 +1,6 @@
 'use client';
 
+import { ROUTER } from '@/constants/route';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -8,10 +9,10 @@ import styles from './ShopButton.module.scss';
 const cn = classNames.bind(styles);
 
 const MENU_BUTTON = [
-  { NAME: '키보드', HREF: '/keyboard' },
-  { NAME: '키캡', HREF: '/keycap' },
-  { NAME: '스위치', HREF: '/switch' },
-  { NAME: '기타 용품', HREF: '/etc' },
+  { NAME: '키보드', HREF: ROUTER.SHOP.KEYBOARD },
+  { NAME: '키캡', HREF: ROUTER.SHOP.KEYCAP },
+  { NAME: '스위치', HREF: ROUTER.SHOP.SWITCH },
+  { NAME: '기타 용품', HREF: ROUTER.SHOP.ETC },
 ];
 
 interface ShopButtonProps {

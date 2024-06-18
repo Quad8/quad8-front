@@ -6,14 +6,19 @@ import { useContext, useState } from 'react';
 import { Color } from '@react-three/fiber';
 
 import { KeyColorContext, KeyboardDataContext } from '@/context/customKeyboardContext';
-import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
+import type { CustomKeyboardKeyTypes, CustomKeyboardPointKeyType } from '@/types/CustomKeyboardTypes';
+import { Button } from '@/components';
 import ColorTag from './parts/ColorTag';
-
 import styles from './KeyCapOption.module.scss';
 
 const cn = classNames.bind(styles);
 
-const HELP_CONTENT = {
+interface HelpContentType {
+  content: string;
+  cost: string;
+}
+
+const HELP_CONTENT: Record<CustomKeyboardPointKeyType, HelpContentType> = {
   '세트 구성': { content: 'W, A, S, D, 방향키, Esc, Enter, Space Bar', cost: '(+5,500원의 추가요금이 있습니다)' },
   '내 맘대로 바꾸기': {
     content: '원하는 색상으로 바꾸고 싶은 키를 선택해주세요',
@@ -92,20 +97,22 @@ export default function KeyCapOption() {
         <HexColorPicker color={baseKeyColor as string} onChange={handleChangeBaseColor} />
       </div>
       <div className={cn('button-wrapper')}>
-        <button
-          type='button'
+        <Button
+          radius={4}
+          backgroundColor={!hasPointKeyCap ? 'background-primary' : 'outline-gray-40'}
           className={cn('button', { selected: !hasPointKeyCap })}
           onClick={() => handleClickPointKeyCapButton(false)}
         >
-          <div className={cn('button-content')}>포인트 키캡 없음</div>
-        </button>
-        <button
-          type='button'
+          포인트 키캡 없음
+        </Button>
+        <Button
+          radius={4}
+          backgroundColor={hasPointKeyCap ? 'background-primary' : 'outline-gray-40'}
           className={cn('button', { selected: hasPointKeyCap })}
           onClick={() => handleClickPointKeyCapButton(true)}
         >
-          <div>포인트 키캡 추가</div>
-        </button>
+          포인트 키캡 추가
+        </Button>
       </div>
       {hasPointKeyCap && (
         <div className={cn('point-wrapper')}>
@@ -126,6 +133,11 @@ export default function KeyCapOption() {
             </button>
           </div>
           <HexColorPicker color={currentPointKeyColor as string} onChange={handleChangePointColor} />
+          <div className={cn('help-wrapper')}>
+            <div className={cn('help-title')}>{pointKeyType}</div>
+            <div className={cn('help-content')}>{HELP_CONTENT[pointKeyType].content}</div>
+            <div className={cn('help-cost')}>{HELP_CONTENT[pointKeyType].cost}</div>
+          </div>
           {pointKeyType === '내 맘대로 바꾸기' && (
             <div className={cn('tag-wrapper')}>
               {colorList.map(([key, color]) => (
@@ -133,11 +145,6 @@ export default function KeyCapOption() {
               ))}
             </div>
           )}
-          <div className={cn('help-wrapper')}>
-            <div className={cn('help-title')}>{pointKeyType}</div>
-            <div className={cn('help-content')}>{HELP_CONTENT[pointKeyType].content}</div>
-            <div className={cn('help-cost')}>{HELP_CONTENT[pointKeyType].cost}</div>
-          </div>
         </div>
       )}
       {hasPointKeyCap && pointKeyType === '내 맘대로 바꾸기' && !focusKey && <div className={cn('disabled')} />}
