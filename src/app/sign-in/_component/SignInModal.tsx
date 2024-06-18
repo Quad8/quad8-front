@@ -3,9 +3,9 @@ import { InputField, Button } from '@/components';
 import { GitIcon, GoogleIcon, KakaoIcon } from '@/public/index';
 import { useForm } from 'react-hook-form';
 import { postSignin } from '@/api/authAPI';
-import { toast } from 'react-toastify';
 import { getCookie, setCookie } from '@/libs/manageCookie';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import styles from './SigninModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -23,7 +23,7 @@ export default function SignInModal() {
       try {
         const response = await getCookie('accessToken');
         if (response) {
-          toast.info('이미 로그인 되어있습니다');
+          toast.warning('이미 로그인 되어있습니다');
         }
       } catch (error) {
         console.error('토큰 가져오기 실패');

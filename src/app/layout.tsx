@@ -1,14 +1,15 @@
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Zoom } from 'react-toastify';
 
 import { getUserData } from '@/api/usersAPI';
 import { Header } from '@/components';
 import { Providers } from './providers';
-import 'react-toastify/dist/ReactToastify.css';
 
 import '@/styles/reset.css';
+import '@/styles/toast/toastAnimation.scss';
+import '@/styles/toast/toastContainer.scss';
 
 export const metadata: Metadata = {
   title: '키보드 득템 :: KeyDuek',
@@ -29,13 +30,7 @@ export default async function RootLayout({
       <body>
         <Providers>
           <HydrationBoundary state={dehydrate(queryClient)}>
-            <ToastContainer
-              position='top-center'
-              style={{ width: 'max-content', padding: '2rem', fontSize: '1.6rem' }}
-              autoClose={2000}
-              closeButton={false}
-              hideProgressBar
-            />
+            <ToastContainer autoClose={2000} theme='dark' position='top-center' transition={Zoom} />
             <Header />
             {children}
           </HydrationBoundary>
