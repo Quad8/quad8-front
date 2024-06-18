@@ -2,7 +2,7 @@ export interface SignupInfoTypes {
   email: string;
   password: string;
   birth: string;
-  phone: string;
+  phone: number | string;
   gender: string;
   nickname: string;
   imgUrl: string;

@@ -26,7 +26,7 @@
 .auth-section {
   display: flex;
 
-  & > p {
+  & > .auth-section-text {
     color: $gray-50;
     cursor: pointer;
   }
@@ -54,4 +54,8 @@
   display: flex;
   gap: 3.6rem;
   justify-content: center;
+
+  & > * {
+    cursor: pointer;
+  }
 }

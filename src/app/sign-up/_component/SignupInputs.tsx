@@ -2,10 +2,11 @@ import { RadioField, InputField } from '@/components';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import type { SignupInfoTypes } from '@/types';
-import { forwardRef, Dispatch, SetStateAction } from 'react';
+import { forwardRef, Dispatch, SetStateAction, ChangeEvent, useEffect } from 'react';
 import { checkEmailDuplication, checkNicknameDuplication, postSignup } from '@/api/authAPI';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { changePhoneNumber, unFormatPhoneNumber } from '@/libs';
 import styles from './SignupInputs.module.scss';
 
 const cn = classNames.bind(styles);
@@ -52,6 +53,7 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
     getFieldState,
     setError,
     trigger,
+    setValue,
   } = useForm<Inputs>({
     mode: 'onBlur',
     defaultValues: initalInputValues,
@@ -76,6 +78,10 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
 
     setIsAllValid(isValidCheck);
   };
+
+  useEffect(() => {
+    checkFormValidity();
+  }, [isAgreementAllChecked]);
 
   const handleCheckEmailInput = async () => {
     const emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
@@ -123,6 +129,14 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
     await checkFormValidity();
   };
 
+  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const phoneValue = e.target.value;
+    if (/^[\d-]*$/.test(phoneValue)) {
+      const formattedValue = changePhoneNumber(phoneValue);
+      setValue('phone', formattedValue, { shouldValidate: true });
+    }
+  };
+
   const registers = {
     email: register('email', {
       required: '이메일을 입력해주세요.',
@@ -159,6 +173,8 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         message: '휴대폰 번호를 확인해주세요.',
       },
       onBlur: () => checkFormValidity(),
+      setValueAs: (value) => unFormatPhoneNumber(value),
+      onChange: (e) => handlePhoneChange(e),
     }),
     birth: register('birth', {
       required: '생년원일을 입력해주세요.',
@@ -179,7 +195,7 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
     const joinRequest = {
       gender: `${formData.gender === '여자' ? 'FEMALE' : 'MALE'}`,
       nickname: formData.nickname,
-      phone: `010${formData.phone}`,
+      phone: formData.phone,
       password: formData.password,
       email: formData.email,
       birth: '1990-01-01',
@@ -189,7 +205,10 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
       fetchFormData.append('joinRequest', JSON.stringify(joinRequest));
       const responseData = await postSignup(fetchFormData);
       if (responseData.status === 'SUCCESS') {
-        router.back();
+        toast.success('회원가입이 성공적으로 완료되었습니다.');
+        setTimeout(() => {
+          router.back();
+        }, 2000);
       } else if (responseData.status === 'FAIL') {
         toast.error(responseData.message);
       }
@@ -236,14 +255,8 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
       />
       <div className={cn('phone-number-wrapper')}>
         <InputField
-          disabled
-          value='010'
-          placeholder={PLACEHOLDER.NAME}
-          sizeVariant='md'
-          className={cn('phone-number-010')}
-        />
-        <InputField
           placeholder={PLACEHOLDER.PHONE_NUMBER}
+          label='휴대폰 번호'
           sizeVariant='md'
           labelSize='sm'
           errorMessage={errors.phone?.message}
