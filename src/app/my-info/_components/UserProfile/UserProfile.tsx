@@ -24,11 +24,10 @@ export default function UserProfile() {
   };
 
   return (
-    <>
-      <article className={cn('user')}>
-        <div className={cn('user-profile')}>
-          <div className={cn('user-image')}>
-            {/* <Image
+    <article className={cn('user')}>
+      <div className={cn('user-profile')}>
+        <div className={cn('user-image')}>
+          {/* <Image
             src={isImageError ? defaultIamge.src : imgUrl}
             alt='user-iamge'
             width={53}
@@ -37,22 +36,22 @@ export default function UserProfile() {
               setIsImageError(true);
             }}
           /> */}
-          </div>
-          <div className={cn('user-info')}>
-            <h1 className={cn('user-name')}>{users?.nickname} 님</h1>
-            <p className={cn('user-email')}>{users?.email}</p>
-          </div>
         </div>
-        {users && (
+        <div className={cn('user-info')}>
+          <h1 className={cn('user-name')}>{users?.nickname} 님</h1>
+          <p className={cn('user-email')}>{users?.email}</p>
+        </div>
+      </div>
+      {users && (
+        <div>
           <button className={cn('user-edit-button')} type='button' onClick={handleEditProfileButton}>
             회원정보 변경
           </button>
-        )}
-      </article>
-
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <EditProfileModal userData={users} />
-      </Modal>
-    </>
+          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+            <EditProfileModal userData={users} />
+          </Modal>
+        </div>
+      )}
+    </article>
   );
 }

@@ -16,7 +16,7 @@ import styles from './EditProfileModal.module.scss';
 const cn = classNames.bind(styles);
 
 interface EditProfileModalProps {
-  userData?: Users;
+  userData: Users;
 }
 
 const GENDER_OPTION = ['남자', '여자'];
