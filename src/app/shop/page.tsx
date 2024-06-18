@@ -1,4 +1,4 @@
-import { getProductList } from '@/api/getProductList';
+import { getAllProductList } from '@/api/getProductList';
 import { Dropdown } from '@/components';
 import Pagination from '@/components/Pagination/Pagination';
 import { LIST_SORT_OPTIONS } from '@/constants/drodownOptions';
@@ -21,7 +21,7 @@ export default async function ShopAllPage({
     page: searchParams.page || '0',
     size: '16',
   };
-  const { data } = await getProductList(getAllProductParams);
+  const { data } = await getAllProductList(getAllProductParams);
   const { content, ...rest } = data;
   return (
     <>
