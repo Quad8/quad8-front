@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames/bind';
 import { useContext, useState } from 'react';
 
@@ -62,10 +64,11 @@ export default function OptionProductModal({
             <OptionProductCard
               key={element.id}
               productName={element.name}
-              productImage={element.image}
+              productImage={element.thumbnail}
               price={element.price}
               isChecked={optionsChecked[element.id]}
               onClick={() => handleClickOption(element.id)}
+              blurImage={element.blurImage}
             />
           ))}
         </div>

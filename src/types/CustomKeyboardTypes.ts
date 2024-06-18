@@ -25,8 +25,10 @@ export type CustomKeyboardPointKeyType = '내 맘대로 바꾸기' | '세트 구
 export interface OptionDataType {
   id: string;
   name: string;
-  image: string;
+  categoryName: string;
   price: number;
+  thumbnail: string;
+  blurImage: string;
 }
 
 export interface KeyboardDataType {

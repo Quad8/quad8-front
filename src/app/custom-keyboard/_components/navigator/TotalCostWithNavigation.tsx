@@ -12,7 +12,6 @@ import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/cus
 import { Modal, Button } from '@/components';
 import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import { ChevronIcon } from '@/public/index';
-
 import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
@@ -20,6 +19,10 @@ import CartModal from './CartModal';
 import styles from './TotalCostWithNavigation.module.scss';
 
 const cn = classNames.bind(styles);
+
+interface TotalCostWithNavigationProps {
+  optionData: OptionDataType[];
+}
 
 type DualButtonType = {
   [key in CustomKeyboardStepTypes]: {
@@ -65,11 +68,10 @@ const UPDATE_NEXT_STEP_STATUS: UpdateStepType<'keyCap'> = {
   switch: { switch: 'completed', keyCap: 'current' },
 };
 
-export default function TotalCostWithNavigation() {
+export default function TotalCostWithNavigation({ optionData }: TotalCostWithNavigationProps) {
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
   const [isOpenCartModal, setIsOpenCartModal] = useState(false);
-  const [optionData, setOptionData] = useState<OptionDataType[]>([]);
   const [optionPrice, setOptionPrice] = useState(0);
   const { captureCanvas } = useCaptureCanvas();
   const {
@@ -81,7 +83,7 @@ export default function TotalCostWithNavigation() {
 
   const handleClickNextButton = () => {
     if (currentStep === 'board' || currentStep === 'keyCap') {
-      captureCanvas(() => {
+      captureCanvas(async () => {
         if (currentStep === 'board') {
           const nextStep = BUTTONS[currentStep].next as CustomKeyboardStepTypes;
           updateStepStatus(UPDATE_NEXT_STEP_STATUS[currentStep]);
@@ -138,42 +140,6 @@ export default function TotalCostWithNavigation() {
     });
     updateData('price', boardPrice + keyCapPrice + optionPrice);
   }, [hasPointKeyCap, individualColor, pointKeyType, texture, type, optionPrice, updateData]);
-
-  useEffect(() => {
-    /* api로 옵션 데이터 가져오기 */
-    setOptionData([
-      {
-        id: '5',
-        name: '스테빌라이저',
-        image: '/images/optionProductMock.png',
-        price: 9000,
-      },
-      {
-        id: '42',
-        name: '스프링',
-        image: '/images/optionProductMock.png',
-        price: 1000,
-      },
-      {
-        id: '65',
-        name: '튜닝용품',
-        image: '/images/optionProductMock.png',
-        price: 4000,
-      },
-      {
-        id: '72',
-        name: '보강판',
-        image: '/images/optionProductMock.png',
-        price: 12000,
-      },
-      {
-        id: '95',
-        name: '기판',
-        image: '/images/optionProductMock.png',
-        price: 24000,
-      },
-    ]);
-  }, []);
 
   return (
     <div className={cn('wrapper')}>

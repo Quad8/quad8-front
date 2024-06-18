@@ -161,7 +161,7 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
                     name='기타 용품'
                     option1={element.name}
                     price={element.price}
-                    imageSrc={element.image}
+                    imageSrc={element.thumbnail}
                     buttonType='delete'
                     buttonOnClick={(e) => onClickDeleteButton(e, element.id)}
                   />
