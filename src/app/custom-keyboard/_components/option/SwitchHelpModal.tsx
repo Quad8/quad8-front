@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
 import { useRef, useState } from 'react';
-import { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
+
+import type { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
 import { Button } from '@/components';
 import SoundVibrationIcon from '@/public/svgs/soundVibration.svg';
+
 import styles from './SwitchHelpModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -66,7 +68,7 @@ export default function SwitchHelpModal() {
         ))}
       </div>
       <div className={cn('footer-wrapper')}>
-        <p>청축: 클릭 소리가 나며, 클릭감을 제공</p>
+        <p>청축 : 클릭 소리가 나며, 클릭감을 제공</p>
         <p>적축 : 걸림이 없는 부드러운 스위치</p>
         <p>갈축 : 클릭 소리없이 클릭감을 제공</p>
         <p>흑축 : 적축보다 압력감이 강한 스위치</p>
