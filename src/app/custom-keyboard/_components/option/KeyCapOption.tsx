@@ -5,9 +5,9 @@ import { HexColorPicker } from 'react-colorful';
 import { useContext, useState } from 'react';
 import { Color } from '@react-three/fiber';
 
+import { FocusKeyContext, KeyboardDataContext } from '@/context';
 import type { CustomKeyboardKeyTypes, CustomKeyboardPointKeyType } from '@/types/CustomKeyboardTypes';
 import { Button } from '@/components';
-import { FocusKeyContext, KeyboardDataContext } from '@/context';
 import ColorTag from './parts/ColorTag';
 
 import styles from './KeyCapOption.module.scss';
@@ -103,6 +103,7 @@ export default function KeyCapOption() {
           backgroundColor={!hasPointKeyCap ? 'background-primary' : 'outline-gray-40'}
           className={cn('button', { selected: !hasPointKeyCap })}
           onClick={() => handleClickPointKeyCapButton(false)}
+          hoverColor='background-primary-60'
         >
           포인트 키캡 없음
         </Button>
@@ -111,6 +112,7 @@ export default function KeyCapOption() {
           backgroundColor={hasPointKeyCap ? 'background-primary' : 'outline-gray-40'}
           className={cn('button', { selected: hasPointKeyCap })}
           onClick={() => handleClickPointKeyCapButton(true)}
+          hoverColor='background-primary-60'
         >
           포인트 키캡 추가
         </Button>

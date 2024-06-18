@@ -5,6 +5,7 @@ import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 import { Color } from '@react-three/fiber';
 
 import DeleteTagIcon from '@/public/svgs/delete.svg';
+
 import styles from './ColorTag.module.scss';
 
 const cn = classNames.bind(styles);

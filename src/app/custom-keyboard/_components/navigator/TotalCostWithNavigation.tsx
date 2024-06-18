@@ -8,11 +8,11 @@ import type {
   CustomKeyboardStepTypes,
   OptionDataType,
 } from '@/types/CustomKeyboardTypes';
+import { FocusKeyContext, KeyboardDataContext, StepContext } from '@/context';
 import { Modal, Button } from '@/components';
 import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import { ChevronIcon } from '@/public/index';
 import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
-import { FocusKeyContext, KeyboardDataContext, StepContext } from '@/context';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
 
@@ -41,7 +41,7 @@ const BUTTON = {
   board: '배열, 외관',
   switch: '스위치',
   keyCap: '키캡',
-  cart: '장바구니 담기',
+  cart: '커스텀 완료',
 };
 
 const BUTTONS: DualButtonType = {
@@ -177,7 +177,7 @@ export default function TotalCostWithNavigation({ optionData, accessToken }: Tot
           onClick={() => handleClickNextButton()}
         >
           {BUTTON[next]}
-          <ChevronIcon width={16} height={16} className={cn('next-button-icon')} />
+          {currentStep !== 'keyCap' && <ChevronIcon width={16} height={16} className={cn('next-button-icon')} />}
         </Button>
       </div>
       <Modal isOpen={isOpenOptionModal} onClose={handleCloseOptionModal}>

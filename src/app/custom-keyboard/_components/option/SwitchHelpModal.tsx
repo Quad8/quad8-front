@@ -51,10 +51,12 @@ export default function SwitchHelpModal() {
       <div className={cn('button-wrapper')}>
         {BUTTON_LIST.map((button) => (
           <Button
+            className={cn('button')}
             radius={4}
             backgroundColor={clickButtonType === button ? 'outline-primary' : 'outline-gray-40'}
             key={button}
             onClick={() => handleClickButton(button)}
+            hoverColor='outline-primary-60'
           >
             <div className={cn('button-content', clickButtonType === button && 'checked-text')}>
               <p>{button}</p>

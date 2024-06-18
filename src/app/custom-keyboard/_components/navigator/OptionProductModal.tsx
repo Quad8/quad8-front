@@ -3,9 +3,9 @@
 import classNames from 'classnames/bind';
 import { useContext, useState } from 'react';
 
+import { KeyboardDataContext } from '@/context';
 import type { OptionDataType } from '@/types/CustomKeyboardTypes';
 import { Button } from '@/components';
-import { KeyboardDataContext } from '@/context';
 import OptionProductCard from './parts/OptionProductCard';
 
 import styles from './OptionProductModal.module.scss';
@@ -72,7 +72,7 @@ export default function OptionProductModal({
           ))}
         </div>
         <div className={cn('button-wrapper')}>
-          <Button onClick={handleClickAddButton} width={154} hoverColor='background-primary-60'>
+          <Button onClick={handleClickAddButton} className={cn('button')} hoverColor='background-primary-60'>
             추가하기
           </Button>
         </div>
