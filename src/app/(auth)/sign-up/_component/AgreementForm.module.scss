@@ -34,6 +34,7 @@
   align-items: center;
 
   & > h3 {
+    margin-top: 0.3rem;
     color: $gray-50;
     @include pretendard-14-400;
   }

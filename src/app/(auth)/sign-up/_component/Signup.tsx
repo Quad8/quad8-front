@@ -1,11 +1,13 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { Button } from '@/components';
 import { useRef, useState } from 'react';
-import styles from './Signup.module.scss';
+
+import { Button } from '@/components';
 import { AgreementForm } from './AgreementForm';
 import SignupInputs from './SignupInputs';
+
+import styles from './Signup.module.scss';
 
 const cn = classNames.bind(styles);
 

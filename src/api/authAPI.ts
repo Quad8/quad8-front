@@ -1,22 +1,23 @@
 import { FetchSigninInfoTypes } from '@/types';
 
+const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
+
 export const checkEmailDuplication = async (emailValue: string) => {
-  const url = `http://43.201.71.50:8080/api/v1/users/check/email?email=${emailValue}`;
+  const url = `${BASE_URL}/api/v1/users/check/email?email=${emailValue}`;
   const response = await fetch(url);
   const data = await response.json();
-  console.log(data);
   return data;
 };
 
 export const checkNicknameDuplication = async (nickname: string) => {
-  const url = `http://43.201.71.50:8080/api/v1/users/check/nickname?nickname=${nickname}`;
+  const url = `${BASE_URL}/api/v1/users/check/nickname?nickname=${nickname}`;
   const response = await fetch(url);
   const data = await response.json();
   return data;
 };
 
 export const postSignup = async (formData: FormData) => {
-  const url = 'http://43.201.71.50:8080/api/v1/users';
+  const url = `${BASE_URL}/api/v1/users`;
 
   try {
     const response = await fetch(url, {
@@ -34,7 +35,7 @@ export const postSignup = async (formData: FormData) => {
 };
 
 export const postSignin = async (formData: FetchSigninInfoTypes) => {
-  const url = 'http://43.201.71.50:8080/login';
+  const url = `${BASE_URL}/login`;
 
   try {
     const response = await fetch(url, {
