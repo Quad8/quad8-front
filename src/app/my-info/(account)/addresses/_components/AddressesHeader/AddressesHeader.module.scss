@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+
+  .title {
+    @include pretendard-30-700;
+
+    color: $black;
+  }
+
+  .button {
+    @include pretendard-16-500;
+    @include flex-center;
+
+    gap: 1rem;
+    width: 12.7rem;
+
+    .cross-icon {
+      font-size: 2.4rem;
+    }
+  }
+}

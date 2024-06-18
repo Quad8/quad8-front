@@ -1,0 +1,41 @@
+.modal {
+  width: 60.2rem;
+  padding: 6rem;
+  border-radius: 2.4rem;
+  background-color: $white;
+  @include flex-column(4rem);
+
+  .title {
+    text-align: center;
+    @include pretendard-30-700;
+  }
+
+  .inputs {
+    @include flex-column(3.2rem);
+
+    .inputs-addresse {
+      @include flex-column(0.4rem);
+
+      .inputs-search {
+        display: flex;
+        gap: 0.8rem;
+      }
+
+      .inputs-button {
+        width: 12rem;
+        border: none;
+        background-color: $primary-20;
+        color: $primary;
+        @include pretendard-18-400;
+      }
+    }
+  }
+
+  .checkbox {
+    // appearance: none;
+  }
+
+  .button {
+    @include pretendard-18-700;
+  }
+}

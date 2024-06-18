@@ -29,24 +29,24 @@ const SECTIONS = [
 export default function SNB() {
   const [selectedButton, setSelectedButton] = useState('');
 
-  const handleSideButtonClick = (value: string) => {
+  const handleSideItemClick = (value: string) => {
     setSelectedButton(value);
   };
 
   return (
     <nav className={cn('snb')}>
-      <Link href={ROUTER.MY_PAGE.MY_INFO} className={cn('snb-main')}>
+      <Link className={cn('snb-main')} href={ROUTER.MY_PAGE.MY_INFO} onClick={() => handleSideItemClick('')}>
         마이 페이지
       </Link>
       {SECTIONS.map((section, i) => (
-        <div key={section.category} className={cn('snb-sections')}>
+        <div className={cn('snb-sections')} key={section.category}>
           <div className={cn('snb-category', `snb-category-${i + 1}`)}>{section.category}</div>
           <div className={cn('snb-items')}>
             {section.items?.map((item) => (
               <Link key={item.name} href={item.route}>
                 <div
                   className={cn('snb-item', { selected: item.name === selectedButton })}
-                  onClick={() => handleSideButtonClick(item.name)}
+                  onClick={() => handleSideItemClick(item.name)}
                 >
                   {item.name}
                 </div>

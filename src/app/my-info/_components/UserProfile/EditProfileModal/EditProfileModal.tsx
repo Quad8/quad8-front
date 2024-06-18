@@ -134,8 +134,6 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
         />
       </div>
       <Button type='submit'>저장</Button>
-
-      <InputField name='테스트' suffixUnit='원' />
     </form>
   );
 }
