@@ -3,7 +3,10 @@ import type { CustomKeyboardAPITypes } from '@/types/CustomKeyboardTypes';
 export const getRandomOptionProduct = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/custom/get/random-option-products`, {
-      cache: 'no-store',
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
     });
     const { data } = await res.json();
     return data;
@@ -11,7 +14,6 @@ export const getRandomOptionProduct = async () => {
     throw error;
   }
 };
-
 export const postCustomKeyboardOrder = async (token: string, data: CustomKeyboardAPITypes) => {
   try {
     await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/custom/create`, {

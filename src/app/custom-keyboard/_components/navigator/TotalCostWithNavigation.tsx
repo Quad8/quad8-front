@@ -13,6 +13,9 @@ import { Modal, Button } from '@/components';
 import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import { ChevronIcon } from '@/public/index';
 import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
+import { useQuery } from '@tanstack/react-query';
+import { getRandomOptionProduct } from '@/api/customKeyboardAPI';
+import { getBlurImageList } from '@/libs/getBlurImage';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
 
@@ -21,7 +24,6 @@ import styles from './TotalCostWithNavigation.module.scss';
 const cn = classNames.bind(styles);
 
 interface TotalCostWithNavigationProps {
-  optionData: OptionDataType[];
   accessToken: string;
 }
 
@@ -69,7 +71,13 @@ const UPDATE_NEXT_STEP_STATUS: UpdateStepType<'keyCap'> = {
   switch: { switch: 'completed', keyCap: 'current' },
 };
 
-export default function TotalCostWithNavigation({ optionData, accessToken }: TotalCostWithNavigationProps) {
+export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNavigationProps) {
+  const { data, isSuccess } = useQuery({
+    queryKey: ['posts'],
+    queryFn: getRandomOptionProduct,
+    staleTime: 0,
+  }) as { data: OptionDataType[]; isSuccess: boolean };
+  const [optionData, setOptionData] = useState<OptionDataType[]>([]);
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
   const [isOpenCartModal, setIsOpenCartModal] = useState(false);
@@ -92,7 +100,7 @@ export default function TotalCostWithNavigation({ optionData, accessToken }: Tot
           updateCurrentStep(nextStep);
           return;
         }
-        if (isInitialOpenOptionModal) {
+        if (isInitialOpenOptionModal && optionData) {
           setIsOpenOptionModal(true);
           return;
         }
@@ -146,6 +154,18 @@ export default function TotalCostWithNavigation({ optionData, accessToken }: Tot
     });
     updateData('price', boardPrice + keyCapPrice);
   }, [hasPointKeyCap, individualColor, pointKeyType, texture, type, optionPrice, updateData]);
+
+  useEffect(() => {
+    const getData = async () => {
+      if (!isSuccess) {
+        return;
+      }
+      const blurImage = await getBlurImageList(data.map((element) => element.thumbnail));
+      const blurData = data.map((element, i) => ({ ...element, blurImage: blurImage[i] }));
+      setOptionData(blurData);
+    };
+    getData();
+  }, [data, isSuccess]);
 
   return (
     <div className={cn('wrapper')}>
