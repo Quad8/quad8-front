@@ -7,13 +7,26 @@ import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import type { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
 import Modal from '@/components/Modal/Modal';
 import CrossCircleIcon from '@/public/svgs/crossCircle.svg';
-import SwitchHelp from './SwitchHelp';
+import { blueSwitchImg, redSwitchImg, brownSwitchImg, blackSwitchImg } from '@/public/index';
+import { Button } from '@/components';
+import Image, { StaticImageData } from 'next/image';
+import SwitchHelpModal from './SwitchHelpModal';
 
 import styles from './SwitchOption.module.scss';
 
 const cn = classNames.bind(styles);
 
-const BUTTONS = ['청축', '적축', '갈축', '흑축'];
+interface ButtonType {
+  name: CustomKeyboardSwitchTypes;
+  imageSrc: StaticImageData;
+}
+
+const BUTTONS: ButtonType[] = [
+  { name: '청축', imageSrc: blueSwitchImg },
+  { name: '적축', imageSrc: redSwitchImg },
+  { name: '갈축', imageSrc: brownSwitchImg },
+  { name: '흑축', imageSrc: blackSwitchImg },
+];
 
 export default function SwitchOption() {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -35,14 +48,26 @@ export default function SwitchOption() {
         <div className={cn('title')}>스위치</div>
         <div className={cn('button-wrapper')}>
           {BUTTONS.map((element) => (
-            <button
-              key={element}
-              type='button'
-              className={cn('button', { selected: switchType === element })}
-              onClick={() => handleClickSwitchButton(element as CustomKeyboardSwitchTypes)}
+            <Button
+              key={element.name}
+              backgroundColor={switchType === element.name ? 'outline-primary' : 'outline-gray-40'}
+              radius={4}
+              hoverColor='outline-primary-60'
+              className={cn('button')}
+              onClick={() => handleClickSwitchButton(element.name)}
             >
-              {element}
-            </button>
+              <div className={cn('image-wrapper')}>
+                <Image
+                  src={element.imageSrc}
+                  alt={element.name}
+                  width={199}
+                  height={116}
+                  className={cn('switch-image')}
+                />
+              </div>
+
+              <div className={cn('switch-text', { selected: switchType === element.name })}>{element.name}</div>
+            </Button>
           ))}
         </div>
       </div>
@@ -54,7 +79,7 @@ export default function SwitchOption() {
         <div className={cn('help-content')}>종류에 따라 타건감이나 소리가 다를 수 있습니다.</div>
       </div>
       <Modal isOpen={isOpenModal} onClose={onCloseModal}>
-        <SwitchHelp />
+        <SwitchHelpModal />
       </Modal>
     </div>
   );

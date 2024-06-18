@@ -17,7 +17,7 @@ const cn = classNames.bind(styles);
 
 const CAMERA = {
   fov: 45,
-  position: new Vector3(0, 1.5, 0),
+  position: new Vector3(0, 1.4, 0),
 };
 
 const GL = {
@@ -37,7 +37,7 @@ export default function KeyboardViewer() {
   return (
     <div className={cn('wrapper')}>
       <Suspense fallback={<CanvasLoading />}>
-        <div className={cn('option-wrapper')}>{isLoaded && <Step />}</div>
+        <div className={cn('step-wrapper')}>{isLoaded && <Step />}</div>
         <Canvas
           camera={CAMERA}
           className={cn('canvas')}
