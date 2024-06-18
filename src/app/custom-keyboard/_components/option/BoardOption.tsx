@@ -4,11 +4,11 @@ import classNames from 'classnames/bind';
 import { useContext } from 'react';
 import { HexColorPicker } from 'react-colorful';
 
-import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import type { CustomKeyboardTypeTypes, CustomKeyboardTextureTypes } from '@/types/CustomKeyboardTypes';
 import { Button } from '@/components';
-
 import { BOARD_PRICE_LIST } from '@/constants/keyboardData';
+import { KeyboardDataContext } from '@/context';
+
 import styles from './BoardOption.module.scss';
 
 const cn = classNames.bind(styles);

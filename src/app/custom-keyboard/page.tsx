@@ -4,10 +4,10 @@ import { cookies } from 'next/headers';
 import { getRandomOptionProduct } from '@/api/customKeyboardAPI';
 import type { OptionDataType } from '@/types/CustomKeyboardTypes';
 import { getBlurImageList } from '@/libs/getBlurImage';
-
 import KeyboardViewer from './_components/canvas/KeyboardViewer';
 import TotalCostWithNavigation from './_components/navigator/TotalCostWithNavigation';
 import Option from './_components/option/Option';
+
 import styles from './customKeyboard.module.scss';
 
 const cn = classNames.bind(styles);

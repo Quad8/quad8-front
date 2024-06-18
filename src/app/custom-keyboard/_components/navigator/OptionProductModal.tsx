@@ -3,9 +3,9 @@
 import classNames from 'classnames/bind';
 import { useContext, useState } from 'react';
 
-import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import type { OptionDataType } from '@/types/CustomKeyboardTypes';
 import { Button } from '@/components';
+import { KeyboardDataContext } from '@/context';
 import OptionProductCard from './parts/OptionProductCard';
 
 import styles from './OptionProductModal.module.scss';

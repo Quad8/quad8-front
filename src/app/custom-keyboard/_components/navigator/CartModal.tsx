@@ -3,7 +3,6 @@ import { MouseEvent, useContext, useRef, RefObject } from 'react';
 import { StaticImageData } from 'next/image';
 import { useMutation } from '@tanstack/react-query';
 
-import { KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { POINT_KEY } from '@/constants/keyboardData';
 import type { CustomKeyboardStepTypes, OptionDataType, CustomKeyboardAPITypes } from '@/types/CustomKeyboardTypes';
 import { blackSwitchImg, blueSwitchImg, brownSwitchImg, redSwitchImg } from '@/public/index';
@@ -11,6 +10,7 @@ import { Button } from '@/components';
 import { getColorUpperCase } from '@/libs/getColorUpperCase';
 import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import { postCustomKeyboardOrder } from '@/api/customKeyboardAPI';
+import { StepContext, KeyboardDataContext } from '@/context';
 import CartModalOptionCard from './parts/CartModalOptionCard';
 import CartModalToast from './parts/CartModalToast';
 
@@ -136,7 +136,6 @@ export default function CartModal({
       individualColor,
       imgBase64: keyboardImage.keyCap,
     };
-    console.log(data);
     crateCustomKeyboard.mutate(data);
   };
 

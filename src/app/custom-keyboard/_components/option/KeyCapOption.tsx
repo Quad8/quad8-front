@@ -5,10 +5,11 @@ import { HexColorPicker } from 'react-colorful';
 import { useContext, useState } from 'react';
 import { Color } from '@react-three/fiber';
 
-import { KeyColorContext, KeyboardDataContext } from '@/context/customKeyboardContext';
 import type { CustomKeyboardKeyTypes, CustomKeyboardPointKeyType } from '@/types/CustomKeyboardTypes';
 import { Button } from '@/components';
+import { FocusKeyContext, KeyboardDataContext } from '@/context';
 import ColorTag from './parts/ColorTag';
+
 import styles from './KeyCapOption.module.scss';
 
 const cn = classNames.bind(styles);
@@ -33,7 +34,7 @@ export default function KeyCapOption() {
     updateIndividualColor,
     deleteIndividualColor,
   } = useContext(KeyboardDataContext);
-  const { focusKey, currentPointKeyColor, updateFocusKey, updateCurrentPointKeyColor } = useContext(KeyColorContext);
+  const { focusKey, currentPointKeyColor, updateFocusKey, updateCurrentPointKeyColor } = useContext(FocusKeyContext);
   const [colorList, setColorList] = useState<[CustomKeyboardKeyTypes, Color][]>(
     Object.entries(individualColor) as [CustomKeyboardKeyTypes, Color][],
   );

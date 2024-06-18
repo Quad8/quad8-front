@@ -3,13 +3,13 @@
 import classNames from 'classnames/bind';
 import { useContext, useState } from 'react';
 
-import { KeyboardDataContext } from '@/context/customKeyboardContext';
 import type { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
 import Modal from '@/components/Modal/Modal';
 import CrossCircleIcon from '@/public/svgs/crossCircle.svg';
 import { blueSwitchImg, redSwitchImg, brownSwitchImg, blackSwitchImg } from '@/public/index';
 import { Button } from '@/components';
 import Image, { StaticImageData } from 'next/image';
+import { KeyboardDataContext } from '@/context';
 import SwitchHelpModal from './SwitchHelpModal';
 
 import styles from './SwitchOption.module.scss';

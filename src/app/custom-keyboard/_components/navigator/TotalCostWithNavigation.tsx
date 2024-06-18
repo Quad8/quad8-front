@@ -8,11 +8,11 @@ import type {
   CustomKeyboardStepTypes,
   OptionDataType,
 } from '@/types/CustomKeyboardTypes';
-import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { Modal, Button } from '@/components';
 import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import { ChevronIcon } from '@/public/index';
 import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
+import { FocusKeyContext, KeyboardDataContext, StepContext } from '@/context';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
 
@@ -81,7 +81,7 @@ export default function TotalCostWithNavigation({ optionData, accessToken }: Tot
     updateData,
   } = useContext(KeyboardDataContext);
   const { currentStep, updateCurrentStep, updateStepStatus } = useContext(StepContext);
-  const { updateFocusKey } = useContext(KeyColorContext);
+  const { updateFocusKey } = useContext(FocusKeyContext);
 
   const handleClickNextButton = () => {
     if (currentStep === 'board' || currentStep === 'keyCap') {
