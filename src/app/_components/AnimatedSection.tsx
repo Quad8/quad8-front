@@ -10,7 +10,7 @@ const cn = classNames.bind(styles);
 
 export default function AnimatedSection({ children }: PropsWithChildren) {
   const ref = useRef<HTMLDivElement>(null);
-  const isIntersecting = useIntersectionObserver(ref, { threshold: 0.5 });
+  const isIntersecting = useIntersectionObserver(ref, { threshold: 0.2 });
   return (
     <div ref={ref} className={cn('fade-zoom-in', { visible: isIntersecting })}>
       {children}
