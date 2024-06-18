@@ -6,6 +6,7 @@ import { postSignin } from '@/api/authAPI';
 import { getCookie, setCookie } from '@/libs/manageCookie';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import Link from 'next/link';
 import styles from './SigninModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -56,9 +57,11 @@ export default function SignInModal() {
 
       if (responseData.status === 'SUCCESS') {
         setCookie('accessToken', responseData.data.accessToken);
-        setCookie('refreshToken', responseData.data.refreshToken); // 리프레시 토큰 저장
-
-        window.location.reload();
+        setCookie('refreshToken', responseData.data.refreshToken);
+        toast.success('로그인이 성공적으로 완료되었습니다.');
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       } else if (responseData.status === 'FAIL') {
         toast.error(responseData.message);
       }
@@ -98,7 +101,9 @@ export default function SignInModal() {
         <div className={cn('auth-section-wrapper')}>
           {AUTH_SECTION.map((text, i) => (
             <div key={text} className={cn('auth-section')}>
-              <p>{text}</p>
+              <Link href='/sign-up' className={cn('auth-section-text')}>
+                {text}
+              </Link>
               {i === 2 || <div className={cn('bar')}>|</div>}
             </div>
           ))}
