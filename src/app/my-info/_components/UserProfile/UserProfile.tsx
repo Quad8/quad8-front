@@ -17,17 +17,18 @@ export default function UserProfile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: userData } = useQuery<{ data: Users }>({ queryKey: ['userData'] });
 
-  const users = userData?.data ?? { nickname: '', email: '' };
+  const users = userData?.data;
 
   const handleEditProfileButton = () => {
     setIsModalOpen(true);
   };
 
   return (
-    <article className={cn('user')}>
-      <div className={cn('user-profile')}>
-        <div className={cn('user-image')}>
-          {/* <Image
+    <>
+      <article className={cn('user')}>
+        <div className={cn('user-profile')}>
+          <div className={cn('user-image')}>
+            {/* <Image
             src={isImageError ? defaultIamge.src : imgUrl}
             alt='user-iamge'
             width={53}
@@ -36,18 +37,22 @@ export default function UserProfile() {
               setIsImageError(true);
             }}
           /> */}
+          </div>
+          <div className={cn('user-info')}>
+            <h1 className={cn('user-name')}>{users?.nickname} 님</h1>
+            <p className={cn('user-email')}>{users?.email}</p>
+          </div>
         </div>
-        <div className={cn('user-info')}>
-          <h1 className={cn('user-name')}>{users.nickname} 님</h1>
-          <p className={cn('user-email')}>{users.email}</p>
-        </div>
-      </div>
-      <button className={cn('user-edit-button')} type='button' onClick={handleEditProfileButton}>
-        회원정보 변경
-      </button>
+        {users && (
+          <button className={cn('user-edit-button')} type='button' onClick={handleEditProfileButton}>
+            회원정보 변경
+          </button>
+        )}
+      </article>
+
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <EditProfileModal />
+        <EditProfileModal userData={users} />
       </Modal>
-    </article>
+    </>
   );
 }

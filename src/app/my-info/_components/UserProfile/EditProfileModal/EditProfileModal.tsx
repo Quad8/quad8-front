@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { ChangeEvent, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -15,16 +15,16 @@ import styles from './EditProfileModal.module.scss';
 
 const cn = classNames.bind(styles);
 
+interface EditProfileModalProps {
+  userData?: Users;
+}
+
 const GENDER_OPTION = ['남자', '여자'];
 
-export default function EditProfileModal() {
-  const [nickname, setNickname] = useState('');
+export default function EditProfileModal({ userData }: EditProfileModalProps) {
+  const [changedNickname, setChangedNickname] = useState('');
 
-  const { data: userData } = useQuery<{ data: Users }>({
-    queryKey: ['userData'],
-  });
-
-  const users = userData?.data ?? { nickname: '', phone: '', gender: '', birth: '' };
+  const { birth, gender, nickname, phone } = userData;
 
   const {
     register,
@@ -35,9 +35,9 @@ export default function EditProfileModal() {
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
-      nickname: users.nickname,
-      phone: formatPhoneNumber(users.phone),
-      gender: users.gender,
+      nickname,
+      phone: formatPhoneNumber(phone),
+      gender,
     },
   });
 
@@ -71,11 +71,11 @@ export default function EditProfileModal() {
   };
 
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value);
+    setChangedNickname(e.target.value);
   };
 
   const handleNicknameCheck = () => {
-    if (nickname !== users.nickname) {
+    if (changedNickname !== nickname) {
       checkNicknameMutation(nickname);
     }
   };
@@ -117,8 +117,13 @@ export default function EditProfileModal() {
             </Button>
           </div>
         </Label>
-        <InputField label='생년월일' disabled value={users.birth} />
-        <RadioField label='성별' options={GENDER_OPTION} disabled defaultValue={users?.gender} />
+        <InputField label='생년월일' disabled value={birth} />
+        <RadioField
+          label='성별'
+          options={GENDER_OPTION}
+          disabled
+          defaultValue={gender === 'FEMALE' ? '여자' : '남자'}
+        />
         <InputField
           label='휴대폰 번호'
           placeholder='0000-0000'
