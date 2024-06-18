@@ -4,7 +4,7 @@ import { Button, Modal } from '@/components';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 
-import AddAddresseModal from './AddAddresseModal/AddAddresseModal';
+import AddAddressModal from './AddAddresseModal/AddAddressModal';
 import styles from './AddressesHeader.module.scss';
 
 const cn = classNames.bind(styles);
@@ -25,7 +25,7 @@ export default function AddressesHeader() {
         </Button>
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <AddAddresseModal />
+        <AddAddressModal />
       </Modal>
     </>
   );
