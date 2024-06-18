@@ -2,7 +2,7 @@ import { RadioField, InputField } from '@/components';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import type { SignupInfoTypes } from '@/types';
-import { forwardRef } from 'react';
+import { forwardRef, Dispatch, SetStateAction } from 'react';
 import { checkEmailDuplication, checkNicknameDuplication, postSignup } from '@/api/authAPI';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
@@ -26,7 +26,7 @@ const PLACEHOLDER = {
 const initalInputValues = {
   email: '',
   password: '',
-  passwordConfirem: '',
+  passwordConfirm: '',
   birth: '',
   phone: '',
   gender: '',
@@ -36,20 +36,46 @@ const initalInputValues = {
 
 interface SignupInputProps {
   isAgreementAllChecked: boolean;
+  setIsAllValid: Dispatch<SetStateAction<boolean>>;
 }
-export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInputs({ isAgreementAllChecked }, ref) {
+export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInputs(
+  { isAgreementAllChecked, setIsAllValid },
+  ref,
+) {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
+    getFieldState,
     setError,
+    trigger,
   } = useForm<Inputs>({
     mode: 'onBlur',
     defaultValues: initalInputValues,
   });
 
-  const router = useRouter();
+  const checkFormValidity = async () => {
+    const values = getValues();
+    const hasError = !!(
+      (await getFieldState('email').error) ||
+      (await getFieldState('password').error) ||
+      (await getFieldState('passwordConfirm').error) ||
+      (await getFieldState('nickname').error) ||
+      (await getFieldState('phone').error) ||
+      (await getFieldState('birth').error) ||
+      (await getFieldState('gender').error)
+    );
+
+    const isEmpty = Object.entries(values).some(
+      ([key, value]) => key !== 'imgUrl' && key !== 'passwordConfirm' && value === '',
+    );
+    const isValidCheck = !hasError && !isEmpty && isAgreementAllChecked;
+
+    setIsAllValid(isValidCheck);
+  };
 
   const handleCheckEmailInput = async () => {
     const emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
@@ -74,6 +100,8 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         message: '중복된 이메일입니다.',
       });
     }
+
+    await checkFormValidity();
   };
 
   const handleCheckNicknameInput = async () => {
@@ -92,6 +120,7 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         message: '중복된 닉네임입니다.',
       });
     }
+    await checkFormValidity();
   };
 
   const registers = {
@@ -109,14 +138,19 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         value: /^[a-zA-ZZ0-9]{8,20}/i,
         message: '비밀번호는 숫자와 영문자 조합으로 8~20자리를 사용해야 합니다.',
       },
+      onBlur: () => {
+        checkFormValidity();
+        trigger('passwordConfirm');
+      },
     }),
     passwordConfirm: register('passwordConfirm', {
       required: '비밀번호를 한번 더 입력해주세요.',
       validate: (value) => value === getValues('password') || '비밀번호가 일치하지 않습니다',
+      onBlur: () => checkFormValidity(),
     }),
     nickname: register('nickname', {
       required: '이름을 입력해주세요.',
-      onBlur: () => errors.nickname || handleCheckNicknameInput(),
+      onBlur: () => handleCheckNicknameInput(),
     }),
     phone: register('phone', {
       required: '휴대폰 번호를 입력해주세요.',
@@ -124,6 +158,7 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         value: /^[0-9]{7,8}/i,
         message: '휴대폰 번호를 확인해주세요.',
       },
+      onBlur: () => checkFormValidity(),
     }),
     birth: register('birth', {
       required: '생년원일을 입력해주세요.',
@@ -131,8 +166,11 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         value: /^(19[0-9][0-9]|20\d{2})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/,
         message: '유효한 생년월일을 입력해주세요. 예: YYYYMMDD',
       },
+      onBlur: () => checkFormValidity(),
     }),
-    gender: register('gender'),
+    gender: register('gender', {
+      onBlur: () => checkFormValidity(),
+    }),
   };
 
   const handleFormSubmit = async (formData: Inputs) => {

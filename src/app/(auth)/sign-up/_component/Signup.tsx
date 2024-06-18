@@ -11,6 +11,7 @@ const cn = classNames.bind(styles);
 
 export default function Signup() {
   const [isAgreementAllChecked, setIsAgreementAllChecked] = useState(false);
+  const [isAllValid, setIsAllValid] = useState(false);
   const formRef = useRef<{ submit: () => void } & HTMLFormElement>(null);
 
   const handleSubmitButtonClick = () => {
@@ -24,11 +25,16 @@ export default function Signup() {
       <div className={cn('container')}>
         <h1 className={cn('title')}>회원가입</h1>
         <div className={cn('content-wrapper')}>
-          <SignupInputs isAgreementAllChecked={isAgreementAllChecked} ref={formRef} />
+          <SignupInputs isAgreementAllChecked={isAgreementAllChecked} setIsAllValid={setIsAllValid} ref={formRef} />
           <AgreementForm setIsAllChecked={setIsAgreementAllChecked} />
         </div>
       </div>
-      <Button className={cn('button')} fontSize={24} onClick={handleSubmitButtonClick}>
+      <Button
+        className={cn('button')}
+        fontSize={24}
+        onClick={handleSubmitButtonClick}
+        backgroundColor={isAllValid ? 'background-primary' : 'background-gray-40'}
+      >
         회원가입
       </Button>
     </>
