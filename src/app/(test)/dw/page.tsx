@@ -1,22 +1,35 @@
 'use client';
 
+import Dialog from '@/components/Dialog/Dialog';
 import { useState } from 'react';
-import { HexColorPicker } from 'react-colorful';
 
 export default function Page() {
-  const [color, setColor] = useState('#ffffff');
-
-  const handleClickButton = (value: string) => {
-    setColor(value);
-  };
+  const [isOpenAlert, setIsOpenAlert] = useState(false);
+  const [isOpenConfirm, setIsOpenConfirm] = useState(false);
 
   return (
     <div>
-      <button type='button' onClick={() => setColor('#00aaff')}>
-        클릭
+      <button type='button' onClick={() => setIsOpenAlert(true)}>
+        alert 버튼
       </button>
-      <div>{color}</div>
-      <HexColorPicker color={color} onChange={handleClickButton} />
+      <button type='button' onClick={() => setIsOpenConfirm(true)}>
+        confirm 버튼
+      </button>
+      <Dialog
+        type='alert'
+        iconType='delete'
+        message='선택된 옵션이 없습니다.'
+        isOpen={isOpenAlert}
+        onClick={() => setIsOpenAlert(false)}
+        buttonText='확인'
+      />
+      <Dialog
+        type='confirm'
+        message='선택된 옵션이 없습니다.'
+        isOpen={isOpenConfirm}
+        onClick={{ left: () => setIsOpenConfirm(false), right: () => setIsOpenConfirm(false) }}
+        buttonText={{ left: '취소', right: '커스텀 만들러 가기' }}
+      />
     </div>
   );
 }

@@ -1,0 +1,28 @@
+.wrapper {
+  @include flex-center;
+
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 100%;
+  background-color: $gray-20;
+}
+
+.delete-wrapper {
+  background-color: red;
+}
+
+.warn-icon {
+  fill: orange;
+}
+
+.delete-icon {
+  fill: $white;
+
+  .path {
+    stroke-width: 10;
+  }
+}
+
+.accept-icon {
+  fill: #00ba00;
+}

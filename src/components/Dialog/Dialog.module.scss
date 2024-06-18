@@ -1,0 +1,40 @@
+.wrapper {
+  @include flex-column(4rem);
+
+  padding: 4rem;
+  border-radius: 1.6rem;
+  background-color: $white;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  width: 42.2rem;
+}
+
+.button-left {
+  &:hover {
+    border-color: $gray-20;
+    background-color: $gray-20;
+  }
+}
+
+.content-wrapper {
+  @include flex-column(0);
+
+  align-items: center;
+  justify-content: space-between;
+  min-height: 9.3rem;
+}
+
+.only-child {
+  justify-content: center;
+}
+
+.text-wrapper {
+  @include pretendard-20-600;
+
+  text-align: center;
+}
