@@ -15,9 +15,11 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
   suffixIcon?: 'search' | 'eye';
   suffixUnit?: '원';
+  currentLength?: number;
 }
 
 const PHONE_PREFIX = '010';
+const NICKNAME_MAX_LENGTH = 16;
 
 /**
  * InputField component documentation
@@ -34,12 +36,27 @@ const PHONE_PREFIX = '010';
  */
 
 export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField(
-  { id, type = 'text', sizeVariant = 'md', label, className, errorMessage, suffixIcon, suffixUnit, labelSize, ...rest },
+  {
+    id,
+    type = 'text',
+    sizeVariant = 'md',
+    label,
+    className,
+    errorMessage,
+    suffixIcon,
+    suffixUnit,
+    labelSize,
+    currentLength,
+    ...rest
+  },
   ref,
 ) {
   const [inputType, setInputType] = useState(type);
+
   const isPhone = label === '휴대폰 번호' || label === '연락처';
   const isBirth = label === '생년월일';
+  const isNickname = id === 'nickname';
+  const isNumber = !!suffixUnit;
 
   const onSuffixEyeIconClick = () => {
     setInputType((prevType) => (prevType === 'password' ? 'text' : 'password'));
@@ -72,10 +89,17 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
           isError={!!errorMessage}
           isBirth={isBirth}
           isPhone={isPhone}
+          isNickname={isNickname}
+          isNumber={isNumber}
           ref={ref}
           className={className}
           {...rest}
         />
+        {isNickname && (
+          <div className={cn('current-length')}>
+            {currentLength} / {NICKNAME_MAX_LENGTH}
+          </div>
+        )}
         {suffixUnit && <SuffixUnit unit={suffixUnit} />}
         {suffixIcon && (
           <SuffixIcon

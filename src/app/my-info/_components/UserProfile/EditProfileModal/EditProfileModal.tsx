@@ -22,9 +22,8 @@ interface EditProfileModalProps {
 const GENDER_OPTION = ['남자', '여자'];
 
 export default function EditProfileModal({ userData }: EditProfileModalProps) {
-  const [changedNickname, setChangedNickname] = useState('');
-
   const { birth, gender, nickname, phone } = userData;
+  const [changedNickname, setChangedNickname] = useState(nickname);
 
   const {
     register,
@@ -101,6 +100,7 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
             <InputField
               id='nickname'
               errorMessage={errors.nickname?.message}
+              currentLength={changedNickname.length}
               {...register('nickname', {
                 maxLength: { value: 16, message: '닉네임 초과' },
                 onChange: handleNicknameChange,
@@ -109,7 +109,7 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
             <Button
               type='button'
               onClick={handleNicknameCheck}
-              radius={4}
+              radius={8}
               paddingVertical={8}
               className={cn('nickname-button')}
             >
@@ -134,6 +134,8 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
         />
       </div>
       <Button type='submit'>저장</Button>
+
+      <InputField name='테스트' suffixUnit='원' />
     </form>
   );
 }
