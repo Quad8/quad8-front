@@ -4,11 +4,6 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_KEYDEUK_API_BASE_URL: process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL,
   },
-
-  env: {
-    NEXT_PUBLIC_KEYDEUK_API_BASE_URL: process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL,
-  },
-
   images: {
     remotePatterns: [
       {
