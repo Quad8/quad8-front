@@ -1,8 +1,10 @@
-import { Header } from '@/components';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
+
+import { getUserData } from '@/api/usersAPI';
+import { Header } from '@/components';
 import { Providers } from './providers';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,9 +22,7 @@ export default async function RootLayout({
 }>) {
   const queryClient = new QueryClient();
 
-  // 유저 data api 호출
-  // const Token = cookies().get('accessToken')?.value ?? null;
-  // await queryClient.prefetchQuery({ queryKey: ['userData'], queryFn: () => getUserData(Token), });
+  await queryClient.prefetchQuery({ queryKey: ['userData'], queryFn: getUserData });
 
   return (
     <html lang='ko'>

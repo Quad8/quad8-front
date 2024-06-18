@@ -17,7 +17,7 @@ export default function SuffixIcon({ type, icon, isOpen, onClick }: SuffixIconPr
       case 'search':
         return <SearchIcon />;
       case 'arrow':
-        return <ChevronIcon />;
+        return <ChevronIcon className={cn('chevron-icon')} />;
       default:
         if (type === 'password') {
           return <EyeOffIcon />;

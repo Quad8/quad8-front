@@ -1,0 +1,36 @@
+.modal {
+  @include flex-column(4rem);
+
+  align-items: center;
+  width: 60.2rem;
+  padding: 6rem;
+  border-radius: 2.4rem;
+  background: $white;
+  gap: 4rem;
+
+  .modal-title {
+    @include pretendard-30-700;
+
+    color: $black;
+  }
+
+  .modal-inputs {
+    @include flex-column(2.4rem);
+
+    width: 100%;
+
+    .modal-inputs-nickname {
+      @include flex-column(0.4rem);
+
+      .input-wrapper {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nickname-button {
+        width: 10.7rem * 1.4;
+        @include pretendard-18-400;
+      }
+    }
+  }
+}

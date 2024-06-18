@@ -1,0 +1,65 @@
+.wrapper {
+  @include flex-column(1.6rem);
+
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  padding: 4rem;
+  border-radius: 1.6rem;
+  background-color: $white;
+}
+
+.title-wrapper {
+  color: $black;
+}
+
+.title {
+  @include pretendard-20-500;
+}
+
+.sub-title {
+  @include pretendard-16-400;
+}
+
+.button-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 41rem;
+  gap: 1.2rem;
+}
+
+.button-content {
+  @include flex-center;
+  @include pretendard-18-400;
+
+  gap: 1rem;
+  color: $gray-40;
+}
+
+.checked-text {
+  color: $primary;
+}
+
+.sound-icon {
+  fill: $gray-40;
+}
+
+.checked-icon {
+  path {
+    fill: $primary;
+  }
+}
+
+.footer-wrapper {
+  @include flex-column(0.4rem);
+  @include pretendard-14-400;
+
+  color: $gray-50;
+}
+
+.close-button {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  cursor: pointer;
+}

@@ -14,6 +14,13 @@ export const getCookie = (key: string) => {
 };
 
 export const setCookie = (key: string, value: string) => {
+  const defaultOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 60 * 60 * 1000,
+    path: '/',
+  };
+
   const cookieStore = cookies();
-  cookieStore.set(key, value);
+  cookieStore.set(key, value, defaultOptions);
 };

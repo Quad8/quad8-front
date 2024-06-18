@@ -3,16 +3,18 @@
 
   display: flex;
   align-items: center;
+  margin-top: 10rem;
+  margin-bottom: 0.4rem;
   color: #616161;
-  font-size: 1.6rem;
   gap: 0.8rem;
 
   .arrow-icon {
     rotate: (-90deg);
+    fill: $black;
   }
 }
 
 .current-category {
   color: $black;
-  font-weight: 700;
+  font-weight: 600;
 }
