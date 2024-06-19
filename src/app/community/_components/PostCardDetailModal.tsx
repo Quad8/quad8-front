@@ -59,14 +59,14 @@ export default function PostCardDetailModal() {
   } = TEMP_DETAIL_POSTDATE;
   const createdDateString = formatDateToString(created);
 
-  const handleMyCommentInput = () => {
+  const handleSubmitComment = () => {
     if (commentRef.current) {
       commentRef.current.value = '';
     }
   };
 
   useEffect(() => {
-    const removeEvent = addEnterKeyEvent({ element: commentRef, callback: handleMyCommentInput });
+    const removeEvent = addEnterKeyEvent({ element: commentRef, callback: handleSubmitComment });
     return () => {
       removeEvent();
     };
