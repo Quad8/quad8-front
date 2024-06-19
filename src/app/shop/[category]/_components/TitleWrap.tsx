@@ -13,14 +13,15 @@ const cn = classNames.bind(styles);
 
 interface TitleWrapProp {
   category: CategoryKey;
+  totalCount: number;
 }
-export default function TitleWrap({ category }: TitleWrapProp) {
-  const [isOpen, setIsOpen] = useState(true);
+export default function TitleWrap({ category, totalCount }: TitleWrapProp) {
+  const [isOpen, setIsOpen] = useState(false);
   const handleClickFilter = () => setIsOpen(!isOpen);
   return (
     <>
       <div className={cn('title-wrap')}>
-        <CategoryTitle totalCount={14}>{CATEGORY_MAP[category]}</CategoryTitle>
+        <CategoryTitle totalCount={totalCount}>{CATEGORY_MAP[category]}</CategoryTitle>
         <FilterSort onClick={handleClickFilter} />
       </div>
       {isOpen && <Filter category={category} />}
