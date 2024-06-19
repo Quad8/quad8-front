@@ -4,11 +4,11 @@ import { ChangeEvent, useEffect } from 'react';
 import type { Address } from 'react-daum-postcode';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import { postAddresses } from '@/api/shipping';
+import { postAddresses } from '@/api/shippingAPI';
 import { Button, InputField } from '@/components';
 import { Input, Label } from '@/components/parts';
-
 import { changePhoneNumber, unFormatPhoneNumber } from '@/libs';
+
 import styles from './AddAddressModal.module.scss';
 
 const cn = classNames.bind(styles);

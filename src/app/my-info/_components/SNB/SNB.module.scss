@@ -10,12 +10,14 @@
     @include pretendard-30-700;
 
     margin-bottom: 2rem;
+    font-weight: bold;
   }
 
   .snb-sections {
     @include flex-column(1.6rem);
 
     color: $black;
+    font-weight: bold;
 
     .snb-category {
       @include pretendard-20-700;
