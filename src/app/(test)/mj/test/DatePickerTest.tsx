@@ -1,11 +1,12 @@
 'use client';
 
-import DatePicker from '@/components/DatePicker/DatePicker';
 import { useState } from 'react';
+import DatePicker from '@/components/DatePicker/DatePicker';
+import { DataPickerChangeProps } from '../../../../types/DatePickerTypes';
 
 export default function DatePickerTest() {
-  const [selectedDate, setSelectedDate] = useState<{ startDate: Date; endDate: Date } | null>(null);
-  const handleStartDateSelected = (date: { startDate: Date; endDate: Date }) => {
+  const [selectedDate, setSelectedDate] = useState<DataPickerChangeProps | null>(null);
+  const handleStartDateSelected = (date: DataPickerChangeProps) => {
     // console.log(date);
     /** 조회 버튼 누르면 시작 날짜와 마감 날짜 확인이 가능합니다. */
     setSelectedDate(date);

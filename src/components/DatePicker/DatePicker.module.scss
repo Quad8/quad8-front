@@ -25,7 +25,7 @@
   height: 100%;
   margin-right: 4rem;
 
-  & > :first-child {
+  & > :nth-child(1) {
     border-radius: 0.4rem 0 0 0.4rem;
   }
 

@@ -24,7 +24,8 @@
   }
 }
 
-.month-year-select-wrapper {
+.month-year-select-wrapper,
+.weeks-wrapper {
   display: flex;
 }
 
@@ -49,10 +50,6 @@
   margin-bottom: 2rem;
 }
 
-.weeks-wrapper {
-  display: flex;
-}
-
 .week-text {
   @include flex-center;
   @include pretendard-14-400;
@@ -60,26 +57,32 @@
   width: calc(100% / 7);
 }
 
+@mixin day-wrapper-circle($background, $fontColor) {
+  width: 3.3rem;
+  height: 3.3rem;
+  margin: auto;
+  border-radius: 100%;
+  background-color: $background;
+  color: $fontColor;
+}
+
 .days-wrapper {
+  @include pretendard-14-400;
+
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   width: 100%;
   min-height: calc(3.5rem * 6);
   margin-top: 1rem;
-  @include pretendard-14-400;
 
   & > * {
     @include flex-center;
 
     min-height: 3.3rem;
+    padding-top: 0.3rem;
 
     &:hover {
-      width: 3.3rem;
-      height: 3.3rem;
-      margin: auto;
-      border-radius: 100%;
-      background-color: $primary-20;
-      color: $black;
+      @include day-wrapper-circle($primary-20, $black);
     }
   }
 }
@@ -90,10 +93,5 @@
 }
 
 .selected-day {
-  width: 3.3rem;
-  height: 3.3rem;
-  margin: auto;
-  border-radius: 100%;
-  background-color: #4968f6;
-  color: white;
+  @include day-wrapper-circle($primary, $white);
 }
