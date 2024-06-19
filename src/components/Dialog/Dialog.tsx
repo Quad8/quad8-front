@@ -1,15 +1,18 @@
 import classNames from 'classnames/bind';
+import { Fragment } from 'react';
+
 import Modal from '../Modal/Modal';
-import styles from './Dialog.module.scss';
 import Button from '../Buttons/Button/Button';
 import { DialogIcon } from './DialogIcon';
+
+import styles from './Dialog.module.scss';
 
 const cn = classNames.bind(styles);
 
 interface BaseDialogProps {
   message: string;
   isOpen: boolean;
-  iconType?: 'warn' | 'accept' | 'delete';
+  iconType?: 'warn' | 'accept';
 }
 
 interface AlertDialogProps extends BaseDialogProps {
@@ -30,9 +33,17 @@ export default function Dialog({ type, isOpen, onClick, buttonText, iconType, me
   return (
     <Modal isOpen={isOpen} onClose={() => {}}>
       <div className={cn('wrapper')}>
-        <div className={cn('content-wrapper', { 'only-child': !iconType })}>
+        <div className={cn('content-wrapper')}>
           {iconType && <DialogIcon iconType={iconType} />}
-          <div className={cn('text-wrapper')}>{message}</div>
+          <div className={cn('text-wrapper')}>
+            {message.split('\\n').map((text, i) => (
+              /* eslint-disable-next-line react/no-array-index-key */
+              <Fragment key={i}>
+                {text}
+                <br />
+              </Fragment>
+            ))}
+          </div>
         </div>
         <div className={cn('button-wrapper')}>
           {type === 'confirm' && (

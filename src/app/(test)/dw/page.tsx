@@ -17,7 +17,7 @@ export default function Page() {
       </button>
       <Dialog
         type='alert'
-        iconType='delete'
+        iconType='accept'
         message='선택된 옵션이 없습니다.'
         isOpen={isOpenAlert}
         onClick={() => setIsOpenAlert(false)}
@@ -25,7 +25,7 @@ export default function Page() {
       />
       <Dialog
         type='confirm'
-        message='선택된 옵션이 없습니다.'
+        message='선택된 옵션이 없습니다.\n선택된 옵션이 없습니다.'
         isOpen={isOpenConfirm}
         onClick={{ left: () => setIsOpenConfirm(false), right: () => setIsOpenConfirm(false) }}
         buttonText={{ left: '취소', right: '커스텀 만들러 가기' }}

@@ -1,6 +1,7 @@
 .wrapper {
   @include flex-column(4rem);
 
+  width: 50.2rem;
   padding: 4rem;
   border-radius: 1.6rem;
   background-color: $white;
@@ -22,19 +23,17 @@
 }
 
 .content-wrapper {
-  @include flex-column(0);
+  @include flex-column(1.6rem);
 
   align-items: center;
-  justify-content: space-between;
-  min-height: 9.3rem;
-}
-
-.only-child {
   justify-content: center;
+  min-height: 9.3rem;
 }
 
 .text-wrapper {
   @include pretendard-20-600;
+  @include flex-column(0.2rem);
 
   text-align: center;
+  white-space: pre-line;
 }

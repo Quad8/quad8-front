@@ -6,7 +6,6 @@ export { default as LogoIcon } from './svgs/logo.svg';
 export { default as SearchIcon } from './svgs/search.svg';
 export { default as UserIcon } from './svgs/user.svg';
 export { default as WarnCircleIcon } from './svgs/warnCircle.svg';
-export { default as DeleteIcon } from './svgs/delete.svg';
 export { default as CheckBoxCircleIcon } from './svgs/checkboxCircle.svg';
 
 export { default as blackSwitchImg } from './images/blackSwitch.jpg';
