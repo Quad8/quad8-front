@@ -1,6 +1,6 @@
 import { getProductDetail } from '@/api/productAPI';
 import { redirect } from 'next/navigation';
-import ProductDetail from './_components/ProductDetail/ProductDetail';
+import ProductDetail from './_components/Product/ProductDetail';
 
 interface ProductDetailParams {
   params: {
