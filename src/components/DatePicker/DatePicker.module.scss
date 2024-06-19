@@ -1,15 +1,79 @@
+@mixin hover-color {
+  border: 0.1rem solid $primary;
+  background-color: $white;
+  color: $primary;
+}
+
+@mixin default-color {
+  border: 0.1rem solid $gray-50;
+  background-color: $white;
+  color: $black;
+}
+
 .container {
   display: flex;
   align-items: center;
+  height: 4.2rem;
+}
+
+.month-picker-wrapper,
+.custom-picker-wrapper {
+  @include flex-center;
 }
 
 .month-picker-wrapper {
-  display: flex;
+  height: 100%;
+  margin-right: 4rem;
 
-  & > .month-picker {
-    @include pretendard-18-700;
-
-    padding: 0.8rem 3rem;
-    background-color: $white;
+  & > :first-child {
+    border-radius: 0.4rem 0 0 0.4rem;
   }
+
+  & > :nth-child(2) {
+    border-radius: 0;
+  }
+
+  & > :nth-child(3) {
+    border-radius: 0 0.4rem 0.4rem 0;
+  }
+}
+
+.date-option {
+  @include default-color;
+  @include flex-center;
+
+  width: 10rem;
+  height: 100%;
+}
+
+.custom-picker-wrapper {
+  @include pretendard-18-400;
+
+  height: 100%;
+  margin: 1.2rem;
+  gap: 1.2rem;
+}
+
+.date-picker-input {
+  @include default-color;
+  @include flex-center;
+
+  position: relative;
+  width: 18.6rem;
+  height: 100%;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  gap: 1.6rem;
+
+  &:hover {
+    @include hover-color;
+  }
+
+  & > .date-text {
+    margin-top: 0.3rem;
+  }
+}
+
+.is-focus {
+  @include hover-color;
 }

@@ -1,15 +1,17 @@
 import classNames from 'classnames/bind';
-import ProfileImage from '@/components/ProfileImage/ProfileImage';
+// import ProfileImage from '@/components/ProfileImage/ProfileImage';
+import DatePicker from '@/components/DatePicker/DatePicker';
 import styles from './page.module.scss';
-import ReviewModalTest from './ReviewModalTest';
+// import ReviewModalTest from './ReviewModalTest';
 
 const cn = classNames.bind(styles);
 
 export default function Page() {
   return (
     <div className={cn('container')}>
-      <ProfileImage isEditable width={139} height={139} profileImage={null} />
-      <ReviewModalTest />
+      <DatePicker />
+      {/* <ProfileImage isEditable width={139} height={139} profileImage={null} /> */}
+      {/* <ReviewModalTest /> */}
     </div>
   );
 }
