@@ -67,6 +67,10 @@
 
   &:hover {
     @include hover-color;
+
+    & > svg {
+      stroke: $primary;
+    }
   }
 
   & > .date-text {

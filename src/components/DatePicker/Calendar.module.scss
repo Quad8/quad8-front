@@ -5,9 +5,23 @@
   width: 38.3rem;
   height: 34.6rem;
   padding: 2rem 3.15rem;
+  animation-name: slide-in-top;
+  animation-duration: 0.5s;
   border-radius: 1.6rem;
   background-color: $white;
   color: $black;
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-4.3rem);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .month-year-select-wrapper {
@@ -45,17 +59,30 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   width: 100%;
-  height: 70%;
+  min-height: calc(3.5rem * 6);
   margin-top: 1rem;
-  gap: 0.5rem;
+  @include pretendard-14-400;
 
   & > * {
     @include flex-center;
+
+    min-height: 3.3rem;
+
+    &:hover {
+      width: 3.3rem;
+      height: 3.3rem;
+      margin: auto;
+      border-radius: 100%;
+      background-color: $primary-20;
+      color: $black;
+    }
   }
 }
 
 .selected-day {
-  width: 100%;
+  width: 3.3rem;
+  height: 3.3rem;
+  margin: auto;
   border-radius: 100%;
   background-color: #4968f6;
   color: white;
