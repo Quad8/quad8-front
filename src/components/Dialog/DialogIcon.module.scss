@@ -1,22 +1,5 @@
-.wrapper {
-  @include flex-center;
-
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 100%;
-  background-color: $gray-20;
-}
-
 .warn-icon {
   fill: #ff5858;
-}
-
-.delete-icon {
-  fill: $white;
-
-  .path {
-    stroke-width: 10;
-  }
 }
 
 .accept-icon {
