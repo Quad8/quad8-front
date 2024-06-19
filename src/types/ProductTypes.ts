@@ -8,7 +8,7 @@ export type OptionTypes = {
   optionName: string;
 };
 
-export type ProductType = {
+export interface ProductType {
   id: number;
   name: string;
   price: number;
@@ -19,4 +19,10 @@ export type ProductType = {
   thubmnailList: ThumbnailTypes[];
   optionList: OptionTypes[];
   categoryName: string;
-};
+}
+
+export interface CartProductType {
+  productId: number;
+  switchOptionId: number | undefined;
+  count: number;
+}

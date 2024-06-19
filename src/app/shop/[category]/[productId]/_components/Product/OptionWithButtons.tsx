@@ -1,7 +1,9 @@
 'use client';
 
+import { postCart } from '@/api/cartAPI';
 import { Button, Dropdown } from '@/components';
-import type { OptionTypes } from '@/types/ProductTypes';
+import type { CartProductType, OptionTypes } from '@/types/ProductTypes';
+import { useMutation } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import OptionContainer from './OptionContainer';
@@ -15,7 +17,6 @@ interface OptionWithButtonProps {
   optionList: OptionTypes[];
   price: number;
 }
-
 interface SelectedOptionType {
   id: number;
   name: string;
@@ -60,8 +61,24 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
     setSelectedOptions((prevOptions) => prevOptions.filter((option) => option.name !== name));
   };
 
+  const addCartProduct = useMutation({ mutationFn: (data: CartProductType) => postCart(data) });
+
   const handleClickCartButton = () => {
-    console.log(productId, selectedOptions);
+    selectedOptions.forEach((option) => {
+      const data: CartProductType = {
+        productId,
+        switchOptionId: option.id,
+        count: option.count,
+      };
+
+      addCartProduct.mutate(data);
+    });
+
+    if (!optionList) {
+      const noOptionData: CartProductType = { productId, switchOptionId: undefined, count: noOptionCount };
+
+      addCartProduct.mutate(noOptionData);
+    }
   };
 
   return (
