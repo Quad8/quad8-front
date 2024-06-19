@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import DatePicker from '@/components/DatePicker/DatePicker';
-import { DataPickerChangeProps } from '../../../../types/DatePickerTypes';
+import type { DataPickerChangeProps } from '@/types/DatePickerTypes';
 
 export default function DatePickerTest() {
   const [selectedDate, setSelectedDate] = useState<DataPickerChangeProps | null>(null);
