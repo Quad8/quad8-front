@@ -1,5 +1,5 @@
-import CustomGuide from './_components/CustomGuide';
-import Hero from './_components/Hero';
+import CustomGuide from './_components/Guide/CustomGuide';
+import Hero from './_components/Hero/Hero';
 
 export default function Home() {
   return (
