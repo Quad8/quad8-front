@@ -2,7 +2,7 @@ import type { FetchSigninInfoTypes } from '@/types';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
-export const checkEmailDuplication = async (emailValue: string) => {
+export const getCheckEmailDuplication = async (emailValue: string) => {
   const url = `${BASE_URL}/api/v1/users/check/email?email=${emailValue}`;
   try {
     const response = await fetch(url);
@@ -16,7 +16,7 @@ export const checkEmailDuplication = async (emailValue: string) => {
   }
 };
 
-export const checkNicknameDuplication = async (nickname: string) => {
+export const getCheckNicknameDuplication = async (nickname: string) => {
   const url = `${BASE_URL}/api/v1/users/check/nickname?nickname=${nickname}`;
   try {
     const response = await fetch(url);
@@ -56,6 +56,7 @@ export const postSignin = async (formData: FetchSigninInfoTypes) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify(formData),
     });
