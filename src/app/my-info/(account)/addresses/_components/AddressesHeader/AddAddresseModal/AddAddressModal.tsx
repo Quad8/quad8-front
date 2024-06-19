@@ -1,11 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import { postAddresses } from '@/api/shipping';
-import { Button, InputField } from '@/components';
+import { Button, InputField, Modal } from '@/components';
 import { Input, Label } from '@/components/parts';
 
+import DaumPostcodeEmbed from 'react-daum-postcode';
 import styles from './AddAddressModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -19,6 +21,7 @@ const PLACEHOLDERS = {
 };
 
 export default function AddAddressModal() {
+  const [isPostcodeEmbedOpen, setIsPostcodeEmbedOpen] = useState(false);
   const { handleSubmit, register } = useForm({ mode: 'onTouched' });
 
   const { mutate: postAddressesMutate } = useMutation({ mutationFn: postAddresses });
@@ -35,30 +38,47 @@ export default function AddAddressModal() {
     );
   };
 
+  const handleSearchPostClick = () => {
+    setIsPostcodeEmbedOpen(true);
+  };
+
   return (
-    <form className={cn('modal')} onSubmit={handleSubmit(onSubmit)}>
-      <h1 className={cn('title')}>배송지 등록 / 수정</h1>
-      <div className={cn('inputs')}>
-        <InputField label='이름' placeholder={PLACEHOLDERS.NAME} {...register('name')} />
+    <>
+      <form className={cn('modal')} onSubmit={handleSubmit(onSubmit)}>
+        <h1 className={cn('title')}>배송지 등록 / 수정</h1>
+        <div className={cn('inputs')}>
+          <InputField label='이름' placeholder={PLACEHOLDERS.NAME} {...register('name')} />
 
-        <Label className={cn('inputs-address')} sizeVariant='md' htmlFor='address'>
-          배송지
-          <div className={cn('inputs-search')}>
-            <InputField placeholder={PLACEHOLDERS.ADDRESS1} {...register('address')} />
-            <Button className={cn('inputs-button')} type='button' radius={8} paddingVertical={8}>
-              주소검색
-            </Button>
-          </div>
-          <InputField placeholder={PLACEHOLDERS.POSTAL_CODE} {...register('zoneCode')} />
-          <InputField placeholder={PLACEHOLDERS.ADDRESS2} {...register('detailAddress')} />
-        </Label>
+          <Label className={cn('inputs-address')} sizeVariant='md' htmlFor='address'>
+            배송지
+            <div className={cn('inputs-search')}>
+              <InputField placeholder={PLACEHOLDERS.ADDRESS1} {...register('address')} />
+              <Button
+                className={cn('inputs-button')}
+                type='button'
+                radius={8}
+                paddingVertical={8}
+                onClick={handleSearchPostClick}
+              >
+                주소검색
+              </Button>
+            </div>
+            <InputField placeholder={PLACEHOLDERS.POSTAL_CODE} {...register('zoneCode')} />
+            <InputField placeholder={PLACEHOLDERS.ADDRESS2} {...register('detailAddress')} />
+          </Label>
 
-        <InputField label='연락처' placeholder={PLACEHOLDERS.PHONE} {...register('phone')} />
-      </div>
-      <Input className={cn('checkbox')} type='checkbox' />
-      <Button className={cn('button')} type='submit' radius={8} paddingVertical={20}>
-        저장
-      </Button>
-    </form>
+          <InputField label='연락처' placeholder={PLACEHOLDERS.PHONE} {...register('phone')} />
+        </div>
+        <Input className={cn('checkbox')} type='checkbox' />
+        <Button className={cn('button')} type='submit' radius={8} paddingVertical={20}>
+          저장
+        </Button>
+      </form>
+      {isPostcodeEmbedOpen && (
+        <Modal isOpen={isPostcodeEmbedOpen} onClose={() => setIsPostcodeEmbedOpen(false)}>
+          <DaumPostcodeEmbed />
+        </Modal>
+      )}
+    </>
   );
 }
