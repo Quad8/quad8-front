@@ -50,11 +50,11 @@ export default function Filter({ category }: { category: CategoryKey }) {
           ))}
         </ul>
       </div>
-      {options.SWITCH_TYPES && (
+      {'SWITCH_TYPES' in options && (
         <div className={cn('filter-group')}>
           <h4>스위치 유형</h4>
           <ul className={cn('options')}>
-            {options.SWITCH_TYPES.map((switchType) => (
+            {options.SWITCH_TYPES.map((switchType: string) => (
               <li
                 key={switchType}
                 className={cn({ selected: selectedList.includes(switchType) })}
@@ -66,7 +66,6 @@ export default function Filter({ category }: { category: CategoryKey }) {
           </ul>
         </div>
       )}
-      {/* 가격필터 */}
       <div className={cn('filter-group', 'price')}>
         <h4>가격</h4>
         <div className={cn('options', 'price-wrap')}>

@@ -1,6 +1,6 @@
-import { getCategoryProductList } from '@/api/getProductList';
+import { getCategoryProductList } from '@/api/productAPI';
 import Pagination from '@/components/Pagination/Pagination';
-import { CategoryKey } from '@/types/Category';
+import type { CategoryKey } from '@/types/Category';
 import classNames from 'classnames/bind';
 import ProductList from '../_components/Product/ProductList';
 import TitleWrap from './_components/TitleWrap';
@@ -16,6 +16,7 @@ export default async function Page({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const { category } = params;
+
   const getCategoryProductParams = {
     keyword: category,
     sort: searchParams.sort || 'views_desc',
@@ -23,19 +24,18 @@ export default async function Page({
     size: '16',
     company: searchParams.company,
     switchType: searchParams.switchType,
-    minPrice: searchParams.minPrice || '0',
-    maxPrice: searchParams.maxPrice || '0',
+    minPrice: searchParams.minPrice,
+    maxPrice: searchParams.maxPrice,
   };
 
   const { data } = await getCategoryProductList(getCategoryProductParams);
   const { content, ...rest } = data;
-  console.log(data);
 
   return (
     <>
-      <TitleWrap category={category} />
+      <TitleWrap category={category} totalCount={rest.totalElements} />
       <section className={cn('list-section')}>
-        <ProductList content={content} size='lg' />
+        <ProductList content={content} size='lg' category={category} />
         <Pagination {...rest} searchParams={searchParams} />
       </section>
     </>

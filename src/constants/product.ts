@@ -5,7 +5,22 @@ export const CATEGORY_MAP = {
   etc: '기타용품',
 } as const;
 
-export const FILTER_OPTIONS = {
+interface BaseOptions {
+  MANUFACTURERS: string[];
+}
+
+interface SwitchTypesOptions extends BaseOptions {
+  SWITCH_TYPES: string[];
+}
+
+type FilterOptionsType = {
+  keyboard: SwitchTypesOptions;
+  keycap: BaseOptions;
+  switch: SwitchTypesOptions;
+  etc: BaseOptions;
+};
+
+export const FILTER_OPTIONS: FilterOptionsType = {
   keyboard: {
     MANUFACTURERS: [
       '몬스타기어',
@@ -91,5 +106,15 @@ export const FILTER_OPTIONS = {
     ],
     SWITCH_TYPES: ['리니어', '택타일', '저소음'],
   },
-  etc: { MANUFACTURERS: ['몬스타기어', '펀키스', 'TX keyboard', '스웨그키', '키크론', '게이트론'] },
+  etc: {
+    MANUFACTURERS: ['몬스타기어', '펀키스', 'TX keyboard', '스웨그키', '키크론', '게이트론'],
+  },
 };
+
+type CategoryKey = keyof FilterOptionsType;
+
+type CategoryValue<K extends CategoryKey> = FilterOptionsType[K];
+
+export function getCategoryOptions<K extends CategoryKey>(category: K): CategoryValue<K> {
+  return FILTER_OPTIONS[category];
+}
