@@ -12,9 +12,9 @@ interface ProductDetailProps {
 }
 
 const DELIVERY_TEXT = {
-  배송방법: '택배',
-  배송지역: '전국',
-  배송비용: '전 제품 무료 배송',
+  '배송 방법': '택배',
+  '배송 지역': '전국',
+  '배송 비용': '전 제품 무료 배송',
 };
 
 const POINT_TEXT = {
