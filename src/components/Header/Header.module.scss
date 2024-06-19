@@ -10,7 +10,7 @@
   @include poppins-18-600;
 
   position: sticky;
-  z-index: $zindex-fixed;
+  z-index: $zindex-fixed + 1;
   top: 0;
   width: 100%;
   min-width: 112rem;

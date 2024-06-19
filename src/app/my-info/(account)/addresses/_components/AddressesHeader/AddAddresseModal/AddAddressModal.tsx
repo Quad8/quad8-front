@@ -27,6 +27,7 @@ const DEFAULT_VALUES = {
   zoneCode: '',
   detailAddress: '',
   phone: '',
+  isDefault: false,
 };
 
 interface AddAddressModalProps {
@@ -43,12 +44,12 @@ export default function AddAddressModal({ onClick, addressData }: AddAddressModa
   const { mutate: postAddressesMutate } = useMutation({ mutationFn: postAddresses });
 
   const onSubmit: SubmitHandler<FieldValues> = (payload) => {
-    console.log(payload);
+    console.log('Submitting payload:', JSON.stringify(payload));
     postAddressesMutate(
       { payload },
       {
-        onSuccess: () => {
-          console.log(payload);
+        onSuccess: (res) => {
+          console.log(res);
         },
       },
     );
@@ -93,7 +94,7 @@ export default function AddAddressModal({ onClick, addressData }: AddAddressModa
           })}
         />
       </div>
-      <Input className={cn('checkbox')} type='checkbox' />
+      <Input className={cn('checkbox')} type='checkbox' {...register('isDefault')} />
       <Button className={cn('button')} type='submit' radius={8} paddingVertical={20}>
         저장
       </Button>

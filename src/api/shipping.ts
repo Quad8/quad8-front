@@ -21,11 +21,8 @@ export const postAddresses = async (payload: FieldValues) => {
     });
 
     const result = await res.json();
-    console.log('postAddresses 성공', result);
-
     return result;
   } catch (error) {
-    console.error('끼얏호우 실패~', error);
     throw error;
   }
 };
