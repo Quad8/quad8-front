@@ -12,8 +12,8 @@ import styles from './DatePicker.module.scss';
 const cn = classNames.bind(styles);
 
 function DatePicker() {
-  // const [selectedStartDate, setSelectedStartDate] = useState('2015.10.4');
-  // const [endDate, setEndDate] = useState('2035.10.4');
+  const [selectedStartDate, setSelectedStartDate] = useState<Date>(new Date());
+  const [selectedEndDate, setSelectedEndDate] = useState<Date>(selectedStartDate);
 
   const [openCalendarType, setOpenCalendarType] = useState<'start' | 'end' | null>(null);
 
@@ -23,6 +23,18 @@ function DatePicker() {
 
   const handleOpenEndCalendar = () => {
     setOpenCalendarType('end');
+  };
+
+  const handleCloseCalendar = () => {
+    setOpenCalendarType(null);
+  };
+
+  const formatDateToString = (date: Date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const dateString = `${year}.${month}.${day}`;
+    return dateString;
   };
 
   return (
@@ -43,9 +55,15 @@ function DatePicker() {
           className={cn('date-picker-input', 'start-date', `${openCalendarType === 'start' && 'is-focus'}`)}
           onClick={handleOpenStartCalendar}
         >
-          <span className={cn('date-text')}>2015.10.4</span>
+          <span className={cn('date-text')}>{formatDateToString(selectedStartDate)}</span>
           <CalendarIcon stroke={openCalendarType === 'start' ? '#4968F6' : '#787878'} />
-          {openCalendarType === 'start' && <Calendar />}
+          {openCalendarType === 'start' && (
+            <Calendar
+              selectedDate={selectedStartDate}
+              setSelectedDate={setSelectedStartDate}
+              onCloseCalendar={handleCloseCalendar}
+            />
+          )}
         </div>
 
         <p>~</p>
@@ -54,9 +72,15 @@ function DatePicker() {
           className={cn('date-picker-input', 'end-date', `${openCalendarType === 'end' && 'is-focus'}`)}
           onClick={handleOpenEndCalendar}
         >
-          <span className={cn('date-text')}>2015.10.4</span>
+          <span className={cn('date-text')}>{formatDateToString(selectedEndDate)}</span>
           <CalendarIcon stroke={openCalendarType === 'end' ? '#4968F6' : '#787878'} />
-          {openCalendarType === 'end' && <Calendar />}
+          {openCalendarType === 'end' && (
+            <Calendar
+              selectedDate={selectedEndDate}
+              setSelectedDate={setSelectedEndDate}
+              onCloseCalendar={handleCloseCalendar}
+            />
+          )}
         </div>
       </div>
       <Button width={72} paddingVertical={8} radius={4}>
