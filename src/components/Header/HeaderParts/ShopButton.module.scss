@@ -2,9 +2,9 @@
   display: flex;
   position: relative;
   z-index: inherit;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 12rem;
   height: 100%;
 }
 

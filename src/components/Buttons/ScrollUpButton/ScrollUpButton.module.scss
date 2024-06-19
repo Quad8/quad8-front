@@ -1,0 +1,14 @@
+.button-div {
+  position: fixed;
+  right: 12rem;
+  bottom: 6.4rem;
+  width: 5.7rem;
+  height: 5.7rem;
+  border-radius: 30rem;
+  background-color: $primary;
+  @include flex-center;
+}
+
+.no-button-visible {
+  display: none;
+}

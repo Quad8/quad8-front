@@ -1,6 +1,6 @@
 'use client';
 
-import ScrollUpButton from '@/components/ScrollUpButton/ScrollUpButton';
+import { ScrollUpButton } from '@/components';
 import { QueryClient, QueryClientProvider, isServer } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactNode, useRef } from 'react';
@@ -25,9 +25,7 @@ function getQueryClient() {
   if (isServer) {
     return makeQueryClient();
   }
-  if (!browserQueryClient) {
-    browserQueryClient = makeQueryClient();
-  }
+  if (!browserQueryClient) browserQueryClient = makeQueryClient();
   return browserQueryClient;
 }
 

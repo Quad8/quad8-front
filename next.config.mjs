@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  env: {
+    NEXT_PUBLIC_KEYDEUK_API_BASE_URL: process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL,
+  },
+
+  env: {
+    NEXT_PUBLIC_KEYDEUK_API_BASE_URL: process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL,
+  },
 
   images: {
     remotePatterns: [
@@ -15,6 +22,81 @@ const nextConfig = {
         hostname: 'quad8-nextjs-static.s3.amazonaws.com',
         port: '',
         pathname: '/src/component/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'd1wt2ljvmyxns0.cloudfront.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'shop-phinf.pstatic.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.imweb.me',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'shop-phinf.pstatic.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn-optimized.imweb.me',
+        port: '',
+        pathname: '/**',
+      },
+
+      {
+        protocol: 'https',
+        hostname: 'img.danawa.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.011st.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'static2.e-himart.co.kr',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'sitem.ssgcdn.com',
+        port: '',
+        pathname: '/**',
+      },
+
+      {
+        protocol: 'https',
+        hostname: 'gdimg.gmarket.co.kr',
+        port: '',
+        pathname: '/**',
+      },
+
+      {
+        protocol: 'https',
+        hostname: 'tbnws.hgodo.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'contents.lotteon.com',
+        port: '',
+        pathname: '/**',
       },
     ],
   },

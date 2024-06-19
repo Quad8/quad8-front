@@ -1,0 +1,108 @@
+.wrapper {
+  @include flex-column(4rem);
+
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.content-wrapper {
+  @include flex-column(1.2rem);
+
+  width: 41rem;
+}
+
+.title {
+  @include pretendard-20-500;
+
+  width: 41rem;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  width: 41rem;
+  gap: 1.2rem;
+}
+
+.button {
+  @include pretendard-16-400;
+
+  width: 19.9rem;
+}
+
+.selected {
+  .button-content {
+    color: $white;
+  }
+
+  .button-price {
+    color: $gray-10;
+  }
+}
+
+.point-wrapper {
+  @include flex-column(1.2rem);
+
+  width: 41rem;
+}
+
+.point-title-wrapper {
+  @include pretendard-16-400;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 41rem;
+  gap: 4rem;
+}
+
+.choosed {
+  border-bottom: 0.2rem solid $primary;
+  color: $primary;
+}
+
+.disabled {
+  position: absolute;
+  z-index: 4;
+  top: 42rem;
+  left: 0;
+  width: 43.5rem;
+  height: 22.5rem;
+  border-radius: 1rem;
+  background-color: rgb(256 256 256 / 40%);
+}
+
+.tag-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 41rem;
+  gap: 1.2rem 0;
+}
+
+.help-wrapper {
+  @include flex-column(0.8rem);
+
+  width: 41rem;
+  padding: 2rem;
+  border-radius: 0.4rem;
+  background-color: $gray-5;
+}
+
+.help-title {
+  @include pretendard-16-500;
+
+  color: $black;
+}
+
+.help-content {
+  @include pretendard-14-400;
+
+  color: $black;
+}
+
+.help-cost {
+  @include pretendard-14-400;
+
+  color: $gray-50;
+}

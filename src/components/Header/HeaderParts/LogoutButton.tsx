@@ -1,7 +1,11 @@
 'use client';
 
 import { deleteCookie } from '@/libs/manageCookie';
+import classNames from 'classnames/bind';
 import { useRouter } from 'next/navigation';
+import styles from './AuthButton.module.scss';
+
+const cn = classNames.bind(styles);
 
 export default function LogoutButton() {
   const router = useRouter();
@@ -11,7 +15,7 @@ export default function LogoutButton() {
   };
 
   return (
-    <button type='button' onClick={handleClickButton}>
+    <button className={cn('button')} type='button' onClick={handleClickButton}>
       로그아웃
     </button>
   );
