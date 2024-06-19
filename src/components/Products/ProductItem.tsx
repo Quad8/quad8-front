@@ -14,13 +14,13 @@ interface ProductItemProps {
   price: number;
   reviewscount: number;
   size: 'sm' | 'lg';
-  category: CategoryKey;
+  category?: CategoryKey;
 }
 
 export default function ProductItem({ id, size, name, reviewscount, price, thumbnail, category }: ProductItemProps) {
   return (
     <li>
-      <Link href={`/${category}/${id}`}>
+      <Link href={`${category}/${id}`}>
         <div className={cn('product-item', size)}>
           <div className={cn('product-image-wrap')}>
             <Image src={thumbnail} alt={`${name} 이미지`} fill className={cn('product-image', size)} />

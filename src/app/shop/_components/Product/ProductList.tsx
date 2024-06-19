@@ -9,7 +9,7 @@ const cn = classNames.bind(styles);
 interface ProductListProps {
   content: Product[];
   size: 'lg' | 'sm';
-  category: CategoryKey;
+  category?: CategoryKey;
 }
 
 export default function ProductList({ content, size, category }: ProductListProps) {
