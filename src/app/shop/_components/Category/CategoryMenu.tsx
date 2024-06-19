@@ -28,8 +28,8 @@ export default function CategoryMenu() {
   return (
     <nav>
       <ul className={cn('category-list')}>
-        {categoryItems.map((item) => (
-          <CategoryMenuItem key={item.href} href={item.href} label={item.label} />
+        {categoryItems.map(({ href, label }) => (
+          <CategoryMenuItem key={href} href={href} label={label} />
         ))}
       </ul>
     </nav>
