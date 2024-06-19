@@ -23,7 +23,13 @@ export default function ProductItem({ id, size, name, reviewscount, price, thumb
       <Link href={`${category}/${id}`}>
         <div className={cn('product-item', size)}>
           <div className={cn('product-image-wrap')}>
-            <Image src={thumbnail} alt={`${name} 이미지`} fill className={cn('product-image', size)} />
+            <Image
+              src={thumbnail}
+              alt={`${name} 이미지`}
+              fill
+              className={cn('product-image', size)}
+              sizes='(max-width: 600px) 480px, (max-width: 1200px) 800px, 1200px'
+            />
           </div>
           <div className={cn('product-info')}>
             <h3 className={cn('product-title')}>{name}</h3>
