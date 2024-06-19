@@ -11,9 +11,14 @@ import styles from './DatePicker.module.scss';
 
 const cn = classNames.bind(styles);
 
-function DatePicker() {
+interface DatePickerProps {
+  onDateChane: (startDate: { startDate: Date; endDate: Date }) => void;
+}
+
+function DatePicker({ onDateChane }: DatePickerProps) {
+  const currentDate = new Date();
   const [selectedStartDate, setSelectedStartDate] = useState<Date>(new Date());
-  const [selectedEndDate, setSelectedEndDate] = useState<Date>(selectedStartDate);
+  const [selectedEndDate, setSelectedEndDate] = useState<Date>(new Date());
 
   const [openCalendarType, setOpenCalendarType] = useState<'start' | 'end' | null>(null);
 
@@ -29,6 +34,10 @@ function DatePicker() {
     setOpenCalendarType(null);
   };
 
+  const handleQueryButtonClick = () => {
+    onDateChane({ startDate: selectedStartDate, endDate: selectedEndDate });
+  };
+
   const formatDateToString = (date: Date) => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -37,16 +46,41 @@ function DatePicker() {
     return dateString;
   };
 
+  const handleClickMonthOption = (month: number) => {
+    const selectedStart = new Date(currentDate);
+    const selectedEnd = new Date(currentDate);
+
+    selectedStart.setMonth(currentDate.getMonth() - month);
+    setSelectedStartDate(selectedStart);
+
+    setSelectedEndDate(selectedEnd);
+  };
+
   return (
     <div className={cn('container')}>
       <div className={cn('month-picker-wrapper')}>
-        <Button className={cn('date-option', 'first')} hoverColor='outline-primary' paddingVertical={8}>
+        <Button
+          className={cn('date-option', 'first')}
+          hoverColor='outline-primary'
+          paddingVertical={8}
+          onClick={() => handleClickMonthOption(1)}
+        >
           1개월
         </Button>
-        <Button className={cn('date-option', 'second')} hoverColor='outline-primary' paddingVertical={8}>
+        <Button
+          className={cn('date-option', 'second')}
+          hoverColor='outline-primary'
+          paddingVertical={8}
+          onClick={() => handleClickMonthOption(2)}
+        >
           2개월
         </Button>
-        <Button className={cn('date-option', 'third')} hoverColor='outline-primary' paddingVertical={8}>
+        <Button
+          className={cn('date-option', 'third')}
+          hoverColor='outline-primary'
+          paddingVertical={8}
+          onClick={() => handleClickMonthOption(3)}
+        >
           3개월
         </Button>
       </div>
@@ -84,7 +118,7 @@ function DatePicker() {
           )}
         </div>
       </div>
-      <Button width={72} paddingVertical={8} radius={4}>
+      <Button width={72} paddingVertical={8} radius={4} onClick={handleQueryButtonClick}>
         조회
       </Button>
     </div>
