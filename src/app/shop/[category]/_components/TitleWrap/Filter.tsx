@@ -1,3 +1,5 @@
+'use client';
+
 import { InputField } from '@/components';
 import { FILTER_OPTIONS } from '@/constants/product';
 import { DeleteIcon, ResetIcon } from '@/public/index';
