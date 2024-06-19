@@ -36,6 +36,11 @@
   rotate: 270deg;
 }
 
+.disabled-arrow {
+  stroke: $white;
+  pointer-events: none;
+}
+
 .month-select {
   display: flex;
   align-items: center;
@@ -77,6 +82,11 @@
       color: $black;
     }
   }
+}
+
+.disabled-day {
+  color: $gray-20;
+  pointer-events: none;
 }
 
 .selected-day {

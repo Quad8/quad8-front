@@ -13,18 +13,30 @@ interface CalendarProps {
   selectedDate: Date;
   setSelectedDate: Dispatch<SetStateAction<Date>>;
   onCloseCalendar: () => void;
+  startDate?: Date;
+}
+
+interface DateType {
+  year: number;
+  month: number;
 }
 
 const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
-export default function Calendar({ selectedDate, setSelectedDate, onCloseCalendar }: CalendarProps) {
+export default function Calendar({ selectedDate, setSelectedDate, onCloseCalendar, startDate }: CalendarProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const isBeforeStartDate =
+    (startDate && currentDate.getFullYear() < startDate.getFullYear()) ||
+    (startDate &&
+      currentDate.getFullYear() === startDate.getFullYear() &&
+      currentDate.getMonth() < startDate.getMonth());
 
   useOutsideClick(ref, onCloseCalendar);
 
-  const daysInMonth = (year: number, month: number) => new Date(year, month + 1, 0).getDate();
-  const startDayOfMonth = (year: number, month: number) => new Date(year, month, 1).getDay();
+  const daysInMonth = ({ year, month }: DateType) => new Date(year, month + 1, 0).getDate();
+  const startDayOfMonth = ({ year, month }: DateType) => new Date(year, month, 1).getDay();
+  const endDayOfMonth = ({ year, month }: DateType) => new Date(year, month + 1, 0).getDay();
 
   const handlePrevMonth = () => {
     const prevMonth = new Date(currentDate.setMonth(currentDate.getMonth() - 1));
@@ -50,12 +62,18 @@ export default function Calendar({ selectedDate, setSelectedDate, onCloseCalenda
   const renderDays = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const numDays = daysInMonth(year, month);
-    const startDay = startDayOfMonth(year, month);
-
+    const numDays = daysInMonth({ year, month });
+    const startDay = startDayOfMonth({ year, month });
+    const endDay = endDayOfMonth({ year, month });
     const days = [];
-    for (let i = 0; i < startDay; i += 1) {
-      days.push(<div key={`empty-${i}`} className={cn('day')} />);
+
+    const prevMonthDays = daysInMonth({ year, month: month - 1 });
+    for (let i = startDay - 1; i >= 0; i -= 1) {
+      days.push(
+        <div key={`prev-${i}`} className={cn('day', 'disabled-day')}>
+          {prevMonthDays - i}
+        </div>,
+      );
     }
 
     for (let day = 1; day <= numDays; day += 1) {
@@ -65,8 +83,20 @@ export default function Calendar({ selectedDate, setSelectedDate, onCloseCalenda
         selectedDate.getMonth() === month &&
         selectedDate.getFullYear() === year;
       days.push(
-        <div key={day} className={cn('day', { 'selected-day': isSelected })} onClick={() => handleDayClick(day)}>
+        <div
+          key={day}
+          className={cn('day', { 'disabled-day': isBeforeStartDate }, { 'selected-day': isSelected })}
+          onClick={() => handleDayClick(day)}
+        >
           {day}
+        </div>,
+      );
+    }
+
+    for (let i = 1; i < 7 - endDay; i += 1) {
+      days.push(
+        <div key={`next-${i}`} className={cn('day', 'disabled-day')}>
+          {i}
         </div>,
       );
     }
@@ -78,15 +108,15 @@ export default function Calendar({ selectedDate, setSelectedDate, onCloseCalenda
     <div className={cn('container')} ref={ref}>
       <div className={cn('month-year-select-wrapper')}>
         <div className={cn('month-select')}>
-          <ArrowIcon stroke='black' className={cn('arrow-left')} onClick={handlePrevMonth} />
+          <ArrowIcon className={cn('arrow-left', { 'disabled-arrow': isBeforeStartDate })} onClick={handlePrevMonth} />
           <Dropdown
             options={['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']}
             sizeVariant='xs'
-            value={currentDate.getMonth() + 1}
+            value={`${currentDate.getMonth() + 1}월`}
             onChange={(val) => handleMonthSelect(val)}
           />
           {currentDate.getFullYear()}
-          <ArrowIcon stroke='black' className={cn('arrow-right')} onClick={handleNextMonth} />
+          <ArrowIcon className={cn('arrow-right')} onClick={handleNextMonth} />
         </div>
       </div>
       <div className={cn('weeks-wrapper')}>

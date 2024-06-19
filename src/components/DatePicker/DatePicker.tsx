@@ -79,6 +79,7 @@ function DatePicker() {
               selectedDate={selectedEndDate}
               setSelectedDate={setSelectedEndDate}
               onCloseCalendar={handleCloseCalendar}
+              startDate={selectedStartDate}
             />
           )}
         </div>
