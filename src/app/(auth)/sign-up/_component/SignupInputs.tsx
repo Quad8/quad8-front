@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { forwardRef, Dispatch, SetStateAction, ChangeEvent, useEffect } from 'react';
 
 import type { SignupInfoTypes } from '@/types';
-import { checkEmailDuplication, checkNicknameDuplication, postSignup } from '@/api/authAPI';
+import { getCheckEmailDuplication, getCheckNicknameDuplication, postSignup } from '@/api/authAPI';
 import { changePhoneNumber, unFormatPhoneNumber } from '@/libs';
 
 import { RadioField, InputField } from '@/components';
@@ -22,7 +22,7 @@ const PLACEHOLDER = {
   EMAIL: '이메일을 입력해주세요',
   PASSWORD: '숫자, 영어 포함 8~20자 이내',
   CONFIRM_PASSWORD: '비밀번호를 한번 더 입력해주세요',
-  NAME: '이름을 입력해주세요',
+  NICKNAME: '닉네임을 입력해주세요',
   PHONE_NUMBER: '휴대폰 번호 (-없이)를 입력해주세요',
   BIRTHDAY: 'YYYY / MM / DD',
 };
@@ -92,7 +92,7 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
     const emailValue = getValues('email');
     const isEmpty = !!emailValue === undefined;
     const isNotValid = !emailPattern.test(emailValue);
-    const isDuplicated = await checkEmailDuplication(emailValue);
+    const isDuplicated = await getCheckEmailDuplication(emailValue);
 
     if (isEmpty) {
       setError('email', {
@@ -116,11 +116,11 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
   const handleCheckNicknameInput = async () => {
     const nicknameValue = getValues('nickname');
     const isEmpty = !!nicknameValue === undefined;
-    const isDuplicated = await checkNicknameDuplication(nicknameValue);
+    const isDuplicated = await getCheckNicknameDuplication(nicknameValue);
 
     if (isEmpty) {
       setError('nickname', {
-        message: '이름을 입력해주세요.',
+        message: '닉네임을 입력해주세요.',
       });
       return;
     }
@@ -166,7 +166,9 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
       onBlur: () => checkFormValidity(),
     }),
     nickname: register('nickname', {
-      required: '이름을 입력해주세요.',
+      required: '닉네임을 입력해주세요.',
+      minLength: { value: 2, message: '닉네임은 최소 2글자 이상이어야 합니다.' },
+      maxLength: { value: 16, message: '닉네임은 최대 16글자까지 입력할 수 있습니다.' },
       onBlur: () => handleCheckNicknameInput(),
     }),
     phone: register('phone', {
@@ -249,8 +251,8 @@ export default forwardRef<HTMLFormElement, SignupInputProps>(function SignupInpu
         {...registers.passwordConfirm}
       />
       <InputField
-        label='이름'
-        placeholder={PLACEHOLDER.NAME}
+        label='닉네임'
+        placeholder={PLACEHOLDER.NICKNAME}
         sizeVariant='md'
         labelSize='sm'
         errorMessage={errors.nickname?.message}
