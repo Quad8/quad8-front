@@ -1,9 +1,8 @@
-import { getAllProductList } from '@/api/getProductList';
-import { Dropdown } from '@/components';
+import { getAllProductList } from '@/api/productAPI';
 import Pagination from '@/components/Pagination/Pagination';
-import { LIST_SORT_OPTIONS } from '@/constants/drodownOptions';
 import { ProductParams } from '@/types/ProductItem';
 import classNames from 'classnames/bind';
+import Sort from './[category]/_components/Sort';
 import CategoryMenu from './_components/Category/CategoryMenu';
 import CategoryTitle from './_components/Category/CategoryTitle';
 import ProductList from './_components/Product/ProductList';
@@ -11,23 +10,24 @@ import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
 
-export default async function ShopAllPage({
-  searchParams,
-}: {
+interface ShopAllPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
-}) {
+}
+
+export default async function ShopAllPage({ searchParams }: ShopAllPageProps) {
   const getAllProductParams: ProductParams = {
-    sort: searchParams.sort,
+    sort: searchParams.sort || 'createdAt_desc',
     page: searchParams.page || '0',
     size: '16',
   };
+
   const { data } = await getAllProductList(getAllProductParams);
   const { content, ...rest } = data;
   return (
     <>
       <div className={cn('title-wrap')}>
         <CategoryTitle totalCount={rest.totalElements}>전체상품</CategoryTitle>
-        <Dropdown sizeVariant='xs' options={LIST_SORT_OPTIONS} />
+        <Sort />
       </div>
       <CategoryMenu />
       <section className={cn('list-section')}>
