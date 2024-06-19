@@ -6,11 +6,13 @@ const cn = classNames.bind(styles);
 
 interface QuantitySelectorProps {
   count: number;
-  incrementCount: () => void;
-  decrementCount: () => void;
+  updateCount: (count: number) => void;
 }
 
-export default function QuantitySelector({ count, incrementCount, decrementCount }: QuantitySelectorProps) {
+export default function QuantitySelector({ count, updateCount }: QuantitySelectorProps) {
+  const incrementCount = () => updateCount(count + 1);
+  const decrementCount = () => count > 1 && updateCount(count - 1);
+
   return (
     <div className={cn('count-icons')}>
       <MinusIcon className={cn('icon', { 'gray-icon': count === 1 })} onClick={decrementCount} />

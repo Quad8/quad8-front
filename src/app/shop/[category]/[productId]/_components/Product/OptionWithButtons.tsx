@@ -1,82 +1,81 @@
 'use client';
 
 import { Button, Dropdown } from '@/components';
-import { DeleteIcon } from '@/public/index';
 import type { OptionTypes } from '@/types/ProductTypes';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
+import OptionContainer from './OptionContainer';
 import styles from './ProductDetail.module.scss';
 import QuantitySelector from './QuantitySelector';
 
 const cn = classNames.bind(styles);
-
-interface OptionCountProps {
-  optionText?: string;
-  price?: number;
-}
 
 interface OptionWithButtonProps {
   optionList: OptionTypes[];
   price: number;
 }
 
-function OptionContainer({ optionText, price }: OptionCountProps) {
-  const [count, setCount] = useState<number>(1);
-  const [isOptionSelected, setIsOptionSelected] = useState<boolean>(true);
-
-  const handleClickDeleteIcon = () => {
-    setCount(0);
-    setIsOptionSelected(false);
-  };
-
-  const incrementCount = () => setCount((prev) => prev + 1);
-  const decrementCount = () => setCount((prev) => (prev > 1 ? prev - 1 : prev));
-
-  return (
-    <>
-      <div className={cn({ 'option-box': optionText, hidden: !isOptionSelected })}>
-        {optionText ? (
-          <>
-            <h3 className={cn('option-text')}>{optionText}</h3>
-            <QuantitySelector count={count} incrementCount={incrementCount} decrementCount={decrementCount} />
-            <h3 className={cn('option-price')}>{price?.toLocaleString()}원</h3>
-            <DeleteIcon className={cn('delete-icon')} onClick={handleClickDeleteIcon} />
-          </>
-        ) : (
-          <QuantitySelector count={count} incrementCount={incrementCount} decrementCount={decrementCount} />
-        )}
-      </div>
-      <div className={cn('total-price-box')}>
-        <h3>총 금액</h3>
-        <h1>
-          <span>{price && (price * count).toLocaleString()}</span>원
-        </h1>
-      </div>
-    </>
-  );
+interface SelectedOptionType {
+  name: string;
+  count: number;
 }
+
+const OPTION_PLACEHOLDER = '스위치 (필수)';
 
 export default function OptionWithButton({ optionList, price }: OptionWithButtonProps) {
   const optionNames = optionList?.map((option) => option.optionName);
-  // const [selectedOption, setSelectedOption] = useState<string | undefined>(undefined);
+  const [selectedOptions, setSelectedOptions] = useState<SelectedOptionType[]>([]);
+  const totalPrice = selectedOptions.reduce((acc, option) => acc + option.count * price, 0);
+  const [noOptionCount, setNoOptionCount] = useState<number>(1);
 
-  // const handleChangeOption = (value: string) => {
-  //   setSelectedOption(value);
-  // };
+  const handleChangeOption = (value: string) => {
+    if (value !== OPTION_PLACEHOLDER) {
+      setSelectedOptions((prevOptions) => {
+        const isExisting = prevOptions.find((option) => option.name === value);
+        if (isExisting) {
+          return prevOptions.map((option) => (option.name === value ? { ...option, count: option.count + 1 } : option));
+        } else {
+          return [...prevOptions, { name: value, count: 1 }];
+        }
+      });
+    }
+  };
+
+  const handleUpdateCount = (name: string, count: number) => {
+    setSelectedOptions((prevOptions) =>
+      prevOptions.map((option) => (option.name === name ? { ...option, count } : option)),
+    );
+  };
+
+  const handleDeleteOption = (name: string) => {
+    setSelectedOptions((prevOptions) => prevOptions.filter((option) => option.name !== name));
+  };
 
   return (
     <>
       <div className={cn('option-section')}>
         <h2 className={cn('explain-title')}>상품 선택</h2>
-        {optionList && (
-          <Dropdown
-            options={optionNames}
-            placeholder='스위치 (필수)'
-            // value={selectedOption}
-            // onChange={handleChangeOption}
-          />
+        {optionList?.length ? (
+          <Dropdown options={optionNames} placeholder={OPTION_PLACEHOLDER} value='' onChange={handleChangeOption} />
+        ) : (
+          <QuantitySelector count={noOptionCount} updateCount={(count) => setNoOptionCount(count)} />
         )}
-        <OptionContainer price={price} optionText='리니어' />
+        {selectedOptions.map((option) => (
+          <OptionContainer
+            key={option.name}
+            optionText={option.name}
+            price={price}
+            count={option.count}
+            updateCount={(count) => handleUpdateCount(option.name, count)}
+            deleteOption={() => handleDeleteOption(option.name)}
+          />
+        ))}
+      </div>
+      <div className={cn('total-price-box')}>
+        <h3>총 금액</h3>
+        <h1>
+          <span>{totalPrice.toLocaleString()}</span>원
+        </h1>
       </div>
       <div className={cn('button-section')}>
         <Button>장바구니</Button>
