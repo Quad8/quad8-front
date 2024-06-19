@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { InputHTMLAttributes, forwardRef, useState } from 'react';
+import { InputHTMLAttributes, MouseEvent, forwardRef, useState } from 'react';
 import { ErrorMessage, Input, Label, SuffixIcon, SuffixUnit } from '../parts';
 import styles from './InputFiled.module.scss';
 
@@ -58,7 +58,9 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
   const isNickname = id === 'nickname';
   const isNumber = !!suffixUnit;
 
-  const onSuffixEyeIconClick = () => {
+  const handleSuffixEyeIconClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
     setInputType((prevType) => (prevType === 'password' ? 'text' : 'password'));
   };
 
@@ -104,7 +106,7 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
         {suffixIcon && (
           <SuffixIcon
             icon={suffixIcon}
-            onClick={suffixIcon === 'eye' ? onSuffixEyeIconClick : undefined}
+            onClick={suffixIcon === 'eye' ? handleSuffixEyeIconClick : undefined}
             type={inputType}
           />
         )}
