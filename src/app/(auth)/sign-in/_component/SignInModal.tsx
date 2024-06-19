@@ -1,15 +1,14 @@
 import classNames from 'classnames/bind';
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 
 import { InputField, Button } from '@/components';
 
-import { GitIcon, GoogleIcon, KakaoIcon } from '@/public/index';
+import { GitHubIcon, GoogleIcon, KakaoIcon } from '@/public/index';
 
 import { postSignin } from '@/api/authAPI';
-import { getCookie, setCookie } from '@/libs/manageCookie';
+import { setCookie } from '@/libs/manageCookie';
 
 import styles from './SigninModal.module.scss';
 
@@ -21,23 +20,9 @@ interface Inputs {
 }
 
 const AUTH_SECTION = ['아이디 찾기', '비밀번호 찾기', '회원가입'];
+const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 export default function SignInModal() {
-  useEffect(() => {
-    const checkAccessToken = async () => {
-      try {
-        const response = await getCookie('accessToken');
-        if (response) {
-          toast.warning('이미 로그인 되어있습니다');
-        }
-      } catch (error) {
-        console.error('토큰 가져오기 실패');
-      }
-    };
-
-    checkAccessToken();
-  }, []);
-
   const {
     register,
     formState: { errors },
@@ -75,56 +60,54 @@ export default function SignInModal() {
   };
 
   const handleKakaoOauth = async (provider: string) => {
-    window.location.href = `http://43.201.71.50:8080/oauth2/authorization/${provider}`;
+    window.location.href = `${BASE_URL}/oauth2/authorization/${provider}`;
   };
 
   return (
-    <div className={cn('container')}>
+    <form className={cn('container')} onSubmit={handleSubmit(handleLogin)}>
       <h1 className={cn('title')}>로그인</h1>
-      <form onSubmit={handleSubmit(handleLogin)}>
-        <div className={cn('input-wrapper')}>
-          <InputField
-            label='이메일'
-            placeholder='이메일을 입력해주세요'
-            sizeVariant='md'
-            labelSize='sm'
-            errorMessage={errors.email?.message}
-            {...registers.email}
-          />
-          <InputField
-            label='비밀번호'
-            placeholder='비밀번호를 입력해주세요'
-            sizeVariant='md'
-            labelSize='sm'
-            type='password'
-            suffixIcon='eye'
-            errorMessage={errors.password?.message}
-            {...registers.password}
-          />
-        </div>
-        <div className={cn('auth-section-wrapper')}>
-          {AUTH_SECTION.map((text, i) => (
-            <div key={text} className={cn('auth-section')}>
-              <Link href='/sign-up' className={cn('auth-section-text')}>
-                {text}
-              </Link>
-              {i === 2 || <div className={cn('bar')}>|</div>}
-            </div>
-          ))}
-        </div>
-        <Button className={cn('button')} fontSize={24} type='submit'>
-          로그인
-        </Button>
-      </form>
+      <div className={cn('input-wrapper')}>
+        <InputField
+          label='이메일'
+          placeholder='이메일을 입력해주세요'
+          sizeVariant='md'
+          labelSize='sm'
+          errorMessage={errors.email?.message}
+          {...registers.email}
+        />
+        <InputField
+          label='비밀번호'
+          placeholder='비밀번호를 입력해주세요'
+          sizeVariant='md'
+          labelSize='sm'
+          type='password'
+          suffixIcon='eye'
+          errorMessage={errors.password?.message}
+          {...registers.password}
+        />
+      </div>
+      <div className={cn('auth-section-wrapper')}>
+        {AUTH_SECTION.map((text, i) => (
+          <div key={text} className={cn('auth-section')}>
+            <Link href='/sign-up' className={cn('auth-section-text')}>
+              {text}
+            </Link>
+            {i === 2 || <div className={cn('bar')}>|</div>}
+          </div>
+        ))}
+      </div>
+      <Button className={cn('button')} fontSize={24} type='submit'>
+        로그인
+      </Button>
 
       <div className={cn('o-auth-wrapper')}>
         <p>간편 로그인 하기</p>
         <div className={cn('icons')}>
-          <GitIcon onClick={() => handleKakaoOauth('github')} />
+          <GitHubIcon onClick={() => handleKakaoOauth('github')} />
           <GoogleIcon onClick={() => handleKakaoOauth('google')} />
           <KakaoIcon onClick={() => handleKakaoOauth('kakao')} />
         </div>
       </div>
-    </div>
+    </form>
   );
 }

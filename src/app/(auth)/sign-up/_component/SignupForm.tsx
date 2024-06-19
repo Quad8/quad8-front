@@ -4,14 +4,14 @@ import classNames from 'classnames/bind';
 import { useRef, useState } from 'react';
 
 import { Button } from '@/components';
-import { AgreementForm } from './AgreementForm';
+import AgreementCheckbox from './AgreementCheckbox';
 import SignupInputs from './SignupInputs';
 
-import styles from './Signup.module.scss';
+import styles from './SignupForm.module.scss';
 
 const cn = classNames.bind(styles);
 
-export default function Signup() {
+export default function SignupForm() {
   const [isAgreementAllChecked, setIsAgreementAllChecked] = useState(false);
   const [isAllValid, setIsAllValid] = useState(false);
   const formRef = useRef<{ submit: () => void } & HTMLFormElement>(null);
@@ -28,7 +28,7 @@ export default function Signup() {
         <h1 className={cn('title')}>회원가입</h1>
         <div className={cn('content-wrapper')}>
           <SignupInputs isAgreementAllChecked={isAgreementAllChecked} setIsAllValid={setIsAllValid} ref={formRef} />
-          <AgreementForm setIsAllChecked={setIsAgreementAllChecked} />
+          <AgreementCheckbox setIsAllChecked={setIsAgreementAllChecked} />
         </div>
       </div>
       <Button
