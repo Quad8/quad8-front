@@ -1,7 +1,7 @@
-import { formatNumber, isNumberAllowedKey, unFormatNumber } from '@/libs';
+import { isNumberAllowedKey } from '@/libs';
 import { formatBirthDate } from '@/libs/formatBirthDate';
 import classNames from 'classnames/bind';
-import { ChangeEvent, InputHTMLAttributes, KeyboardEvent, forwardRef, useEffect, useState } from 'react';
+import { InputHTMLAttributes, KeyboardEvent, forwardRef, useEffect, useState } from 'react';
 import styles from './Input.module.scss';
 
 const cn = classNames.bind(styles);
@@ -72,18 +72,6 @@ export default forwardRef<HTMLInputElement, InputProps>(function Input(
     }
   };
 
-  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-
-    if (isNumber) {
-      const unformattedValue = unFormatNumber(inputValue);
-      setCurrectValue(formatNumber(unformattedValue));
-      return;
-    }
-
-    setCurrectValue(inputValue);
-  };
-
   const combinedClassName = cn('default', sizeVariant, type, className, {
     red: isError,
     select: isSelect,
@@ -102,7 +90,6 @@ export default forwardRef<HTMLInputElement, InputProps>(function Input(
       value={currectValue}
       placeholder={formattedPlaceholder}
       onKeyDown={handleKeyPress}
-      onInput={handleInput}
       {...rest}
     />
   );

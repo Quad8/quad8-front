@@ -1,13 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
-import { useEffect } from 'react';
+import { ChangeEvent, useEffect } from 'react';
+import type { Address } from 'react-daum-postcode';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import { postAddresses } from '@/api/shipping';
 import { Button, InputField } from '@/components';
 import { Input, Label } from '@/components/parts';
 
-import { Address } from 'react-daum-postcode';
+import { changePhoneNumber, unFormatPhoneNumber } from '@/libs';
 import styles from './AddAddressModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -34,7 +35,10 @@ interface AddAddressModalProps {
 }
 
 export default function AddAddressModal({ onClick, addressData }: AddAddressModalProps) {
-  const { handleSubmit, register, setValue } = useForm({ mode: 'onTouched', defaultValues: DEFAULT_VALUES });
+  const { handleSubmit, register, setValue } = useForm({
+    mode: 'all',
+    defaultValues: DEFAULT_VALUES,
+  });
 
   const { mutate: postAddressesMutate } = useMutation({ mutationFn: postAddresses });
 
@@ -57,6 +61,12 @@ export default function AddAddressModal({ onClick, addressData }: AddAddressModa
     }
   }, [addressData, setValue]);
 
+  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const phoneValue = e.target.value;
+    const formattedValue = changePhoneNumber(phoneValue);
+    setValue('phone', formattedValue, { shouldValidate: true });
+  };
+
   return (
     <form className={cn('modal')} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={cn('title')}>배송지 등록 / 수정</h1>
@@ -74,7 +84,14 @@ export default function AddAddressModal({ onClick, addressData }: AddAddressModa
           <InputField placeholder={PLACEHOLDERS.POSTAL_CODE} readOnly {...register('zoneCode')} />
           <InputField placeholder={PLACEHOLDERS.ADDRESS2} {...register('detailAddress')} />
         </Label>
-        <InputField label='연락처' placeholder={PLACEHOLDERS.PHONE} {...register('phone')} />
+        <InputField
+          label='연락처'
+          placeholder={PLACEHOLDERS.PHONE}
+          {...register('phone', {
+            setValueAs: (value) => unFormatPhoneNumber(value),
+            onChange: handlePhoneChange,
+          })}
+        />
       </div>
       <Input className={cn('checkbox')} type='checkbox' />
       <Button className={cn('button')} type='submit' radius={8} paddingVertical={20}>

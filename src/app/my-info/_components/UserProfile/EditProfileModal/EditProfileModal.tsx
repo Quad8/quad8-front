@@ -7,7 +7,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import { checkNickname, putEditProfile } from '@/api/usersAPI';
 import { Button, InputField, RadioField } from '@/components';
-import { Label } from '@/components/parts';
+import { Input, Label } from '@/components/parts';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
 import type { Users } from '@/types/profileType';
 
@@ -81,10 +81,8 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     const phoneValue = e.target.value;
-    if (/^[\d-]*$/.test(phoneValue)) {
-      const formattedValue = changePhoneNumber(phoneValue);
-      setValue('phone', formattedValue, { shouldValidate: true });
-    }
+    const formattedValue = changePhoneNumber(phoneValue);
+    setValue('phone', formattedValue, { shouldValidate: true });
   };
 
   return (
@@ -134,7 +132,7 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
         />
       </div>
       <Button type='submit'>저장</Button>
-      <InputField type='password' suffixIcon='eye' />
+      <Input isNumber />
     </form>
   );
 }
