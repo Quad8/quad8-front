@@ -18,6 +18,7 @@ interface TitleWrapProp {
 export default function TitleWrap({ category, totalCount }: TitleWrapProp) {
   const [isOpen, setIsOpen] = useState(false);
   const handleClickFilter = () => setIsOpen(!isOpen);
+
   return (
     <>
       <div className={cn('title-wrap')}>
