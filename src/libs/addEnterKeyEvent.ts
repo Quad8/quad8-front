@@ -6,7 +6,12 @@
 
 import { RefObject } from 'react';
 
-export const addEnterKeyEvent = <T extends HTMLElement>(element: RefObject<T>, callback: () => void) => {
+interface AddEnterKeyEventParams<T extends HTMLElement> {
+  element: RefObject<T>;
+  callback: () => void;
+}
+
+export const addEnterKeyEvent = <T extends HTMLElement>({ element, callback }: AddEnterKeyEventParams<T>) => {
   const handleKeyPress = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       callback();

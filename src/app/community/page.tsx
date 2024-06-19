@@ -15,7 +15,7 @@ export default function Page() {
     <div className={cn('container')}>
       <p className={cn('page-name')}>커뮤니티</p>
       <div className={cn('filter-write-button-wrapper')}>
-        <Dropdown options={['인기순', '최신순', '가격 낮은순', '가격 높은순']} sizeVariant='xs' />
+        <Dropdown options={['인기순', '최신순', '조회순']} sizeVariant='xs' />
         <WritePostButton />
       </div>
       <div className={cn('post-wrapper')}>

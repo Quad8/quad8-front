@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 
-import defaultImage from '@/public/images/default.png';
+import defaultImage from '@/public/images/kedeukProfile.png';
 import contentImage from '@/public/images/myProfile.jpeg';
 
 import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
@@ -66,11 +66,15 @@ export default function PostCardDetailModal() {
   };
 
   useEffect(() => {
-    const removeEvent = addEnterKeyEvent(commentRef, handleMyCommentInput);
+    const removeEvent = addEnterKeyEvent({ element: commentRef, callback: handleMyCommentInput });
     return () => {
       removeEvent();
     };
   }, []);
+
+  const handleThumbnailClick = (i: number) => {
+    setClickedImage(keyboardImages[i].src);
+  };
 
   return (
     <div className={cn('container')}>
@@ -79,7 +83,7 @@ export default function PostCardDetailModal() {
         {keyboardImages.length > 1 && (
           <div className={cn('unselected-image-wrapper')}>
             {keyboardImages.map((image, i) => (
-              <div onClick={() => setClickedImage(keyboardImages[i].src)} key={image.id}>
+              <div onClick={() => handleThumbnailClick(i)} key={image.id}>
                 <Image src={image.src} alt='키보드 이미지' className={cn('images')} />
               </div>
             ))}
