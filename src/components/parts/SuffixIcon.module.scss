@@ -10,6 +10,10 @@
   pointer-events: none;
 }
 
+.chevron-icon {
+  fill: $black;
+}
+
 .rotate {
   transform: rotate(180deg) translateY(70%);
 }

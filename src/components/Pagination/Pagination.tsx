@@ -1,79 +1,83 @@
-'use client';
-
-import calculateStartPageNum from '@/libs/calculatePage';
+import NotFound from '@/app/not-found';
 import CaretLeftIcon from '@/public/svgs/caretLeft.svg';
 import CaretRightIcon from '@/public/svgs/caretRight.svg';
+import { ProductDataResponse } from '@/types/ProductItem';
 import classNames from 'classnames/bind';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import styles from './Pagination.module.scss';
 
-interface PaginationProps {
-  count: number;
-  limit: number;
+interface PaginationProps extends Omit<ProductDataResponse, 'content' | 'size'> {
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 const cn = classNames.bind(styles);
 
-const MAX_PAGE_LENGTH = 6;
+export default function Pagination({
+  totalElements,
+  totalPages,
+  number: currentPage,
+  first,
+  last,
+  searchParams,
+}: PaginationProps) {
+  const PAGE_RANGE = 6;
 
-export default function Pagination({ count, limit }: PaginationProps) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const currentPage = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
-  const totalPageCount = Math.ceil(count / limit);
-
-  if (!count) {
+  if (!totalElements || totalPages === 0) {
     return null;
   }
 
-  const startPageNum = calculateStartPageNum(currentPage, MAX_PAGE_LENGTH);
+  if (currentPage < 0 || currentPage >= totalPages) {
+    return <NotFound />;
+  }
 
-  const handlePageChange = (newPage: number) => {
-    if (newPage < 1 || newPage > totalPageCount) {
-      return;
-    }
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('page', newPage.toString());
-    router.push(`${pathname}?${params.toString()}`);
+  const renderPageLink = (pageNum: number, isSelected: boolean) => {
+    const linkProps = {
+      href: {
+        query: { ...searchParams, page: pageNum - 1 },
+      },
+      scroll: false,
+    };
+
+    return isSelected ? (
+      <span className={cn('selected-page')} aria-current='page'>
+        {pageNum}
+      </span>
+    ) : (
+      <Link {...linkProps}>{pageNum}</Link>
+    );
+  };
+
+  const renderArrowLink = (direction: 'prev' | 'next', isDisabled: boolean) => {
+    const pageChange = direction === 'prev' ? currentPage - 1 : currentPage + 1;
+    const Icon = direction === 'prev' ? CaretLeftIcon : CaretRightIcon;
+
+    return isDisabled ? (
+      <span className={cn('arrow-button')}>
+        <Icon stroke='#B8B8B8' />
+      </span>
+    ) : (
+      <Link href={{ query: { ...searchParams, page: pageChange } }} className={cn('arrow-button')} scroll={false}>
+        <Icon stroke='#4968f6' />
+      </Link>
+    );
+  };
+
+  const renderPaginationItems = () => {
+    const startPage = Math.floor(currentPage / PAGE_RANGE) * PAGE_RANGE + 1;
+    const endPage = Math.min(startPage + PAGE_RANGE - 1, totalPages);
+
+    return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map((pageNum) => (
+      <li key={pageNum} className={cn('pagination-item')}>
+        {renderPageLink(pageNum, currentPage + 1 === pageNum)}
+      </li>
+    ));
   };
 
   return (
     <div className={cn('pagination-container')}>
-      <button
-        type='button'
-        onClick={() => handlePageChange(currentPage - 1)}
-        className={cn('arrow-button')}
-        disabled={currentPage === 1}
-        aria-label='이전 페이지'
-      >
-        <CaretLeftIcon stroke={currentPage === 1 ? '#B8B8B8' : '$primary'} />
-      </button>
-      <ul className={cn('pagination-list')}>
-        {Array.from(
-          { length: Math.min(MAX_PAGE_LENGTH, totalPageCount - startPageNum + 1) },
-          (_, i) => startPageNum + i,
-        ).map((pageNum) => (
-          <li key={pageNum} className={cn('pagination-item')}>
-            {currentPage === pageNum ? (
-              <span className={cn('selected-page')}>{pageNum}</span>
-            ) : (
-              <button type='button' onClick={() => handlePageChange(pageNum)} aria-label={`Page ${pageNum}`}>
-                {pageNum}
-              </button>
-            )}
-          </li>
-        ))}
-      </ul>
-      <button
-        type='button'
-        onClick={() => handlePageChange(currentPage + 1)}
-        className={cn('arrow-button')}
-        disabled={currentPage === totalPageCount}
-        aria-label='다음 페이지'
-      >
-        <CaretRightIcon stroke={currentPage === totalPageCount ? '#B8B8B8' : '$primary'} />
-      </button>
+      {renderArrowLink('prev', first)}
+      <ul className={cn('pagination-list')}>{renderPaginationItems()}</ul>
+      {renderArrowLink('next', last)}
     </div>
   );
 }

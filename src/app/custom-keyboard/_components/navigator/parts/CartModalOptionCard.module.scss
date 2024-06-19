@@ -65,6 +65,10 @@
   white-space: nowrap;
 }
 
+.cursor-default {
+  cursor: default;
+}
+
 .count-price-wrapper {
   @include flex-center-space-between;
 

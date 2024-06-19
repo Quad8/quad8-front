@@ -1,5 +1,7 @@
 .wrapper {
   @include flex-column(4rem);
+
+  padding-left: 1.5rem;
 }
 
 .content-wrapper {
@@ -7,24 +9,22 @@
 }
 
 .title {
-  width: 100%;
-  @include pretendard-20-600;
+  @include pretendard-20-500;
+
+  width: 41rem;
 }
 
 .button-wrapper {
   display: flex;
   align-items: center;
   gap: 1.2rem;
+  width: 41rem;
 }
 
 .button {
   @include flex-center;
 
-  width: 15.4rem;
-  height: 6.6rem;
-  border: 0.1rem solid $black;
-  border-radius: 0.4rem;
-  color: $black;
+  width: 19.9rem;
   gap: 1rem;
 }
 
@@ -39,8 +39,6 @@
 }
 
 .selected {
-  background-color: $primary;
-
   .button-content {
     color: $white;
   }

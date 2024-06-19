@@ -1,18 +1,16 @@
 .wrapper {
-  position: sticky;
-  top: 8rem;
-  width: calc(100vw - 68rem);
-  height: calc(100vh - 16rem);
+  width: calc(100vw - 51rem);
+  height: calc(100vh - 8rem);
   background-color: $gray-5;
 }
 
-.option-wrapper {
+.step-wrapper {
   @include flex-center;
 
   position: absolute;
   z-index: $zindex-offcanvas;
   top: 50%;
-  left: 2rem;
+  left: 4rem;
   width: 16.2rem;
   height: 21.8rem;
   transform: translateY(-50%);

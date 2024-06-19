@@ -70,7 +70,7 @@ export default function OptionProductModal({
           ))}
         </div>
         <div className={cn('button-wrapper')}>
-          <Button onClick={handleClickAddButton} width={154}>
+          <Button onClick={handleClickAddButton} width={154} hoverColor='background-primary-60'>
             추가하기
           </Button>
         </div>

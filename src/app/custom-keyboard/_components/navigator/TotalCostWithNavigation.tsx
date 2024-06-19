@@ -9,8 +9,10 @@ import type {
   OptionDataType,
 } from '@/types/CustomKeyboardTypes';
 import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
-import { Modal } from '@/components';
+import { Modal, Button } from '@/components';
 import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
+import { ChevronIcon } from '@/public/index';
+
 import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
@@ -184,13 +186,27 @@ export default function TotalCostWithNavigation() {
       </div>
       <div className={cn('button-wrapper')}>
         {prev && (
-          <button type='button' className={cn('button')} onClick={handleClickPrevButton}>
+          <Button
+            backgroundColor='outline-primary'
+            hoverColor='outline-primary-60'
+            radius={4}
+            className={cn('button')}
+            onClick={() => handleClickPrevButton()}
+          >
+            <ChevronIcon width={16} height={16} className={cn('prev-button-icon')} />
             {BUTTON[prev]}
-          </button>
+          </Button>
         )}
-        <button type='button' className={cn('button')} onClick={handleClickNextButton}>
+        <Button
+          backgroundColor='background-primary'
+          hoverColor='background-primary-60'
+          radius={4}
+          className={cn('button')}
+          onClick={() => handleClickNextButton()}
+        >
           {BUTTON[next]}
-        </button>
+          <ChevronIcon width={16} height={16} className={cn('next-button-icon')} />
+        </Button>
       </div>
       <Modal isOpen={isOpenOptionModal} onClose={handleCloseOptionModal}>
         <OptionProductModal
