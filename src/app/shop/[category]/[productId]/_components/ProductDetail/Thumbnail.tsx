@@ -1,6 +1,6 @@
 'use client';
 
-import { ThumbnailTypes } from '@/types/ProductTypes';
+import type { ThumbnailTypes } from '@/types/ProductTypes';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { useState } from 'react';

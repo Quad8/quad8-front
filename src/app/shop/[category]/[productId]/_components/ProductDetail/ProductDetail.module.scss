@@ -1,6 +1,8 @@
 .detail-container {
   display: flex;
   gap: 7.2rem;
+  max-width: 168rem;
+  padding-top: 2.8rem;
   padding-bottom: 18rem;
 }
 
@@ -60,14 +62,8 @@
   margin-bottom: 2rem;
 }
 
-.delivery-section {
-  @include box;
-}
-
-.point-section {
-  @include box;
-}
-
+.delivery-section,
+.point-section,
 .option-section {
   @include box;
 }
@@ -82,15 +78,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin: 2rem 0;
   padding: 2rem;
   border-radius: 0.8rem;
   background-color: $primary-5;
 }
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 .option-text {

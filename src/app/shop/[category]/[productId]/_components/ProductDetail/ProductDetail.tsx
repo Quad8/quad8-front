@@ -11,17 +11,17 @@ interface ProductDetailProps {
   product: ProductType;
 }
 
+const DELIVERY_TEXT = {
+  배송방법: '택배',
+  배송지역: '전국',
+  배송비용: '전 제품 무료 배송',
+};
+
+const POINT_TEXT = {
+  포인트: '구매 확정시 포인트 지급',
+};
+
 export default function ProductDetail({ product }: ProductDetailProps) {
-  const DELIVERY_TEXT = {
-    배송방법: '택배',
-    배송지역: '전국',
-    배송비용: '전 제품 무료 배송',
-  };
-
-  const POINT_TEXT = {
-    포인트: '구매 확정시 포인트 지급',
-  };
-
   return (
     <div className={cn('detail-container')}>
       <Thumbnail imageList={product.thubmnailList} />

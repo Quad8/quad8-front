@@ -1,11 +1,12 @@
 'use client';
 
 import { Button, Dropdown } from '@/components';
-import { DeleteIcon, MinusIcon, PlusIcon } from '@/public/index';
+import { DeleteIcon } from '@/public/index';
 import type { OptionTypes } from '@/types/ProductTypes';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import styles from './ProductDetail.module.scss';
+import QuantitySelector from './QuantitySelector';
 
 const cn = classNames.bind(styles);
 
@@ -19,34 +20,17 @@ interface OptionWithButtonProps {
   price: number;
 }
 
-type OperationType = 'plus' | 'minus';
-
 function OptionContainer({ optionText, price }: OptionCountProps) {
   const [count, setCount] = useState<number>(1);
-  const [isOptionSelected, SetIsOptionSelected] = useState<boolean>(true);
-
-  const handleClickIcon = (operation: OperationType) => {
-    if (operation === 'minus' && count > 1) {
-      setCount((prev) => prev - 1);
-    } else if (operation === 'plus') {
-      setCount((prev) => prev + 1);
-    }
-  };
+  const [isOptionSelected, setIsOptionSelected] = useState<boolean>(true);
 
   const handleClickDeleteIcon = () => {
     setCount(0);
-    SetIsOptionSelected(false);
+    setIsOptionSelected(false);
   };
 
-  const renderQuantitySelector = () => {
-    return (
-      <div className={cn('count-icons')}>
-        <MinusIcon className={cn('icon', { 'gray-icon': count === 1 })} onClick={() => handleClickIcon('minus')} />
-        <span>{count}</span>
-        <PlusIcon className={cn('icon')} onClick={() => handleClickIcon('plus')} />
-      </div>
-    );
-  };
+  const incrementCount = () => setCount((prev) => prev + 1);
+  const decrementCount = () => setCount((prev) => (prev > 1 ? prev - 1 : prev));
 
   return (
     <>
@@ -54,12 +38,12 @@ function OptionContainer({ optionText, price }: OptionCountProps) {
         {optionText ? (
           <>
             <h3 className={cn('option-text')}>{optionText}</h3>
-            {renderQuantitySelector()}
+            <QuantitySelector count={count} incrementCount={incrementCount} decrementCount={decrementCount} />
             <h3 className={cn('option-price')}>{price?.toLocaleString()}원</h3>
             <DeleteIcon className={cn('delete-icon')} onClick={handleClickDeleteIcon} />
           </>
         ) : (
-          renderQuantitySelector()
+          <QuantitySelector count={count} incrementCount={incrementCount} decrementCount={decrementCount} />
         )}
       </div>
       <div className={cn('total-price-box')}>

@@ -1,6 +1,6 @@
 import { getProductDetail } from '@/api/productAPI';
 import { redirect } from 'next/navigation';
-import ProductDetail from '../_components/ProductDetail';
+import ProductDetail from './_components/ProductDetail/ProductDetail';
 
 interface ProductDetailParams {
   params: {
@@ -15,8 +15,9 @@ export default async function page({ params }: ProductDetailParams) {
   if (!data) {
     redirect('/');
   }
+
   return (
-    <div style={{ padding: '12rem' }}>
+    <div>
       <ProductDetail product={data} />
     </div>
   );
