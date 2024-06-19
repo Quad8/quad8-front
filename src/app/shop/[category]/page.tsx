@@ -3,7 +3,7 @@ import Pagination from '@/components/Pagination/Pagination';
 import type { CategoryKey } from '@/types/Category';
 import classNames from 'classnames/bind';
 import ProductList from '../_components/Product/ProductList';
-import TitleWrap from './_components/TitleWrap';
+import TitleWrap from './_components/TitleWrap/TitleWrap';
 import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
@@ -19,7 +19,7 @@ export default async function Page({
 
   const getCategoryProductParams = {
     keyword: category,
-    sort: searchParams.sort || 'views_desc',
+    sort: searchParams.sort || 'createdAt_desc',
     page: searchParams.page || '0',
     size: '16',
     company: searchParams.company,

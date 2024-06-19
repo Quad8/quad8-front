@@ -1,11 +1,11 @@
 import { getAllProductList } from '@/api/productAPI';
 import Pagination from '@/components/Pagination/Pagination';
-import { ProductParams } from '@/types/ProductItem';
+import type { ProductParams } from '@/types/ProductItem';
 import classNames from 'classnames/bind';
-import Sort from './[category]/_components/Sort';
 import CategoryMenu from './_components/Category/CategoryMenu';
 import CategoryTitle from './_components/Category/CategoryTitle';
 import ProductList from './_components/Product/ProductList';
+import Sort from './_components/Sort/Sort';
 import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);

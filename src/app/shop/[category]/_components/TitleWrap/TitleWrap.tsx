@@ -1,10 +1,10 @@
 'use client';
 
+import CategoryTitle from '@/app/shop/_components/Category/CategoryTitle';
 import { CATEGORY_MAP } from '@/constants/product';
 import { CategoryKey } from '@/types/Category';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
-import CategoryTitle from '../../_components/Category/CategoryTitle';
 import Filter from './Filter';
 import FilterSort from './FilterSort';
 import styles from './TitleWrap.module.scss';
