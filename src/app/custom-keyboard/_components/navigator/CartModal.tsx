@@ -55,7 +55,7 @@ export default function CartModal({
 }: CartModalProps) {
   const orderWrapperRef = useRef<HTMLDivElement>(null);
   const crateCustomKeyboard = useMutation({
-    mutationFn: (data: CustomKeyboardAPITypes) => postCustomKeyboardOrder(accessToken, data),
+    mutationFn: (data: CustomKeyboardAPITypes) => postCustomKeyboardOrder(data),
   });
   const {
     keyboardData: {
