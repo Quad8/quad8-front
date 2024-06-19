@@ -1,0 +1,19 @@
+.wrapper {
+  @include flex-center;
+
+  gap: 0.4rem;
+  padding: 0.8rem 1rem;
+  border-radius: 2rem;
+  background-color: $primary-20;
+}
+
+.color-text {
+  @include pretendard-14-500;
+
+  color: $primary;
+}
+
+.delete-icon {
+  fill: $primary;
+  cursor: pointer;
+}

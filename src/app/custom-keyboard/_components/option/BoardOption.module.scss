@@ -1,0 +1,49 @@
+.wrapper {
+  @include flex-column(4rem);
+
+  padding-left: 1.5rem;
+}
+
+.content-wrapper {
+  @include flex-column(1.2rem);
+}
+
+.title {
+  @include pretendard-20-500;
+
+  width: 41rem;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  width: 41rem;
+}
+
+.button {
+  @include flex-center;
+
+  width: 19.9rem;
+  gap: 1rem;
+}
+
+.button-content {
+  color: $black;
+  @include pretendard-18-400;
+}
+
+.button-price {
+  color: $gray-50;
+  @include pretendard-14-400;
+}
+
+.selected {
+  .button-content {
+    color: $white;
+  }
+
+  .button-price {
+    color: $gray-10;
+  }
+}

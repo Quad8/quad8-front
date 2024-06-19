@@ -1,5 +1,7 @@
+'use client';
+
 import classNames from 'classnames/bind';
-import { ChangeEvent, InputHTMLAttributes, forwardRef, useEffect, useState } from 'react';
+import { InputHTMLAttributes, MouseEvent, forwardRef, useState } from 'react';
 import { ErrorMessage, Radio } from '../parts';
 import styles from './RadioField.module.scss';
 
@@ -10,6 +12,7 @@ interface RadioFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   options: string[];
   errorMessage?: string;
+  defaultValue?: string;
 }
 
 /**
@@ -20,26 +23,20 @@ interface RadioFieldProps extends InputHTMLAttributes<HTMLInputElement> {
  * @param {string} props.label - 라디오 버튼 그룹의 레이블 텍스트
  * @param {string[]} props.options - 선택할 수 있는 옵션 목록
  * @param {string} [props.errorMessage] - 에러 메시지 텍스트
- * @param {string} [props.value] - 라디오 버튼의 초기 선택 값 지정
+ * @param {string} [props.defaultValue] - 라디오 버튼의 초기 선택 값 지정
  * @returns {JSX.Element} 렌더링된 라디오 버튼 그룹 컴포넌트
  */
 
 export default forwardRef<HTMLInputElement, RadioFieldProps>(function RadioField(
-  { label, options, errorMessage, value, className, ...rest },
+  { label, options, errorMessage, defaultValue, className, ...rest },
   ref,
 ) {
-  const [isSelected, setIsSelected] = useState(value || options[0]);
+  const [selectedValue, setSelectedValue] = useState(defaultValue);
 
-  useEffect(() => {
-    if (value) {
-      setIsSelected(value);
-    }
-  }, [value]);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsSelected(e.target.value);
-    if (rest.onChange) {
-      rest.onChange(e);
+  const handleClick = (e: MouseEvent<HTMLInputElement>) => {
+    setSelectedValue(e.currentTarget.value);
+    if (rest.onClick) {
+      rest.onClick(e);
     }
   };
 
@@ -53,9 +50,9 @@ export default forwardRef<HTMLInputElement, RadioFieldProps>(function RadioField
             key={option}
             id={option}
             value={option}
-            onChange={handleChange}
-            checked={isSelected === option}
+            checked={selectedValue === option}
             isError={!!errorMessage}
+            onClick={handleClick}
             {...rest}
           />
         ))}

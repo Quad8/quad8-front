@@ -1,0 +1,135 @@
+@mixin background($color) {
+  border: 0.1rem solid $color;
+  background-color: $color;
+  fill: $white;
+  color: $white;
+}
+
+@mixin border($color) {
+  border: 0.1rem solid $color;
+  background-color: $white;
+  fill: $color;
+  color: $color;
+}
+
+@mixin hover($color, $type) {
+  &:hover {
+    @if ($type == 'background') {
+      @include background($color);
+    } @else if($type == 'outline') {
+      @include border($color);
+    }
+  }
+}
+
+.common-style {
+  @include flex-center;
+}
+
+.background-gray-40 {
+  @include background($gray-40);
+}
+
+.background-primary {
+  @include background($primary);
+}
+
+.background-primary-60 {
+  @include background($primary-60);
+}
+
+.hover-background-gray-40 {
+  @include hover($gray-40, 'background');
+}
+
+.hover-background-primary {
+  @include hover($primary, 'background');
+}
+
+.hover-background-primary-60 {
+  @include hover($primary-60, 'background');
+}
+
+.outline-gray-40 {
+  @include border($gray-40);
+}
+
+.outline-primary {
+  @include border($primary);
+}
+
+.outline-primary-60 {
+  @include border($primary-60);
+}
+
+.hover-outline-gray-40 {
+  @include hover($gray-40, 'outline');
+}
+
+.hover-outline-primary {
+  @include hover($primary, 'outline');
+}
+
+.hover-outline-primary-60 {
+  @include hover($primary-60, 'outline');
+}
+
+.radius-4 {
+  border-radius: 0.4rem;
+}
+
+.radius-8 {
+  border-radius: 0.8rem;
+}
+
+.parent-full {
+  width: 100%;
+}
+
+.width-72 {
+  width: 7.2rem;
+}
+
+.width-90 {
+  width: 9rem;
+}
+
+.width-120 {
+  width: 12rem;
+}
+
+.width-154 {
+  width: 15.4rem;
+}
+
+.width-320 {
+  width: 32rem;
+}
+
+.font-14 {
+  @include pretendard-14-400;
+}
+
+.font-18 {
+  @include pretendard-18-400;
+}
+
+.font-20 {
+  @include pretendard-20-600;
+}
+
+.font-24 {
+  @include pretendard-24-700;
+}
+
+.padding-8 {
+  padding: 0.8rem 0;
+}
+
+.padding-20 {
+  padding: 2rem 0;
+}
+
+.test {
+  background-color: black;
+}

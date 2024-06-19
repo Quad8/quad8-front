@@ -1,0 +1,61 @@
+.wrapper {
+  display: flex;
+  position: relative;
+  z-index: inherit;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+}
+
+.sub-menu-layout {
+  position: absolute;
+  z-index: inherit;
+  top: 100%;
+  padding-top: 2rem;
+}
+
+.sub-menu-wrapper {
+  display: flex;
+  z-index: inherit;
+  padding: 0.6rem;
+  border: 0.1rem solid $primary;
+  border-radius: 1rem;
+  background-color: $black;
+  color: $white;
+}
+
+.menu-button {
+  display: flex;
+  z-index: $zindex-dropdown;
+  align-items: center;
+  justify-content: center;
+  width: 10rem;
+  padding: 1rem;
+  border-radius: 0.6rem;
+
+  &:hover {
+    background-color: $white;
+    color: $black;
+  }
+}
+
+.black {
+  border: 0.1rem solid $black;
+  background-color: $white;
+  color: $black;
+
+  .menu-button:hover {
+    background-color: $black;
+    color: $white;
+  }
+}
+
+.current-page {
+  color: $primary;
+}

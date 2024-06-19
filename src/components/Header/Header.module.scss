@@ -12,74 +12,89 @@
   position: sticky;
   z-index: $zindex-fixed;
   top: 0;
-  width: fit-content;
-  min-width: 100%;
+  width: 100%;
+  max-width: 192rem;
   height: 8rem;
+  margin: 0 auto;
   padding: 0 12rem;
+  border-bottom: 0.1rem solid $gray-10;
   background-color: $white;
   color: $gray-50;
   text-decoration: none;
+  gap: 4rem;
 
   a:hover,
   button:hover {
     color: $black;
   }
-}
 
-.right-wrapper {
-  @include flex-wrapper;
+  .right-wrapper {
+    @include flex-wrapper;
 
-  gap: 12rem;
+    flex-grow: 2;
+    width: 100%;
+    max-width: 64.303rem;
+    gap: 2rem;
+
+    .logo {
+      flex-grow: 1;
+    }
+
+    .button-wrapper {
+      @include flex-wrapper;
+
+      gap: 4rem;
+      flex-grow: 2;
+
+      .current-page {
+        color: $primary;
+      }
+
+      .button {
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  .left-wrapper {
+    @include flex-wrapper;
+
+    gap: 4rem;
+    flex-grow: 1;
+
+    .status-wrapper {
+      @include flex-wrapper;
+
+      gap: 2rem;
+
+      .user-icon {
+        height: 3.1rem;
+      }
+    }
+
+    .user-white {
+      fill: $primary;
+
+      path {
+        fill: $white;
+      }
+    }
+
+    .user-black {
+      fill: $white;
+
+      path {
+        fill: $black;
+      }
+    }
+  }
 }
 
 .black {
-  border-bottom: 0.1rem solid $gray-10;
   background-color: $black;
 
   a:hover,
   button:hover {
     color: $white;
-  }
-}
-
-.button-wrapper {
-  @include flex-wrapper;
-
-  gap: 4rem;
-}
-
-.current-page {
-  color: $primary;
-}
-
-.left-wrapper {
-  @include flex-wrapper;
-
-  gap: 9.6rem;
-}
-
-.status-wrapper {
-  @include flex-wrapper;
-
-  gap: 2rem;
-}
-
-.user-icon {
-  height: 3.1rem;
-}
-
-.user-white {
-  fill: $primary;
-
-  path {
-    fill: $white;
-  }
-}
-
-.user-black {
-  fill: $white;
-
-  path {
-    fill: $black;
   }
 }

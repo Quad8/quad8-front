@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  env: {
+    NEXT_PUBLIC_KEYDEUK_API_BASE_URL: process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL,
+  },
+
+  env: {
+    NEXT_PUBLIC_KEYDEUK_API_BASE_URL: process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL,
+  },
 
   images: {
     remotePatterns: [
@@ -19,6 +26,75 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'd1wt2ljvmyxns0.cloudfront.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'shop-phinf.pstatic.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.imweb.me',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'shop-phinf.pstatic.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn-optimized.imweb.me',
+        port: '',
+        pathname: '/**',
+      },
+
+      {
+        protocol: 'https',
+        hostname: 'img.danawa.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.011st.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'static2.e-himart.co.kr',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'sitem.ssgcdn.com',
+        port: '',
+        pathname: '/**',
+      },
+
+      {
+        protocol: 'https',
+        hostname: 'gdimg.gmarket.co.kr',
+        port: '',
+        pathname: '/**',
+      },
+
+      {
+        protocol: 'https',
+        hostname: 'tbnws.hgodo.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'contents.lotteon.com',
         port: '',
         pathname: '/**',
       },
@@ -41,7 +117,25 @@ const nextConfig = {
         test: /\.svg$/i,
         issuer: fileLoaderRule.issuer,
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
-        use: ['@svgr/webpack'],
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: 'preset-default',
+                    params: {
+                      overrides: {
+                        removeViewBox: false,
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
       },
     );
 
@@ -55,6 +149,8 @@ const nextConfig = {
     includePaths: ['styles'],
     additionalData: `@import "src/styles/_globals.scss";`,
   },
+
+  transpilePackages: ['three'],
 };
 
 export default nextConfig;

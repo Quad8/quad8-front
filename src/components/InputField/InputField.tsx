@@ -8,13 +8,16 @@ import styles from './InputFiled.module.scss';
 const cn = classNames.bind(styles);
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  sizeVariant?: 'sm' | 'md' | 'lg';
+  sizeVariant?: 'sm' | 'md' | 'lg' | 'header';
   className?: string;
   label?: string;
+  labelSize?: 'sm' | 'md' | 'lg';
   errorMessage?: string;
   suffixIcon?: 'search' | 'eye';
   suffixUnit?: '원';
 }
+
+const PHONE_PREFIX = '010';
 
 /**
  * InputField component documentation
@@ -31,26 +34,48 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
  */
 
 export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField(
-  { id, type = 'text', sizeVariant = 'md', label, className, errorMessage, suffixIcon, suffixUnit, ...rest },
+  { id, type = 'text', sizeVariant = 'md', label, className, errorMessage, suffixIcon, suffixUnit, labelSize, ...rest },
   ref,
 ) {
   const [inputType, setInputType] = useState(type);
+  const isPhone = label === '휴대폰 번호' || label === '연락처';
+  const isBirth = label === '생년월일';
 
   const onSuffixEyeIconClick = () => {
     setInputType((prevType) => (prevType === 'password' ? 'text' : 'password'));
   };
 
-  const combinedClassName = cn('default', sizeVariant, className);
+  const combinedClassName = cn('default', sizeVariant, { phone: isPhone });
 
   return (
     <div className={combinedClassName}>
       {label && (
-        <Label htmlFor={id} sizeVariant={sizeVariant}>
+        <Label htmlFor={id} sizeVariant={labelSize || sizeVariant}>
           {label}
         </Label>
       )}
       <div className={cn('input-wrapper')}>
-        <Input id={id} type={inputType} sizeVariant={sizeVariant} isError={!!errorMessage} ref={ref} {...rest} />
+        {isPhone && (
+          <Input
+            id={id}
+            type={inputType}
+            sizeVariant={sizeVariant}
+            value={PHONE_PREFIX}
+            isPhonePrefix={isPhone}
+            disabled
+          />
+        )}
+        <Input
+          id={id}
+          type={inputType}
+          sizeVariant={sizeVariant}
+          isError={!!errorMessage}
+          isBirth={isBirth}
+          isPhone={isPhone}
+          ref={ref}
+          className={className}
+          {...rest}
+        />
         {suffixUnit && <SuffixUnit unit={suffixUnit} />}
         {suffixIcon && (
           <SuffixIcon

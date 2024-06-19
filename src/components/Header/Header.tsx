@@ -1,52 +1,59 @@
-import LogoIcon from '@/public/svgs/logo.svg';
-import UserIcon from '@/public/svgs/user.svg';
+'use client';
+
+import { ROUTER } from '@/constants/route';
+import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
-import { cookies, headers } from 'next/headers';
 import Link from 'next/link';
-import CartButton from './CartButton';
+import { usePathname } from 'next/navigation';
+
+import { LogoIcon, UserIcon } from '@/public/index';
+
+import type { Users } from '@/types/profileType';
+import { CartButton, LoginButton, LogoutButton, SearchBox, ShopButton } from './HeaderParts';
+
 import styles from './Header.module.scss';
-import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
-import SearchBox from './SearchBox';
-import ShopButton from './ShopButton';
 
 const cn = classNames.bind(styles);
-const URL_LIST = {
-  MAIN: '/',
-  CUSTOM_KEYBOARD: '/custom-keyboard',
-  COMMUNITY: '/community',
-};
 
 export default function Header() {
-  const accessToken = cookies().get('accessToken')?.value ?? null;
-  const pathname = headers().get('pathname') as string;
-  const BLACK = pathname === '/' || pathname === 'sign-up';
-  const cartCount = 0; /* api로 가져오기 */
+  const pathname = usePathname();
+  const isBlack = pathname === '/' || pathname === 'sign-up';
+
+  const { data: userData } = useQuery<{ data: Users }>({
+    queryKey: ['userData'],
+  });
+
+  const cartCount = 0;
+
+  const users = userData?.data ?? null;
 
   return (
-    <header className={cn('wrapper', { black: BLACK })}>
+    <header className={cn('wrapper', { black: isBlack })}>
       <div className={cn('right-wrapper')}>
-        <Link href={URL_LIST.MAIN}>
+        <Link className={cn('logo')} href={ROUTER.MAIN}>
           <LogoIcon width={131} height={24} />
         </Link>
         <div className={cn('button-wrapper')}>
-          <Link href={URL_LIST.CUSTOM_KEYBOARD} className={cn({ 'current-page': pathname === '/custom-keyboard' })}>
+          <Link
+            href={ROUTER.CUSTOM_KEYBOARD}
+            className={cn('button', { 'current-page': pathname === ROUTER.CUSTOM_KEYBOARD })}
+          >
             커스텀 키보드 만들기
           </Link>
           <ShopButton pathname={pathname} />
-          <Link href={URL_LIST.COMMUNITY} className={cn({ 'current-page': pathname === '/community' })}>
+          <Link href={ROUTER.COMMUNITY} className={cn('button', { 'current-page': pathname === ROUTER.COMMUNITY })}>
             커뮤니티
           </Link>
         </div>
       </div>
       <div className={cn('left-wrapper')}>
-        <SearchBox />
+        <SearchBox isBlack={isBlack} />
         <div className={cn('status-wrapper')}>
-          {!accessToken ? <LoginButton /> : <LogoutButton />}
-          <Link href='/mypage' className={cn('user-icon')}>
-            <UserIcon width={31} height={31} className={cn(BLACK ? 'user-black' : 'user-white')} />
+          {!users ? <LoginButton /> : <LogoutButton />}
+          <Link href={ROUTER.MY_PAGE.MY_INFO} className={cn('user-icon')}>
+            <UserIcon width={31} height={31} className={cn(isBlack ? 'user-black' : 'user-white')} />
           </Link>
-          <CartButton cartCount={cartCount} black={BLACK} />
+          <CartButton cartCount={cartCount} isBlack={isBlack} />
         </div>
       </div>
     </header>

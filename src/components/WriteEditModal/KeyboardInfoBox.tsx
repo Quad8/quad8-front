@@ -1,14 +1,15 @@
 import classNames from 'classnames/bind';
-import { CustomKeyboardTypes } from '@/types/CustomKeyboardTypes';
+import type { CustomKeyboardTypes } from '@/types/CustomKeyboardTypes';
 import styles from './KeyboardInfoBox.module.scss';
+
+const cn = classNames.bind(styles);
 
 interface KeyboardInfoBoxProps {
   keyboardInfo: CustomKeyboardTypes;
-  isReview?: boolean;
+  isCustomReview?: boolean;
 }
-const cn = classNames.bind(styles);
 
-export default function KeyboardInfoBox({ keyboardInfo, isReview }: KeyboardInfoBoxProps) {
+export default function KeyboardInfoBox({ keyboardInfo, isCustomReview }: KeyboardInfoBoxProps) {
   const {
     layout,
     appearance_texture: appearanceTexture,
@@ -30,8 +31,8 @@ export default function KeyboardInfoBox({ keyboardInfo, isReview }: KeyboardInfo
 
   return (
     <div>
-      {isReview && <p className={cn('sub-text')}>해당 후기는 커뮤니티란에 게시됩니다.</p>}
-      <div className={styles.container}>
+      {isCustomReview && <p className={cn('sub-text')}>해당 후기는 커뮤니티란에 게시됩니다.</p>}
+      <div className={cn('container')}>
         <div className={cn('keyboard-image')} />
         <div className={cn('keyboard-info-text')}>
           <h3 id={cn('title')}>키득 커스텀 기보드</h3>
