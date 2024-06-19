@@ -49,7 +49,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             <span>{Object.keys(POINT_TEXT)}</span> {POINT_TEXT.포인트}
           </h3>
         </div>
-        <OptionWithButton optionList={product.optionList} price={product.price} />
+        <OptionWithButton productId={product.id} optionList={product.optionList} price={product.price} />
       </div>
     </div>
   );

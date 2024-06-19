@@ -11,18 +11,20 @@ import QuantitySelector from './QuantitySelector';
 const cn = classNames.bind(styles);
 
 interface OptionWithButtonProps {
+  productId: number;
   optionList: OptionTypes[];
   price: number;
 }
 
 interface SelectedOptionType {
+  id: number;
   name: string;
   count: number;
 }
 
 const OPTION_PLACEHOLDER = '스위치 (필수)';
 
-export default function OptionWithButton({ optionList, price }: OptionWithButtonProps) {
+export default function OptionWithButton({ productId, optionList, price }: OptionWithButtonProps) {
   const optionNames = optionList?.map((option) => option.optionName);
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptionType[]>([]);
   const totalPrice = selectedOptions.reduce((acc, option) => acc + option.count * price, 0);
@@ -30,14 +32,21 @@ export default function OptionWithButton({ optionList, price }: OptionWithButton
 
   const handleChangeOption = (value: string) => {
     if (value !== OPTION_PLACEHOLDER) {
-      setSelectedOptions((prevOptions) => {
-        const isExisting = prevOptions.find((option) => option.name === value);
-        if (isExisting) {
-          return prevOptions.map((option) => (option.name === value ? { ...option, count: option.count + 1 } : option));
-        } else {
-          return [...prevOptions, { name: value, count: 1 }];
-        }
-      });
+      const selectedOption = optionList.find((option) => option.optionName === value);
+      if (selectedOption) {
+        const { id, optionName } = selectedOption;
+
+        setSelectedOptions((prevOptions) => {
+          const isExisting = prevOptions.find((option) => option.name === value);
+          if (isExisting) {
+            return prevOptions.map((option) =>
+              option.name === optionName ? { ...option, count: option.count + 1 } : option,
+            );
+          } else {
+            return [...prevOptions, { id, name: optionName, count: 1 }];
+          }
+        });
+      }
     }
   };
 
@@ -49,6 +58,10 @@ export default function OptionWithButton({ optionList, price }: OptionWithButton
 
   const handleDeleteOption = (name: string) => {
     setSelectedOptions((prevOptions) => prevOptions.filter((option) => option.name !== name));
+  };
+
+  const handleClickCartButton = () => {
+    console.log(productId, selectedOptions);
   };
 
   return (
@@ -78,7 +91,7 @@ export default function OptionWithButton({ optionList, price }: OptionWithButton
         </h1>
       </div>
       <div className={cn('button-section')}>
-        <Button>장바구니</Button>
+        <Button onClick={handleClickCartButton}>장바구니</Button>
         <Button>구매하기</Button>
       </div>
     </>
