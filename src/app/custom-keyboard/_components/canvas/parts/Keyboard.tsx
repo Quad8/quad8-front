@@ -6,9 +6,9 @@ import { useContext } from 'react';
 import { Euler, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 import { GLTF } from 'three-stdlib';
 
-import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { KEY, TEN_KEY, POINT_KEY } from '@/constants/keyboardData';
 import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
+import { FocusKeyContext, KeyboardDataContext, StepContext } from '@/context';
 
 interface KeyboardNodes {
   nodes: Record<CustomKeyboardKeyTypes | 'Cube', Mesh>;
@@ -29,7 +29,7 @@ export default function Keyboard() {
     },
   } = useContext(KeyboardDataContext);
 
-  const { focusKey, updateFocusKey, updateCurrentPointKeyColor } = useContext(KeyColorContext);
+  const { focusKey, updateFocusKey, updateCurrentPointKeyColor } = useContext(FocusKeyContext);
   const { currentStep } = useContext(StepContext);
   const { nodes, materials } = useGLTF(
     type === '텐키리스' ? '/glbs/tklKeyboard.glb' : '/glbs/keyboard.glb',
