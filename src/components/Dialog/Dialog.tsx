@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-import { Fragment } from 'react';
 
 import Modal from '../Modal/Modal';
 import Button from '../Buttons/Button/Button';
@@ -38,10 +37,10 @@ export default function Dialog({ type, isOpen, onClick, buttonText, iconType, me
           <div className={cn('text-wrapper')}>
             {message.split('\\n').map((text, i) => (
               /* eslint-disable-next-line react/no-array-index-key */
-              <Fragment key={i}>
+              <div key={i}>
                 {text}
                 <br />
-              </Fragment>
+              </div>
             ))}
           </div>
         </div>
