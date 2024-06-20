@@ -46,7 +46,11 @@ export default function AddressesHeader() {
         </Button>
       </div>
       <Modal isOpen={isPostcodeEmbedOpen} onClose={() => setIsPostcodeEmbedOpen(false)}>
-        <DaumPostcodeEmbed onComplete={handleComplete} />
+        <DaumPostcodeEmbed
+          className={cn('postcode-embed')}
+          style={{ width: '530px', height: '600px' }}
+          onComplete={handleComplete}
+        />
       </Modal>
       <Modal isOpen={isModalOpen} onClose={handleAddAddressModalClose}>
         <AddAddressModal onClick={handleSearchPostClick} addressData={addressData} onClose={handleSuccessClose} />
