@@ -1,15 +1,13 @@
-.title-div {
+.title-wrapper {
   display: flex;
   gap: 1.2rem;
   align-items: center;
 
-  & > #title {
+  & > .title {
     @include pretendard-20-600;
-
-    font-weight: bold;
   }
 
-  & > #sub-title {
+  & > .sub-title {
     @include pretendard-14-400;
 
     color: $gray-50;
@@ -17,7 +15,7 @@
   }
 }
 
-.input-div {
+.input-wrapper {
   display: flex;
   gap: 1.2rem;
   width: 100%;
@@ -40,12 +38,12 @@
   width: 100%;
 }
 
-.image-div {
+.image-wrapper {
   position: relative;
   min-width: 16.8rem;
   height: 15.6rem;
 
-  & > #image {
+  & > .image {
     border-radius: 0.8rem;
   }
 }
@@ -62,6 +60,8 @@
 }
 
 .main-image-tag {
+  @include pretendard-14-700;
+
   position: absolute;
   top: 0.8rem;
   left: 1rem;
@@ -69,7 +69,8 @@
   border-radius: 3rem;
   background-color: $primary-20;
   color: $primary;
-  font-size: 1.4rem;
-  font-weight: 700;
-  line-height: 2.2rem;
+
+  & > .main-tag-text {
+    padding-top: 0.5rem;
+  }
 }

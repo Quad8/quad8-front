@@ -31,7 +31,7 @@ export function PostInteractions({ goodCount, commentCount }: PostInteractionsPr
       </div>
       <div className={cn('icon-and-count')}>
         <CommentIcon />
-        <p id={cn('count')}>{commentCount > MAX_COUNT ? '99+' : commentCount}</p>
+        <p className={cn('count')}>{commentCount > MAX_COUNT ? '99+' : commentCount}</p>
       </div>
     </div>
   );
