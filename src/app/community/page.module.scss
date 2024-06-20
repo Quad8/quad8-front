@@ -23,6 +23,6 @@
 .post-wrapper {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 0.7fr);
+  padding-bottom: 8rem;
   gap: 10rem 3.3rem;
 }
