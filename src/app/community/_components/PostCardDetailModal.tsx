@@ -1,18 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
-
-import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
-import { formatDateToString } from '@/libs/formatDateToString';
+import { toast } from 'react-toastify';
 
 import { InputField } from '@/components';
 import { getPostDetail } from '@/api/communityAPI';
-import { toast } from 'react-toastify';
-import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
+import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
+import { formatDateToString } from '@/libs/formatDateToString';
 import { customKeyboardToString } from '@/libs/CustomKeyboardToString';
+import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
+import Comment from './Comment';
 import AuthorCard from './AuthorCard';
 import { PostInteractions } from './PostInteractions';
-import Comment from './Comment';
 
 import styles from './PostCardDetailModal.module.scss';
 
@@ -108,7 +107,7 @@ export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps
 
   return (
     <div className={cn('container')}>
-      <div className={cn('images-wrapper')}>
+      <div className={cn('left-wrapper')}>
         <Image src={clickedImage} alt='키보드 이미지' className={cn('selected-image')} width={492} height={536} />
         <div className={cn('unselected-image-wrapper')}>
           {reviewImages.map((image, i) => (
