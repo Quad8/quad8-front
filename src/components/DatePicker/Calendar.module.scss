@@ -31,14 +31,16 @@
 
 .arrow-left {
   rotate: 90deg;
+  fill: $black;
 }
 
 .arrow-right {
   rotate: 270deg;
+  fill: $black;
 }
 
 .disabled-arrow {
-  stroke: $white;
+  fill: $gray-20;
   pointer-events: none;
 }
 

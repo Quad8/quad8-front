@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 
 import { CalendarIcon } from '@/public/index';
-import Button from '../Buttons/Button/Button';
+import { Button } from '@/components';
 import Calendar from './Calendar';
 
 import styles from './DatePicker.module.scss';
@@ -12,10 +12,10 @@ import styles from './DatePicker.module.scss';
 const cn = classNames.bind(styles);
 
 interface DatePickerProps {
-  onDateChane: (startDate: { startDate: Date; endDate: Date }) => void;
+  onDateChange: (startDate: { startDate: Date; endDate: Date }) => void;
 }
 
-function DatePicker({ onDateChane }: DatePickerProps) {
+function DatePicker({ onDateChange }: DatePickerProps) {
   const currentDate = new Date();
   const [selectedStartDate, setSelectedStartDate] = useState<Date>(new Date());
   const [selectedEndDate, setSelectedEndDate] = useState<Date>(new Date());
@@ -38,7 +38,15 @@ function DatePicker({ onDateChane }: DatePickerProps) {
   };
 
   const handleQueryButtonClick = () => {
-    onDateChane({ startDate: selectedStartDate, endDate: selectedEndDate });
+    onDateChange({ startDate: selectedStartDate, endDate: selectedEndDate });
+  };
+
+  const handleSetSelectedStartDate = (date: Date) => {
+    setSelectedStartDate(date);
+  };
+
+  const handleSetSelectedEndDate = (date: Date) => {
+    setSelectedEndDate(date);
   };
 
   const formatDateToString = (date: Date) => {
@@ -98,7 +106,7 @@ function DatePicker({ onDateChane }: DatePickerProps) {
           {openCalendarType === 'start' && (
             <Calendar
               selectedDate={selectedStartDate}
-              setSelectedDate={setSelectedStartDate}
+              onSetSelectedDate={handleSetSelectedStartDate}
               onCloseCalendar={handleCloseCalendar}
             />
           )}
@@ -115,7 +123,7 @@ function DatePicker({ onDateChane }: DatePickerProps) {
           {openCalendarType === 'end' && (
             <Calendar
               selectedDate={selectedEndDate}
-              setSelectedDate={setSelectedEndDate}
+              onSetSelectedDate={handleSetSelectedEndDate}
               onCloseCalendar={handleCloseCalendar}
               startDate={selectedStartDate}
             />

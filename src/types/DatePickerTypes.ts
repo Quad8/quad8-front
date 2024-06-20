@@ -1,4 +1,4 @@
-export interface DataPickerChangeProps {
+export interface DatePickerChangeProps {
   startDate: Date;
   endDate: Date;
 }
