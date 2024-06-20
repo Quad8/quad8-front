@@ -1,11 +1,11 @@
 import classNames from 'classnames/bind';
 
-import { Dropdown } from '@/components';
 import { getAllCommunityPost } from '@/api/communityAPI';
 import Pagination from '@/components/Pagination/Pagination';
 import type { CommunityParamsType, CommunityPostCardDataType } from '@/types/CommunityTypes';
 import PostCard from './_components/PostCard';
 import WritePostButton from './_components/WritePostButton';
+import SortDropdown from './_components/SortDropdown';
 
 import styles from './page.module.scss';
 
@@ -29,7 +29,7 @@ export default async function CommunityPage({ searchParams }: CommunityPageProps
     <div className={cn('container')}>
       <p className={cn('page-name')}>커뮤니티</p>
       <div className={cn('filter-write-button-wrapper')}>
-        <Dropdown options={['인기순', '최신순', '조회순']} sizeVariant='xs' />
+        <SortDropdown />
         <WritePostButton />
       </div>
       <div className={cn('post-wrapper')}>
