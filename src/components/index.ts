@@ -10,7 +10,6 @@ export { default as ImageInput } from './WriteEditModal/ImageInput';
 export { default as KeyboardInfoBox } from './WriteEditModal/KeyboardInfoBox';
 
 export { default as Button } from './Buttons/Button/Button';
-export { default as LikeButton } from './Buttons/LikeButton/LikeButton';
 export { default as ScrollUpButton } from './Buttons/ScrollUpButton/ScrollUpButton';
 
 // export { default as ItemOverview } from './ItemOverview/ItemOverview';
