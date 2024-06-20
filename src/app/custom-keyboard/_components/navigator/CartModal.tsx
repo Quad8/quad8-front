@@ -54,7 +54,7 @@ export default function CartModal({
   onUpdateOptionPrice,
 }: CartModalProps) {
   const orderWrapperRef = useRef<HTMLDivElement>(null);
-  const crateCustomKeyboard = useMutation({
+  const createCustomKeyboard = useMutation({
     mutationFn: (data: CustomKeyboardAPITypes) => postCustomKeyboardOrder(data),
   });
   const {
@@ -136,7 +136,7 @@ export default function CartModal({
       individualColor,
       imgBase64: keyboardImage.keyCap,
     };
-    crateCustomKeyboard.mutate(data);
+    createCustomKeyboard.mutate(data);
   };
 
   const onClickEditButton = (e: MouseEvent<HTMLButtonElement>, step: CustomKeyboardStepTypes) => {
@@ -203,14 +203,14 @@ export default function CartModal({
       </div>
       <div className={cn('button-wrapper')}>
         <Button
-          className={cn({ disabled: crateCustomKeyboard.isPending || crateCustomKeyboard.isSuccess })}
+          className={cn({ disabled: createCustomKeyboard.isPending || createCustomKeyboard.isSuccess })}
           onClick={handleClickPutButton}
-          disabled={crateCustomKeyboard.isPending || crateCustomKeyboard.isSuccess}
+          disabled={createCustomKeyboard.isPending || createCustomKeyboard.isSuccess}
         >
           장바구니 담기
         </Button>
       </div>
-      {crateCustomKeyboard.isSuccess && <CartModalToast />}
+      {createCustomKeyboard.isSuccess && <CartModalToast />}
     </div>
   );
 }
