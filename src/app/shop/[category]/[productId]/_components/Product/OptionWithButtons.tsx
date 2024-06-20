@@ -61,7 +61,7 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
     setSelectedOptions((prevOptions) => prevOptions.filter((option) => option.name !== name));
   };
 
-  const addCartProduct = useMutation({ mutationFn: (data: CartProductType) => postCart(data) });
+  const { mutate: addCartProduct } = useMutation({ mutationFn: (data: CartProductType) => postCart(data) });
 
   const handleClickCartButton = () => {
     selectedOptions.forEach((option) => {
@@ -71,13 +71,13 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
         count: option.count,
       };
 
-      addCartProduct.mutate(data);
+      addCartProduct(data);
     });
 
     if (!optionList) {
       const noOptionData: CartProductType = { productId, switchOptionId: undefined, count: noOptionCount };
 
-      addCartProduct.mutate(noOptionData);
+      addCartProduct(noOptionData);
     }
   };
 
