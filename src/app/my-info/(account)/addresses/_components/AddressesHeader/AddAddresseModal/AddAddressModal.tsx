@@ -27,7 +27,7 @@ const DEFAULT_VALUES = {
   detailAddress: '',
   phone: '',
   isDefault: true,
-  id: 9999,
+  id: -1,
 };
 
 interface AddAddressModalProps {
@@ -58,7 +58,7 @@ export default function AddAddressModal({ onClick, newAddressData, userAddressDa
       setValue('isDefault', userAddressData.isDefault || true);
       setValue('name', userAddressData.name || '');
       setValue('phone', formatPhoneNumber(userAddressData.phone) || '');
-      setValue('id', userAddressData.id || 9999);
+      setValue('id', userAddressData.id || -1);
     }
   }, [setValue, userAddressData]);
 

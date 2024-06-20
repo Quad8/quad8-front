@@ -5,12 +5,13 @@ import classNames from 'classnames/bind';
 import { ChangeEvent, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import { checkNickname, putEditProfile } from '@/api/usersAPI';
+import { checkNickname } from '@/api/usersAPI';
 import { Button, InputField, RadioField } from '@/components';
 import { Label } from '@/components/parts';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
 import type { Users } from '@/types/userType';
 
+import ProfileImage from '@/components/ProfileImage/ProfileImage';
 import styles from './EditProfileModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -22,7 +23,7 @@ interface EditProfileModalProps {
 const GENDER_OPTION = ['남자', '여자'];
 
 export default function EditProfileModal({ userData }: EditProfileModalProps) {
-  const { birth, gender, nickname, phone } = userData;
+  const { birth, gender, nickname, phone, imgUrl } = userData;
 
   const [changedNickname, setChangedNickname] = useState(nickname);
 
@@ -38,6 +39,7 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
       nickname,
       phone: formatPhoneNumber(phone),
       gender,
+      imgUrl,
     },
   });
 
@@ -52,22 +54,23 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
     },
   });
 
-  const { mutate: putProfileMutation } = useMutation({
-    mutationFn: putEditProfile,
-  });
+  // const { mutate: putProfileMutation } = useMutation({
+  //   mutationFn: putEditProfile,
+  // });
 
   const onSubmit: SubmitHandler<FieldValues> = (payload) => {
-    // console.log(payload);
-    putProfileMutation(
-      { payload },
-      // {
-      //   /** 피드백에 따른 토스트 모달 추가 필요 */
-      //   onSuccess: (res) => {
-      //     console.log('회원정보가 변경되었습니다', res.message);
-      //   },
-      //   onError: () => {},
-      // },
-    );
+    console.log(payload);
+
+    // putProfileMutation(
+    //   payload,
+    //   {
+    //     /** 피드백에 따른 토스트 모달 추가 필요 */
+    //     onSuccess: (res) => {
+    //       console.log('회원정보가 변경되었습니다', res.message);
+    //     },
+    //     onError: () => {},
+    //   },
+    // );
   };
 
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -80,6 +83,16 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
     }
   };
 
+  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+    if (!files || files.length === 0) {
+      return;
+    }
+
+    const imageUrl = URL.createObjectURL(files[0]);
+    setValue('imgUrl', imageUrl);
+  };
+
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     const phoneValue = e.target.value;
     const formattedValue = changePhoneNumber(phoneValue);
@@ -89,9 +102,14 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
   return (
     <form className={cn('modal')} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={cn('modal-title')}>회원 정보 변경</h1>
-
-      {/* <input /> 이미지 수정 인풋 */}
-
+      <ProfileImage
+        profileImage={imgUrl}
+        width={140}
+        height={140}
+        isEditable
+        {...register('imgUrl')}
+        onChange={handleChangeImage}
+      />
       <div className={cn('modal-inputs')}>
         <Label htmlFor='nickname' sizeVariant='sm' className={cn('modal-inputs-nickname')}>
           닉네임
