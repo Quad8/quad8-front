@@ -1,0 +1,49 @@
+.table {
+  @include pretendard-16-400;
+
+  word-break: keep-all;
+
+  tr {
+    border-bottom: 0.1rem solid $gray-10;
+  }
+
+  td {
+    padding: 1.6rem 2rem;
+  }
+
+  span {
+    padding-left: 1rem;
+    @include pretendard-16-400;
+
+    color: $gray-50;
+  }
+}
+
+.title-wrap {
+  @include flex-column(1.2rem);
+
+  padding: 4rem 0;
+  border-top: 0.1rem solid $gray-10;
+  border-bottom: 0.1rem solid $gray-10;
+  background-color: $gray-5;
+  text-align: center;
+
+  @include pretendard-20-700;
+}
+
+.sub-title {
+  color: $gray-50;
+
+  @include pretendard-16-400;
+}
+
+.content-title {
+  background-color: $gray-5;
+  vertical-align: middle;
+}
+
+.main-title {
+  margin-bottom: 2rem;
+
+  @include pretendard-20-700;
+}
