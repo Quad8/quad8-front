@@ -7,6 +7,10 @@ export interface Product {
   thumbnail: string;
 }
 
+export interface KeydeukPickResponse {
+  data: Product[];
+}
+
 export interface ProductDataResponse {
   totalPages: number;
   totalElements: number;
