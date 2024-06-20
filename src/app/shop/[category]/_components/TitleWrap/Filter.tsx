@@ -28,8 +28,8 @@ export default function Filter({ category }: { category: CategoryKey }) {
     }
   };
 
-  const handleRemoveItem = (item: string) => {
-    setSelectedList(selectedList.filter((x) => x !== item));
+  const handleRemoveItem = (selectedItem: string) => {
+    setSelectedList(selectedList.filter((item) => item !== selectedItem));
   };
 
   if (!options) {

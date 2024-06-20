@@ -3,15 +3,14 @@ import type { GetCategoryListParams, ProductListResponse, ProductParams } from '
 const baseURL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 export async function getAllProductList({ sort, page, size }: ProductParams): Promise<ProductListResponse> {
-  const response = await fetch(`${baseURL}/api/v1/product/get/all-list?&sort=${sort}&page=${page}&size=${size}`);
+  try {
+    const response = await fetch(`${baseURL}/api/v1/product/get/all-list?&sort=${sort}&page=${page}&size=${size}`);
+    const rawData: ProductListResponse = await response.json();
 
-  if (!response.ok) {
-    throw new Error('전체데이터를 불러오는데 실패함!');
+    return rawData;
+  } catch (error) {
+    throw error;
   }
-
-  const rawData: ProductListResponse = await response.json();
-
-  return rawData;
 }
 
 export async function getCategoryProductList({
@@ -47,20 +46,6 @@ export async function getCategoryProductList({
 
     return rawData;
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
-
-    return {
-      data: {
-        totalPages: 0,
-        totalElements: 0,
-        size: 0,
-        content: [],
-        number: 0,
-        first: false,
-        last: false,
-      },
-    };
+    throw error;
   }
 }

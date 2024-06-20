@@ -2,7 +2,7 @@
 
 import CategoryTitle from '@/app/shop/_components/Category/CategoryTitle';
 import { CATEGORY_MAP } from '@/constants/product';
-import { CategoryKey } from '@/types/Category';
+import type { CategoryKey } from '@/types/Category';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import Filter from './Filter';
@@ -17,7 +17,9 @@ interface TitleWrapProp {
 }
 export default function TitleWrap({ category, totalCount }: TitleWrapProp) {
   const [isOpen, setIsOpen] = useState(false);
-  const handleClickFilter = () => setIsOpen(!isOpen);
+  const handleClickFilter = () => {
+    setIsOpen((prev) => !prev);
+  };
 
   return (
     <>
