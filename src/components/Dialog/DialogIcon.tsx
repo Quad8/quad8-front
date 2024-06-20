@@ -1,5 +1,5 @@
+import { CheckboxCircleIcon, WarnCircleIcon } from '@/public/index';
 import classNames from 'classnames/bind';
-import { WarnCircleIcon, CheckBoxCircleIcon } from '@/public/index';
 
 import styles from './DialogIcon.module.scss';
 
@@ -14,5 +14,5 @@ export function DialogIcon({ iconType }: DialogIconProps) {
     return <WarnCircleIcon width={45} height={45} className={cn('warn-icon')} />;
   }
 
-  return <CheckBoxCircleIcon width={45} height={45} className={cn('accept-icon')} />;
+  return <CheckboxCircleIcon width={45} height={45} className={cn('accept-icon')} />;
 }
