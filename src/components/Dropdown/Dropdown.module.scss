@@ -17,7 +17,7 @@
   }
 
   100% {
-    max-height: 40rem;
+    max-height: max-content;
     opacity: 1;
   }
 }
@@ -46,7 +46,7 @@
     background-color: $white;
 
     &.open-xs {
-      max-height: 40rem;
+      max-height: max-content;
       animation: slide-fade-in 0.4s forwards;
       opacity: 1;
     }
@@ -64,6 +64,7 @@
     top: auto;
     right: 0.6rem;
     width: 10rem;
+    overflow: scroll;
     border: 0.1rem solid $gray-20;
   }
 }
