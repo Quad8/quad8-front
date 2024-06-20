@@ -22,6 +22,7 @@ export { default as ThumbIcon } from './svgs/thumb.svg';
 export { default as UpArrowIcon } from './svgs/upArrow.svg';
 export { default as UserIcon } from './svgs/user.svg';
 export { default as VerticalTripleDotIcon } from './svgs/verticalTripleDot.svg';
+export { default as WarnCircleIcon } from './svgs/warnCircle.svg';
 
 export { default as blackSwitchImg } from './images/blackSwitch.jpg';
 export { default as blueSwitchImg } from './images/blueSwitch.jpg';
