@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 
 import type { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
 import { Button } from '@/components';
-import SoundVibrationIcon from '@/public/svgs/soundVibration.svg';
+import { SoundVibrationIcon } from '@/public/index';
 
 import styles from './SwitchHelpModal.module.scss';
 

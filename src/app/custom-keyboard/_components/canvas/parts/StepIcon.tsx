@@ -2,7 +2,7 @@
 
 import classNames from 'classnames/bind';
 
-import CompleteIcon from '@/public/svgs/stepComplete.svg';
+import { StepCompleteIcon } from '@/public/index';
 import type { CustomKeyboardStepStatusTypes } from '@/types/CustomKeyboardTypes';
 
 import styles from './StepIcon.module.scss';
@@ -27,7 +27,7 @@ export default function StepIcon({ status, number }: StepIconProps) {
   }
   return (
     <div className={cn('completed-wrapper')}>
-      <CompleteIcon width={24} height={24} />
+      <StepCompleteIcon width={24} height={24} />
     </div>
   );
 }

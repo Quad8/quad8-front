@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 
-import defaultImage from '@/public/images/kedeukProfile.png';
-import contentImage from '@/public/images/myProfile.jpeg';
+import { keydeukProfileImg, myProfileImg } from '@/public/index';
 
 import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
 import { formatDateToString } from '@/libs/formatDateToString';
@@ -32,16 +31,16 @@ const TEMP_DETAIL_POSTDATE = {
   goodCount: 13,
   commentCount: 192,
   keyboardImages: [
-    { id: 1, src: contentImage },
-    { id: 2, src: defaultImage },
+    { id: 1, src: myProfileImg },
+    { id: 2, src: keydeukProfileImg },
   ],
 };
 
 const cn = classNames.bind(styles);
 
 const tempKeyboardimages = [
-  { id: 1, src: contentImage },
-  { id: 2, src: defaultImage },
+  { id: 1, src: myProfileImg },
+  { id: 2, src: keydeukProfileImg },
 ];
 
 export default function PostCardDetailModal() {

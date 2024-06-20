@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 
-import CheckboxCircleIcon from '@/public/svgs/checkboxCircle.svg';
+import { CheckboxCircleIcon } from '@/public/index';
 
 import styles from './OptionProductCard.module.scss';
 

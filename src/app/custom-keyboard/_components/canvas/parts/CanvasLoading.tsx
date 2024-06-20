@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 
-import CanvasLoadingIcon from '@/public/svgs/canvasLoading.svg';
-
+import { CanvasLoadingIcon } from '@/public/index';
 import styles from './CanvasLoading.module.scss';
 
 const cn = classNames.bind(styles);
