@@ -2,29 +2,19 @@
 
 import classNames from 'classnames/bind';
 import { useForm, FieldValues } from 'react-hook-form';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 
-// import type { SignupInfoTypes } from '@/types';
 import { getCheckEmailDuplication, getCheckNicknameDuplication, postSignup } from '@/api/authAPI';
 import { changePhoneNumber, unFormatPhoneNumber } from '@/libs';
-
 import { Button, RadioField, InputField } from '@/components';
+import { REGEX, ERROR_MESSAGE, PLACEHOLDER } from '@/constants/signUpConstants';
 import AgreementCheckbox from './AgreementCheckbox';
 
 import styles from './SignupForm.module.scss';
 
 const cn = classNames.bind(styles);
-
-const PLACEHOLDER = {
-  EMAIL: '이메일을 입력해주세요',
-  PASSWORD: '숫자, 영어 포함 8~20자 이내',
-  CONFIRM_PASSWORD: '비밀번호를 한번 더 입력해주세요',
-  NICKNAME: '닉네임을 입력해주세요',
-  PHONE_NUMBER: '휴대폰 번호 (-없이)를 입력해주세요',
-  BIRTHDAY: 'YYYY / MM / DD',
-};
 
 const defaultInputValues = {
   email: '',
@@ -54,32 +44,11 @@ export default function SignupForm() {
   });
 
   const [isAgreementAllChecked, setIsAgreementAllChecked] = useState(false);
-  const formRef = useRef<{ submit: () => void } & HTMLFormElement>(null);
 
-  const handleSubmitButtonClick = () => {
-    if (formRef.current) {
-      formRef.current.requestSubmit();
-    }
-  };
-
-  const handleCheckEmailInput = async () => {
-    const emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
-
+  const handleCheckDuplicatedEmail = async () => {
     const emailValue = getValues('email');
-    const isEmpty = !!emailValue === undefined;
-    const isNotValid = !emailPattern.test(emailValue);
     const isDuplicated = await getCheckEmailDuplication(emailValue);
 
-    if (isEmpty) {
-      setError('email', {
-        message: '이메일을 입력해주세요.',
-      });
-    }
-    if (isNotValid) {
-      setError('email', {
-        message: '유효한 이메일을 입력해주세요.',
-      });
-    }
     if (isDuplicated.data === true) {
       setError('email', {
         message: '중복된 이메일입니다.',
@@ -87,17 +56,10 @@ export default function SignupForm() {
     }
   };
 
-  const handleCheckNicknameInput = async () => {
+  const handleCheckDuplicatedNickname = async () => {
     const nicknameValue = getValues('nickname');
-    const isEmpty = !!nicknameValue === undefined;
     const isDuplicated = await getCheckNicknameDuplication(nicknameValue);
 
-    if (isEmpty) {
-      setError('nickname', {
-        message: '닉네임을 입력해주세요.',
-      });
-      return;
-    }
     if (isDuplicated.data === true) {
       setError('nickname', {
         message: '중복된 닉네임입니다.',
@@ -113,80 +75,75 @@ export default function SignupForm() {
 
   const registers = {
     email: register('email', {
-      required: '이메일을 입력해주세요.',
+      required: ERROR_MESSAGE.EMAIL.required,
       pattern: {
-        value: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-        message: '유효한 이메일을 입력해주세요',
+        value: REGEX.EMAIL,
+        message: ERROR_MESSAGE.EMAIL.invalid,
       },
-      onBlur: () => handleCheckEmailInput(),
+      onBlur: () => handleCheckDuplicatedEmail(),
     }),
+
     password: register('password', {
-      required: '비밀번호를 입력해주세요.',
+      required: ERROR_MESSAGE.PASSWORD.required,
       pattern: {
-        value: /^[a-zA-ZZ0-9]{8,20}/i,
-        message: '비밀번호는 숫자와 영문자 조합으로 8~20자리를 사용해야 합니다.',
+        value: REGEX.PASSWORD,
+        message: ERROR_MESSAGE.PASSWORD.invalid,
       },
       onBlur: () => {
         trigger('passwordConfirm');
       },
     }),
+
     passwordConfirm: register('passwordConfirm', {
-      required: '비밀번호를 한번 더 입력해주세요.',
-      validate: (value) => value === getValues('password') || '비밀번호가 일치하지 않습니다',
+      required: ERROR_MESSAGE.PASSWORD_CONFIRM.required,
+      validate: (value) => value === getValues('password') || ERROR_MESSAGE.PASSWORD_CONFIRM.invalid,
     }),
+
     nickname: register('nickname', {
-      required: '닉네임을 입력해주세요.',
-      minLength: { value: 2, message: '닉네임은 최소 2글자 이상이어야 합니다.' },
-      maxLength: { value: 16, message: '닉네임은 최대 16글자까지 입력할 수 있습니다.' },
-      onBlur: () => handleCheckNicknameInput(),
+      required: ERROR_MESSAGE.NICKNAME.required,
+      minLength: { value: 2, message: ERROR_MESSAGE.NICKNAME.invalid },
+      maxLength: { value: 16, message: ERROR_MESSAGE.NICKNAME.invalid },
+      onBlur: () => handleCheckDuplicatedNickname(),
     }),
+
     phone: register('phone', {
-      required: '휴대폰 번호를 입력해주세요.',
-      pattern: {
-        value: /^[0-9]{7,8}/i,
-        message: '휴대폰 번호를 확인해주세요.',
-      },
+      required: ERROR_MESSAGE.PHONE.required,
       setValueAs: (value) => unFormatPhoneNumber(value),
       onChange: (e) => handlePhoneChange(e),
     }),
+
     birth: register('birth', {
-      required: '생년원일을 입력해주세요.',
+      required: ERROR_MESSAGE.BIRTH.required,
       pattern: {
-        value: /^(19[0-9][0-9]|20\d{2})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/,
-        message: '유효한 생년월일을 입력해주세요. 예: YYYYMMDD',
+        value: REGEX.BIRTH,
+        message: ERROR_MESSAGE.BIRTH.invalid,
       },
     }),
-    gender: register('gender', {}),
+    gender: register('gender', {
+      required: ERROR_MESSAGE.GENDER.required,
+      setValueAs: (value) => (value === '여자' ? 'FEMALE' : 'MALE'),
+    }),
   };
 
-  const handleFormSubmit = async (formData: FieldValues) => {
+  const onSubmit = async (payload: FieldValues) => {
     const fetchFormData = new FormData();
 
-    const joinRequest = {
-      gender: `${formData.gender === '여자' ? 'FEMALE' : 'MALE'}`,
-      nickname: formData.nickname,
-      phone: formData.phone,
-      password: formData.password,
-      email: formData.email,
-      birth: '1990-01-01',
-    };
-
     if (isAgreementAllChecked) {
-      fetchFormData.append('joinRequest', JSON.stringify(joinRequest));
-      const responseData = await postSignup(fetchFormData);
-      if (responseData.status === 'SUCCESS') {
+      fetchFormData.append('joinRequest', JSON.stringify(payload));
+      const response = await postSignup(fetchFormData);
+      if (response.status === 'SUCCESS') {
         toast.success('회원가입이 성공적으로 완료되었습니다.');
         setTimeout(() => {
           router.back();
         }, 2000);
-      } else if (responseData.status === 'FAIL') {
-        toast.error(responseData.message);
+      } else if (response.status === 'FAIL') {
+        toast.error(response.message);
       }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className={cn('container')}>
         <h1 className={cn('title')}>회원가입</h1>
         <div className={cn('content-wrapper')}>
@@ -246,16 +203,21 @@ export default function SignupForm() {
               errorMessage={errors.birth?.message}
               {...registers.birth}
             />
-            <RadioField label='성별' options={['남자', '여자']} {...registers.gender} />
+            <RadioField
+              label='성별'
+              options={['남자', '여자']}
+              errorMessage={errors.gender?.message}
+              {...registers.gender}
+            />
           </div>
           <AgreementCheckbox setIsAllChecked={setIsAgreementAllChecked} />
         </div>
       </div>
       <Button
         type='submit'
+        disabled={!isValid}
         className={cn('button')}
         fontSize={24}
-        onClick={handleSubmitButtonClick}
         backgroundColor={isValid ? 'background-primary' : 'background-gray-40'}
       >
         회원가입
