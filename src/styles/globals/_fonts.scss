@@ -96,6 +96,10 @@
   @include font-mixin('Pretendard', 2, 700);
 }
 
+@mixin pretendard-24-500 {
+  @include font-mixin('Pretendard', 2.4, 500);
+}
+
 @mixin pretendard-24-700 {
   @include font-mixin('Pretendard', 2.4, 700);
 }
