@@ -1,13 +1,12 @@
-import { useMutation } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { ChangeEvent, useEffect } from 'react';
 import type { Address } from 'react-daum-postcode';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import { postAddresses } from '@/api/shippingAPI';
 import { Button, InputField } from '@/components';
 import { Input, Label } from '@/components/parts';
-import { changePhoneNumber, unFormatPhoneNumber } from '@/libs';
+import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
+import type { UserAddress } from '@/types/shippingType';
 
 import styles from './AddAddressModal.module.scss';
 
@@ -27,42 +26,41 @@ const DEFAULT_VALUES = {
   zoneCode: '',
   detailAddress: '',
   phone: '',
-  isDefault: false,
+  isDefault: true,
+  id: 9999,
 };
 
 interface AddAddressModalProps {
   onClick: () => void;
-  onClose: () => void;
-  addressData: Address | null;
+  onSubmit: SubmitHandler<FieldValues>;
+  newAddressData: Address | null;
+  userAddressData?: UserAddress;
 }
 
-export default function AddAddressModal({ onClick, addressData, onClose }: AddAddressModalProps) {
+export default function AddAddressModal({ onClick, newAddressData, userAddressData, onSubmit }: AddAddressModalProps) {
   const { handleSubmit, register, setValue } = useForm({
     mode: 'all',
     defaultValues: DEFAULT_VALUES,
   });
 
-  const { mutate: postAddressesMutate } = useMutation({ mutationFn: postAddresses });
+  useEffect(() => {
+    if (newAddressData) {
+      setValue('address', newAddressData.address || '');
+      setValue('zoneCode', newAddressData.zonecode || '');
+    }
+  }, [newAddressData, setValue]);
 
   useEffect(() => {
-    if (addressData) {
-      setValue('address', addressData.address || '');
-      setValue('zoneCode', addressData.zonecode || '');
+    if (userAddressData) {
+      setValue('address', userAddressData.address || '');
+      setValue('zoneCode', userAddressData.zoneCode || '');
+      setValue('detailAddress', userAddressData.detailAddress || '');
+      setValue('isDefault', userAddressData.isDefault || true);
+      setValue('name', userAddressData.name || '');
+      setValue('phone', formatPhoneNumber(userAddressData.phone) || '');
+      setValue('id', userAddressData.id || 9999);
     }
-  }, [addressData, setValue]);
-
-  const onSubmit: SubmitHandler<FieldValues> = (payload) => {
-    postAddressesMutate(
-      { payload },
-      {
-        onSuccess: (res) => {
-          if (res.status === 'SUCCESS') {
-            onClose();
-          }
-        },
-      },
-    );
-  };
+  }, [setValue, userAddressData]);
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     const phoneValue = e.target.value;

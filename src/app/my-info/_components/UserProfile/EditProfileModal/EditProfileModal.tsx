@@ -9,7 +9,7 @@ import { checkNickname, putEditProfile } from '@/api/usersAPI';
 import { Button, InputField, RadioField } from '@/components';
 import { Input, Label } from '@/components/parts';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
-import type { Users } from '@/types/profileType';
+import type { Users } from '@/types/userType';
 
 import styles from './EditProfileModal.module.scss';
 
@@ -23,6 +23,7 @@ const GENDER_OPTION = ['남자', '여자'];
 
 export default function EditProfileModal({ userData }: EditProfileModalProps) {
   const { birth, gender, nickname, phone } = userData;
+
   const [changedNickname, setChangedNickname] = useState(nickname);
 
   const {

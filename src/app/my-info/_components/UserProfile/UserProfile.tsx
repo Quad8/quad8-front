@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 
 import { Modal } from '@/components';
-import type { Users } from '@/types/profileType';
+import type { Users } from '@/types/userType';
 import EditProfileModal from './EditProfileModal/EditProfileModal';
 
 import styles from './UserProfile.module.scss';
