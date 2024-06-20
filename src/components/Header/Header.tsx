@@ -7,8 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { LogoIcon, UserIcon } from '@/public/index';
-
-import type { Users } from '@/types/profileType';
+import type { Users } from '@/types/userType';
 import { CartButton, LoginButton, LogoutButton, SearchBox, ShopButton } from './HeaderParts';
 
 import styles from './Header.module.scss';
