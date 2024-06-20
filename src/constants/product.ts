@@ -121,7 +121,7 @@ export function getCategoryOptions<K extends CategoryKey>(category: K): Category
   return FILTER_OPTIONS[category];
 }
 
-export const tabKeyword: TabKeyword = {
+export const TAB_KEYWORD: TabKeyword = {
   저소음: '직장인을 위한 무소음 키보드',
   가성비: '가성비 키보드',
   청축: '타건감이 좋은 키보드',

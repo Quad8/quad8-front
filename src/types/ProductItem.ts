@@ -44,6 +44,6 @@ export interface GetCategoryListParams {
 
 export type TabType = '저소음' | '가성비' | '청축';
 
-export interface TabKeyword {
-  [key: string]: string;
-}
+export type TabKeyword = {
+  [key in TabType]: string;
+};
