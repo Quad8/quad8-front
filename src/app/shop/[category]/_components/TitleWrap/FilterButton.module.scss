@@ -1,0 +1,7 @@
+.filter {
+  @include pretendard-14-400;
+  @include flex-center;
+
+  gap: 1.6rem;
+  padding: 0 1.6rem;
+}

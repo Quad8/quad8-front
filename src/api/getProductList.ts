@@ -1,4 +1,4 @@
-import { KeydeukPickResponse, ProductListResponse, ProductParams } from '@/types/ProductItem';
+import { ProductListResponse, ProductParams } from '@/types/ProductItem';
 
 const baseURL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
@@ -12,15 +12,4 @@ export async function getProductList({ sort, page, size }: ProductParams): Promi
   const rawData: ProductListResponse = await response.json();
 
   return rawData;
-}
-
-export async function getKeydeukPick(param: '저소음' | '가성비' | '청축') {
-  try {
-    const response = await fetch(`${baseURL}/api/v1/product/get/keydeuk-pick?&param=${param}`);
-    const rawData: KeydeukPickResponse = await response.json();
-
-    return rawData;
-  } catch (error) {
-    throw error;
-  }
 }
