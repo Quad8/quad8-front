@@ -1,5 +1,6 @@
 .button-div {
   position: fixed;
+  z-index: $zindex-modal-backdrop - 1;
   right: 12rem;
   bottom: 6.4rem;
   width: 5.7rem;

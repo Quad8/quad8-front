@@ -1,0 +1,82 @@
+.container {
+  display: flex;
+  padding: 4rem;
+  border-radius: 1.6rem;
+  background-color: $white;
+  gap: 2rem;
+}
+
+.images-wrapper {
+  width: 49.2rem;
+
+  & > .selected-image {
+    width: 100%;
+    height: 53.6rem;
+  }
+}
+
+.unselected-image-wrapper {
+  display: flex;
+  width: 100%;
+  margin-top: 2rem;
+  gap: 0.8rem;
+}
+
+.images {
+  width: 4.8rem;
+  height: 4.8rem;
+  cursor: pointer;
+}
+
+.title {
+  @include pretendard-18-600;
+}
+
+.content-wrapper {
+  position: relative;
+  width: 48rem;
+  height: 53.6rem;
+  overflow-y: scroll;
+
+  @include flex-column(1.2rem);
+
+  & > * {
+    width: 44.5rem;
+  }
+
+  & > .content {
+    @include pretendard-16-400;
+
+    width: 44.5rem;
+    height: 16.8rem;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0.9rem;
+    height: 2rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2rem;
+    background-color: $primary;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 0.8rem;
+    background-color: $gray-20;
+  }
+}
+
+.comment-wrapper {
+  @include flex-column(1.6rem);
+}
+
+.comment-input {
+  position: sticky;
+  bottom: 0;
+  width: 44.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 0.1rem;
+  background-color: $white;
+}
