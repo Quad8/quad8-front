@@ -2,7 +2,7 @@
 
 import classNames from 'classnames/bind';
 import { useForm, FieldValues } from 'react-hook-form';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 
@@ -10,7 +10,8 @@ import { getCheckEmailDuplication, getCheckNicknameDuplication, postSignup } fro
 import { changePhoneNumber, unFormatPhoneNumber } from '@/libs';
 import { Button, RadioField, InputField } from '@/components';
 import { REGEX, ERROR_MESSAGE, PLACEHOLDER } from '@/constants/signUpConstants';
-import AgreementCheckbox from './AgreementCheckbox';
+import RightArrow from '@/public/svgs/caretRight.svg';
+import CheckIcon from '@/public/svgs/checkboxCircle.svg';
 
 import styles from './SignupForm.module.scss';
 
@@ -25,7 +26,13 @@ const defaultInputValues = {
   gender: '',
   nickname: '',
   imgUrl: '',
+  checkAll: false,
+  check1: false,
+  check2: false,
 };
+
+const NOT_CHECKED = '#A5A5A5';
+const CHECKED = '#4968f6';
 
 export default function SignupForm() {
   const router = useRouter();
@@ -38,12 +45,11 @@ export default function SignupForm() {
     setError,
     trigger,
     setValue,
+    watch,
   } = useForm({
     mode: 'onBlur',
     defaultValues: defaultInputValues,
   });
-
-  const [isAgreementAllChecked, setIsAgreementAllChecked] = useState(false);
 
   const handleCheckDuplicatedEmail = async () => {
     const emailValue = getValues('email');
@@ -123,13 +129,42 @@ export default function SignupForm() {
       required: ERROR_MESSAGE.GENDER.required,
       setValueAs: (value) => (value === '여자' ? 'FEMALE' : 'MALE'),
     }),
+    checkAll: register('checkAll', {
+      required: true,
+      onChange: () => {
+        setValue('check1', watch('checkAll'));
+        setValue('check2', watch('checkAll'));
+      },
+    }),
+    check1: register('check1', {
+      required: true,
+      onChange: () => {
+        setValue('checkAll', watch('check1') && watch('check2'));
+      },
+    }),
+    check2: register('check2', {
+      required: true,
+      onChange: () => {
+        setValue('checkAll', watch('check1') && watch('check2'));
+      },
+    }),
   };
 
-  const onSubmit = async (payload: FieldValues) => {
-    const fetchFormData = new FormData();
+  const handleFormSubmit = async (payload: FieldValues) => {
+    const { email, password, nickname, phone, birth, gender } = payload;
 
-    if (isAgreementAllChecked) {
-      fetchFormData.append('joinRequest', JSON.stringify(payload));
+    const joinRequest = {
+      email,
+      password,
+      nickname,
+      phone,
+      birth,
+      gender,
+    };
+
+    try {
+      const fetchFormData = new FormData();
+      fetchFormData.append('joinRequest', JSON.stringify(joinRequest));
       const response = await postSignup(fetchFormData);
       if (response.status === 'SUCCESS') {
         toast.success('회원가입이 성공적으로 완료되었습니다.');
@@ -139,11 +174,13 @@ export default function SignupForm() {
       } else if (response.status === 'FAIL') {
         toast.error(response.message);
       }
+    } catch (error) {
+      toast.error('회원가입 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
       <div className={cn('container')}>
         <h1 className={cn('title')}>회원가입</h1>
         <div className={cn('content-wrapper')}>
@@ -210,7 +247,33 @@ export default function SignupForm() {
               {...registers.gender}
             />
           </div>
-          <AgreementCheckbox setIsAllChecked={setIsAgreementAllChecked} />
+          <div className={cn('agreement-checkbox')}>
+            <div className={cn('agreement-title')}>
+              <input {...registers.checkAll} type='checkbox' className={cn('checkbox-input')} id='checkAll' />
+              <label htmlFor='checkAll' className={cn('checkbox-label')}>
+                <CheckIcon fill={watch('checkAll') ? CHECKED : NOT_CHECKED} width={15} height={15} />
+              </label>
+              <h2>아래 약관에 모두 동의합니다.</h2>
+            </div>
+            <div className={cn('content-wrapper')}>
+              <div className={cn('content')}>
+                <input {...registers.check1} type='checkbox' className={cn('checkbox-input')} id='check1' />
+                <label htmlFor='check1' className={cn('checkbox-label')}>
+                  <CheckIcon fill={watch('check1') ? CHECKED : NOT_CHECKED} width={15} height={15} />
+                </label>
+                <h3>서비스 이용 약관 동의</h3>
+                <RightArrow className={cn('right-arrow')} stroke='black' />
+              </div>
+              <div className={cn('content')}>
+                <input {...registers.check2} type='checkbox' className={cn('checkbox-input')} id='check2' />
+                <label htmlFor='check2' className={cn('checkbox-label')}>
+                  <CheckIcon fill={watch('check2') ? CHECKED : NOT_CHECKED} width={15} height={15} />
+                </label>
+                <h3>개인정보 처리 방침 동의</h3>
+                <RightArrow className={cn('right-arrow')} stroke='black' />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <Button
