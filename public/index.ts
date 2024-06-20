@@ -24,6 +24,8 @@ export { default as UserIcon } from './svgs/user.svg';
 export { default as VerticalTripleDotIcon } from './svgs/verticalTripleDot.svg';
 export { default as WarnCircleIcon } from './svgs/warnCircle.svg';
 export { default as CalendarIcon } from './svgs/calendar.svg';
+export { default as MinusCircleIcon } from './svgs/minusCircle.svg';
+export { default as PlusCircleIcon } from './svgs/plusCircle.svg';
 
 export { default as blackSwitchImg } from './images/blackSwitch.jpg';
 export { default as blueSwitchImg } from './images/blueSwitch.jpg';
