@@ -3,8 +3,7 @@
 import { useState, ChangeEvent } from 'react';
 import classNames from 'classnames/bind';
 import Image, { StaticImageData } from 'next/image';
-import defaultImage from '@/public/images/kedeukProfile.png';
-import CameraIcon from '@/public/svgs/camera.svg';
+import { CameraIcon, keydeukProfileImg } from '@/public/index';
 import styles from './ProfileImage.module.scss';
 
 const cn = classNames.bind(styles);
@@ -33,7 +32,7 @@ export default function ProfileImage({ profileImage, width = 64, height = 64, is
     <label htmlFor='profileInput' className={cn({ label: isEditable })}>
       <div className={cn('profile-image-wrapper')}>
         <Image
-          src={!isImageError && currentImageFile ? currentImageFile : defaultImage}
+          src={!isImageError && currentImageFile ? currentImageFile : keydeukProfileImg}
           alt='프로필 이미지'
           width={width}
           height={height}

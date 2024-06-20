@@ -1,9 +1,24 @@
-import DetailTab from './_components/TabContents/DetailTab';
+import { getProductDetail } from '@/api/productAPI';
+import { redirect } from 'next/navigation';
+import ProductDetail from './_components/Product/ProductDetail';
 
-export default function page() {
+interface ProductDetailParams {
+  params: {
+    [param: string]: string;
+  };
+}
+
+export default async function page({ params }: ProductDetailParams) {
+  const { productId } = params;
+  const data = await getProductDetail(productId);
+
+  if (!data) {
+    redirect('/');
+  }
+
   return (
     <div>
-      <DetailTab />
+      <ProductDetail product={data} />
     </div>
   );
 }

@@ -23,10 +23,12 @@ export type CustomKeyboardSwitchTypes = '청축' | '적축' | '갈축' | '흑축
 export type CustomKeyboardPointKeyType = '내 맘대로 바꾸기' | '세트 구성';
 
 export interface OptionDataType {
-  id: string;
+  id: number;
   name: string;
-  image: string;
+  categoryName: string;
   price: number;
+  thumbnail: string;
+  blurImage: string;
 }
 
 export interface KeyboardDataType {
@@ -39,6 +41,15 @@ export interface KeyboardDataType {
   pointKeyType: CustomKeyboardPointKeyType;
   pointKeySetColor: Color;
   price: number;
-  option: Record<string, boolean> | null;
+  option: number[];
   individualColor: Partial<Record<CustomKeyboardKeyTypes, Color>>;
+}
+
+export interface CustomKeyboardAPITypes
+  extends Omit<KeyboardDataType, 'type' | 'texture' | 'pointKeyType' | 'pointKeySetColor'> {
+  type: string;
+  texture: string;
+  pointKeyType: CustomKeyboardPointKeyType | null;
+  pointSetColor: Color | null;
+  imgBase64: string;
 }

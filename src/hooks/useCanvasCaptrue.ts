@@ -1,9 +1,9 @@
-import { StepContext, KeyColorContext } from '@/context/customKeyboardContext';
+import { StepContext, FocusKeyContext } from '@/context';
 import { useContext } from 'react';
 
 export const useCaptureCanvas = () => {
   const { currentStep, canvasRef, controlRef, updateKeyboardImage } = useContext(StepContext);
-  const { updateFocusKey } = useContext(KeyColorContext);
+  const { updateFocusKey } = useContext(FocusKeyContext);
 
   const captureCanvas = (onCaptureEnd?: () => void) => {
     const canvas = canvasRef?.current;

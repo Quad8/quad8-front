@@ -1,7 +1,9 @@
+'use client';
+
 import classNames from 'classnames/bind';
 import { useContext, useState } from 'react';
 
-import { KeyboardDataContext } from '@/context/customKeyboardContext';
+import { KeyboardDataContext } from '@/context';
 import type { OptionDataType } from '@/types/CustomKeyboardTypes';
 import { Button } from '@/components';
 import OptionProductCard from './parts/OptionProductCard';
@@ -23,15 +25,9 @@ export default function OptionProductModal({
   updateOptionPrice,
   onClick,
 }: OptionProductModalProps) {
-  const {
-    updateData,
-    keyboardData: { option },
-  } = useContext(KeyboardDataContext);
+  const { updateData } = useContext(KeyboardDataContext);
 
   const [optionsChecked, setOptionsChecked] = useState<Record<string, boolean>>(() => {
-    if (option) {
-      return option as Record<string, boolean>;
-    }
     const checkList = {};
     optionData.forEach((element) => Object.assign(checkList, { [element.id]: false }));
     return checkList;
@@ -42,7 +38,12 @@ export default function OptionProductModal({
   };
 
   const handleClickAddButton = () => {
-    updateData('option', optionsChecked);
+    updateData(
+      'option',
+      Object.keys(optionsChecked)
+        .filter((key) => optionsChecked[key])
+        .map((element) => +element),
+    );
     const currentPrice = optionData
       .map((element) => (optionsChecked[element.id] ? element.price : 0))
       .reduce((prev, next) => prev + next, 0);
@@ -62,15 +63,16 @@ export default function OptionProductModal({
             <OptionProductCard
               key={element.id}
               productName={element.name}
-              productImage={element.image}
+              productImage={element.thumbnail}
               price={element.price}
-              isChecked={optionsChecked[element.id]}
-              onClick={() => handleClickOption(element.id)}
+              isChecked={optionsChecked[String(element.id)]}
+              onClick={() => handleClickOption(String(element.id))}
+              blurImage={element.blurImage}
             />
           ))}
         </div>
         <div className={cn('button-wrapper')}>
-          <Button onClick={handleClickAddButton} width={154} hoverColor='background-primary-60'>
+          <Button onClick={handleClickAddButton} className={cn('button')} hoverColor='background-primary-60'>
             추가하기
           </Button>
         </div>
