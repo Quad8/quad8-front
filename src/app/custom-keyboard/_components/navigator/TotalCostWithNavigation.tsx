@@ -8,18 +8,24 @@ import type {
   CustomKeyboardStepTypes,
   OptionDataType,
 } from '@/types/CustomKeyboardTypes';
-import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
+import { FocusKeyContext, KeyboardDataContext, StepContext } from '@/context';
 import { Modal, Button } from '@/components';
 import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import { ChevronIcon } from '@/public/index';
-
 import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
+import { useQuery } from '@tanstack/react-query';
+import { getRandomOptionProduct } from '@/api/customKeyboardAPI';
+import { getBlurImageList } from '@/libs/getBlurImage';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
 
 import styles from './TotalCostWithNavigation.module.scss';
 
 const cn = classNames.bind(styles);
+
+interface TotalCostWithNavigationProps {
+  accessToken: string;
+}
 
 type DualButtonType = {
   [key in CustomKeyboardStepTypes]: {
@@ -37,7 +43,7 @@ const BUTTON = {
   board: '배열, 외관',
   switch: '스위치',
   keyCap: '키캡',
-  cart: '장바구니',
+  cart: '커스텀 완료',
 };
 
 const BUTTONS: DualButtonType = {
@@ -65,11 +71,17 @@ const UPDATE_NEXT_STEP_STATUS: UpdateStepType<'keyCap'> = {
   switch: { switch: 'completed', keyCap: 'current' },
 };
 
-export default function TotalCostWithNavigation() {
+export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNavigationProps) {
+  const { data, isSuccess } = useQuery({
+    queryKey: ['customRandomProduct'],
+    queryFn: getRandomOptionProduct,
+    staleTime: 0,
+  }) as { data: OptionDataType[]; isSuccess: boolean };
+  const [optionData, setOptionData] = useState<OptionDataType[]>([]);
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
   const [isOpenCartModal, setIsOpenCartModal] = useState(false);
-  const [optionData, setOptionData] = useState<OptionDataType[]>([]);
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [optionPrice, setOptionPrice] = useState(0);
   const { captureCanvas } = useCaptureCanvas();
   const {
@@ -77,18 +89,18 @@ export default function TotalCostWithNavigation() {
     updateData,
   } = useContext(KeyboardDataContext);
   const { currentStep, updateCurrentStep, updateStepStatus } = useContext(StepContext);
-  const { updateFocusKey } = useContext(KeyColorContext);
+  const { updateFocusKey } = useContext(FocusKeyContext);
 
   const handleClickNextButton = () => {
     if (currentStep === 'board' || currentStep === 'keyCap') {
-      captureCanvas(() => {
+      captureCanvas(async () => {
         if (currentStep === 'board') {
           const nextStep = BUTTONS[currentStep].next as CustomKeyboardStepTypes;
           updateStepStatus(UPDATE_NEXT_STEP_STATUS[currentStep]);
           updateCurrentStep(nextStep);
           return;
         }
-        if (isInitialOpenOptionModal) {
+        if (isInitialOpenOptionModal && optionData) {
           setIsOpenOptionModal(true);
           return;
         }
@@ -125,7 +137,11 @@ export default function TotalCostWithNavigation() {
   };
 
   const updateOptionPrice = (value: number) => {
-    setOptionPrice(value);
+    setOptionPrice((prevOptionPrice) => prevOptionPrice + value);
+  };
+
+  const handleLoginModal = (value: boolean) => {
+    setIsOpenLoginModal(value);
   };
 
   useEffect(() => {
@@ -136,51 +152,27 @@ export default function TotalCostWithNavigation() {
       individualColor,
       pointKeyType,
     });
-    updateData('price', boardPrice + keyCapPrice + optionPrice);
+    updateData('price', boardPrice + keyCapPrice);
   }, [hasPointKeyCap, individualColor, pointKeyType, texture, type, optionPrice, updateData]);
 
   useEffect(() => {
-    /* api로 옵션 데이터 가져오기 */
-    setOptionData([
-      {
-        id: '5',
-        name: '스테빌라이저',
-        image: '/images/optionProductMock.png',
-        price: 9000,
-      },
-      {
-        id: '42',
-        name: '스프링',
-        image: '/images/optionProductMock.png',
-        price: 1000,
-      },
-      {
-        id: '65',
-        name: '튜닝용품',
-        image: '/images/optionProductMock.png',
-        price: 4000,
-      },
-      {
-        id: '72',
-        name: '보강판',
-        image: '/images/optionProductMock.png',
-        price: 12000,
-      },
-      {
-        id: '95',
-        name: '기판',
-        image: '/images/optionProductMock.png',
-        price: 24000,
-      },
-    ]);
-  }, []);
+    const getData = async () => {
+      if (!isSuccess) {
+        return;
+      }
+      const blurImage = await getBlurImageList(data.map((element) => element.thumbnail));
+      const blurData = data.map((element, i) => ({ ...element, blurImage: blurImage[i] }));
+      setOptionData(blurData);
+    };
+    getData();
+  }, [data, isSuccess]);
 
   return (
     <div className={cn('wrapper')}>
       <div className={cn('price-wrapper')}>
         <div className={cn('price-title')}>총 가격</div>
         <div className={cn('price')}>
-          <div className={cn('price-number')}>{price.toLocaleString()}</div>
+          <div className={cn('price-number')}>{(price + optionPrice).toLocaleString()}</div>
           <div className={cn('price-unit')}>원</div>
         </div>
       </div>
@@ -205,7 +197,7 @@ export default function TotalCostWithNavigation() {
           onClick={() => handleClickNextButton()}
         >
           {BUTTON[next]}
-          <ChevronIcon width={16} height={16} className={cn('next-button-icon')} />
+          {currentStep !== 'keyCap' && <ChevronIcon width={16} height={16} className={cn('next-button-icon')} />}
         </Button>
       </div>
       <Modal isOpen={isOpenOptionModal} onClose={handleCloseOptionModal}>
@@ -217,7 +209,17 @@ export default function TotalCostWithNavigation() {
         />
       </Modal>
       <Modal isOpen={isOpenCartModal} onClose={handleCloseCartMoal}>
-        <CartModal optionData={optionData} onClose={handleCloseCartMoal} />
+        <CartModal
+          optionData={optionData}
+          optionPrice={optionPrice}
+          onClose={handleCloseCartMoal}
+          onChangeLoginModal={handleLoginModal}
+          onUpdateOptionPrice={updateOptionPrice}
+          accessToken={accessToken}
+        />
+      </Modal>
+      <Modal isOpen={isOpenLoginModal} onClose={() => handleLoginModal(false)}>
+        <div style={{ width: '300px', height: '300px', backgroundColor: '#ffffff' }}>로그인 모달</div>
       </Modal>
     </div>
   );

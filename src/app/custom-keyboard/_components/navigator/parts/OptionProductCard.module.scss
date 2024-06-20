@@ -20,6 +20,19 @@
 .content-wrapper {
   @include flex-column(0.4rem);
   @include pretendard-18-600;
+
+  width: 22.1rem;
+}
+
+.product-name {
+  display: -webkit-box;
+  height: 5.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: keep-all;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .image {

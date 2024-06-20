@@ -2,9 +2,8 @@
 
 import { useState, ChangeEvent, MouseEvent } from 'react';
 import Image from 'next/image';
-import CarmeraIcon from '@/public/svgs/camera.svg';
+import { CameraIcon, DeleteIcon } from '@/public/index';
 import classNames from 'classnames/bind';
-import DeleteImageIcon from '@/public/svgs/delete.svg';
 import styles from './ImageInput.module.scss';
 
 const cn = classNames.bind(styles);
@@ -38,7 +37,7 @@ export default function ImageInput() {
               <div key={imageUrl} className={cn('image-wrapper')}>
                 <Image alt='선택된 이미지' src={imageUrl} fill className={cn('image')} />
                 <div className={cn('delete-image-icon')} onClick={(e) => handleClickDeleteImage(e, index)}>
-                  <DeleteImageIcon fill='#ffffff' width={42} height={42} />
+                  <DeleteIcon fill='#ffffff' width={42} height={42} />
                 </div>
                 {index === 0 && (
                   <div className={cn('main-image-tag')}>
@@ -49,7 +48,7 @@ export default function ImageInput() {
             ))}
           {selectedImageFile.length < 4 && (
             <label htmlFor='imageInput' className={cn('label-input')}>
-              <CarmeraIcon fill='#999999' width={46} height={40} />
+              <CameraIcon fill='#999999' width={46} height={40} />
             </label>
           )}
           <input type='file' className={cn('input-image-input')} id='imageInput' onChange={handleChangeImage} />

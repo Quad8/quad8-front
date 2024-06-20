@@ -1,7 +1,5 @@
 @mixin background($color) {
-  border: 0.1rem solid $color;
   background-color: $color;
-  fill: $white;
   color: $white;
 }
 
