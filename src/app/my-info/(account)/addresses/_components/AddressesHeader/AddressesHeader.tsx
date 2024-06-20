@@ -42,7 +42,7 @@ export default function AddressesHeader() {
     setAddressData(null);
   };
 
-  const handleSuccessClose = () => {
+  const onSuccessClose = () => {
     setIsModalOpen(false);
     setAddressData(null);
   };
@@ -52,7 +52,7 @@ export default function AddressesHeader() {
       onSuccess: (res) => {
         if (res.status === 'SUCCESS') {
           queryClient.invalidateQueries({ queryKey: ['addressesData'] });
-          handleSuccessClose();
+          onSuccessClose();
         }
       },
     });

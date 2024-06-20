@@ -49,7 +49,7 @@ export default function Address({ item }: AddressProps) {
     setAddressData(data);
   };
 
-  const handleSuccessClose = () => {
+  const onSuccessClose = () => {
     setIsModalOpen(false);
     setAddressData(null);
   };
@@ -59,7 +59,7 @@ export default function Address({ item }: AddressProps) {
       onSuccess: (res) => {
         if (res.status === 'SUCCESS') {
           queryClient.invalidateQueries({ queryKey: ['addressesData'] });
-          handleSuccessClose();
+          onSuccessClose();
         }
       },
     });
