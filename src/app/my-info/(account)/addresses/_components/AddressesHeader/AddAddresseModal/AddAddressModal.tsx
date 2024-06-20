@@ -32,10 +32,11 @@ const DEFAULT_VALUES = {
 
 interface AddAddressModalProps {
   onClick: () => void;
+  onClose: () => void;
   addressData: Address | null;
 }
 
-export default function AddAddressModal({ onClick, addressData }: AddAddressModalProps) {
+export default function AddAddressModal({ onClick, addressData, onClose }: AddAddressModalProps) {
   const { handleSubmit, register, setValue } = useForm({
     mode: 'all',
     defaultValues: DEFAULT_VALUES,
@@ -43,24 +44,25 @@ export default function AddAddressModal({ onClick, addressData }: AddAddressModa
 
   const { mutate: postAddressesMutate } = useMutation({ mutationFn: postAddresses });
 
-  const onSubmit: SubmitHandler<FieldValues> = (payload) => {
-    console.log('Submitting payload:', JSON.stringify(payload));
-    postAddressesMutate(
-      { payload },
-      {
-        onSuccess: (res) => {
-          console.log(res);
-        },
-      },
-    );
-  };
-
   useEffect(() => {
     if (addressData) {
       setValue('address', addressData.address || '');
       setValue('zoneCode', addressData.zonecode || '');
     }
   }, [addressData, setValue]);
+
+  const onSubmit: SubmitHandler<FieldValues> = (payload) => {
+    postAddressesMutate(
+      { payload },
+      {
+        onSuccess: (res) => {
+          if (res.status === 'SUCCESS') {
+            onClose();
+          }
+        },
+      },
+    );
+  };
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     const phoneValue = e.target.value;
@@ -72,7 +74,7 @@ export default function AddAddressModal({ onClick, addressData }: AddAddressModa
     <form className={cn('modal')} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={cn('title')}>배송지 등록 / 수정</h1>
       <div className={cn('inputs')}>
-        <InputField label='이름' placeholder={PLACEHOLDERS.NAME} {...register('name')} />
+        <InputField label='이름' placeholder={PLACEHOLDERS.NAME} maxLength={10} {...register('name')} />
 
         <Label className={cn('inputs-address')} sizeVariant='md' htmlFor='address'>
           배송지

@@ -33,6 +33,10 @@ export default function AddressesHeader() {
     setAddressData(null);
   };
 
+  const handleSuccessClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <div className={cn('header')}>
@@ -41,11 +45,11 @@ export default function AddressesHeader() {
           <span className={cn('cross-icon')}>+</span>배송지 추가
         </Button>
       </div>
+      <Modal isOpen={isPostcodeEmbedOpen} onClose={() => setIsPostcodeEmbedOpen(false)}>
+        <DaumPostcodeEmbed onComplete={handleComplete} />
+      </Modal>
       <Modal isOpen={isModalOpen} onClose={handleAddAddressModalClose}>
-        <AddAddressModal onClick={handleSearchPostClick} addressData={addressData} />
-        <Modal isOpen={isPostcodeEmbedOpen} onClose={() => setIsPostcodeEmbedOpen(false)}>
-          <DaumPostcodeEmbed onComplete={handleComplete} />
-        </Modal>
+        <AddAddressModal onClick={handleSearchPostClick} addressData={addressData} onClose={handleSuccessClose} />
       </Modal>
     </>
   );

@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 2rem 4rem;
+  border-radius: 0.8rem;
 
   .address-textbox {
     @include pretendard-16-500;
@@ -11,11 +12,21 @@
     flex-direction: column;
     color: $gray-50;
 
-    .address-name {
-      @include pretendard-18-700;
+    .address-namebox {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
 
-      color: $black;
-      font-weight: bold;
+      .address-name {
+        @include pretendard-18-700;
+
+        color: $black;
+        font-weight: bold;
+      }
     }
   }
+}
+
+.address-default {
+  background: $primary-5;
 }
