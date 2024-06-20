@@ -3,7 +3,7 @@
 import { CameraIcon, keydeukProfileImg } from '@/public/index';
 import classNames from 'classnames/bind';
 import Image, { StaticImageData } from 'next/image';
-import { ChangeEvent, forwardRef, useState } from 'react';
+import { ChangeEvent, forwardRef, useEffect, useState } from 'react';
 import styles from './ProfileImage.module.scss';
 
 const cn = classNames.bind(styles);
@@ -22,6 +22,10 @@ export default forwardRef<HTMLInputElement, ProfileImageProp>(function ProfileIm
 ) {
   const [currentImageFile, setCurrentImageFile] = useState<string | StaticImageData | null>(profileImage);
   const [isImageError, setIsImageError] = useState<boolean>(false);
+
+  useEffect(() => {
+    setCurrentImageFile(profileImage);
+  }, [profileImage]);
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;

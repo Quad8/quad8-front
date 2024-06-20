@@ -7,7 +7,7 @@ import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { deleteAddress, putAddress } from '@/api/shippingAPI';
 import { Modal } from '@/components';
 import type { UserAddress } from '@/types/shippingType';
-import AddAddressModal from '../../AddressesHeader/AddAddresseModal/AddAddressModal';
+import AddAddressModal from '../../AddAddresseModal/AddAddressModal';
 
 import styles from './Address.module.scss';
 

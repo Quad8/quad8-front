@@ -1,31 +1,35 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { ChangeEvent, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
-import { checkNickname } from '@/api/usersAPI';
+import { checkNickname, putEditProfile } from '@/api/usersAPI';
 import { Button, InputField, RadioField } from '@/components';
+import ProfileImage from '@/components/ProfileImage/ProfileImage';
 import { Label } from '@/components/parts';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
 import type { Users } from '@/types/userType';
 
-import ProfileImage from '@/components/ProfileImage/ProfileImage';
 import styles from './EditProfileModal.module.scss';
 
 const cn = classNames.bind(styles);
 
 interface EditProfileModalProps {
   userData: Users;
+  onComplete: () => void;
 }
 
 const GENDER_OPTION = ['남자', '여자'];
 
-export default function EditProfileModal({ userData }: EditProfileModalProps) {
+export default function EditProfileModal({ userData, onComplete }: EditProfileModalProps) {
+  const queryClient = useQueryClient();
   const { birth, gender, nickname, phone, imgUrl } = userData;
 
   const [changedNickname, setChangedNickname] = useState(nickname);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const {
     register,
@@ -34,12 +38,12 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
     setValue,
     formState: { errors },
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onTouched',
     defaultValues: {
       nickname,
       phone: formatPhoneNumber(phone),
       gender,
-      imgUrl,
+      imgUrl: imgUrl as string | File,
     },
   });
 
@@ -54,23 +58,40 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
     },
   });
 
-  // const { mutate: putProfileMutation } = useMutation({
-  //   mutationFn: putEditProfile,
-  // });
+  const { mutate: putProfileMutation } = useMutation({
+    mutationFn: putEditProfile,
+  });
 
   const onSubmit: SubmitHandler<FieldValues> = (payload) => {
-    console.log(payload);
+    const formData = new FormData();
+    formData.append(
+      'updateProfileRequest',
+      JSON.stringify({
+        nickname: payload.nickname,
+        phone: payload.phone,
+        imgUrl: imageFile ? undefined : payload.imgUrl,
+      }),
+    );
 
-    // putProfileMutation(
-    //   payload,
-    //   {
-    //     /** 피드백에 따른 토스트 모달 추가 필요 */
-    //     onSuccess: (res) => {
-    //       console.log('회원정보가 변경되었습니다', res.message);
-    //     },
-    //     onError: () => {},
-    //   },
-    // );
+    if (payload.imgUrl instanceof File) {
+      formData.append('imgFile', payload.imgUrl);
+    }
+
+    putProfileMutation(formData, {
+      onSuccess: (res) => {
+        // console.log(res);
+
+        if (res.status === 'SUCCESS') {
+          toast('회원정보가 변경되었습니다');
+
+          queryClient.invalidateQueries({ queryKey: ['userData'] }).then(() => {
+            onComplete();
+          });
+        } else {
+          // console.log('회원정보 변경 실패');
+        }
+      },
+    });
   };
 
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -89,8 +110,10 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
       return;
     }
 
-    const imageUrl = URL.createObjectURL(files[0]);
-    setValue('imgUrl', imageUrl);
+    const file = files[0];
+
+    setImageFile(file);
+    setValue('imgUrl', file);
   };
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -102,14 +125,7 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
   return (
     <form className={cn('modal')} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={cn('modal-title')}>회원 정보 변경</h1>
-      <ProfileImage
-        profileImage={imgUrl}
-        width={140}
-        height={140}
-        isEditable
-        {...register('imgUrl')}
-        onChange={handleChangeImage}
-      />
+      <ProfileImage profileImage={imgUrl} width={140} height={140} isEditable onChange={handleChangeImage} />
       <div className={cn('modal-inputs')}>
         <Label htmlFor='nickname' sizeVariant='sm' className={cn('modal-inputs-nickname')}>
           닉네임

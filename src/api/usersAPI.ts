@@ -1,5 +1,4 @@
 import { getCookie } from '@/libs/manageCookie';
-import type { FieldValues } from 'react-hook-form';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
@@ -40,17 +39,16 @@ export const getUserData = async () => {
  * @returns {Promise<Object>} - 응답 데이터를 반환합니다.
  * @throws {Error} - 요청이 실패한 경우 에러를 던집니다.
  */
-export const putEditProfile = async (payload: FieldValues) => {
+export const putEditProfile = async (formData: FormData) => {
   const token = await getCookie('accessToken');
 
   try {
     const res = await fetch(`${BASE_URL}/api/v1/users/me`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(payload),
+      body: formData,
     });
 
     const result = await res.json();
