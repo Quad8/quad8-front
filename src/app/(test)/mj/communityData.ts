@@ -1,5 +1,4 @@
-import image1 from '@/public/images/myProfile.jpeg';
-import image2 from '@/public/images/kedeukProfile.png';
+import { myProfileImg, keydeukProfileImg } from '@/public/index';
 import { StaticImageData } from 'next/image';
 
 export const COMMUNITY_DATA = {
@@ -8,7 +7,7 @@ export const COMMUNITY_DATA = {
   user_nickname: '고양이는고양닉네임인데인데인데인',
   title: '나는 키보드예요',
   content: '이것은 나의 키보드다다닫다ㅏㄷ다다다다',
-  image: [image1, image2],
+  image: [myProfileImg, keydeukProfileImg],
   good_count: 11,
   comment_count: 111,
   created_at: '2024-06-01T05:56:13.073Z',

@@ -4,11 +4,11 @@ import classNames from 'classnames/bind';
 import { useContext } from 'react';
 import { HexColorPicker } from 'react-colorful';
 
-import { KeyboardDataContext } from '@/context/customKeyboardContext';
+import { KeyboardDataContext } from '@/context';
 import type { CustomKeyboardTypeTypes, CustomKeyboardTextureTypes } from '@/types/CustomKeyboardTypes';
 import { Button } from '@/components';
-
 import { BOARD_PRICE_LIST } from '@/constants/keyboardData';
+
 import styles from './BoardOption.module.scss';
 
 const cn = classNames.bind(styles);
@@ -56,6 +56,7 @@ export default function BoardOption() {
               backgroundColor={type === element.name ? 'background-primary' : 'outline-gray-40'}
               className={cn('button', { selected: type === element.name })}
               onClick={() => handleClickTypeButton(element.name as CustomKeyboardTypeTypes)}
+              hoverColor='background-primary-60'
             >
               <div className={cn('button-content')}>{element.name}</div>
               <div className={cn('button-price')}>+{element.price.toLocaleString()}</div>
@@ -73,6 +74,7 @@ export default function BoardOption() {
               backgroundColor={texture === element.name ? 'background-primary' : 'outline-gray-40'}
               className={cn('button', { selected: texture === element.name })}
               onClick={() => handleClickTextureButton(element.name as CustomKeyboardTextureTypes)}
+              hoverColor='background-primary-60'
             >
               <div className={cn('button-content')}>{element.name}</div>
               <div className={cn('button-price')}>+{element.price.toLocaleString()}</div>

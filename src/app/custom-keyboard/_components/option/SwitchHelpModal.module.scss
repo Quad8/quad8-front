@@ -28,6 +28,30 @@
   gap: 1.2rem;
 }
 
+.button {
+  &:hover {
+    .button-content {
+      color: $primary-60;
+    }
+
+    .sound-icon {
+      fill: $primary-60;
+    }
+  }
+
+  &:focus {
+    border-color: $primary;
+
+    .button-content {
+      color: $primary;
+    }
+
+    .sound-icon {
+      fill: $primary;
+    }
+  }
+}
+
 .button-content {
   @include flex-center;
   @include pretendard-18-400;

@@ -1,7 +1,7 @@
 'use client';
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import UpArrowIcon from '@/public/svgs/upArrow.svg';
+import { UpArrowIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import { RefObject, useEffect, useState } from 'react';
 import styles from './ScrollUpButton.module.scss';

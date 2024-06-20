@@ -1,14 +1,10 @@
-import {
-  KeyColorContextProvider,
-  KeyboardDataContextProvider,
-  StepContextProvider,
-} from '@/context/customKeyboardContext';
+import { FocusKeyContextProvider, KeyboardDataContextProvider, StepContextProvider } from '@/context';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <StepContextProvider>
       <KeyboardDataContextProvider>
-        <KeyColorContextProvider>{children}</KeyColorContextProvider>
+        <FocusKeyContextProvider>{children}</FocusKeyContextProvider>
       </KeyboardDataContextProvider>
     </StepContextProvider>
   );

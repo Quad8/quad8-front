@@ -4,8 +4,8 @@ import classNames from 'classnames/bind';
 import { useContext } from 'react';
 
 import type { CustomKeyboardStepStatusTypes, CustomKeyboardStepTypes } from '@/types/CustomKeyboardTypes';
-import { KeyColorContext, KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
+import { FocusKeyContext, KeyboardDataContext, StepContext } from '@/context';
 import StepIcon from './parts/StepIcon';
 
 import styles from './Step.module.scss';
@@ -23,7 +23,7 @@ export default function Step() {
   const {
     keyboardData: { switchType },
   } = useContext(KeyboardDataContext);
-  const { updateFocusKey } = useContext(KeyColorContext);
+  const { updateFocusKey } = useContext(FocusKeyContext);
   const { captureCanvas } = useCaptureCanvas();
   const STEP_ICON: StepIconDataType[] = [
     { ID: 'board', STATUS: stepStatus.board, NAME: '배열, 외관' },

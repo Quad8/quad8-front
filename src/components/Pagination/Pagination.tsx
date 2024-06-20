@@ -1,6 +1,5 @@
 import NotFound from '@/app/not-found';
-import CaretLeftIcon from '@/public/svgs/caretLeft.svg';
-import CaretRightIcon from '@/public/svgs/caretRight.svg';
+import { CaretLeftIcon, CaretRightIcon } from '@/public/index';
 import { ProductDataResponse } from '@/types/ProductItem';
 import classNames from 'classnames/bind';
 import Link from 'next/link';

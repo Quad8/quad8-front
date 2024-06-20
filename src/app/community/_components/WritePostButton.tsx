@@ -2,7 +2,7 @@
 
 import { Button } from '@/components';
 import classNames from 'classnames/bind';
-import PlusIcon from '@/public/svgs/plus.svg';
+import { PlusIcon } from '@/public/index';
 import styles from './WritePostButton.module.scss';
 
 const cn = classNames.bind(styles);

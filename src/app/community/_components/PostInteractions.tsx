@@ -1,6 +1,6 @@
 import { useState, MouseEvent } from 'react';
 import classNames from 'classnames/bind';
-import CommentIcon from '@/public/svgs/comment.svg';
+import { CommentIcon } from '@/public/index';
 import { LikeButton } from '@/components';
 import styles from './PostInteractions.module.scss';
 

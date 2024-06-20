@@ -1,8 +1,8 @@
 'use client';
 
-import StarIcon from '@/public/svgs/star.svg';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
+import { StarIcon } from '@/public/index';
 import styles from './Rating.module.scss';
 
 const cn = classNames.bind(styles);
