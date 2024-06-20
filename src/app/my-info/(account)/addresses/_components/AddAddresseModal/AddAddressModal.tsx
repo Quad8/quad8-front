@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames/bind';
 import { ChangeEvent, useEffect } from 'react';
 import type { Address } from 'react-daum-postcode';
