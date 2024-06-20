@@ -13,14 +13,16 @@
 }
 
 .input-wrapper {
-  margin-bottom: 6.8rem;
   @include flex-column(4rem);
+
+  margin-bottom: 6.8rem;
 }
 
 .auth-section-wrapper {
-  margin-bottom: 6rem;
   @include flex-center;
   @include pretendard-14-400;
+
+  margin-bottom: 6rem;
 }
 
 .auth-section {

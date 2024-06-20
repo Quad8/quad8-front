@@ -1,23 +1,23 @@
 .container {
   width: 100%;
-  margin: 0 auto;
-  margin-bottom: 6rem;
+  margin: 0 auto 6rem;
   padding: 4rem;
   border-radius: 3.2rem;
   background-color: $white;
 }
 
 .title {
+  @include pretendard-30-700;
+
   height: 2rem;
   margin-bottom: 8rem;
-  font-size: 3rem;
-  font-weight: bold;
   text-align: center;
 }
 
 .input-wrapper {
-  margin-bottom: 6.8rem;
   @include flex-column(4rem);
+
+  margin-bottom: 6.8rem;
 }
 
 .phone-number-wrapper {
@@ -29,10 +29,7 @@
   width: 100%;
 }
 
-.no-show {
-  display: none;
-}
-
+.no-show,
 .checkbox-input {
   display: none;
 }
@@ -57,8 +54,9 @@
   gap: 0.8rem;
 
   & > h2 {
-    color: $black;
     @include pretendard-16-700;
+
+    color: $black;
   }
 }
 
@@ -78,9 +76,10 @@
   align-items: center;
 
   & > h3 {
+    @include pretendard-14-400;
+
     margin-top: 0.3rem;
     color: $gray-50;
-    @include pretendard-14-400;
   }
 }
 

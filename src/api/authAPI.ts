@@ -50,7 +50,6 @@ export const postSignin = async (formData: FetchSignInInfoTypes) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
       },
       body: JSON.stringify(formData),
     });
