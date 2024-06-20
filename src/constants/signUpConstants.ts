@@ -21,6 +21,7 @@ export const ERROR_MESSAGE = {
   NICKNAME: {
     required: '닉네임을 입력해주세요.',
     invalid: '닉네임은 최소 2글자 이상, 최대 16글자까지 입력할 수 있습니다.',
+    isDuplicated: '중복된 닉네임입니다.',
   },
   PHONE: {
     required: '휴대폰 번호를 입력해주세요.',
