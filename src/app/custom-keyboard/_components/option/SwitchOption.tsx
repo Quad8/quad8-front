@@ -5,28 +5,16 @@ import { useContext, useState } from 'react';
 
 import { Button } from '@/components';
 import Modal from '@/components/Modal/Modal';
-import { KeyboardDataContext } from '@/context/customKeyboardContext';
-import { blackSwitchImg, blueSwitchImg, brownSwitchImg, redSwitchImg } from '@/public/index';
-import CrossCircleIcon from '@/public/svgs/crossCircle.svg';
+import { KeyboardDataContext } from '@/context';
+import { CrossCircleIcon } from '@/public/index';
 import type { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
-import Image, { StaticImageData } from 'next/image';
 import SwitchHelpModal from './SwitchHelpModal';
 
 import styles from './SwitchOption.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface ButtonType {
-  name: CustomKeyboardSwitchTypes;
-  imageSrc: StaticImageData;
-}
-
-const BUTTONS: ButtonType[] = [
-  { name: '청축', imageSrc: blueSwitchImg },
-  { name: '적축', imageSrc: redSwitchImg },
-  { name: '갈축', imageSrc: brownSwitchImg },
-  { name: '흑축', imageSrc: blackSwitchImg },
-];
+const BUTTONS: CustomKeyboardSwitchTypes[] = ['청축', '적축', '갈축', '흑축'];
 
 export default function SwitchOption() {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -49,24 +37,14 @@ export default function SwitchOption() {
         <div className={cn('button-wrapper')}>
           {BUTTONS.map((element) => (
             <Button
-              key={element.name}
-              backgroundColor={switchType === element.name ? 'outline-primary' : 'outline-gray-40'}
+              key={element}
+              backgroundColor={switchType === element ? 'background-primary' : 'outline-gray-40'}
               radius={4}
-              hoverColor='outline-primary-60'
               className={cn('button')}
-              onClick={() => handleClickSwitchButton(element.name)}
+              onClick={() => handleClickSwitchButton(element)}
+              hoverColor='background-primary-60'
             >
-              <div className={cn('image-wrapper')}>
-                <Image
-                  src={element.imageSrc}
-                  alt={element.name}
-                  width={199}
-                  height={116}
-                  className={cn('switch-image')}
-                />
-              </div>
-
-              <div className={cn('switch-text', { selected: switchType === element.name })}>{element.name}</div>
+              <div className={cn('switch-text', { selected: switchType === element })}>{element}</div>
             </Button>
           ))}
         </div>

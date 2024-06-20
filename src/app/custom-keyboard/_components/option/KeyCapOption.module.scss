@@ -28,6 +28,16 @@
   @include pretendard-16-400;
 
   width: 19.9rem;
+
+  &:hover {
+    border-color: $primary-60;
+    color: $white;
+  }
+
+  &:focus {
+    border-color: $primary;
+    background-color: $primary;
+  }
 }
 
 .selected {
