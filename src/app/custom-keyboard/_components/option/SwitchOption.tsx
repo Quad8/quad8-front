@@ -3,8 +3,7 @@
 import classNames from 'classnames/bind';
 import { useContext, useState } from 'react';
 
-import { Button } from '@/components';
-import Modal from '@/components/Modal/Modal';
+import { Button, Modal } from '@/components';
 import { KeyboardDataContext } from '@/context';
 import { CrossCircleIcon } from '@/public/index';
 import type { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';

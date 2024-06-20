@@ -37,7 +37,13 @@ export default function Address({ item }: AddressProps) {
   };
 
   const handleDeleteButtonClick = () => {
-    deleteAddressMutate(id);
+    deleteAddressMutate(id, {
+      onSuccess: (res) => {
+        if (res.status === 'SUCCESS') {
+          queryClient.invalidateQueries({ queryKey: ['addressesData'] });
+        }
+      },
+    });
   };
 
   const handleSearchPostClick = () => {

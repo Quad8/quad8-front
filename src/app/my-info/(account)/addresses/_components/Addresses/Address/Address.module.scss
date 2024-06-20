@@ -9,9 +9,7 @@
   color: $gray-50;
 
   .address-textbox {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
+    @include flex-column(0.2rem);
 
     .address-namebox {
       display: flex;
