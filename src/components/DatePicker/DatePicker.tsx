@@ -21,13 +21,16 @@ function DatePicker({ onDateChane }: DatePickerProps) {
   const [selectedEndDate, setSelectedEndDate] = useState<Date>(new Date());
 
   const [openCalendarType, setOpenCalendarType] = useState<'start' | 'end' | null>(null);
+  const [selectedMonthOption, setSelectedMonthOption] = useState<number>(0);
 
   const handleOpenStartCalendar = () => {
     setOpenCalendarType('start');
+    setSelectedMonthOption(0);
   };
 
   const handleOpenEndCalendar = () => {
     setOpenCalendarType('end');
+    setSelectedMonthOption(0);
   };
 
   const handleCloseCalendar = () => {
@@ -49,6 +52,7 @@ function DatePicker({ onDateChane }: DatePickerProps) {
   const handleClickMonthOption = (month: number) => {
     const selectedStart = new Date(currentDate);
     const selectedEnd = new Date(currentDate);
+    setSelectedMonthOption(month);
 
     selectedStart.setMonth(currentDate.getMonth() - month);
     setSelectedStartDate(selectedStart);
@@ -60,7 +64,7 @@ function DatePicker({ onDateChane }: DatePickerProps) {
     <div className={cn('container')}>
       <div className={cn('month-picker-wrapper')}>
         <Button
-          className={cn('date-option', 'first')}
+          className={cn('date-option', 'first', `${selectedMonthOption === 1 && 'is-focus'}`)}
           hoverColor='outline-primary'
           paddingVertical={8}
           onClick={() => handleClickMonthOption(1)}
@@ -68,7 +72,7 @@ function DatePicker({ onDateChane }: DatePickerProps) {
           1개월
         </Button>
         <Button
-          className={cn('date-option', 'second')}
+          className={cn('date-option', 'second', `${selectedMonthOption === 2 && 'is-focus'}`)}
           hoverColor='outline-primary'
           paddingVertical={8}
           onClick={() => handleClickMonthOption(2)}
@@ -76,7 +80,7 @@ function DatePicker({ onDateChane }: DatePickerProps) {
           2개월
         </Button>
         <Button
-          className={cn('date-option', 'third')}
+          className={cn('date-option', 'third', `${selectedMonthOption === 3 && 'is-focus'}`)}
           hoverColor='outline-primary'
           paddingVertical={8}
           onClick={() => handleClickMonthOption(3)}
