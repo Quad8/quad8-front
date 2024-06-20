@@ -30,25 +30,26 @@
 
 .title {
   @include pretendard-18-600;
+
+  margin-bottom: 0.4rem;
+}
+
+.right-wrapper {
+  @include flex-column(0);
+
+  justify-content: space-between;
 }
 
 .content-wrapper {
+  @include flex-column(0.8rem);
+
   position: relative;
   width: 48rem;
-  height: 53.6rem;
+  min-height: 53.6rem;
   overflow-y: scroll;
-
-  @include flex-column(1.2rem);
 
   & > * {
     width: 44.5rem;
-  }
-
-  & > .content {
-    @include pretendard-16-400;
-
-    width: 44.5rem;
-    height: 16.8rem;
   }
 
   &::-webkit-scrollbar {
@@ -65,6 +66,10 @@
     border-radius: 0.8rem;
     background-color: $gray-20;
   }
+}
+
+.content {
+  @include pretendard-16-400;
 }
 
 .comment-wrapper {

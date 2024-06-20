@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 
-import { VerticalTripleDotIcon, myProfileImg } from '@/public/index';
+import { VerticalTripleDotIcon } from '@/public/index';
 
 import ProfileImage from '@/components/ProfileImage/ProfileImage';
 
@@ -11,12 +11,13 @@ const cn = classNames.bind(styles);
 interface AuthorCardProps {
   nickname: string;
   dateText: string;
+  userImage: string | null;
 }
 
-export default function AuthorCard({ nickname, dateText }: AuthorCardProps) {
+export default function AuthorCard({ nickname, dateText, userImage }: AuthorCardProps) {
   return (
     <div className={cn('container')}>
-      <ProfileImage profileImage={myProfileImg} />
+      <ProfileImage profileImage={userImage} />
       <div className={cn('info-textbox')}>
         <p className={cn('user-name')}>{nickname}</p>
         <p className={cn('sub-info')}>{dateText}</p>

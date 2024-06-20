@@ -9,7 +9,7 @@ const cn = classNames.bind(styles);
 
 interface CommentProps {
   nickname: string;
-  profile?: string;
+  profile: string | null;
   createdTime: string;
   comment: string;
 }

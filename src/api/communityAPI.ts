@@ -11,3 +11,13 @@ export const getAllCommunityPost = async ({ sort, page, size }: CommunityParamsT
     throw error;
   }
 };
+
+export const getPostDetail = async (id: number) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/community/${id}`);
+    const { data } = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

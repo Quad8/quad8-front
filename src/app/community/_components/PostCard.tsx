@@ -22,7 +22,7 @@ interface PostCardProps {
 export default function PostCard({ cardData }: PostCardProps) {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
 
-  const { nickName, updateAt, title, thumbnail, likeCount, commentCount } = cardData;
+  const { id, nickName, updateAt, title, thumbnail, likeCount, commentCount, userImage } = cardData;
 
   const ApdatedDate = new Date(updateAt);
   const timeToString = calculateTimeDifference(ApdatedDate);
@@ -36,7 +36,7 @@ export default function PostCard({ cardData }: PostCardProps) {
 
   return (
     <div className={cn('container')} onClick={handleClickPostModal}>
-      <AuthorCard nickname={nickName} dateText={timeToString} />
+      <AuthorCard nickname={nickName} dateText={timeToString} userImage={userImage} />
       <div className={cn('keyboard-image-wrapper')}>
         <Image
           src={Array.isArray(thumbnail) ? thumbnail[0] : thumbnail}
@@ -44,13 +44,14 @@ export default function PostCard({ cardData }: PostCardProps) {
           alt='키보드 이미지'
           fill
           sizes='(max-width: 1200px) 100%'
+          priority
         />
         {Array.isArray(thumbnail) && <p className={cn('image-count')}>{thumbnail.length}</p>}
       </div>
       <p className={cn('title')}>{title}</p>
       <PostInteractions likeCount={likeCount} commentCount={commentCount} />
       <Modal isOpen={isPostModalOpen} onClose={handleClosePostModal}>
-        <PostCardDetailModal />
+        <PostCardDetailModal cardId={id} />
       </Modal>
     </div>
   );
