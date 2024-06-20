@@ -14,3 +14,21 @@
   font-weight: bold;
   text-align: center;
 }
+
+.input-wrapper {
+  margin-bottom: 6.8rem;
+  @include flex-column(4rem);
+}
+
+.phone-number-wrapper {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.phone-number-input {
+  width: 100%;
+}
+
+.no-show {
+  display: none;
+}
