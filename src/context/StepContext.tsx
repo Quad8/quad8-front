@@ -66,16 +66,7 @@ export function StepContextProvider({ children }: PropsWithChildren) {
       updateStepStatus,
       updateKeyboardImage,
     }),
-    [
-      currentStep,
-      stepStatus,
-      canvasRef,
-      controlRef,
-      keyboardImage,
-      updateCurrentStep,
-      updateStepStatus,
-      updateKeyboardImage,
-    ],
+    [currentStep, stepStatus, keyboardImage, updateCurrentStep, updateStepStatus, updateKeyboardImage],
   );
 
   return <StepContext.Provider value={contextValue}>{children}</StepContext.Provider>;
