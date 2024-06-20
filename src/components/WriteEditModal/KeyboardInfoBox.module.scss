@@ -1,8 +1,6 @@
 .container {
   display: flex;
-  flex-direction: row;
   gap: 2rem;
-  align-items: center;
   line-height: 2.4rem;
 }
 
@@ -28,7 +26,7 @@
     line-height: 2.4rem;
   }
 
-  & > #products-list {
+  & > .products-list {
     font-weight: 700;
   }
 }
@@ -40,8 +38,12 @@
 }
 
 .keycap-color {
-  display: -webkit-box;
   margin-top: 0.2rem;
+  cursor: pointer;
+}
+
+.fold-option {
+  display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;

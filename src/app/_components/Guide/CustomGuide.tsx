@@ -1,5 +1,5 @@
 import { ROUTER } from '@/constants/route';
-import keyduekImg from '@/public/images/keyduek.png';
+import { keydeukImg } from '@/public/index';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -39,7 +39,7 @@ const GUIDE = [
 export default function CustomGuide() {
   return (
     <section className={cn('custom-guide')}>
-      <Image src={keyduekImg} width={145} height={145} alt='키득이미지' />
+      <Image src={keydeukImg} width={145} height={145} alt='키득이미지' />
       <h1 className={cn('title')}>커스텀 용어가 어렵다면 키득이 도와줄게요</h1>
       <p className={cn('sub-title')}>3D 시뮬레이션으로 원하는 느낌 그대로 재현 할 수 있어요</p>
       <ul className={cn('guide-list')}>

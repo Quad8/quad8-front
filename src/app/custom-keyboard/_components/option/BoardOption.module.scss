@@ -26,6 +26,20 @@
 
   width: 19.9rem;
   gap: 1rem;
+
+  &:hover {
+    border-color: $primary-60;
+
+    .button-content,
+    .button-price {
+      color: $white;
+    }
+  }
+
+  &:focus {
+    border-color: $primary;
+    background-color: $primary;
+  }
 }
 
 .button-content {

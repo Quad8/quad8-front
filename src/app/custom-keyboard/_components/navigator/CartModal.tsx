@@ -1,14 +1,16 @@
 import classNames from 'classnames/bind';
-import { MouseEvent, useContext, useState, useRef, RefObject } from 'react';
+import { MouseEvent, useContext, useRef, RefObject } from 'react';
 import { StaticImageData } from 'next/image';
+import { useMutation } from '@tanstack/react-query';
 
-import { KeyboardDataContext, StepContext } from '@/context/customKeyboardContext';
 import { POINT_KEY } from '@/constants/keyboardData';
-import type { CustomKeyboardStepTypes, OptionDataType } from '@/types/CustomKeyboardTypes';
+import type { CustomKeyboardStepTypes, OptionDataType, CustomKeyboardAPITypes } from '@/types/CustomKeyboardTypes';
 import { blackSwitchImg, blueSwitchImg, brownSwitchImg, redSwitchImg } from '@/public/index';
 import { Button } from '@/components';
 import { getColorUpperCase } from '@/libs/getColorUpperCase';
 import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
+import { postCustomKeyboardOrder } from '@/api/customKeyboardAPI';
+import { StepContext, KeyboardDataContext } from '@/context';
 import CartModalOptionCard from './parts/CartModalOptionCard';
 import CartModalToast from './parts/CartModalToast';
 
@@ -18,7 +20,11 @@ const cn = classNames.bind(styles);
 
 interface CartModalProps {
   optionData: OptionDataType[];
+  optionPrice: number;
+  accessToken: string;
   onClose: () => void;
+  onChangeLoginModal: (value: boolean) => void;
+  onUpdateOptionPrice: (value: number) => void;
 }
 
 interface OrderListType {
@@ -39,9 +45,18 @@ const SWITCH_LIST = {
   흑축: blackSwitchImg,
 };
 
-export default function CartModal({ optionData, onClose }: CartModalProps) {
+export default function CartModal({
+  optionData,
+  optionPrice,
+  accessToken,
+  onClose,
+  onChangeLoginModal,
+  onUpdateOptionPrice,
+}: CartModalProps) {
   const orderWrapperRef = useRef<HTMLDivElement>(null);
-  const [dataStatus, setDataStatus] = useState<null | 'pending' | 'completed'>(null);
+  const createCustomKeyboard = useMutation({
+    mutationFn: (data: CustomKeyboardAPITypes) => postCustomKeyboardOrder(data),
+  });
   const {
     keyboardData: {
       type,
@@ -52,11 +67,11 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
       hasPointKeyCap,
       pointKeyType,
       individualColor,
+      pointKeySetColor,
       price,
       option,
     },
-    updateOption,
-    updatePrice,
+    deleteOption,
   } = useContext(KeyboardDataContext);
 
   const { keyboardImage, updateCurrentStep, updateStepStatus } = useContext(StepContext);
@@ -71,7 +86,6 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
   const pointKeyCount = pointKeyType === '내 맘대로 바꾸기' ? Object.keys(individualColor).length : POINT_KEY.length;
 
   const isOverFlow = (option ? Object.entries(option).filter((element) => element[1]).length : 0) > 1;
-  const buttonDisabled = dataStatus !== null;
 
   const ORDER_LIST: OrderListType[] = [
     {
@@ -102,12 +116,27 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
     },
   ];
 
-  const handleClickPutButton = () => {
-    setDataStatus('pending');
-    /* api 보내는 코드 */
-    setTimeout(() => {
-      setDataStatus('completed');
-    }, 1500);
+  const handleClickPutButton = async () => {
+    if (!accessToken) {
+      onClose();
+      onChangeLoginModal(true);
+      return;
+    }
+    const data = {
+      type: type === '풀 배열' ? 'full' : 'tkl',
+      texture: texture === '금속' ? 'metal' : 'plastic',
+      boardColor,
+      switchType,
+      baseKeyColor,
+      hasPointKeyCap,
+      pointKeyType: hasPointKeyCap ? pointKeyType : null,
+      pointSetColor: pointKeyType === '세트 구성' ? pointKeySetColor : null,
+      price,
+      option,
+      individualColor,
+      imgBase64: keyboardImage.keyCap,
+    };
+    createCustomKeyboard.mutate(data);
   };
 
   const onClickEditButton = (e: MouseEvent<HTMLButtonElement>, step: CustomKeyboardStepTypes) => {
@@ -119,13 +148,13 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
     updateCurrentStep(step);
   };
 
-  const onClickDeleteButton = (e: MouseEvent<HTMLButtonElement>, id: string) => {
+  const onClickDeleteButton = (e: MouseEvent<HTMLButtonElement>, id: number) => {
     e.stopPropagation();
     // eslint-disable-next-line no-alert
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      updateOption(id, false);
+      deleteOption(id);
       const deleteOptionCost = optionData.find((element) => element.id === id)?.price as number;
-      updatePrice(-deleteOptionCost);
+      onUpdateOptionPrice(-deleteOptionCost);
       // eslint-disable-next-line no-alert
       alert('삭제되었습니다');
     }
@@ -152,38 +181,36 @@ export default function CartModal({ optionData, onClose }: CartModalProps) {
               wrapperRef={orderWrapperRef}
             />
           ))}
-          {option &&
-            optionData.map(
-              (element) =>
-                option[element.id] && (
-                  <CartModalOptionCard
-                    key={element.id}
-                    name='기타 용품'
-                    option1={element.name}
-                    price={element.price}
-                    imageSrc={element.image}
-                    buttonType='delete'
-                    buttonOnClick={(e) => onClickDeleteButton(e, element.id)}
-                  />
-                ),
-            )}
+          {optionData.map(
+            (element) =>
+              option.includes(element.id) && (
+                <CartModalOptionCard
+                  key={element.id}
+                  name='기타 용품'
+                  option1={element.name}
+                  price={element.price}
+                  imageSrc={element.thumbnail}
+                  buttonType='delete'
+                  buttonOnClick={(e) => onClickDeleteButton(e, element.id)}
+                />
+              ),
+          )}
         </div>
         <div className={cn('count-price-wrapper')}>
           <p className={cn('count')}>총 합계</p>
-          <p className={cn('price')}>{price.toLocaleString()}원</p>
+          <p className={cn('price')}>{(price + optionPrice).toLocaleString()}원</p>
         </div>
       </div>
       <div className={cn('button-wrapper')}>
         <Button
-          className={cn({ disabled: buttonDisabled })}
+          className={cn({ disabled: createCustomKeyboard.isPending || createCustomKeyboard.isSuccess })}
           onClick={handleClickPutButton}
-          disabled={buttonDisabled}
-          hoverColor='background-primary-60'
+          disabled={createCustomKeyboard.isPending || createCustomKeyboard.isSuccess}
         >
           장바구니 담기
         </Button>
       </div>
-      {dataStatus === 'completed' && <CartModalToast />}
+      {createCustomKeyboard.isSuccess && <CartModalToast />}
     </div>
   );
 }
