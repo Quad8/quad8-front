@@ -1,5 +1,13 @@
-import type { GetCategoryListParams, ProductListResponse, ProductParams } from '@/types/ProductItem';
+import type {
+  GetCategoryListParams,
+  KeydeukPickResponse,
+  ProductListResponse,
+  ProductParams,
+  TabType,
+} from '@/types/ProductItem';
 import type { ProductType } from '@/types/ProductTypes';
+
+const baseURL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 export const getProductDetail = async (productId: string): Promise<ProductType> => {
   try {
@@ -13,8 +21,6 @@ export const getProductDetail = async (productId: string): Promise<ProductType> 
     throw new Error(`상품을 조회할 수 없습니다. `);
   }
 };
-
-const baseURL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 export async function getAllProductList({ sort, page, size }: ProductParams): Promise<ProductListResponse> {
   try {
@@ -57,6 +63,17 @@ export async function getCategoryProductList({
     }
 
     const rawData: ProductListResponse = await response.json();
+
+    return rawData;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getKeydeukPick(param: TabType) {
+  try {
+    const response = await fetch(`${baseURL}/api/v1/product/get/keydeuk-pick?&param=${param}`);
+    const rawData: KeydeukPickResponse = await response.json();
 
     return rawData;
   } catch (error) {

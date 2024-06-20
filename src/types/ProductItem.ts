@@ -41,3 +41,9 @@ export interface GetCategoryListParams {
   minPrice?: string | string[];
   maxPrice?: string | string[];
 }
+
+export type TabType = '저소음' | '가성비' | '청축';
+
+export interface TabKeyword {
+  [key: string]: string;
+}

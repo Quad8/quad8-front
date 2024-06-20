@@ -1,19 +1,14 @@
 'use client';
 
-import { getKeydeukPick } from '@/api/getProductList';
+import { getKeydeukPick } from '@/api/productAPI';
 import ProductItem from '@/components/Products/ProductItem';
-import { Product } from '@/types/ProductItem';
+import { tabKeyword } from '@/constants/product';
+import type { Product, TabType } from '@/types/ProductItem';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import styles from './KeydeukPick.module.scss';
 
 const cn = classNames.bind(styles);
-
-const tabKeyword = {
-  저소음: '직장인을 위한 무소음 키보드',
-  가성비: '가성비 키보드',
-  청축: '타건감이 좋은 키보드',
-};
 
 interface ProductListProps {
   initialData: Product[];
@@ -21,11 +16,11 @@ interface ProductListProps {
 }
 
 export default function KeydeukPick({ initialData, size }: ProductListProps) {
-  const [pick, setPick] = useState<'저소음' | '가성비' | '청축'>('저소음');
+  const [pick, setPick] = useState<TabType>('저소음');
   const [data, setData] = useState<Product[]>(initialData);
   const [loading, setLoading] = useState(false);
 
-  const handleTabClick = async (tab: '저소음' | '가성비' | '청축') => {
+  const handleTabClick = async (tab: TabType) => {
     setPick(tab);
     setLoading(true);
     try {
@@ -48,7 +43,7 @@ export default function KeydeukPick({ initialData, size }: ProductListProps) {
               <li
                 key={key}
                 className={cn('tab', { active: pick === key })}
-                onClick={() => handleTabClick(key as '저소음' | '가성비' | '청축')}
+                onClick={() => handleTabClick(key as TabType)}
               >
                 {value}
               </li>
