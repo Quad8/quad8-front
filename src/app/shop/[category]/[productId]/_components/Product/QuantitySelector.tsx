@@ -1,4 +1,4 @@
-import { MinusIcon, PlusIcon } from '@/public/index';
+import { MinusCircleIcon, PlusCircleIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import styles from './ProductDetail.module.scss';
 
@@ -15,9 +15,9 @@ export default function QuantitySelector({ count, updateCount }: QuantitySelecto
 
   return (
     <div className={cn('count-icons')}>
-      <MinusIcon className={cn('icon', { 'gray-icon': count === 1 })} onClick={decrementCount} />
+      <MinusCircleIcon className={cn('icon', { 'gray-icon': count === 1 })} onClick={decrementCount} />
       <span>{count}</span>
-      <PlusIcon className={cn('icon')} onClick={incrementCount} />
+      <PlusCircleIcon className={cn('icon')} onClick={incrementCount} />
     </div>
   );
 }

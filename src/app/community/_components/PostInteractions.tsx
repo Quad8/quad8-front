@@ -1,7 +1,8 @@
-import CommentIcon from '@/public/svgs/comment.svg';
+import { CommentIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import { MouseEvent } from 'react';
 // import { LikeButton } from '@/components';
+
 import styles from './PostInteractions.module.scss';
 
 const cn = classNames.bind(styles);
@@ -31,7 +32,7 @@ export function PostInteractions({ goodCount, commentCount }: PostInteractionsPr
       </div>
       <div className={cn('icon-and-count')}>
         <CommentIcon />
-        <p id={cn('count')}>{commentCount > MAX_COUNT ? '99+' : commentCount}</p>
+        <p className={cn('count')}>{commentCount > MAX_COUNT ? '99+' : commentCount}</p>
       </div>
     </div>
   );

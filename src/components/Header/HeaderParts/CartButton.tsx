@@ -1,5 +1,5 @@
 import { ROUTER } from '@/constants/route';
-import CartIcon from '@/public/svgs/cart.svg';
+import { CartIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import styles from './CartButton.module.scss';

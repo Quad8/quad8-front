@@ -2,15 +2,20 @@
   @include flex-column(4rem);
 
   width: max-content;
+  height: 95vh;
   padding: 4rem;
+  overflow-y: scroll;
   border-radius: 1.6rem;
   background-color: $white;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .input-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  @include flex-column(2rem);
+
   width: 100%;
 }
 
