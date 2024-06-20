@@ -2,36 +2,31 @@
 
 import { getKeydeukPick } from '@/api/productAPI';
 import ProductItem from '@/components/Products/ProductItem';
-import { tabKeyword } from '@/constants/product';
-import type { Product, TabType } from '@/types/ProductItem';
+import { TAB_KEYWORD } from '@/constants/product';
+import { QUERY_KEYS } from '@/constants/queryKey';
+import type { TabType } from '@/types/ProductItem';
+import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import styles from './KeydeukPick.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface ProductListProps {
-  initialData: Product[];
-  size: 'lg';
-}
-
-export default function KeydeukPick({ initialData, size }: ProductListProps) {
+export default function KeydeukPick() {
   const [pick, setPick] = useState<TabType>('저소음');
-  const [data, setData] = useState<Product[]>(initialData);
-  const [loading, setLoading] = useState(false);
 
-  const handleTabClick = async (tab: TabType) => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: QUERY_KEYS.PRODUCT.LIST(pick),
+    queryFn: () => getKeydeukPick(pick),
+  });
+
+  const handleTabClick = (tab: TabType) => {
     setPick(tab);
-    setLoading(true);
-    try {
-      const { data: newData } = await getKeydeukPick(tab);
-      setData(newData);
-    } catch (error) {
-      throw error;
-    } finally {
-      setLoading(false);
-    }
   };
+
+  if (error) {
+    return <div>Error loading data</div>;
+  }
 
   return (
     <section className={cn('keydeuk-pick')}>
@@ -39,7 +34,7 @@ export default function KeydeukPick({ initialData, size }: ProductListProps) {
         <h1 className={cn('title')}>키득 PICK</h1>
         <nav className={cn('tab-nav')}>
           <ul>
-            {Object.entries(tabKeyword).map(([key, value]) => (
+            {Object.entries(TAB_KEYWORD).map(([key, value]) => (
               <li
                 key={key}
                 className={cn('tab', { active: pick === key })}
@@ -50,13 +45,14 @@ export default function KeydeukPick({ initialData, size }: ProductListProps) {
             ))}
           </ul>
         </nav>
-        {loading ? (
+        {isLoading ? (
           <div className={cn('loading')}>Loading...</div>
         ) : (
           <ul className={cn('product-list')}>
-            {data.map((product) => (
-              <ProductItem key={product.id} size={size} {...product} />
-            ))}
+            {data?.map((product, i) => {
+              const key = `productItem-${i}`;
+              return <ProductItem key={key} size='lg' {...product} />;
+            })}
           </ul>
         )}
       </div>
