@@ -1,5 +1,5 @@
-import { Address } from './_components';
+import { Addresses } from './_components';
 
 export default function AddressesPage() {
-  return <Address />;
+  return <Addresses />;
 }

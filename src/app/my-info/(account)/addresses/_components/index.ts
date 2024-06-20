@@ -1,2 +1,2 @@
-export { default as Address } from './Addresses/Address';
+export { default as Addresses } from './Addresses/Addresses';
 export { default as AddressesHeader } from './AddressesHeader/AddressesHeader';

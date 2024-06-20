@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind';
 import { ReactNode } from 'react';
 
+import { getAddresses } from '@/api/shippingAPI';
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { AddressesHeader } from './_components';
 
 import styles from './layout.module.scss';
@@ -11,11 +13,17 @@ interface AddressesLayoutProps {
   children: ReactNode;
 }
 
-export default function AddressesLayout({ children }: AddressesLayoutProps) {
+export default async function AddressesLayout({ children }: AddressesLayoutProps) {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({ queryKey: ['addressesData'], queryFn: getAddresses });
+
   return (
-    <div className={cn('page')}>
-      <AddressesHeader />
-      {children}
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div className={cn('page')}>
+        <AddressesHeader />
+        {children}
+      </div>
+    </HydrationBoundary>
   );
 }
