@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+
 import myProfileImage from '@/public/images/myProfile.jpeg';
 import ShowMoreIcon from '@/public/svgs/verticalTripleDot.svg';
 
@@ -10,16 +11,16 @@ const cn = classNames.bind(styles);
 
 interface AuthorCardProps {
   nickname: string;
-  timeAgo: string;
+  dateText: string;
 }
 
-export default function AuthorCard({ nickname, timeAgo }: AuthorCardProps) {
+export default function AuthorCard({ nickname, dateText }: AuthorCardProps) {
   return (
     <div className={cn('container')}>
       <ProfileImage profileImage={myProfileImage} />
       <div className={cn('info-textbox')}>
-        <p id={cn('user-name')}>{nickname}</p>
-        <p id={cn('sub-info')}>{timeAgo}</p>
+        <p className={cn('user-name')}>{nickname}</p>
+        <p className={cn('sub-info')}>{dateText}</p>
       </div>
       <div className={cn('show-more-icon')}>
         <ShowMoreIcon />

@@ -4,13 +4,13 @@ import { useState } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 
-import ContentImage from '@/public/images/myProfile.jpeg';
-import { CommunityCardDataType } from '@/app/(test)/mj/communityData';
+import type { CommunityCardDataType } from '@/app/(test)/mj/communityData';
 import { calculateTimeDifference } from '@/libs/calculateDate';
 
 import { Modal } from '@/components';
 import AuthorCard from './AuthorCard';
 import { PostInteractions } from './PostInteractions';
+import PostCardDetailModal from './PostCardDetailModal';
 
 import styles from './PostCard.module.scss';
 
@@ -34,9 +34,8 @@ export default function PostCard({ cardData }: PostCardProps) {
     comment_count: commentCount,
   } = cardData;
 
-  const nowDate = new Date();
   const createdDate = new Date(createdAt);
-  const timeToString = calculateTimeDifference(createdDate, nowDate);
+  const timeToString = calculateTimeDifference(createdDate);
 
   const handleClickPostModal = () => {
     setIsPostModalOpen(true);
@@ -47,15 +46,15 @@ export default function PostCard({ cardData }: PostCardProps) {
 
   return (
     <div className={cn('container')} onClick={handleClickPostModal}>
-      <AuthorCard nickname={nickname} timeAgo={timeToString} />
+      <AuthorCard nickname={nickname} dateText={timeToString} />
       <div className={cn('keyboard-image-wrapper')}>
-        <Image src={ContentImage} className={cn('keyboard-image')} alt='키보드 이미지' />
-        {image.length > MIN_IMAGE_COUNT && <p id={cn('image-count')}>{image.length}</p>}
+        <Image src={image[0]} className={cn('keyboard-image')} alt='키보드 이미지' />
+        {image.length > MIN_IMAGE_COUNT && <p className={cn('image-count')}>{image.length}</p>}
       </div>
       <p className={cn('title')}>{title}</p>
       <PostInteractions goodCount={goodCount} commentCount={commentCount} />
       <Modal isOpen={isPostModalOpen} onClose={handleClosePostModal}>
-        modal
+        <PostCardDetailModal />
       </Modal>
     </div>
   );
