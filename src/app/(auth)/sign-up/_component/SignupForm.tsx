@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { useForm, FieldValues } from 'react-hook-form';
+import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
 import { ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
@@ -10,8 +10,7 @@ import { getCheckEmailDuplication, getCheckNicknameDuplication, postSignup } fro
 import { changePhoneNumber, unFormatPhoneNumber } from '@/libs';
 import { Button, RadioField, InputField } from '@/components';
 import { REGEX, ERROR_MESSAGE, PLACEHOLDER } from '@/constants/signUpConstants';
-import RightArrow from '@/public/svgs/caretRight.svg';
-import CheckIcon from '@/public/svgs/checkboxCircle.svg';
+import { CaretRightIcon, CheckboxCircleIcon } from '@/public/index';
 
 import styles from './SignupForm.module.scss';
 
@@ -150,7 +149,7 @@ export default function SignupForm() {
     }),
   };
 
-  const handleFormSubmit = async (payload: FieldValues) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (payload) => {
     const { email, password, nickname, phone, birth, gender } = payload;
 
     const joinRequest = {
@@ -180,7 +179,7 @@ export default function SignupForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className={cn('container')}>
         <h1 className={cn('title')}>회원가입</h1>
         <div className={cn('content-wrapper')}>
@@ -251,7 +250,7 @@ export default function SignupForm() {
             <div className={cn('agreement-title')}>
               <input {...registers.checkAll} type='checkbox' className={cn('checkbox-input')} id='checkAll' />
               <label htmlFor='checkAll' className={cn('checkbox-label')}>
-                <CheckIcon fill={watch('checkAll') ? CHECKED : NOT_CHECKED} width={15} height={15} />
+                <CheckboxCircleIcon fill={watch('checkAll') ? CHECKED : NOT_CHECKED} width={15} height={15} />
               </label>
               <h2>아래 약관에 모두 동의합니다.</h2>
             </div>
@@ -259,18 +258,18 @@ export default function SignupForm() {
               <div className={cn('content')}>
                 <input {...registers.check1} type='checkbox' className={cn('checkbox-input')} id='check1' />
                 <label htmlFor='check1' className={cn('checkbox-label')}>
-                  <CheckIcon fill={watch('check1') ? CHECKED : NOT_CHECKED} width={15} height={15} />
+                  <CheckboxCircleIcon fill={watch('check1') ? CHECKED : NOT_CHECKED} width={15} height={15} />
                 </label>
                 <h3>서비스 이용 약관 동의</h3>
-                <RightArrow className={cn('right-arrow')} stroke='black' />
+                <CaretRightIcon className={cn('right-arrow')} stroke='black' />
               </div>
               <div className={cn('content')}>
                 <input {...registers.check2} type='checkbox' className={cn('checkbox-input')} id='check2' />
                 <label htmlFor='check2' className={cn('checkbox-label')}>
-                  <CheckIcon fill={watch('check2') ? CHECKED : NOT_CHECKED} width={15} height={15} />
+                  <CheckboxCircleIcon fill={watch('check2') ? CHECKED : NOT_CHECKED} width={15} height={15} />
                 </label>
                 <h3>개인정보 처리 방침 동의</h3>
-                <RightArrow className={cn('right-arrow')} stroke='black' />
+                <CaretRightIcon className={cn('right-arrow')} stroke='black' />
               </div>
             </div>
           </div>

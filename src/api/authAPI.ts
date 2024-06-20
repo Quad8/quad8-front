@@ -1,4 +1,4 @@
-import type { FetchSigninInfoTypes } from '@/types';
+import type { FetchSignInInfoTypes } from '@/types/authTypes';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
@@ -42,7 +42,7 @@ export const postSignup = async (formData: FormData) => {
   }
 };
 
-export const postSignin = async (formData: FetchSigninInfoTypes) => {
+export const postSignin = async (formData: FetchSignInInfoTypes) => {
   const url = `${BASE_URL}/login`;
 
   try {

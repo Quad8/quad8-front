@@ -10,12 +10,12 @@ export interface SignupInfoTypes {
   providerId?: string;
 }
 
-export interface FetchSignupInfoTypes {
+export interface FetchSignUpInfoTypes {
   joinRequest: SignupInfoTypes;
   imgFile: string;
 }
 
-export interface FetchSigninInfoTypes {
+export interface FetchSignInInfoTypes {
   email: string;
   password: string;
 }

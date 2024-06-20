@@ -23,6 +23,9 @@ export { default as UpArrowIcon } from './svgs/upArrow.svg';
 export { default as UserIcon } from './svgs/user.svg';
 export { default as VerticalTripleDotIcon } from './svgs/verticalTripleDot.svg';
 export { default as WarnCircleIcon } from './svgs/warnCircle.svg';
+export { default as GitHubIcon } from '@/public/svgs/gitHub.svg';
+export { default as GoogleIcon } from '@/public/svgs/google.svg';
+export { default as KakaoIcon } from '@/public/svgs/kakaotalk.svg';
 
 export { default as blackSwitchImg } from './images/blackSwitch.jpg';
 export { default as blueSwitchImg } from './images/blueSwitch.jpg';

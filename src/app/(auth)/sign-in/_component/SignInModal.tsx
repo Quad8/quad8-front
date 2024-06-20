@@ -1,23 +1,17 @@
 import classNames from 'classnames/bind';
-import { useForm } from 'react-hook-form';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 
 import { InputField, Button } from '@/components';
-
 import { GitHubIcon, GoogleIcon, KakaoIcon } from '@/public/index';
-
 import { postSignin } from '@/api/authAPI';
 import { setCookie } from '@/libs/manageCookie';
+import type { FetchSignInInfoTypes } from '@/types/authTypes';
 
 import styles from './SigninModal.module.scss';
 
 const cn = classNames.bind(styles);
-
-interface Inputs {
-  email: string;
-  password: string;
-}
 
 const AUTH_SECTION = ['아이디 찾기', '비밀번호 찾기', '회원가입'];
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
@@ -27,8 +21,12 @@ export default function SignInModal() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<Inputs>({
+  } = useForm({
     mode: 'onBlur',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
   const registers = {
@@ -40,9 +38,9 @@ export default function SignInModal() {
     }),
   };
 
-  const handleLogin = async (formData: Inputs) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     try {
-      const responseData = await postSignin(formData);
+      const responseData = await postSignin(formData as FetchSignInInfoTypes);
 
       if (responseData.status === 'SUCCESS') {
         setCookie('accessToken', responseData.data.accessToken);
@@ -64,7 +62,7 @@ export default function SignInModal() {
   };
 
   return (
-    <form className={cn('container')} onSubmit={handleSubmit(handleLogin)}>
+    <form className={cn('container')} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={cn('title')}>로그인</h1>
       <div className={cn('input-wrapper')}>
         <InputField
