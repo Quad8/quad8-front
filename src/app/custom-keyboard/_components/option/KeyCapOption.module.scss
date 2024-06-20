@@ -2,41 +2,35 @@
   @include flex-column(4rem);
 
   position: relative;
-  font-size: 1.8rem;
-  line-height: 2.6rem;
+  padding-left: 1.5rem;
 }
 
 .content-wrapper {
   @include flex-column(1.2rem);
 
-  align-items: center;
+  width: 41rem;
 }
 
 .title {
-  width: 100%;
-  @include pretendard-20-600;
+  @include pretendard-20-500;
+
+  width: 41rem;
 }
 
 .button-wrapper {
   display: flex;
   align-items: center;
+  width: 41rem;
   gap: 1.2rem;
 }
 
 .button {
-  @include flex-center;
+  @include pretendard-16-400;
 
-  width: 15.4rem;
-  height: 6.6rem;
-  border: 0.1rem solid $black;
-  border-radius: 0.4rem;
-  gap: 1rem;
-  color: $black;
+  width: 19.9rem;
 }
 
 .selected {
-  background-color: $primary;
-
   .button-content {
     color: $white;
   }
@@ -49,12 +43,16 @@
 .point-wrapper {
   @include flex-column(1.2rem);
 
-  align-items: center;
+  width: 41rem;
 }
 
 .point-title-wrapper {
+  @include pretendard-16-400;
+
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 41rem;
   gap: 4rem;
 }
 
@@ -66,10 +64,10 @@
 .disabled {
   position: absolute;
   z-index: 4;
-  top: 37rem;
-  left: -1.2rem;
-  width: 35.5rem;
-  height: 17.5rem;
+  top: 42rem;
+  left: 0;
+  width: 43.5rem;
+  height: 22.5rem;
   border-radius: 1rem;
   background-color: rgb(256 256 256 / 40%);
 }
@@ -77,15 +75,15 @@
 .tag-wrapper {
   display: flex;
   flex-wrap: wrap;
-  width: 32rem;
-  padding: 0 0.8rem;
-  gap: 1.2rem;
+  justify-content: space-between;
+  width: 41rem;
+  gap: 1.2rem 0;
 }
 
 .help-wrapper {
   @include flex-column(0.8rem);
 
-  width: 32rem;
+  width: 41rem;
   padding: 2rem;
   border-radius: 0.4rem;
   background-color: $gray-5;

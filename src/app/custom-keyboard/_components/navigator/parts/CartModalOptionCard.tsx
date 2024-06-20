@@ -156,7 +156,7 @@ export default function CartModalOptionCard({
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <p className={cn('option')} ref={targetRef}>
+                <p className={cn('option', 'cursor-default')} ref={targetRef}>
                   {keyCapColor.map(([key, color]) => `${key}: ${getColorUpperCase(color)}`).join(' / ')}
                 </p>
                 <div className={cn('tooltip-wrapper')} ref={tooltipRef}>

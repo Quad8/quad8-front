@@ -38,7 +38,7 @@ export default function Keyboard() {
   const SCALE = type === '텐키리스' ? 3.2 : 0.05;
   const KEY_BUTTONS = type === '텐키리스' ? [...KEY] : [...KEY, ...TEN_KEY];
   const MATELNESS = texture === '금속' ? 0.9 : 0;
-  const ROUGHNESS = texture === '금속' ? 0.1 : 0.7;
+  const ROUGHNESS = texture === '금속' ? 0.1 : 0.8;
   const ROTATION = new Euler(type === '텐키리스' ? -1.55 : 0, 0, 0);
   const POSITION = new Vector3(0.1, 0, 0);
 
