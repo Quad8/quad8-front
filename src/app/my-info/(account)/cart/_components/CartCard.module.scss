@@ -1,0 +1,53 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 2rem;
+  width: calc(100% - 48rem);
+}
+
+.keyboard-wrapper {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+}
+
+.image {
+  border-radius: 0.8rem;
+  user-select: none;
+}
+
+.information-wrapper {
+  @include flex-column(0);
+
+  justify-content: center;
+  width: calc(100% - 12.4rem);
+  height: 100%;
+}
+
+.title {
+  @include pretendard-16-700;
+
+  color: $black;
+}
+
+.price {
+  @include pretendard-16-700;
+
+  color: $black;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.button {
+  padding: 0.8rem 0;
+}
