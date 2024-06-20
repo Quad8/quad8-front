@@ -1,4 +1,33 @@
+import { myProfileImg, keydeukProfileImg } from '@/public/index';
+import { StaticImageData } from 'next/image';
+
 export const COMMUNITY_DATA = {
+  id: 1032,
+  user_id: 2337,
+  user_nickname: '고양이는고양닉네임인데인데인데인',
+  title: '나는 키보드예요',
+  content: '이것은 나의 키보드다다닫다ㅏㄷ다다다다',
+  image: [myProfileImg, keydeukProfileImg],
+  good_count: 11,
+  comment_count: 111,
+  created_at: '2024-06-01T05:56:13.073Z',
+  updated_at: '2024-06-01T05:56:13.073Z',
+};
+
+export interface CommunityCardDataType {
+  id: number;
+  user_id: number;
+  user_nickname: string;
+  title: string;
+  content: string;
+  image: string[] | StaticImageData[];
+  good_count: number;
+  comment_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export const COMMUNITY_DATA_DETAIL = {
   id: 1032,
   user_id: 2337,
   user_nickname: '고양이는고양닉네임',
@@ -15,7 +44,7 @@ export const COMMUNITY_DATA = {
   updated_at: '2024-06-01T05:56:13.073Z',
 };
 
-export interface CommunityCardDataType {
+export interface CommunityCardDataDetailType {
   id: number;
   user_id: number;
   user_nickname: string;

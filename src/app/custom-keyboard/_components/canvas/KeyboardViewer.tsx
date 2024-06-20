@@ -6,7 +6,7 @@ import { Environment, OrbitControls } from '@react-three/drei';
 import { Suspense, useContext, useState } from 'react';
 import { Vector3 } from 'three';
 
-import { KeyColorContext, StepContext } from '@/context/customKeyboardContext';
+import { FocusKeyContext, StepContext } from '@/context';
 import Keyboard from './parts/Keyboard';
 import Step from './Step';
 import CanvasLoading from './parts/CanvasLoading';
@@ -27,7 +27,7 @@ const GL = {
 
 export default function KeyboardViewer() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const { updateFocusKey } = useContext(KeyColorContext);
+  const { updateFocusKey } = useContext(FocusKeyContext);
   const { canvasRef, controlRef } = useContext(StepContext);
 
   const handleClickCanvas = () => {
