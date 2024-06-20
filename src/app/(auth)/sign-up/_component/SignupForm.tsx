@@ -50,24 +50,22 @@ export default function SignupForm() {
     defaultValues: defaultInputValues,
   });
 
-  const handleCheckDuplicatedEmail = async () => {
-    const emailValue = getValues('email');
-    const isDuplicated = await getCheckEmailDuplication(emailValue);
+  const handleCheckDuplicatedEmail = async (email: string) => {
+    const isDuplicated = await getCheckEmailDuplication(email);
 
     if (isDuplicated.data === true) {
       setError('email', {
-        message: '중복된 이메일입니다.',
+        message: ERROR_MESSAGE.EMAIL.isDuplicated,
       });
     }
   };
 
-  const handleCheckDuplicatedNickname = async () => {
-    const nicknameValue = getValues('nickname');
-    const isDuplicated = await getCheckNicknameDuplication(nicknameValue);
+  const handleCheckDuplicatedNickname = async (nickname: string) => {
+    const isDuplicated = await getCheckNicknameDuplication(nickname);
 
     if (isDuplicated.data === true) {
       setError('nickname', {
-        message: '중복된 닉네임입니다.',
+        message: ERROR_MESSAGE.NICKNAME.isDuplicated,
       });
     }
   };
@@ -85,7 +83,7 @@ export default function SignupForm() {
         value: REGEX.EMAIL,
         message: ERROR_MESSAGE.EMAIL.invalid,
       },
-      onBlur: () => handleCheckDuplicatedEmail(),
+      onBlur: (e) => handleCheckDuplicatedEmail(e.target.value),
     }),
 
     password: register('password', {
@@ -108,7 +106,7 @@ export default function SignupForm() {
       required: ERROR_MESSAGE.NICKNAME.required,
       minLength: { value: 2, message: ERROR_MESSAGE.NICKNAME.invalid },
       maxLength: { value: 16, message: ERROR_MESSAGE.NICKNAME.invalid },
-      onBlur: () => handleCheckDuplicatedNickname(),
+      onBlur: (e) => handleCheckDuplicatedNickname(e.target.value),
     }),
 
     phone: register('phone', {

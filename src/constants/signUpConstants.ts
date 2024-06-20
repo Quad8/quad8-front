@@ -8,6 +8,7 @@ export const ERROR_MESSAGE = {
   EMAIL: {
     required: '이메일을 입력해주세요.',
     invalid: '유효한 이메일을 입력해주세요',
+    isDuplicated: '중복된 이메일입니다.',
   },
   PASSWORD: {
     required: '비밀번호를 입력해주세요',
