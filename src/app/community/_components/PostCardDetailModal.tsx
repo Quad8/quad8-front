@@ -9,6 +9,7 @@ import { InputField } from '@/components';
 import { getPostDetail } from '@/api/communityAPI';
 import { toast } from 'react-toastify';
 import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
+import { customKeyboardToString } from '@/libs/CustomKeyboardToString';
 import AuthorCard from './AuthorCard';
 import { PostInteractions } from './PostInteractions';
 import Comment from './Comment';
@@ -36,7 +37,20 @@ const initialPostData: CommunityPostCardDetailDataType = {
   likeCount: 0,
   commentCount: 0,
   reviewImages: [],
-  custom: [],
+  custom: {
+    productId: 0,
+    type: 'full',
+    texture: 'metal',
+    boardColor: '',
+    switchType: '청축',
+    baseKeyColor: '',
+    hasPointKeyCap: false,
+    pointKeyType: '내 맘대로 바꾸기',
+    pointSetColor: '',
+    imgUrl: '',
+    price: 0,
+    individualColor: {},
+  },
 };
 
 export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps) {
@@ -54,18 +68,32 @@ export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps
     fetchPost();
   }, [cardId]);
 
-  const { commentCount, comments, content, likeCount, nickName, reviewImages, title, updatedAt, userImage } =
+  const { commentCount, comments, content, likeCount, nickName, reviewImages, title, updatedAt, userImage, custom } =
     postCardData;
+  const { type, texture, boardColor, switchType, baseKeyColor, hasPointKeyCap, pointKeyType, individualColor } = custom;
 
   const commentRef = useRef<HTMLInputElement>(null);
-  const [clickedImage, setClickedImage] = useState(reviewImages[0]?.imgUrl);
   const createdDateString = formatDateToString(new Date(updatedAt));
+  const [clickedImage, setClickedImage] = useState(reviewImages[0]?.imgUrl);
 
   const handleSubmitComment = () => {
     if (commentRef.current) {
       commentRef.current.value = '';
     }
   };
+
+  const options = {
+    type,
+    texture,
+    boardColor,
+    switchType,
+    baseKeyColor,
+    hasPointKeyCap,
+    pointKeyType,
+    individualColor,
+  };
+
+  const optionTexts = customKeyboardToString(options);
 
   useEffect(() => {
     const removeEvent = addEnterKeyEvent({ element: commentRef, callback: handleSubmitComment });
@@ -94,11 +122,11 @@ export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps
         <div className={cn('content-wrapper')}>
           <p className={cn('title')}>{title}</p>
           <AuthorCard nickname={nickName} dateText={createdDateString} userImage={userImage} />
-          <p className={cn('content')}>{content}</p>
-          <div className={cn('keyboard-option')}>
-            <div>키득</div>
-            <div>키득</div>
+          <div className={cn('keyboard-option-wrapper')}>
+            <div className={cn('keyboard-option')}>{optionTexts[0]}</div>
+            <div className={cn('keyboard-option')}>{optionTexts[1]}</div>
           </div>
+          <p className={cn('content')}>{content}</p>
           <PostInteractions likeCount={likeCount} commentCount={commentCount} />
           <div className={cn('comment-wrapper')}>
             {comments?.map((comment) => (

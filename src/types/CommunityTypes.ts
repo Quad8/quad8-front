@@ -1,4 +1,4 @@
-import { KeyboardDataType } from './CustomKeyboardTypes';
+import { CustomKeyboardSwitchTypes, CustomKeyboardPointKeyType } from '@/types/CustomKeyboardTypes';
 
 export interface CommunityParamsType {
   sort: string;
@@ -27,7 +27,7 @@ export interface CommunityPostCardDetailDataType extends Omit<CommunityPostCardD
   reviewImages: { id: number; imgUrl: string }[];
   isLiked: boolean;
   liked: boolean;
-  custom: KeyboardDataType[];
+  custom: PostCardDetailModalCustomKeyboardType;
 }
 
 export interface CommentType {
@@ -37,4 +37,19 @@ export interface CommentType {
   createdAt: string;
   imgUrl: string | null;
   userId: number;
+}
+
+export interface PostCardDetailModalCustomKeyboardType {
+  productId: number;
+  type: 'full' | 'tkl';
+  texture: 'metal' | 'plastic';
+  boardColor: string;
+  switchType: CustomKeyboardSwitchTypes;
+  baseKeyColor: string;
+  hasPointKeyCap: boolean;
+  pointKeyType: CustomKeyboardPointKeyType;
+  pointSetColor: string;
+  imgUrl: string;
+  price: number;
+  individualColor: Record<string, string>;
 }
