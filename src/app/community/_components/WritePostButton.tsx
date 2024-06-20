@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components';
-import { PlusCircleIcon } from '@/public/index';
+import { PlusIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import styles from './WritePostButton.module.scss';
 
@@ -15,7 +15,7 @@ export default function WritePostButton() {
   return (
     <Button width={120} fontSize={14} paddingVertical={8} radius={4} onClick={handleWritePostButton}>
       <div className={cn('write-button-content')}>
-        <PlusCircleIcon /> 글 작성하기
+        <PlusIcon /> 글 작성하기
       </div>
     </Button>
   );
