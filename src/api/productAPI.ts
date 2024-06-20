@@ -75,7 +75,18 @@ export async function getKeydeukPick(param: TabType) {
     const response = await fetch(`${baseURL}/api/v1/product/get/keydeuk-pick?&param=${param}`);
     const rawData: KeydeukPickResponse = await response.json();
 
-    return rawData;
+    return rawData.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getKeydeukBest() {
+  try {
+    const response = await fetch(`${baseURL}/api/v1/product/get/keyduek-best`);
+    const rawData: KeydeukPickResponse = await response.json();
+
+    return rawData.data;
   } catch (error) {
     throw error;
   }
