@@ -46,7 +46,6 @@
     background-color: $white;
 
     &.open-xs {
-      max-height: max-content;
       animation: slide-fade-in 0.4s forwards;
       opacity: 1;
     }
@@ -64,6 +63,7 @@
     top: auto;
     right: 0.6rem;
     width: 10rem;
+    max-height: 3.8rem * 6;
     overflow: scroll;
     border: 0.1rem solid $gray-20;
   }

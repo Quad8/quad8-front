@@ -7,7 +7,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import { checkNickname, putEditProfile } from '@/api/usersAPI';
 import { Button, InputField, RadioField } from '@/components';
-import { Input, Label } from '@/components/parts';
+import { Label } from '@/components/parts';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
 import type { Users } from '@/types/userType';
 
@@ -133,7 +133,6 @@ export default function EditProfileModal({ userData }: EditProfileModalProps) {
         />
       </div>
       <Button type='submit'>저장</Button>
-      <Input isNumber />
     </form>
   );
 }
