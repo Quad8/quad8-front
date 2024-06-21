@@ -4,15 +4,16 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { ChangeEvent, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { checkNickname, putEditProfile } from '@/api/usersAPI';
 import { Button, InputField, RadioField } from '@/components';
 import ProfileImage from '@/components/ProfileImage/ProfileImage';
 import { Label } from '@/components/parts';
+import { GENDER_OPTION } from '@/constants/dropdownOptions';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
 import type { Users } from '@/types/userType';
 
-import { toast } from 'react-toastify';
 import styles from './EditProfileModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -21,11 +22,6 @@ interface EditProfileModalProps {
   userData: Users;
   onComplete: () => void;
 }
-
-const GENDER_OPTION = [
-  { label: '남자', value: 'MALE' },
-  { label: '여자', value: 'FEMALE' },
-];
 
 export default function EditProfileModal({ userData, onComplete }: EditProfileModalProps) {
   const queryClient = useQueryClient();
