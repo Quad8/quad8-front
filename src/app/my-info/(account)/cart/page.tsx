@@ -6,6 +6,8 @@ import CustomCardList from './_components/CustomCardList';
 import ShopCardList from './_components/ShopCardList';
 
 import styles from './page.module.scss';
+import PurchaseButton from './_components/PurchaseButton';
+import TotalPrice from './_components/TotalPrice';
 
 const cn = classNames.bind(styles);
 
@@ -32,7 +34,10 @@ export default function CartPage() {
             <ShopCardList />
           </div>
         </div>
-        <div>test</div>
+        <div className={cn('price-button-wrapper')}>
+          <TotalPrice />
+          <PurchaseButton />
+        </div>
       </div>
     </div>
   );

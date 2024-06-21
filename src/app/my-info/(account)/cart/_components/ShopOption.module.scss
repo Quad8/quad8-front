@@ -41,3 +41,12 @@
 
   color: $black;
 }
+
+.price-button-wrapper {
+  @include flex-column(6rem);
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
