@@ -17,4 +17,5 @@ export interface ShopDataType {
   thumbsnail: string;
   count: number;
   classification: 'SHOP';
+  category: 'keyboard' | 'keycap' | 'etc';
 }

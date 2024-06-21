@@ -12,6 +12,7 @@ interface CartDataContextType {
   updateAllCheckedShop: (value: boolean) => void;
   updateCheckedCustom: (id: number) => void;
   updateCheckedShop: (id: number) => void;
+  deleteCheckedData: (customId: string[], shopId: string[]) => void;
 }
 
 export const CartDataContext = createContext<CartDataContextType>({
@@ -23,6 +24,7 @@ export const CartDataContext = createContext<CartDataContextType>({
   updateAllCheckedShop: () => {},
   updateCheckedCustom: () => {},
   updateCheckedShop: () => {},
+  deleteCheckedData: () => {},
 });
 
 export function CartDataContextProvider({ children }: PropsWithChildren) {
@@ -115,6 +117,7 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
           'https://keyduek-image-file.s3.ap-northeast-2.amazonaws.com/keydeuk/product/custom714d6c48-3781-4081-8db0-7c68f742985b.png',
         count: 1,
         classification: 'SHOP',
+        category: 'keyboard',
       },
       {
         id: 6,
@@ -127,6 +130,7 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
           'https://keyduek-image-file.s3.ap-northeast-2.amazonaws.com/keydeuk/product/custom714d6c48-3781-4081-8db0-7c68f742985b.png',
         count: 2,
         classification: 'SHOP',
+        category: 'keyboard',
       },
       {
         id: 7,
@@ -139,6 +143,7 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
           'https://keyduek-image-file.s3.ap-northeast-2.amazonaws.com/keydeuk/product/custom714d6c48-3781-4081-8db0-7c68f742985b.png',
         count: 3,
         classification: 'SHOP',
+        category: 'keyboard',
       },
       {
         id: 8,
@@ -151,6 +156,7 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
           'https://keyduek-image-file.s3.ap-northeast-2.amazonaws.com/keydeuk/product/custom714d6c48-3781-4081-8db0-7c68f742985b.png',
         count: 4,
         classification: 'SHOP',
+        category: 'keyboard',
       },
     ];
     setCustomData(getCustomData);
@@ -175,6 +181,25 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
     setCheckedShopList((prev) => ({ ...prev, [id]: !prev[String(id)] }));
   }, []);
 
+  const deleteCheckedData = useCallback((checkedCustomIdList: string[], checkedShopIdList: string[]) => {
+    setCustomData((prev) => prev.filter((data) => !checkedCustomIdList.includes(String(data.id))));
+    setShopData((prev) => prev.filter((data) => !checkedShopIdList.includes(String(data.id))));
+    setCheckedCustomList((prev) => {
+      const newValue = { ...prev };
+      checkedCustomIdList.forEach((id) => {
+        delete newValue[id];
+      });
+      return newValue;
+    });
+    setCheckedShopList((prev) => {
+      const newValue = { ...prev };
+      checkedShopIdList.forEach((id) => {
+        delete newValue[id];
+      });
+      return newValue;
+    });
+  }, []);
+
   const value = useMemo(
     () => ({
       customData,
@@ -185,6 +210,7 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
       updateAllCheckedShop,
       updateCheckedCustom,
       updateCheckedShop,
+      deleteCheckedData,
     }),
     [
       customData,
@@ -195,6 +221,7 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
       updateAllCheckedShop,
       updateCheckedCustom,
       updateCheckedShop,
+      deleteCheckedData,
     ],
   );
 
