@@ -5,7 +5,6 @@ export { default as RadioField } from './RadioField/RadioField';
 export { default as TextField } from './TextField/TextField';
 
 export { default as Modal } from './Modal/Modal';
-export { default as SignInModal } from './SignInModal/SignInModal';
 
 export { default as Rating } from './Rating/Rating';
 export { default as ImageInput } from './WriteEditModal/ImageInput';

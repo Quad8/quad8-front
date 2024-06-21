@@ -5,15 +5,14 @@ import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import { LogoIcon, UserIcon } from '@/public/index';
 import type { Users } from '@/types/userType';
-
-import { useState } from 'react';
-import { CartButton, LoginButton, LogoutButton, SearchBox, ShopButton } from './HeaderParts';
-
 import Modal from '../Modal/Modal';
 import SignInModal from '../SignInModal/SignInModal';
+import { CartButton, LoginButton, LogoutButton, SearchBox, ShopButton } from './HeaderParts';
+
 import styles from './Header.module.scss';
 
 const cn = classNames.bind(styles);
