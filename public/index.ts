@@ -21,6 +21,7 @@ export { default as PlusCircleIcon } from './svgs/plusCircle.svg';
 
 export { default as PlusIcon } from './svgs/plus.svg';
 
+export { default as ResetIcon } from './svgs/reset.svg';
 export { default as SearchIcon } from './svgs/search.svg';
 export { default as SoundVibrationIcon } from './svgs/soundVibration.svg';
 export { default as StarIcon } from './svgs/star.svg';

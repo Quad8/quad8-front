@@ -1,0 +1,11 @@
+.filter-sort {
+  @include flex-center;
+
+  gap: 1.2rem;
+}
+
+.bar {
+  width: 0.1rem;
+  height: 1.2rem;
+  background-color: $gray-20;
+}
