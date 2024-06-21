@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames/bind';
 // import ProfileImage from '@/components/ProfileImage/ProfileImage';
 import styles from './page.module.scss';

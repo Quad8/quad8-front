@@ -1,0 +1,61 @@
+/* stylelint-disable */
+
+$toastify: 'Toastify';
+
+.#{$toastify}-animate {
+  animation-fill-mode: both;
+  animation-duration: 0.7s;
+}
+
+.#{$toastify}--animate-icon {
+  animation-fill-mode: both;
+  animation-duration: 0.7s;
+}
+
+@keyframes #{$toastify}__track-progress {
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+.#{$toastify}__progress-bar--animated {
+  animation: #{$toastify}__track-progress linear 1 forwards;
+}
+
+@keyframes #{$toastify}__zoomIn {
+  0% {
+    transform: scale3d(0.3, 0.3, 0.3);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes #{$toastify}__zoomOut {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale3d(0.3, 0.3, 0.3);
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.#{$toastify}__zoom-enter {
+  animation-name: #{$toastify}__zoomIn;
+}
+
+.#{$toastify}__zoom-exit {
+  animation-name: #{$toastify}__zoomOut;
+}

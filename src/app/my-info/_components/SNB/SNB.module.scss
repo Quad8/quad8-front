@@ -10,12 +10,14 @@
     @include pretendard-30-700;
 
     margin-bottom: 2rem;
+    font-weight: bold;
   }
 
   .snb-sections {
     @include flex-column(1.6rem);
 
     color: $black;
+    font-weight: bold;
 
     .snb-category {
       @include pretendard-20-700;
@@ -30,15 +32,15 @@
 
       color: $gray-50;
 
-      &:focus {
-        @include pretendard-18-700;
-
-        color: $primary;
-      }
-
       &:hover {
         color: $primary-60;
       }
+    }
+
+    .selected {
+      @include pretendard-18-700;
+
+      color: $primary;
     }
   }
 }

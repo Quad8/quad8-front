@@ -1,6 +1,7 @@
+import { isNumberAllowedKey } from '@/libs';
 import { formatBirthDate } from '@/libs/formatBirthDate';
 import classNames from 'classnames/bind';
-import { InputHTMLAttributes, forwardRef } from 'react';
+import { InputHTMLAttributes, KeyboardEvent, forwardRef, useEffect, useState } from 'react';
 import styles from './Input.module.scss';
 
 const cn = classNames.bind(styles);
@@ -14,6 +15,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   isPhone?: boolean;
   isPhonePrefix?: boolean;
   isBirth?: boolean;
+  isNickname?: boolean;
+  isNumber?: boolean;
   className?: string;
 }
 
@@ -29,13 +32,45 @@ export default forwardRef<HTMLInputElement, InputProps>(function Input(
     isPhonePrefix,
     isPhone,
     isBirth,
+    isNickname,
+    isNumber,
     className,
     ...rest
   },
   ref,
 ) {
+  const [maxLength, setMaxLength] = useState<number | undefined>(undefined);
+  const [currectValue, setCurrectValue] = useState(value);
+
+  useEffect(() => {
+    if (isPhone) {
+      setMaxLength(9);
+      return;
+    }
+    if (isNickname) {
+      setMaxLength(16);
+      return;
+    }
+
+    setMaxLength(undefined);
+  }, [isPhone, isNickname]);
+
+  useEffect(() => {
+    if (isBirth && typeof value === 'string') {
+      setCurrectValue(formatBirthDate(value));
+      return;
+    }
+
+    setCurrectValue(value);
+  }, [isBirth, value]);
+
   const formattedPlaceholder = isBirth ? 'YYYY / MM / DD' : rest.placeholder;
-  const formattedBirthValue = isBirth && typeof value === 'string' ? formatBirthDate(value) : value;
+
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if ((isPhone || isNumber) && !isNumberAllowedKey(e.key)) {
+      e.preventDefault();
+    }
+  };
 
   const combinedClassName = cn('default', sizeVariant, type, className, {
     red: isError,
@@ -51,8 +86,10 @@ export default forwardRef<HTMLInputElement, InputProps>(function Input(
       className={combinedClassName}
       ref={ref}
       type={type}
-      value={formattedBirthValue}
+      maxLength={maxLength}
+      value={currectValue}
       placeholder={formattedPlaceholder}
+      onKeyDown={handleKeyPress}
       {...rest}
     />
   );

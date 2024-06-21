@@ -1,0 +1,8 @@
+.addresses {
+  @include flex-column(0.4rem);
+  @include pretendard-16-400;
+
+  align-items: center;
+  padding: 14rem;
+  color: $gray-30;
+}
