@@ -12,6 +12,7 @@ import { ERROR_MESSAGE, PLACEHOLDER, REGEX } from '@/constants/signUpConstants';
 import { changePhoneNumber, unFormatPhoneNumber } from '@/libs';
 import { CaretRightIcon, CheckboxCircleIcon } from '@/public/index';
 
+import { formatOnInputBirthChange, unFormatBirthDate } from '@/libs/formatBirthDate';
 import styles from './SignupForm.module.scss';
 
 const cn = classNames.bind(styles);
@@ -45,13 +46,11 @@ export default function SignupForm() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    getValues,
     setError,
-    trigger,
     setValue,
     watch,
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onTouched',
     defaultValues: defaultInputValues,
   });
 
@@ -81,6 +80,12 @@ export default function SignupForm() {
     setValue('phone', formattedValue, { shouldValidate: true });
   };
 
+  const handleBirthChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value.replace(/\D/g, '');
+    const formattedValue = formatOnInputBirthChange(inputValue);
+    setValue('birth', formattedValue, { shouldValidate: true });
+  };
+
   const registers = {
     email: register('email', {
       required: ERROR_MESSAGE.EMAIL.required,
@@ -93,18 +98,21 @@ export default function SignupForm() {
 
     password: register('password', {
       required: ERROR_MESSAGE.PASSWORD.required,
+      minLength: { value: 8, message: ERROR_MESSAGE.PASSWORD.invalid },
       pattern: {
         value: REGEX.PASSWORD,
         message: ERROR_MESSAGE.PASSWORD.invalid,
-      },
-      onBlur: () => {
-        trigger('passwordConfirm');
       },
     }),
 
     passwordConfirm: register('passwordConfirm', {
       required: ERROR_MESSAGE.PASSWORD_CONFIRM.required,
-      validate: (value) => value === getValues('password') || ERROR_MESSAGE.PASSWORD_CONFIRM.invalid,
+      validate: (value) => {
+        if (watch('password') !== value) {
+          return ERROR_MESSAGE.PASSWORD_CONFIRM.invalid;
+        }
+        return true;
+      },
     }),
 
     nickname: register('nickname', {
@@ -126,11 +134,14 @@ export default function SignupForm() {
         value: REGEX.BIRTH,
         message: ERROR_MESSAGE.BIRTH.invalid,
       },
+      onChange: (e) => handleBirthChange(e),
+      setValueAs: (value) => unFormatBirthDate(value),
     }),
+
     gender: register('gender', {
       required: ERROR_MESSAGE.GENDER.required,
-      setValueAs: (value) => (value === '여자' ? 'FEMALE' : 'MALE'),
     }),
+
     checkAll: register('checkAll', {
       required: true,
       onChange: () => {
@@ -138,12 +149,14 @@ export default function SignupForm() {
         setValue('check2', watch('checkAll'));
       },
     }),
+
     check1: register('check1', {
       required: true,
       onChange: () => {
         setValue('checkAll', watch('check1') && watch('check2'));
       },
     }),
+
     check2: register('check2', {
       required: true,
       onChange: () => {
@@ -202,6 +215,7 @@ export default function SignupForm() {
               labelSize='sm'
               type='password'
               suffixIcon='eye'
+              maxLength={20}
               errorMessage={errors.password?.message}
               {...registers.password}
             />
@@ -251,27 +265,27 @@ export default function SignupForm() {
           </div>
           <div className={cn('agreement-checkbox')}>
             <div className={cn('agreement-title')}>
-              <input {...registers.checkAll} type='checkbox' className={cn('checkbox-input')} id='checkAll' />
               <label htmlFor='checkAll' className={cn('checkbox-label')}>
+                <input {...registers.checkAll} type='checkbox' className={cn('checkbox-input')} id='checkAll' />
                 <CheckboxCircleIcon fill={watch('checkAll') ? CHECKED : NOT_CHECKED} width={15} height={15} />
+                <h2>아래 약관에 모두 동의합니다.</h2>
               </label>
-              <h2>아래 약관에 모두 동의합니다.</h2>
             </div>
             <div className={cn('content-wrapper')}>
               <div className={cn('content')}>
-                <input {...registers.check1} type='checkbox' className={cn('checkbox-input')} id='check1' />
                 <label htmlFor='check1' className={cn('checkbox-label')}>
+                  <input {...registers.check1} type='checkbox' className={cn('checkbox-input')} id='check1' />
                   <CheckboxCircleIcon fill={watch('check1') ? CHECKED : NOT_CHECKED} width={15} height={15} />
+                  <h3>서비스 이용 약관 동의</h3>
                 </label>
-                <h3>서비스 이용 약관 동의</h3>
                 <CaretRightIcon className={cn('right-arrow')} stroke='black' />
               </div>
               <div className={cn('content')}>
-                <input {...registers.check2} type='checkbox' className={cn('checkbox-input')} id='check2' />
                 <label htmlFor='check2' className={cn('checkbox-label')}>
+                  <input {...registers.check2} type='checkbox' className={cn('checkbox-input')} id='check2' />
                   <CheckboxCircleIcon fill={watch('check2') ? CHECKED : NOT_CHECKED} width={15} height={15} />
+                  <h3>개인정보 처리 방침 동의</h3>
                 </label>
-                <h3>개인정보 처리 방침 동의</h3>
                 <CaretRightIcon className={cn('right-arrow')} stroke='black' />
               </div>
             </div>
