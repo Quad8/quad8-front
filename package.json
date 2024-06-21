@@ -23,6 +23,7 @@
     "plaiceholder": "^3.0.0",
     "react": "^18",
     "react-colorful": "^5.6.1",
+    "react-daum-postcode": "^3.1.3",
     "react-dom": "^18",
     "react-fast-marquee": "^1.6.4",
     "react-hook-form": "^7.51.4",

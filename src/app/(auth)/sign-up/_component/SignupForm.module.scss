@@ -1,0 +1,88 @@
+.container {
+  width: 100%;
+  margin: 0 auto 6rem;
+  padding: 4rem;
+  border-radius: 3.2rem;
+  background-color: $white;
+}
+
+.title {
+  @include pretendard-30-700;
+
+  height: 2rem;
+  margin-bottom: 8rem;
+  text-align: center;
+}
+
+.input-wrapper {
+  @include flex-column(4rem);
+
+  margin-bottom: 6.8rem;
+}
+
+.phone-number-wrapper {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.phone-number-input {
+  width: 100%;
+}
+
+.no-show,
+.checkbox-input {
+  display: none;
+}
+
+.checkbox-label svg {
+  margin-top: 0.25rem;
+  cursor: pointer;
+}
+
+.agreement-checkbox {
+  width: 100%;
+  padding: 2.4rem;
+  border-radius: 1.6rem;
+  background-color: $gray-5;
+}
+
+.agreement-title {
+  display: flex;
+  height: 4.7rem;
+  margin-bottom: 2rem;
+  border-bottom: 0.1rem solid $gray-10;
+  gap: 0.8rem;
+
+  & > h2 {
+    @include pretendard-16-700;
+
+    color: $black;
+  }
+}
+
+.check-icon {
+  cursor: pointer;
+}
+
+.content-wrapper {
+  @include flex-column(1.2rem);
+
+  margin-left: 0.5rem;
+}
+
+.content {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+
+  & > h3 {
+    @include pretendard-14-400;
+
+    margin-top: 0.3rem;
+    color: $gray-50;
+  }
+}
+
+.right-arrow {
+  margin-left: auto;
+}

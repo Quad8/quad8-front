@@ -35,6 +35,7 @@ export default forwardRef<HTMLInputElement, RadioFieldProps>(function RadioField
 
   const handleClick = (e: MouseEvent<HTMLInputElement>) => {
     setSelectedValue(e.currentTarget.value);
+
     if (rest.onClick) {
       rest.onClick(e);
     }

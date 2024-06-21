@@ -3,6 +3,7 @@
 import { ROUTER } from '@/constants/route';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
+import { useState } from 'react';
 import styles from './SNB.module.scss';
 
 const cn = classNames.bind(styles);
@@ -26,18 +27,29 @@ const SECTIONS = [
 ];
 
 export default function SNB() {
+  const [selectedButton, setSelectedButton] = useState('');
+
+  const handleSideItemClick = (value: string) => {
+    setSelectedButton(value);
+  };
+
   return (
     <nav className={cn('snb')}>
-      <Link href={ROUTER.MY_PAGE.MY_INFO} className={cn('snb-main')}>
+      <Link className={cn('snb-main')} href={ROUTER.MY_PAGE.MY_INFO} onClick={() => handleSideItemClick('')}>
         마이 페이지
       </Link>
       {SECTIONS.map((section, i) => (
-        <div key={section.category} className={cn('snb-sections')}>
+        <div className={cn('snb-sections')} key={section.category}>
           <div className={cn('snb-category', `snb-category-${i + 1}`)}>{section.category}</div>
           <div className={cn('snb-items')}>
             {section.items?.map((item) => (
               <Link key={item.name} href={item.route}>
-                <div className={cn('snb-item')}>{item.name}</div>
+                <div
+                  className={cn('snb-item', { selected: item.name === selectedButton })}
+                  onClick={() => handleSideItemClick(item.name)}
+                >
+                  {item.name}
+                </div>
               </Link>
             ))}
           </div>
