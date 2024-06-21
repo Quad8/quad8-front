@@ -8,9 +8,9 @@ import { ROUTER } from '@/constants/route';
 import { setCookie } from '@/libs/manageCookie';
 import { GitHubIcon, GoogleIcon, KakaoIcon } from '@/public/index';
 import type { FetchSignInInfoTypes } from '@/types/authTypes';
-
 import Button from '../Buttons/Button/Button';
 import InputField from '../InputField/InputField';
+
 import styles from './SigninModal.module.scss';
 
 const cn = classNames.bind(styles);
