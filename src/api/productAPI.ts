@@ -11,9 +11,7 @@ const baseURL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 export const getProductDetail = async (productId: string): Promise<ProductType> => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/product/get-detail-info/${productId}`,
-    );
+    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/product/${productId}`);
     const result = await res.json();
 
     return result.data;
@@ -24,7 +22,12 @@ export const getProductDetail = async (productId: string): Promise<ProductType> 
 
 export async function getAllProductList({ sort, page, size }: ProductParams): Promise<ProductListResponse> {
   try {
-    const response = await fetch(`${baseURL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`);
+    const response = await fetch(`${baseURL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`, {
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    });
     const rawData: ProductListResponse = await response.json();
 
     return rawData;
@@ -55,7 +58,12 @@ export async function getCategoryProductList({
       ...(maxPrice && { maxPrice: encodeURIComponent(maxPrice as string) }),
     }).toString();
 
-    const response = await fetch(`${baseURL}/api/v1/product/category/${keyword}?${queryParams}`);
+    const response = await fetch(`${baseURL}/api/v1/product/category/${keyword}?${queryParams}`, {
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    });
 
     if (!response.ok) {
       const errorDetails = await response.text();
