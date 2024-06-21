@@ -32,12 +32,12 @@ export default async function Page({
   const { content, ...rest } = data;
 
   return (
-    <>
+    <div className={cn('inner')}>
       <TitleWrap category={category} totalCount={rest.totalElements} />
       <section className={cn('list-section')}>
         <ProductList content={content} size='lg' category={category} />
         <Pagination {...rest} searchParams={searchParams} />
       </section>
-    </>
+    </div>
   );
 }
