@@ -20,7 +20,7 @@
   position: absolute;
   z-index: $zindex-tooltip;
   top: 2rem;
-  max-width: 52.6rem;
+  width: fit-content;
 }
 
 .above {

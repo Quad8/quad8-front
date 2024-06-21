@@ -132,7 +132,7 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
         id: 7,
         productId: 7,
         optionId: 1,
-        optionName: 'test3',
+        optionName: 'testadfadfafadfaadaasf3',
         price: 80000,
         productTitle: '테스트 키보드3',
         thumbsnail:

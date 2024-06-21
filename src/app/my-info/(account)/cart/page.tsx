@@ -18,18 +18,21 @@ export default function CartPage() {
         <DeleteButton>선택 삭제</DeleteButton>
       </div>
       <div className={cn('content-wrapper')}>
-        <div className={cn('custom-wrapper')}>
-          <div className={cn('content-title-wrapper')}>
-            <TotalCheckBox type='custom' />
+        <div className={cn('product-wrapper')}>
+          <div className={cn('product-category-wrapper')}>
+            <div className={cn('content-title-wrapper')}>
+              <TotalCheckBox type='custom' />
+            </div>
+            <CustomCardList />
           </div>
-          <CustomCardList />
-        </div>
-        <div className={cn('shop-wrapper')}>
-          <div className={cn('content-title-wrapper')}>
-            <TotalCheckBox type='shop' />
+          <div className={cn('product-category-wrapper')}>
+            <div className={cn('content-title-wrapper')}>
+              <TotalCheckBox type='shop' />
+            </div>
+            <ShopCardList />
           </div>
-          <ShopCardList />
         </div>
+        <div>test</div>
       </div>
     </div>
   );

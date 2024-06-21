@@ -29,7 +29,7 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
         <div>
           <CardCheckBox id={cardData.id} type={type} />
         </div>
-        <div className={cn('keyboard-wrapper')}>
+        <div className={cn('product-wrapper')}>
           <Image src={imageURL} width={104} height={104} alt='이미지' className={cn('image')} />
           <div className={cn('information-wrapper')}>
             <div className={cn('title')}> {title}</div>

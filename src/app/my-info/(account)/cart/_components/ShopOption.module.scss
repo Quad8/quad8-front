@@ -2,12 +2,32 @@
   display: flex;
   align-items: center;
   gap: 1.2rem;
+  width: 100%;
+}
+
+.option-text-wrapper {
+  position: relative;
+}
+
+.tooltip-wrapper {
+  @include pretendard-14-400;
+
+  position: absolute;
+  padding: 1.6rem;
+  border-radius: 0.8rem;
+  background-color: rgba($color: $black, $alpha: 90%);
+  color: $white;
 }
 
 .option-text {
   @include pretendard-14-400;
 
+  width: 100%;
+  overflow: hidden;
   color: $gray-50;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  white-space: nowrap;
 }
 
 .line {
