@@ -15,6 +15,10 @@
   &.lg {
     max-width: 40rem;
   }
+
+  &:hover .product-image {
+    transform: scale(1.1);
+  }
 }
 
 .product-image-wrap {
@@ -27,6 +31,7 @@
 
 .product-image {
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
 .product-info {

@@ -5,6 +5,10 @@ import ProductItem from '@/components/Products/ProductItem';
 import { QUERY_KEYS } from '@/constants/queryKey';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
+import 'swiper/css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { Autoplay } from 'swiper/modules';
 import styles from './KeydeukBest.module.scss';
 
 const cn = classNames.bind(styles);
@@ -19,7 +23,24 @@ export default function KeydeukBest() {
       <div className={cn('inner')}>
         <h1 className={cn('title')}>키득 BEST</h1>
         <ul className={cn('product-list')}>
-          {data?.map((product) => <ProductItem key={product.id} size='lg' {...product} />)}
+          <Swiper
+            loop
+            spaceBetween={26}
+            slidesPerView={4}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            modules={[Autoplay]}
+          >
+            {data?.map((product) => {
+              return (
+                <SwiperSlide key={product.id}>
+                  <ProductItem size='lg' {...product} />
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
         </ul>
       </div>
     </section>

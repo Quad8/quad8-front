@@ -6,19 +6,19 @@
 }
 
 .keydeuk-best {
-  padding: 20rem 0;
+  padding-bottom: 20rem;
 }
 
 .title {
   @include pretendard-30-700;
 
-  margin-bottom: 1.6rem;
+  margin-bottom: 4.4rem;
   color: $black;
   text-align: center;
 }
 
 .product-list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 8rem 2.667rem;
+
+  // max-width: 168rem;
 }
