@@ -1,12 +1,14 @@
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { CustomDataType, ShopDataType } from '@/types/CartTypes';
-import { Button } from '@/components';
+import { Button, Modal } from '@/components';
 import CustomOption from '@/components/CustomOption/CustomOption';
 import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
+import { useState } from 'react';
 import CardCheckBox from './CardCheckBox';
 import styles from './CartCard.module.scss';
 import ShopOption from './ShopOption';
+import OptionEditModal from './OptionEditModal';
 
 const cn = classNames.bind(styles);
 
@@ -22,6 +24,18 @@ interface ShopCardProps {
 export default function CartCard({ cardData, type }: CustomCardProps | ShopCardProps) {
   const imageURL = type === 'custom' ? cardData.imgUrl : cardData.thumbsnail;
   const title = type === 'custom' ? '키득 커스텀 키보드' : cardData.productTitle;
+  const [isOpenModal, setIsOpenMoal] = useState(false);
+
+  const handleClickEdit = () => {
+    if (type === 'custom') {
+      return;
+    }
+    setIsOpenMoal(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpenMoal(false);
+  };
 
   return (
     <div className={cn('wrapper')}>
@@ -53,13 +67,24 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
       </div>
       <div className={cn('price')}>{cardData.price.toLocaleString()}원</div>
       <div className={cn('button-wrapper')}>
-        <Button fontSize={14} width={90} radius={4} className={cn('button')}>
+        <Button fontSize={14} width={90} radius={4} className={cn('button')} onClick={handleClickEdit}>
           주문수정
         </Button>
         <Button fontSize={14} width={90} radius={4} className={cn('button')}>
           바로구매
         </Button>
       </div>
+      {type === 'shop' && (
+        <Modal isOpen={isOpenModal} onClose={handleCloseModal}>
+          <OptionEditModal
+            id={cardData.id}
+            currentCount={cardData.count}
+            currentOptionId={cardData.optionId}
+            onClickCancel={handleCloseModal}
+            onClickEdit={handleClickEdit}
+          />
+        </Modal>
+      )}
     </div>
   );
 }

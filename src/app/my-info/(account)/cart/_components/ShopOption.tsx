@@ -36,19 +36,16 @@ export default function ShopOption({ optionName, count }: ShopOptionProps) {
   return (
     <div className={cn('wrapper')}>
       {optionName && (
-        <>
-          <div
-            className={cn('option-text-wrapper', { overflow: isTextOverFlow() })}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <div className={cn('option-text')} ref={optionRef}>
-              {optionName}
-            </div>
-            {isHover && <div className={cn('tooltip-wrapper')}>{optionName}</div>}
+        <div
+          className={cn('option-text-wrapper', { overflow: isTextOverFlow() })}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className={cn('option-text')} ref={optionRef}>
+            {optionName}
           </div>
-          <div className={cn('line')} />
-        </>
+          {isHover && <div className={cn('tooltip-wrapper')}>{optionName}</div>}
+        </div>
       )}
 
       <div className={cn('count-text')}>{count}개</div>
