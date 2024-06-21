@@ -44,7 +44,7 @@ export default function Page() {
       <br />
       <br />
       <br />
-      <InputField label='생년월일' />
+      <InputField label='비밀번호' suffixIcon='eye' />
     </div>
   );
 }
