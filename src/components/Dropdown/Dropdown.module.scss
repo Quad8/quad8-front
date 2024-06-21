@@ -10,17 +10,17 @@
   }
 }
 
-@keyframes expand {
-  0% {
-    max-height: max-content;
-    opacity: 1;
-  }
+// @keyframes expand {
+//   0% {
+//     max-height: max-content;
+//     opacity: 1;
+//   }
 
-  100% {
-    max-height: max-content;
-    opacity: 1;
-  }
-}
+//   100% {
+//     max-height: max-content;
+//     opacity: 1;
+//   }
+// }
 
 .dropdown {
   position: relative;
@@ -35,7 +35,7 @@
     z-index: $zindex-dropdown;
     top: 0;
     width: 100%;
-    overflow: hidden;
+    overflow: auto;
     transition:
       max-height 0.4s ease,
       opacity 0.4s ease;
@@ -52,6 +52,14 @@
     &.open-other {
       animation: expand 0.6s ease forwards;
     }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &.scroll {
+      overflow-y: auto;
+    }
   }
 }
 
@@ -62,12 +70,18 @@
     top: auto;
     right: 0.6rem;
     width: 10rem;
-    max-height: 4rem * 6;
-    overflow-y: scroll;
     border: 0.1rem solid $gray-20;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
+}
+
+.max-height-4 {
+  max-height: calc(4rem * 4);
+}
+
+.max-height-6 {
+  max-height: calc(4rem * 6);
+}
+
+.max-height-8 {
+  max-height: calc(4rem * 8);
 }

@@ -1,21 +1,25 @@
 import { Dropdown, InputField } from '@/components';
 
-const options = [
-  '최신순',
-  '인기순',
-  '낮은가격순',
-  '높은가격순',
-  '낮은가격순',
-  '높은가격순',
-  '낮은가격순',
-  '높은가격순',
-];
+const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 export default function Page() {
   return (
     <div>
       <Dropdown options={options} sizeVariant='xs' />
       <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <InputField label='비밀번호' suffixIcon='eye' />
       <br />
       <br />
       <br />
@@ -44,7 +48,7 @@ export default function Page() {
       <br />
       <br />
       <br />
-      <InputField label='비밀번호' suffixIcon='eye' />
+      {/* <DatePicker /> */}
     </div>
   );
 }

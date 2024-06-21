@@ -64,7 +64,6 @@
 
 .select {
   flex-wrap: wrap;
-  align-content: center;
   width: 100%;
   border-radius: 0.4rem;
   background: $white;
@@ -88,6 +87,7 @@
   border: 0.1rem solid $white;
   border-radius: 0;
   background-color: $white;
+  cursor: pointer;
 
   &:hover {
     background: $primary-20;
@@ -113,6 +113,11 @@
   padding: 0.8rem 1.6rem;
   border: none;
   background: none;
+
+  &.select {
+    padding: 0.8rem 3.2rem 0.8rem 1.6rem;
+    text-align: center;
+  }
 
   &.checked {
     color: $primary;

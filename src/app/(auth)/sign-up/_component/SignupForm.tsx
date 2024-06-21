@@ -10,9 +10,9 @@ import { getCheckEmailDuplication, getCheckNicknameDuplication, postSignup } fro
 import { Button, InputField, RadioField } from '@/components';
 import { ERROR_MESSAGE, PLACEHOLDER, REGEX } from '@/constants/signUpConstants';
 import { changePhoneNumber, unFormatPhoneNumber } from '@/libs';
+import { formatOnInputBirthChange, unFormatBirthDate } from '@/libs/formatBirthDate';
 import { CaretRightIcon, CheckboxCircleIcon } from '@/public/index';
 
-import { formatOnInputBirthChange, unFormatBirthDate } from '@/libs/formatBirthDate';
 import styles from './SignupForm.module.scss';
 
 const cn = classNames.bind(styles);
