@@ -1,5 +1,9 @@
+import classNames from 'classnames/bind';
 import { ReactNode } from 'react';
 import { CheckoutNavigation } from './_components';
+import styles from './layout.module.scss';
+
+const cn = classNames.bind(styles);
 
 interface CheckoutLayoutProps {
   children: ReactNode;
@@ -7,9 +11,9 @@ interface CheckoutLayoutProps {
 
 export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
   return (
-    <section>
+    <section className={cn('layout')}>
       <CheckoutNavigation />
-      <div>{children}</div>
+      <div className={cn('page')}>{children}</div>
     </section>
   );
 }

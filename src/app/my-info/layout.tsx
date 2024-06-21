@@ -1,7 +1,7 @@
-import { ROUTER } from '@/constants/route';
 import classNames from 'classnames/bind';
 import { ReactNode } from 'react';
 
+import { ROUTER } from '@/constants/route';
 import { getCookie } from '@/libs/manageCookie';
 import { redirect } from 'next/navigation';
 import { SNB } from './_components';
