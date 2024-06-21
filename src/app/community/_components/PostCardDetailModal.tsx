@@ -50,20 +50,20 @@ export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps
     },
   });
 
-  const handleSubmitComment = () => {
-    if (commentRef.current) {
-      const commentContent = commentRef.current.value;
-      console.log(commentContent);
-      postCommentMutation({ id: cardId, content: commentContent });
-    }
-  };
-
   useEffect(() => {
+    const handleSubmitComment = () => {
+      if (commentRef.current) {
+        const commentContent = commentRef.current.value;
+        postCommentMutation({ id: cardId, content: commentContent });
+      }
+    };
+
     const removeEvent = addEnterKeyEvent({ element: commentRef, callback: handleSubmitComment });
+
     return () => {
       removeEvent();
     };
-  }, [commentRef]);
+  }, [commentRef, cardId, postCommentMutation]);
 
   if (isPending) {
     return <span>Loading...</span>;
