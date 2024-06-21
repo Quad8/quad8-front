@@ -19,3 +19,9 @@ export interface ShopDataType {
   classification: 'SHOP';
   category: 'keyboard' | 'keycap' | 'etc';
 }
+
+export interface CartAPIDataType {
+  CUSTOM: CustomDataType[];
+  SHOP: ShopDataType[];
+  totalCount: number;
+}

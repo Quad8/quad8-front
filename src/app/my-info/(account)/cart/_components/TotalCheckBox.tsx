@@ -2,8 +2,10 @@
 
 import { useContext } from 'react';
 import classNames from 'classnames/bind';
+
 import CheckBox from '@/components/CheckBox/CheckBox';
 import { CartDataContext } from '@/context/CartDataContext';
+
 import styles from './TotalCheckBox.module.scss';
 
 const cn = classNames.bind(styles);

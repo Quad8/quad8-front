@@ -4,14 +4,14 @@ import TotalCheckBox from './_components/TotalCheckBox';
 import DeleteButton from './_components/DeleteButton';
 import CustomCardList from './_components/CustomCardList';
 import ShopCardList from './_components/ShopCardList';
-
-import styles from './page.module.scss';
 import PurchaseButton from './_components/PurchaseButton';
 import TotalPrice from './_components/TotalPrice';
 
+import styles from './page.module.scss';
+
 const cn = classNames.bind(styles);
 
-export default function CartPage() {
+export default async function CartPage() {
   return (
     <div className={cn('wrapper')}>
       <div className={cn('title')}>장바구니</div>

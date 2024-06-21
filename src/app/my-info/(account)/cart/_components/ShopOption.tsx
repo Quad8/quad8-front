@@ -1,5 +1,8 @@
-import classNames from 'classnames/bind';
+'use client';
+
 import { useRef, useState } from 'react';
+import classNames from 'classnames/bind';
+
 import styles from './ShopOption.module.scss';
 
 const cn = classNames.bind(styles);

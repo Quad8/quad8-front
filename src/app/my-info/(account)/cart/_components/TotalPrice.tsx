@@ -1,14 +1,26 @@
 'use client';
 
-import classNames from 'classnames/bind';
 import { useContext } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import classNames from 'classnames/bind';
+
+import { getCartData } from '@/api/cartAPI';
 import { CartDataContext } from '@/context/CartDataContext';
+import type { CartAPIDataType } from '@/types/CartTypes';
+
 import styles from './TotalPrice.module.scss';
 
 const cn = classNames.bind(styles);
 
 export default function TotalPrice() {
-  const { customData, shopData, checkedCustomList, checkedShopList } = useContext(CartDataContext);
+  const { data, isSuccess } = useQuery({ queryKey: ['cartData'], queryFn: getCartData }) as {
+    data: CartAPIDataType;
+    isSuccess: boolean;
+  };
+  const customData = isSuccess ? data.CUSTOM : [];
+  const shopData = isSuccess ? data.SHOP : [];
+
+  const { checkedCustomList, checkedShopList } = useContext(CartDataContext);
   const selectedCustomPrice = customData.reduce((total, custom) => {
     if (checkedCustomList[custom.id]) {
       return total + custom.price;

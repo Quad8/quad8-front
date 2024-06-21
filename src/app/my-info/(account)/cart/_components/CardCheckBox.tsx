@@ -1,8 +1,8 @@
 'use client';
 
+import { useContext } from 'react';
 import CheckBox from '@/components/CheckBox/CheckBox';
 import { CartDataContext } from '@/context/CartDataContext';
-import { useContext } from 'react';
 
 interface CardCheckBoxProps {
   id: number;

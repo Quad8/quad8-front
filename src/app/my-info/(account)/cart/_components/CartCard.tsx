@@ -1,14 +1,16 @@
-import classNames from 'classnames/bind';
+import { useState } from 'react';
 import Image from 'next/image';
-import { CustomDataType, ShopDataType } from '@/types/CartTypes';
+import classNames from 'classnames/bind';
+
+import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
+import type { CustomDataType, ShopDataType } from '@/types/CartTypes';
 import { Button, Modal } from '@/components';
 import CustomOption from '@/components/CustomOption/CustomOption';
-import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
-import { useState } from 'react';
 import CardCheckBox from './CardCheckBox';
-import styles from './CartCard.module.scss';
 import ShopOption from './ShopOption';
 import OptionEditModal from './OptionEditModal';
+
+import styles from './CartCard.module.scss';
 
 const cn = classNames.bind(styles);
 
