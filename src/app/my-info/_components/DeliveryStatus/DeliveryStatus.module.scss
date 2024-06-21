@@ -1,1 +1,40 @@
-// init
+.status-list {
+  @include flex-center;
+
+  justify-content: space-between;
+  width: 100%;
+  padding: 2.4rem 4rem;
+  border-radius: 0.8rem;
+  background-color: $primary-5;
+  color: $gray-50;
+
+  .status-item {
+    @include flex-column(0.8rem);
+
+    align-items: center;
+
+    .status-count {
+      @include pretendard-18-700;
+    }
+
+    .status-label {
+      @include pretendard-18-400;
+    }
+  }
+
+  .status-icon {
+    fill: $gray-50;
+    rotate: -90deg;
+  }
+
+  .active {
+    @include pretendard-18-700;
+
+    color: $primary;
+  }
+
+  .active-icon {
+    fill: $primary;
+    scale: 1.3;
+  }
+}
