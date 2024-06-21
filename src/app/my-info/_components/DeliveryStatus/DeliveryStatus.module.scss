@@ -1,40 +1,68 @@
-.status-list {
-  @include flex-center;
+.delivery-status {
+  @include flex-column(4rem);
 
-  justify-content: space-between;
-  width: 100%;
-  padding: 2.4rem 4rem;
-  border-radius: 0.8rem;
-  background-color: $primary-5;
-  color: $gray-50;
+  .status-header {
+    @include pretendard-20-600;
 
-  .status-item {
-    @include flex-column(0.8rem);
-
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+    color: $black;
 
-    .status-count {
+    .status-button {
+      @include pretendard-16-400;
+
+      display: flex;
+      align-items: center;
+      color: $gray-50;
+      gap: 0.4rem;
+
+      .button-icon {
+        margin-bottom: 0.2rem;
+        fill: $gray-50;
+        rotate: -90deg;
+      }
+    }
+  }
+
+  .status-list {
+    @include flex-center;
+
+    justify-content: space-between;
+    width: 100%;
+    padding: 2.4rem 4rem;
+    border-radius: 0.8rem;
+    background-color: $primary-5;
+    color: $gray-50;
+
+    .status-item {
+      @include flex-column(0.8rem);
+
+      align-items: center;
+
+      .status-count {
+        @include pretendard-18-700;
+      }
+
+      .status-label {
+        @include pretendard-18-400;
+      }
+    }
+
+    .status-icon {
+      fill: $gray-50;
+      rotate: -90deg;
+    }
+
+    .active {
       @include pretendard-18-700;
+
+      color: $primary;
     }
 
-    .status-label {
-      @include pretendard-18-400;
+    .active-icon {
+      fill: $primary;
+      scale: 1.3;
     }
-  }
-
-  .status-icon {
-    fill: $gray-50;
-    rotate: -90deg;
-  }
-
-  .active {
-    @include pretendard-18-700;
-
-    color: $primary;
-  }
-
-  .active-icon {
-    fill: $primary;
-    scale: 1.3;
   }
 }
