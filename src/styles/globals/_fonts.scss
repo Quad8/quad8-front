@@ -120,3 +120,7 @@
 @mixin poppins-18-600 {
   @include font-mixin('Poppins', 1.8, 600);
 }
+
+@mixin pretendard-40-700 {
+  @include font-mixin('Pretendard', 4, 700);
+}
