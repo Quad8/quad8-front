@@ -1,42 +1,60 @@
 import classNames from 'classnames/bind';
 
-import WarningIcon from '@/public/svgs/warning.svg';
-import { KeyboardInfoBox, Button } from '@/components';
-import type { CustomKeyboardTypes } from '@/types/CustomKeyboardTypes';
+import { Button } from '@/components';
+import type { PostCardDetailModalCustomKeyboardType } from '@/types/CommunityTypes';
+import Image from 'next/image';
+import { keydeukImg } from '@/public/index';
 
 import styles from './OrderListModal.module.scss';
 
 const cn = classNames.bind(styles);
 
 interface OrderListModalProps {
-  orderList?: CustomKeyboardTypes[];
+  orderList: PostCardDetailModalCustomKeyboardType[];
+  onOpenReviewModal: () => void;
+  onSelectProduct: (i: number) => void;
+  selectedOrder: PostCardDetailModalCustomKeyboardType | null;
 }
 
-export default function OrderListModal({ orderList }: OrderListModalProps) {
-  const buttonText = orderList ? '후기 작성하기' : '커스텀 만들러 가기';
+export default function OrderListModal({
+  orderList,
+  onOpenReviewModal,
+  onSelectProduct,
+  selectedOrder,
+}: OrderListModalProps) {
+  const handleClickWriteButton = () => {
+    // console.log(selectedOrder);
+    onOpenReviewModal();
+  };
 
   return (
     <div className={cn('container')}>
-      {!orderList ? (
-        <div className={cn('no-orderlist-wrapper')}>
-          <WarningIcon />
-          <h1>커스텀 키보드 구매내역이 없습니다.</h1>
-        </div>
-      ) : (
-        <div>
-          <h1 className={cn('title')}>작성할 후기 제품을 선택해주세요.</h1>
-          <div className={cn('keyboard-list-wrapper')}>
-            {orderList.map((order) => (
-              <div key={order.id} className={cn('keyboard-list')}>
-                <KeyboardInfoBox keyboardInfo={order} isCustomReview />
-              </div>
-            ))}
+      <h1 className={cn('title')}>작성할 후기 제품을 선택해주세요.</h1>
+      <div className={cn('keyboard-list-wrapper')}>
+        {orderList.map((order, i) => (
+          <div
+            className={cn('keyboard-list', `${order === selectedOrder && 'selected-list'}`)}
+            key={order.productId}
+            onClick={() => onSelectProduct(i)}
+          >
+            <div className={cn('keyboard-image')}>
+              <Image src={keydeukImg} alt='커스텀 키보드 이미지' width={104} height={104} />
+            </div>
+            <div className={cn('keyboard-info-wrapper')}>
+              <p className={cn('keyboard-info-title')}>키득 커스텀 키보드</p>
+              <div>키보드 옵션 들어간다</div>
+            </div>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
       <div className={cn('button-wrapper')}>
-        <Button>닫기</Button>
-        <Button fontSize={20}>{buttonText}</Button>
+        <Button
+          fontSize={20}
+          onClick={handleClickWriteButton}
+          backgroundColor={selectedOrder ? 'background-primary' : 'background-gray-40'}
+        >
+          후기 작성하기
+        </Button>
       </div>
     </div>
   );

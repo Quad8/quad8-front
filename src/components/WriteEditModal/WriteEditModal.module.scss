@@ -1,8 +1,10 @@
 .container {
   @include flex-column(4rem);
 
-  width: max-content;
-  height: 95vh;
+  width: 90vw;
+  max-width: 78.8rem;
+  height: 90vh;
+  max-height: 95.5rem;
   padding: 4rem;
   overflow-y: scroll;
   border-radius: 1.6rem;
@@ -11,6 +13,33 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+.info-text {
+  @include pretendard-14-500;
+
+  margin-bottom: 2rem;
+  color: $gray-40;
+}
+
+.keyboard-info-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.keyboard-image {
+  width: 14.3rem;
+  height: 14.3rem;
+  overflow: hidden;
+  border: 0.1rem solid $gray-20;
+  border-radius: 0.8rem;
+}
+
+.keyboard-info-title {
+  @include pretendard-18-600;
+
+  color: $black;
 }
 
 .input-wrapper {

@@ -58,3 +58,25 @@ export const postComment = async ({ id, content }: { id: number; content: string
     throw error;
   }
 };
+
+export const getCustomOrderList = async () => {
+  const token = await getCookie('accessToken');
+
+  if (!token) {
+    return null;
+  }
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/community/purchase-history`, {
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

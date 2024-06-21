@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { getAllCommunityPost } from '@/api/communityAPI';
 import Pagination from '@/components/Pagination/Pagination';
 import type { CommunityParamsType, CommunityPostCardDataType } from '@/types/CommunityTypes';
+import { orderListData } from '../(test)/mj/communityData';
 import PostCard from './_components/PostCard';
 import WritePostButton from './_components/WritePostButton';
 import SortDropdown from './_components/SortDropdown';
@@ -23,6 +24,8 @@ export default async function CommunityPage({ searchParams }: CommunityPageProps
   };
 
   const data = await getAllCommunityPost(getAllCommunityParams);
+  // const orderListData = await getCustomOrderList();
+
   const { content, ...rest } = data;
 
   return (
@@ -30,7 +33,7 @@ export default async function CommunityPage({ searchParams }: CommunityPageProps
       <p className={cn('page-name')}>커뮤니티</p>
       <div className={cn('filter-write-button-wrapper')}>
         <SortDropdown />
-        <WritePostButton />
+        <WritePostButton orderListData={orderListData} />
       </div>
       <div className={cn('post-wrapper')}>
         {content.map((cardData: CommunityPostCardDataType) => (
