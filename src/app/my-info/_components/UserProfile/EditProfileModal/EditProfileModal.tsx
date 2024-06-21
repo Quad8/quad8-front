@@ -1,30 +1,35 @@
 'use client';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { ChangeEvent, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { checkNickname, putEditProfile } from '@/api/usersAPI';
 import { Button, InputField, RadioField } from '@/components';
+import ProfileImage from '@/components/ProfileImage/ProfileImage';
 import { Label } from '@/components/parts';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
-import type { Users } from '@/types/profileType';
+import type { Users } from '@/types/userType';
 
 import styles from './EditProfileModal.module.scss';
 
 const cn = classNames.bind(styles);
 
+interface EditProfileModalProps {
+  userData: Users;
+  onComplete: () => void;
+}
+
 const GENDER_OPTION = ['남자', '여자'];
 
-export default function EditProfileModal() {
-  const [nickname, setNickname] = useState('');
+export default function EditProfileModal({ userData, onComplete }: EditProfileModalProps) {
+  const queryClient = useQueryClient();
+  const { birth, gender, nickname, phone, imgUrl } = userData;
 
-  const { data: userData } = useQuery<{ data: Users }>({
-    queryKey: ['userData'],
-  });
-
-  const users = userData?.data ?? { nickname: '', phone: '', gender: '', birth: '' };
+  const [changedNickname, setChangedNickname] = useState(nickname);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const {
     register,
@@ -33,11 +38,12 @@ export default function EditProfileModal() {
     setValue,
     formState: { errors },
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onTouched',
     defaultValues: {
-      nickname: users.nickname,
-      phone: formatPhoneNumber(users.phone),
-      gender: users.gender,
+      nickname,
+      phone: formatPhoneNumber(phone),
+      gender,
+      imgUrl: imgUrl as string | File,
     },
   });
 
@@ -57,43 +63,69 @@ export default function EditProfileModal() {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (payload) => {
-    // console.log(payload);
-    putProfileMutation(
-      { payload },
-      // {
-      //   /** 피드백에 따른 토스트 모달 추가 필요 */
-      //   onSuccess: (res) => {
-      //     console.log('회원정보가 변경되었습니다', res.message);
-      //   },
-      //   onError: () => {},
-      // },
+    const formData = new FormData();
+    formData.append(
+      'updateProfileRequest',
+      JSON.stringify({
+        nickname: payload.nickname,
+        phone: payload.phone,
+        imgUrl: imageFile ? undefined : payload.imgUrl,
+      }),
     );
+
+    if (payload.imgUrl instanceof File) {
+      formData.append('imgFile', payload.imgUrl);
+    }
+
+    putProfileMutation(formData, {
+      onSuccess: (res) => {
+        // console.log(res);
+
+        if (res.status === 'SUCCESS') {
+          toast('회원정보가 변경되었습니다');
+
+          queryClient.invalidateQueries({ queryKey: ['userData'] }).then(() => {
+            onComplete();
+          });
+        } else {
+          // console.log('회원정보 변경 실패');
+        }
+      },
+    });
   };
 
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value);
+    setChangedNickname(e.target.value);
   };
 
   const handleNicknameCheck = () => {
-    if (nickname !== users.nickname) {
+    if (changedNickname !== nickname) {
       checkNicknameMutation(nickname);
     }
   };
 
+  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+    if (!files || files.length === 0) {
+      return;
+    }
+
+    const file = files[0];
+
+    setImageFile(file);
+    setValue('imgUrl', file);
+  };
+
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     const phoneValue = e.target.value;
-    if (/^[\d-]*$/.test(phoneValue)) {
-      const formattedValue = changePhoneNumber(phoneValue);
-      setValue('phone', formattedValue, { shouldValidate: true });
-    }
+    const formattedValue = changePhoneNumber(phoneValue);
+    setValue('phone', formattedValue, { shouldValidate: true });
   };
 
   return (
     <form className={cn('modal')} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={cn('modal-title')}>회원 정보 변경</h1>
-
-      {/* <input /> 이미지 수정 인풋 */}
-
+      <ProfileImage profileImage={imgUrl} width={140} height={140} isEditable onChange={handleChangeImage} />
       <div className={cn('modal-inputs')}>
         <Label htmlFor='nickname' sizeVariant='sm' className={cn('modal-inputs-nickname')}>
           닉네임
@@ -101,6 +133,7 @@ export default function EditProfileModal() {
             <InputField
               id='nickname'
               errorMessage={errors.nickname?.message}
+              currentLength={changedNickname.length}
               {...register('nickname', {
                 maxLength: { value: 16, message: '닉네임 초과' },
                 onChange: handleNicknameChange,
@@ -109,7 +142,7 @@ export default function EditProfileModal() {
             <Button
               type='button'
               onClick={handleNicknameCheck}
-              radius={4}
+              radius={8}
               paddingVertical={8}
               className={cn('nickname-button')}
             >
@@ -117,8 +150,13 @@ export default function EditProfileModal() {
             </Button>
           </div>
         </Label>
-        <InputField label='생년월일' disabled value={users.birth} />
-        <RadioField label='성별' options={GENDER_OPTION} disabled defaultValue={users?.gender} />
+        <InputField label='생년월일' disabled value={birth} />
+        <RadioField
+          label='성별'
+          options={GENDER_OPTION}
+          disabled
+          defaultValue={gender === 'FEMALE' ? '여자' : '남자'}
+        />
         <InputField
           label='휴대폰 번호'
           placeholder='0000-0000'

@@ -4,8 +4,8 @@ import { useContext } from 'react';
 
 import { StepContext } from '@/context';
 import BoardOption from './BoardOption';
-import SwitchOption from './SwitchOption';
 import KeyCapOption from './KeyCapOption';
+import SwitchOption from './SwitchOption';
 
 export default function Option() {
   const { currentStep } = useContext(StepContext);

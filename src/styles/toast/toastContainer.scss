@@ -1,0 +1,61 @@
+/* stylelint-disable */
+
+$toastify: 'Toastify';
+
+.#{$toastify}__toast {
+  display: flex;
+  position: relative;
+  z-index: 0;
+  top: 2rem;
+  box-sizing: border-box;
+  justify-content: space-between;
+  min-height: 6.4rem;
+  margin-bottom: 1rem;
+  padding: 2rem 3rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+  background-color: #787878;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+  color: #fff;
+  font-size: 2rem;
+  cursor: default;
+  touch-action: none;
+  direction: ltr;
+}
+
+.#{$toastify}__toast-container {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 50%;
+  box-sizing: border-box;
+  padding-bottom: 0;
+  transform: translateX(-50%);
+  font-weight: 500;
+}
+
+.#{$toastify}__toast-icon {
+  box-sizing: border-box;
+  width: 2rem;
+  height: 2rem;
+  animation: #616161;
+  border-radius: 100%;
+  animation-fill-mode: both;
+}
+
+.#{$toastify}__toast-body {
+  display: flex;
+  gap: 1rem;
+}
+
+.#{$toastify}__toast--success .#{$toastify}__toast-body .#{$toastify}__toast-icon svg {
+  fill: #1ae710;
+}
+
+.#{$toastify}__toast--error .#{$toastify}__toast-body .#{$toastify}__toast-icon svg {
+  fill: red;
+}
+
+.#{$toastify}__toast--warning .#{$toastify}__toast-body .#{$toastify}__toast-icon svg {
+  fill: #f8fc00;
+}

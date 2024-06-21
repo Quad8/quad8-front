@@ -15,6 +15,7 @@ interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onC
   className?: string;
   onClick?: (e: MouseEvent<HTMLInputElement>) => void;
   onChange?: (value: string) => void;
+  isDate?: boolean;
 }
 
 /**
@@ -44,7 +45,7 @@ interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onC
  */
 
 export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
-  { type = 'text', sizeVariant = 'sm', options, className, onClick, onChange, value, ...rest },
+  { type = 'text', sizeVariant = 'sm', options, className, onClick, onChange, value, isDate, ...rest },
   ref,
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -95,7 +96,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
           onClick={handleDropdownClick}
           {...rest}
         />
-        <SuffixIcon icon='arrow' isOpen={isDropdownOpen} />
+        {isDate ?? <SuffixIcon icon='arrow' isOpen={isDropdownOpen} />}
       </div>
       {isTextFieldVisible && (
         <TextField

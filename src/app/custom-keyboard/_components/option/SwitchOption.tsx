@@ -3,11 +3,10 @@
 import classNames from 'classnames/bind';
 import { useContext, useState } from 'react';
 
+import { Button, Modal } from '@/components';
 import { KeyboardDataContext } from '@/context';
-import type { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
-import Modal from '@/components/Modal/Modal';
 import { CrossCircleIcon } from '@/public/index';
-import { Button } from '@/components';
+import type { CustomKeyboardSwitchTypes } from '@/types/CustomKeyboardTypes';
 import SwitchHelpModal from './SwitchHelpModal';
 
 import styles from './SwitchOption.module.scss';
@@ -52,7 +51,7 @@ export default function SwitchOption() {
       <div className={cn('help')}>
         <div className={cn('help-title')}>
           <div>스위치 선택이 어려우신가요?</div>
-          <CrossCircleIcon width={17} height={17} onClick={() => setIsOpenModal(true)} />
+          <CrossCircleIcon width={17} height={17} fill='#A5A5A5' onClick={() => setIsOpenModal(true)} />
         </div>
         <div className={cn('help-content')}>종류에 따라 타건감이나 소리가 다를 수 있습니다.</div>
       </div>

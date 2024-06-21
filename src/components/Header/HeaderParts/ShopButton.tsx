@@ -24,7 +24,7 @@ export default function ShopButton({ pathname }: ShopButtonProps) {
 
   return (
     <div className={cn('wrapper')} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-      <Link href='/shop' className={cn('button', { 'current-page': pathname === 'shop' })}>
+      <Link href={ROUTER.SHOP.ALL} className={cn('button', { 'current-page': pathname === 'shop' })}>
         SHOP
       </Link>
       {isHover && (
