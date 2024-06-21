@@ -92,7 +92,6 @@
 }
 
 .select {
-  display: flex;
   flex-wrap: wrap;
   align-content: center;
   width: 100%;
@@ -138,10 +137,11 @@
 }
 
 .xs {
+  @include xs;
+
+  padding: 0.8rem 1.6rem;
   border: none;
   background: none;
-  text-align: center;
-  @include xs;
 
   &.checked {
     color: $primary;
