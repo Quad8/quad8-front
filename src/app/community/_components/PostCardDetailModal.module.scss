@@ -50,8 +50,8 @@
 
   position: relative;
   width: 48rem;
-  min-height: 53.6rem;
-  overflow-y: auto;
+  height: 53.6rem;
+  overflow-y: scroll;
 
   & > * {
     width: 44.5rem;

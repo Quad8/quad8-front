@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 
 import { InputField } from '@/components';
-import { getPostDetail } from '@/api/communityAPI';
+import { getPostDetail, postComment } from '@/api/communityAPI';
 import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
 import { formatDateToString } from '@/libs/formatDateToString';
 import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
@@ -30,22 +30,40 @@ interface PostCardDetailModalProps {
 export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps) {
   const commentRef = useRef<HTMLInputElement>(null);
   const [clickedImage, setClickedImage] = useState('');
+
+  const { isPending, isError, data, error, refetch } = useQuery({
+    queryKey: ['postData'],
+    queryFn: () => getPostDetail(cardId),
+  });
+
+  const { mutate: postCommentMutation } = useMutation({
+    mutationFn: postComment,
+    onSuccess: async () => {
+      toast.success('댓글이 성공적으로 등록되었습니다.');
+      if (commentRef.current) {
+        commentRef.current.value = '';
+      }
+      await refetch();
+    },
+    onError: () => {
+      toast.error('댓글 등록 중 오류가 발생하였습니다.');
+    },
+  });
+
   const handleSubmitComment = () => {
     if (commentRef.current) {
-      commentRef.current.value = '';
+      const commentContent = commentRef.current.value;
+      console.log(commentContent);
+      postCommentMutation({ id: cardId, content: commentContent });
     }
   };
+
   useEffect(() => {
     const removeEvent = addEnterKeyEvent({ element: commentRef, callback: handleSubmitComment });
     return () => {
       removeEvent();
     };
-  }, []);
-
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ['postData'],
-    queryFn: () => getPostDetail(cardId),
-  });
+  }, [commentRef]);
 
   if (isPending) {
     return <span>Loading...</span>;
@@ -110,12 +128,12 @@ export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps
           <p className={cn('content')}>{content}</p>
           <PostInteractions likeCount={likeCount} commentCount={commentCount} />
           <div className={cn('comment-wrapper')}>
-            {comments?.map((comment) => (
+            {comments.map((comment) => (
               <Comment
                 key={comment.id}
                 createdTime={comment.createdAt}
                 nickname={comment.nickName}
-                comment={content}
+                comment={comment.content}
                 profile={comment.imgUrl}
               />
             ))}
