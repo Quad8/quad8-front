@@ -1,0 +1,99 @@
+.container {
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  width: 38.3rem;
+  height: 34.6rem;
+  padding: 2rem 3.15rem;
+  animation-name: slide-in-top;
+  animation-duration: 0.5s;
+  border-radius: 1.6rem;
+  background-color: $white;
+  color: $black;
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-4.3rem);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.month-year-select-wrapper,
+.weeks-wrapper {
+  display: flex;
+}
+
+.arrow-left {
+  rotate: 90deg;
+  fill: $black;
+}
+
+.arrow-right {
+  rotate: 270deg;
+  fill: $black;
+}
+
+.disabled-arrow {
+  fill: $gray-20;
+  pointer-events: none;
+}
+
+.month-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.week-text {
+  @include flex-center;
+  @include pretendard-14-400;
+
+  width: calc(100% / 7);
+}
+
+@mixin day-wrapper-circle($background, $fontColor) {
+  width: 3.3rem;
+  height: 3.3rem;
+  margin: auto;
+  border-radius: 100%;
+  background-color: $background;
+  color: $fontColor;
+}
+
+.days-wrapper {
+  @include pretendard-14-400;
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  min-height: calc(3.5rem * 6);
+  margin-top: 1rem;
+
+  & > * {
+    @include flex-center;
+
+    min-height: 3.3rem;
+    padding-top: 0.3rem;
+
+    &:hover {
+      @include day-wrapper-circle($primary-20, $black);
+    }
+  }
+}
+
+.disabled-day {
+  color: $gray-20;
+  pointer-events: none;
+}
+
+.selected-day {
+  @include day-wrapper-circle($primary, $white);
+}

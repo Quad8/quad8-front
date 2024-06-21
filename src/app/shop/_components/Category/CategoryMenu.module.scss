@@ -2,7 +2,6 @@
   @include flex-center;
 
   gap: 1.6rem;
-  margin-bottom: 6.4rem;
 }
 
 .menu-item {
@@ -10,6 +9,7 @@
   @include pretendard-18-400;
 
   width: 10rem;
+  margin-top: 2.6rem;
   padding: 1rem;
   border: 0.1rem solid $primary;
   border-radius: 30rem;

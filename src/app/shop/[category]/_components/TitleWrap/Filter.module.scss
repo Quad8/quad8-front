@@ -1,0 +1,111 @@
+.filter-group,
+.options {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.filter-group:not(:last-child) {
+  border-bottom: 0.1rem solid $gray-10;
+}
+
+.options {
+  flex: 8;
+  flex-wrap: wrap;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.options.price-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.6rem 1rem;
+}
+
+.filter-wrap {
+  @include pretendard-16-400;
+
+  display: flex;
+  flex-direction: column;
+  margin-top: 2.6rem;
+  overflow: hidden;
+  border: 0.1rem solid $gray-10;
+  border-radius: 0.4rem;
+  color: $black;
+}
+
+.filter-group h4 {
+  @include pretendard-16-600;
+
+  flex: 1;
+  padding: 1.6rem;
+  background-color: $primary-20;
+}
+
+.filter-group ul li {
+  padding: 0.4rem 0.8rem;
+  border-radius: 3rem;
+  line-height: 2;
+
+  &:hover,
+  &.selected {
+    background-color: $primary;
+    color: $white;
+  }
+}
+
+.price-input {
+  width: 19.6rem;
+  padding-left: 0.8rem;
+}
+
+.search {
+  padding: 0.8rem 2rem;
+  border: 0.1rem solid $primary;
+  border-radius: 0.6rem;
+  background-color: $primary;
+  color: $white;
+}
+
+.reset-check {
+  @include pretendard-16-500;
+
+  display: flex;
+  padding: 1.6rem;
+  background-color: $gray-5;
+  color: $black;
+  gap: 2rem;
+}
+
+.reset {
+  @include flex-center;
+
+  min-width: 8.2rem;
+  max-height: 2.4rem;
+  gap: 0.4rem;
+}
+
+.selected-item-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.selected-item {
+  @include flex-center;
+
+  color: $primary;
+  line-height: 0.5;
+}
+
+.bar {
+  width: 0.1rem;
+  height: 2.2rem;
+  background-color: $gray-20;
+}
+
+.hidden {
+  display: none;
+}

@@ -9,6 +9,13 @@
     position: relative;
     width: 100%;
     gap: 0.8rem;
+
+    .current-length {
+      position: absolute;
+      top: 50%;
+      right: 1.6rem;
+      transform: translateY(-50%);
+    }
   }
 }
 

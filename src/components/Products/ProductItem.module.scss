@@ -4,6 +4,7 @@
   width: 100%;
   transition: box-shadow 0.3s ease;
   border-radius: 0.8rem;
+  color: $black;
   white-space: wrap;
   gap: 2rem;
 
@@ -35,8 +36,7 @@
 }
 
 .product-title {
-  font-size: 1.8rem;
-  line-height: 2.8rem;
+  @include pretendard-18-600;
 }
 
 .product-details {
@@ -57,5 +57,5 @@
 }
 
 .product-reviews {
-  @include pretendard-16-400;
+  @include pretendard-16-500;
 }

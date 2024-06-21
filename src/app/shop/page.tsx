@@ -1,34 +1,33 @@
-import { getProductList } from '@/api/getProductList';
-import { Dropdown } from '@/components';
+import { getAllProductList } from '@/api/productAPI';
 import Pagination from '@/components/Pagination/Pagination';
-import { ProductParams } from '@/types/ProductItem';
+import type { ProductParams } from '@/types/ProductItem';
 import classNames from 'classnames/bind';
 import CategoryMenu from './_components/Category/CategoryMenu';
 import CategoryTitle from './_components/Category/CategoryTitle';
 import ProductList from './_components/Product/ProductList';
+import Sort from './_components/Sort/Sort';
 import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
 
-const option = ['인기순', '조회순', '최신순', '가격 낮은순', '가격 높은순'];
-
-export default async function ShopAllPage({
-  searchParams,
-}: {
+interface ShopAllPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
-}) {
+}
+
+export default async function ShopAllPage({ searchParams }: ShopAllPageProps) {
   const getAllProductParams: ProductParams = {
-    sort: searchParams.sort,
+    sort: searchParams.sort || 'createdAt_desc',
     page: searchParams.page || '0',
     size: '16',
   };
-  const { data } = await getProductList(getAllProductParams);
+
+  const { data } = await getAllProductList(getAllProductParams);
   const { content, ...rest } = data;
   return (
     <>
       <div className={cn('title-wrap')}>
         <CategoryTitle totalCount={rest.totalElements}>전체상품</CategoryTitle>
-        <Dropdown sizeVariant='xs' options={option} />
+        <Sort />
       </div>
       <CategoryMenu />
       <section className={cn('list-section')}>

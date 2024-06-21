@@ -1,7 +1,6 @@
 export const changePhoneNumber = (value: string) => {
-  let changeValue = value.replace(/[^0-9-]/g, '');
+  let changeValue = value.replace(/[^0-9]/g, '');
 
-  changeValue = changeValue.replace(/-/g, '');
   if (changeValue.length > 8) {
     changeValue = changeValue.slice(0, 8);
   }
