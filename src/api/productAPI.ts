@@ -24,7 +24,7 @@ export const getProductDetail = async (productId: string): Promise<ProductType> 
 
 export async function getAllProductList({ sort, page, size }: ProductParams): Promise<ProductListResponse> {
   try {
-    const response = await fetch(`${baseURL}/api/v1/product/get/all-list?&sort=${sort}&page=${page}&size=${size}`);
+    const response = await fetch(`${baseURL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`);
     const rawData: ProductListResponse = await response.json();
 
     return rawData;
@@ -55,7 +55,7 @@ export async function getCategoryProductList({
       ...(maxPrice && { maxPrice: encodeURIComponent(maxPrice as string) }),
     }).toString();
 
-    const response = await fetch(`${baseURL}/api/v1/product/get/category-list?${queryParams}`);
+    const response = await fetch(`${baseURL}/api/v1/product/category/${keyword}?${queryParams}`);
 
     if (!response.ok) {
       const errorDetails = await response.text();
@@ -72,7 +72,7 @@ export async function getCategoryProductList({
 
 export async function getKeydeukPick(param: TabType) {
   try {
-    const response = await fetch(`${baseURL}/api/v1/product/get/keydeuk-pick?&param=${param}`);
+    const response = await fetch(`${baseURL}/api/v1/product/keydeuk-pick?&param=${param}`);
     const rawData: KeydeukPickResponse = await response.json();
 
     return rawData.data;
@@ -83,7 +83,7 @@ export async function getKeydeukPick(param: TabType) {
 
 export async function getKeydeukBest() {
   try {
-    const response = await fetch(`${baseURL}/api/v1/product/get/keyduek-best`);
+    const response = await fetch(`${baseURL}/api/v1/product/keyduek-best`);
     const rawData: KeydeukPickResponse = await response.json();
 
     return rawData.data;
