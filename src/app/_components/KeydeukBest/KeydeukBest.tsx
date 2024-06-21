@@ -36,7 +36,7 @@ export default function KeydeukBest() {
             {data?.map((product) => {
               return (
                 <SwiperSlide key={product.id}>
-                  <ProductItem size='lg' {...product} />
+                  <ProductItem size='lg' {...product} hasShop={false} />
                 </SwiperSlide>
               );
             })}

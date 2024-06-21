@@ -51,7 +51,7 @@ export default function KeydeukPick() {
           <ul className={cn('product-list')}>
             {data?.map((product, i) => {
               const key = `productItem-${i}`;
-              return <ProductItem key={key} size='lg' {...product} />;
+              return <ProductItem key={key} size='lg' {...product} hasShop={false} />;
             })}
           </ul>
         )}
