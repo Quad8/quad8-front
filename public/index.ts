@@ -1,3 +1,4 @@
+/** svgs */
 export { default as AlertIcon } from './svgs/alertIcon.svg';
 export { default as CameraIcon } from './svgs/camera.svg';
 export { default as CanvasLoadingIcon } from './svgs/canvasLoading.svg';
@@ -8,7 +9,9 @@ export { default as CheckboxCircleIcon } from './svgs/checkboxCircle.svg';
 export { default as ChevronIcon } from './svgs/chevron.svg';
 
 export { default as CommentIcon } from './svgs/comment.svg';
+export { default as CreditCard } from './svgs/creditCard.svg';
 export { default as CrossCircleIcon } from './svgs/crossCircle.svg';
+export { default as Cube } from './svgs/cube.svg';
 
 export { default as DeleteIcon } from './svgs/delete.svg';
 export { default as EyeOffIcon } from './svgs/eyeOff.svg';
@@ -32,6 +35,7 @@ export { default as UserIcon } from './svgs/user.svg';
 export { default as VerticalTripleDotIcon } from './svgs/verticalTripleDot.svg';
 export { default as WarnCircleIcon } from './svgs/warnCircle.svg';
 
+/** images */
 export { default as blackSwitchImg } from './images/blackSwitch.jpg';
 export { default as blueSwitchImg } from './images/blueSwitch.jpg';
 export { default as brownSwitchImg } from './images/brownSwitch.jpg';
