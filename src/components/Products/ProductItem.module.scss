@@ -26,6 +26,7 @@
   width: 100%;
   height: 27.4rem;
   overflow: hidden;
+  border: 0.1rem solid #eee;
   border-radius: 0.8rem;
 }
 
@@ -42,6 +43,13 @@
 
 .product-title {
   @include pretendard-18-600;
+
+  display: -webkit-box;
+  height: 5.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .product-details {
