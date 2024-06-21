@@ -35,7 +35,7 @@ export default async function Page({
     <div className={cn('inner')}>
       <TitleWrap category={category} totalCount={rest.totalElements} />
       <section className={cn('list-section')}>
-        <ProductList content={content} size='lg' category={category} />
+        <ProductList content={content} size='lg' hasShop />
         <Pagination {...rest} searchParams={searchParams} />
       </section>
     </div>

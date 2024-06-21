@@ -1,3 +1,5 @@
+import { CategoryKey } from './Category';
+
 export interface Product {
   id: number;
   name: string;
@@ -5,6 +7,7 @@ export interface Product {
   reviewscount: number;
   views: number;
   thumbnail: string;
+  category: CategoryKey;
 }
 
 export interface KeydeukPickResponse {
