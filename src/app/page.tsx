@@ -1,3 +1,4 @@
+import Banner from './_components/Banner/Banner';
 import CustomGuide from './_components/Guide/CustomGuide';
 import Hero from './_components/Hero/Hero';
 import KeydeukBest from './_components/KeydeukBest/KeydeukBest';
@@ -12,6 +13,7 @@ export default async function Home() {
       <TextTickerSection />
       <KeydeukPick />
       <KeydeukBest />
+      <Banner />
     </>
   );
 }
