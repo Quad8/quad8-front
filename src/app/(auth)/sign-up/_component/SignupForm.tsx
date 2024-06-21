@@ -1,15 +1,15 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
-import { ChangeEvent } from 'react';
-import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { ChangeEvent } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { getCheckEmailDuplication, getCheckNicknameDuplication, postSignup } from '@/api/authAPI';
+import { Button, InputField, RadioField } from '@/components';
+import { ERROR_MESSAGE, PLACEHOLDER, REGEX } from '@/constants/signUpConstants';
 import { changePhoneNumber, unFormatPhoneNumber } from '@/libs';
-import { Button, RadioField, InputField } from '@/components';
-import { REGEX, ERROR_MESSAGE, PLACEHOLDER } from '@/constants/signUpConstants';
 import { CaretRightIcon, CheckboxCircleIcon } from '@/public/index';
 
 import styles from './SignupForm.module.scss';
@@ -32,6 +32,11 @@ const defaultInputValues = {
 
 const NOT_CHECKED = '#A5A5A5';
 const CHECKED = '#4968f6';
+
+const GENDER_OPTION = [
+  { label: '남자', value: 'MALE' },
+  { label: '여자', value: 'FEMALE' },
+];
 
 export default function SignupForm() {
   const router = useRouter();
@@ -239,7 +244,7 @@ export default function SignupForm() {
             />
             <RadioField
               label='성별'
-              options={['남자', '여자']}
+              options={GENDER_OPTION}
               errorMessage={errors.gender?.message}
               {...registers.gender}
             />
