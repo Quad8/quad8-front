@@ -20,9 +20,14 @@
   padding-left: 0.3rem;
 }
 
-.custom-title-wrapper {
+.custom-wrapper {
+  width: 100%;
+}
+
+.content-title-wrapper {
   display: flex;
   align-items: center;
   gap: 2rem;
   padding: 1rem 0;
+  border-bottom: 0.1rem solid $gray-30;
 }

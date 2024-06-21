@@ -6,6 +6,7 @@ import CustomOption from '@/components/CustomOption/CustomOption';
 import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 import CardCheckBox from './CardCheckBox';
 import styles from './CartCard.module.scss';
+import ShopOption from './ShopOption';
 
 const cn = classNames.bind(styles);
 
@@ -19,7 +20,8 @@ interface ShopCardProps {
   cardData: ShopDataType;
 }
 export default function CartCard({ cardData, type }: CustomCardProps | ShopCardProps) {
-  const imageURL = type === 'custom' ? (cardData as CustomDataType).imgUrl : (cardData as ShopDataType).thumbsnail;
+  const imageURL = type === 'custom' ? cardData.imgUrl : cardData.thumbsnail;
+  const title = type === 'custom' ? '키득 커스텀 키보드' : cardData.productTitle;
 
   return (
     <div className={cn('wrapper')}>
@@ -30,8 +32,8 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
         <div className={cn('keyboard-wrapper')}>
           <Image src={imageURL} width={104} height={104} alt='이미지' className={cn('image')} />
           <div className={cn('information-wrapper')}>
-            <div className={cn('title')}>키득 커스텀 키보드</div>
-            {type === 'custom' && (
+            <div className={cn('title')}> {title}</div>
+            {type === 'custom' ? (
               <CustomOption
                 boardType={cardData.type === 'full' ? '풀 배열' : '텐키리스'}
                 texture={cardData.texture === 'metal' ? '금속' : '플라스틱'}
@@ -43,6 +45,8 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
                 pointSetColor={cardData.pointSetColor as string | null}
                 individualColor={cardData.individualColor as Partial<Record<CustomKeyboardKeyTypes, string>>}
               />
+            ) : (
+              <ShopOption optionName={cardData.optionName} count={cardData.count} />
             )}
           </div>
         </div>

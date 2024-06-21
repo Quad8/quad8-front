@@ -2,9 +2,10 @@ import classNames from 'classnames/bind';
 
 import TotalCheckBox from './_components/TotalCheckBox';
 import DeleteButton from './_components/DeleteButton';
+import CustomCardList from './_components/CustomCardList';
+import ShopCardList from './_components/ShopCardList';
 
 import styles from './page.module.scss';
-import CustomList from './_components/CustomList';
 
 const cn = classNames.bind(styles);
 
@@ -17,11 +18,17 @@ export default function CartPage() {
         <DeleteButton>선택 삭제</DeleteButton>
       </div>
       <div className={cn('content-wrapper')}>
-        <div>
-          <div className={cn('custom-title-wrapper')}>
+        <div className={cn('custom-wrapper')}>
+          <div className={cn('content-title-wrapper')}>
             <TotalCheckBox type='custom' />
           </div>
-          <CustomList />
+          <CustomCardList />
+        </div>
+        <div className={cn('shop-wrapper')}>
+          <div className={cn('content-title-wrapper')}>
+            <TotalCheckBox type='shop' />
+          </div>
+          <ShopCardList />
         </div>
       </div>
     </div>

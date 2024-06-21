@@ -1,0 +1,5 @@
+.wrapper {
+  @include flex-column(4rem);
+
+  padding-top: 2rem;
+}

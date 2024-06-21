@@ -1,3 +1,4 @@
+import classNames from 'classnames/bind';
 import type {
   CustomKeyboardPointKeyType,
   CustomKeyboardSwitchTypes,
@@ -9,6 +10,9 @@ import type {
 import { RefObject } from 'react';
 import FirstOption from './FirstOption';
 import SecondOption from './SecondOption';
+import styles from './CustomOption.module.scss';
+
+const cn = classNames.bind(styles);
 
 interface CustomOptionProps {
   wrapperRef?: RefObject<HTMLDivElement> /* for positioning tooltip in scroll wrapper */;
@@ -36,7 +40,7 @@ export default function CustomOption({
   individualColor,
 }: CustomOptionProps) {
   return (
-    <>
+    <div className={cn('wrapper')}>
       <FirstOption
         wrapperRef={wrapperRef}
         boardType={boardType}
@@ -54,6 +58,6 @@ export default function CustomOption({
           individualColor={individualColor}
         />
       )}
-    </>
+    </div>
   );
 }
