@@ -1,0 +1,61 @@
+.address {
+  @include pretendard-16-500;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 4rem;
+  border-radius: 0.8rem;
+  color: $gray-50;
+
+  .address-textbox {
+    @include flex-column(0.2rem);
+
+    .address-namebox {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+
+      .address-name {
+        @include pretendard-18-700;
+
+        color: $black;
+        font-weight: bold;
+      }
+
+      .address-default-badge {
+        @include pretendard-14-500;
+
+        padding: 0.2rem 1rem;
+        border-radius: 30rem;
+        background: $primary-60;
+        color: $white;
+      }
+    }
+  }
+
+  .button-box {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+
+    .hr {
+      height: 1.2rem;
+      border-right: 0.1rem solid $gray-20;
+    }
+
+    .button {
+      flex-shrink: 0;
+    }
+  }
+}
+
+.address-default {
+  background: $primary-5;
+}
+
+.postcode-embed {
+  padding: 4.8rem;
+  border-radius: 2.4rem;
+  background-color: $white;
+}
