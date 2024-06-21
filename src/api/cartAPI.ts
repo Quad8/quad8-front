@@ -18,3 +18,19 @@ export const getCartData = async () => {
     throw error;
   }
 };
+
+export const deleteCartData = async (idList: string[]) => {
+  const accessToken = await getCookie('accessToken');
+  try {
+    await fetch(`${BASEURL}/api/v1/cart/delete`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ deletedProducts: idList }),
+    });
+  } catch (error) {
+    throw error;
+  }
+};

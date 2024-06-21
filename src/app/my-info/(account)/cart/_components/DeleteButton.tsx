@@ -2,11 +2,13 @@
 
 import { ReactNode, useContext, useState } from 'react';
 import classNames from 'classnames/bind';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Button } from '@/components';
 import { CartDataContext } from '@/context/CartDataContext';
 import Dialog from '@/components/Dialog/Dialog';
 
+import { deleteCartData } from '@/api/cartAPI';
 import styles from './DeleteButton.module.scss';
 
 const cn = classNames.bind(styles);
@@ -16,9 +18,13 @@ interface DeleteButtonProps {
 }
 
 export default function DeleteButton({ children }: DeleteButtonProps) {
+  const queryClient = useQueryClient();
   const [isOpenConfirmDialog, setIsOpenConfirmDialog] = useState(false);
   const [isOpenAlertDialog, setIsOpenAlertDialog] = useState(false);
-  const { checkedCustomList, checkedShopList, deleteCheckedData } = useContext(CartDataContext);
+  const { checkedCustomList, checkedShopList } = useContext(CartDataContext);
+  const deleteCart = useMutation({
+    mutationFn: (idList: string[]) => deleteCartData(idList),
+  });
 
   const handleConfirmDialog = (value: boolean) => {
     setIsOpenConfirmDialog(value);
@@ -32,9 +38,13 @@ export default function DeleteButton({ children }: DeleteButtonProps) {
     /* 삭제 api 보내기 */
     const checkedCustomIdList = Object.keys(checkedCustomList).filter((id) => checkedCustomList[id]);
     const checkedShopIdList = Object.keys(checkedShopList).filter((id) => checkedShopList[id]);
-    deleteCheckedData(checkedCustomIdList, checkedShopIdList);
-    handleConfirmDialog(false);
-    handleAlertDialog(true);
+    deleteCart.mutate([...checkedCustomIdList, ...checkedShopIdList], {
+      onSuccess: () => {
+        handleConfirmDialog(false);
+        handleAlertDialog(true);
+        queryClient.invalidateQueries({ queryKey: ['cartData'] });
+      },
+    });
   };
 
   return (

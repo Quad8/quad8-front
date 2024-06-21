@@ -12,7 +12,6 @@ interface CartDataContextType {
   updateAllCheckedShop: (value: boolean) => void;
   updateCheckedCustom: (id: number) => void;
   updateCheckedShop: (id: number) => void;
-  deleteCheckedData: (customId: string[], shopId: string[]) => void;
 }
 
 export const CartDataContext = createContext<CartDataContextType>({
@@ -22,7 +21,6 @@ export const CartDataContext = createContext<CartDataContextType>({
   updateAllCheckedShop: () => {},
   updateCheckedCustom: () => {},
   updateCheckedShop: () => {},
-  deleteCheckedData: () => {},
 });
 
 export function CartDataContextProvider({ children }: PropsWithChildren) {
@@ -56,25 +54,6 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
     setCheckedShopList((prev) => ({ ...prev, [id]: !prev[String(id)] }));
   }, []);
 
-  useEffect(() => {}, []);
-
-  const deleteCheckedData = useCallback((checkedCustomIdList: string[], checkedShopIdList: string[]) => {
-    setCheckedCustomList((prev) => {
-      const newValue = { ...prev };
-      checkedCustomIdList.forEach((id) => {
-        delete newValue[id];
-      });
-      return newValue;
-    });
-    setCheckedShopList((prev) => {
-      const newValue = { ...prev };
-      checkedShopIdList.forEach((id) => {
-        delete newValue[id];
-      });
-      return newValue;
-    });
-  }, []);
-
   const value = useMemo(
     () => ({
       checkedCustomList,
@@ -83,7 +62,6 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
       updateAllCheckedShop,
       updateCheckedCustom,
       updateCheckedShop,
-      deleteCheckedData,
     }),
     [
       checkedCustomList,
@@ -92,7 +70,6 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
       updateAllCheckedShop,
       updateCheckedCustom,
       updateCheckedShop,
-      deleteCheckedData,
     ],
   );
 
