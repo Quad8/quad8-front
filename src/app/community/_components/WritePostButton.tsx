@@ -45,6 +45,11 @@ export default function WritePostButton({ orderListData }: WritePostButtonProps)
     setIsOpenOrderListModal(true);
   };
 
+  const handleSuccessPost = () => {
+    setIsOpenReviewModal(false);
+    setIsOpenOrderListModal(false);
+  };
+
   return (
     <div>
       <Button width={120} fontSize={14} paddingVertical={8} radius={4} onClick={openOrderListModal}>
@@ -64,7 +69,7 @@ export default function WritePostButton({ orderListData }: WritePostButtonProps)
           </Modal>
           {selectedOrder && (
             <Modal isOpen={isOpenReviewModal} onClose={closeReviewModal}>
-              <WriteEditModal keyboardInfo={selectedOrder} isCustomReview />
+              <WriteEditModal keyboardInfo={selectedOrder} isCustomReview onSuccessReview={handleSuccessPost} />
             </Modal>
           )}
         </>

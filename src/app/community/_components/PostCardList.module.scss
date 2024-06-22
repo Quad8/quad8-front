@@ -1,0 +1,13 @@
+.filter-write-button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 9rem;
+}
+
+.post-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-bottom: 8rem;
+  gap: 10rem 3.3rem;
+}

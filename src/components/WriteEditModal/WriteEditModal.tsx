@@ -18,13 +18,20 @@ const cn = classNames.bind(styles);
 interface WriteEditModalProps {
   keyboardInfo: PostCardDetailModalCustomKeyboardType;
   isCustomReview?: boolean;
+  onSuccessReview: () => void;
+  refetch?: () => void;
 }
 
 const TITLE_MAX_LENGTH = 20;
 const TITLE_PLACEHOLDER = '미 입력 시 키득 커스텀 키보드로 등록됩니다.';
 const CONTENT_PLACEHOLDER = '최소 20자 이상 입력해주세요';
 
-export default function WriteEditModal({ keyboardInfo, isCustomReview }: WriteEditModalProps) {
+export default function WriteEditModal({
+  keyboardInfo,
+  isCustomReview,
+  onSuccessReview,
+  refetch,
+}: WriteEditModalProps) {
   const {
     register,
     handleSubmit,
@@ -38,6 +45,8 @@ export default function WriteEditModal({ keyboardInfo, isCustomReview }: WriteEd
     mutationFn: postCreateCustomReview,
     onSuccess: (res) => {
       if (res.status === 'SUCCESS') {
+        onSuccessReview();
+        refetch?.();
         toast.success('리뷰가 달렸습니다.');
       } else {
         toast.error('데이터를 불러오는 중 오류가 발생하였습니다.');
@@ -64,11 +73,13 @@ export default function WriteEditModal({ keyboardInfo, isCustomReview }: WriteEd
       title: payload.title,
       content: payload.content,
     };
-
-    const { files } = payload;
-
     fetchFormData.append('postDto', JSON.stringify(postDto));
-    fetchFormData.append('files', files);
+
+    if (payload.files && payload.files.length > 0) {
+      for (let i = 0; i < payload.files.length; i += 1) {
+        fetchFormData.append('files', payload.files[i] as File);
+      }
+    }
 
     postCreatePostMutation(fetchFormData);
   };
