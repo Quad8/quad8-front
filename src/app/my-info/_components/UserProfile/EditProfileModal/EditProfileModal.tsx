@@ -10,6 +10,7 @@ import { checkNickname, putEditProfile } from '@/api/usersAPI';
 import { Button, InputField, RadioField } from '@/components';
 import ProfileImage from '@/components/ProfileImage/ProfileImage';
 import { Label } from '@/components/parts';
+import { GENDER_OPTION } from '@/constants/dropdownOptions';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
 import type { Users } from '@/types/userType';
 
@@ -21,8 +22,6 @@ interface EditProfileModalProps {
   userData: Users;
   onComplete: () => void;
 }
-
-const GENDER_OPTION = ['남자', '여자'];
 
 export default function EditProfileModal({ userData, onComplete }: EditProfileModalProps) {
   const queryClient = useQueryClient();
@@ -69,6 +68,7 @@ export default function EditProfileModal({ userData, onComplete }: EditProfileMo
       JSON.stringify({
         nickname: payload.nickname,
         phone: payload.phone,
+        gender,
         imgUrl: imageFile ? undefined : payload.imgUrl,
       }),
     );
@@ -151,12 +151,7 @@ export default function EditProfileModal({ userData, onComplete }: EditProfileMo
           </div>
         </Label>
         <InputField label='생년월일' disabled value={birth} />
-        <RadioField
-          label='성별'
-          options={GENDER_OPTION}
-          disabled
-          defaultValue={gender === 'FEMALE' ? '여자' : '남자'}
-        />
+        <RadioField label='성별' name='성별' options={GENDER_OPTION} readOnly disabled defaultValue={gender} />
         <InputField
           label='휴대폰 번호'
           placeholder='0000-0000'

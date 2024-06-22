@@ -1,9 +1,9 @@
 import { ROUTER } from '@/constants/route';
 import classNames from 'classnames/bind';
+import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
 
 import { getCookie } from '@/libs/manageCookie';
-import { redirect } from 'next/navigation';
 import { SNB } from './_components';
 
 import styles from './layout.module.scss';
