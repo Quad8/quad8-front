@@ -21,7 +21,7 @@ const TITLE = {
 };
 
 export default function TotalCheckBox({ type }: TotalCheckBoxProps) {
-  const { checkedCustomList, checkedShopList, updateAllCheckedCustom, updateAllCheckedShop } =
+  const { checkedCustomList, checkedShopList, updateCheckedAllCustom, updateCheckedAllShop } =
     useContext(CartDataContext);
 
   const totalCustom = Object.values(checkedCustomList).length;
@@ -60,30 +60,30 @@ export default function TotalCheckBox({ type }: TotalCheckBoxProps) {
   const handleCheck = () => {
     if (type === 'total') {
       if (isCheckedAllEntire) {
-        updateAllCheckedCustom(false);
-        updateAllCheckedShop(false);
+        updateCheckedAllCustom(false);
+        updateCheckedAllShop(false);
         return;
       }
-      updateAllCheckedCustom(true);
-      updateAllCheckedShop(true);
+      updateCheckedAllCustom(true);
+      updateCheckedAllShop(true);
       return;
     }
 
     if (type === 'custom') {
       if (isCheckedAllCustom) {
-        updateAllCheckedCustom(false);
+        updateCheckedAllCustom(false);
         return;
       }
-      updateAllCheckedCustom(true);
+      updateCheckedAllCustom(true);
       return;
     }
 
     if (type === 'shop') {
       if (isCheckedAllShop) {
-        updateAllCheckedShop(false);
+        updateCheckedAllShop(false);
         return;
       }
-      updateAllCheckedShop(true);
+      updateCheckedAllShop(true);
     }
   };
   return (

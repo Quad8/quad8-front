@@ -9,8 +9,8 @@ import type { CartAPIDataType } from '@/types/CartTypes';
 interface CartDataContextType {
   checkedCustomList: Record<string, boolean>;
   checkedShopList: Record<string, boolean>;
-  updateAllCheckedCustom: (value: boolean) => void;
-  updateAllCheckedShop: (value: boolean) => void;
+  updateCheckedAllCustom: (value: boolean) => void;
+  updateCheckedAllShop: (value: boolean) => void;
   updateCheckedCustom: (id: number) => void;
   updateCheckedShop: (id: number) => void;
 }
@@ -18,8 +18,8 @@ interface CartDataContextType {
 export const CartDataContext = createContext<CartDataContextType>({
   checkedCustomList: {},
   checkedShopList: {},
-  updateAllCheckedCustom: () => {},
-  updateAllCheckedShop: () => {},
+  updateCheckedAllCustom: () => {},
+  updateCheckedAllShop: () => {},
   updateCheckedCustom: () => {},
   updateCheckedShop: () => {},
 });
@@ -44,11 +44,11 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
     setCheckedShopList(Object.fromEntries(shopData.map((element) => [element.id, false])));
   }, [isSuccess, data]);
 
-  const updateAllCheckedCustom = useCallback((value: boolean) => {
+  const updateCheckedAllCustom = useCallback((value: boolean) => {
     setCheckedCustomList((prev) => Object.fromEntries(Object.entries(prev).map((element) => [element[0], value])));
   }, []);
 
-  const updateAllCheckedShop = useCallback((value: boolean) => {
+  const updateCheckedAllShop = useCallback((value: boolean) => {
     setCheckedShopList((prev) => Object.fromEntries(Object.entries(prev).map((element) => [element[0], value])));
   }, []);
 
@@ -64,16 +64,16 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
     () => ({
       checkedCustomList,
       checkedShopList,
-      updateAllCheckedCustom,
-      updateAllCheckedShop,
+      updateCheckedAllCustom,
+      updateCheckedAllShop,
       updateCheckedCustom,
       updateCheckedShop,
     }),
     [
       checkedCustomList,
       checkedShopList,
-      updateAllCheckedCustom,
-      updateAllCheckedShop,
+      updateCheckedAllCustom,
+      updateCheckedAllShop,
       updateCheckedCustom,
       updateCheckedShop,
     ],
