@@ -1,3 +1,4 @@
+import { BLUR_URL } from '@/constants/blurImageUrl';
 import type { ReviewImage } from '@/types/ProductReviewTypes';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
@@ -24,6 +25,8 @@ export default function RenderImages({ reviewImgs, className, width, height, alt
           width={width}
           height={height}
           alt={`${altPrefix} ${idx + 1}`}
+          placeholder='blur'
+          blurDataURL={BLUR_URL}
         />
       ))}
     </>
