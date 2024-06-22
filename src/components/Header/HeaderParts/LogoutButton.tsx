@@ -9,6 +9,7 @@ const cn = classNames.bind(styles);
 
 export default function LogoutButton() {
   const router = useRouter();
+
   const handleClickButton = () => {
     deleteCookie('accessToken');
     router.refresh();

@@ -11,19 +11,19 @@
 
 @mixin sm {
   height: 4rem;
-  padding: 0.8rem 3.2rem 0.8rem 1.6rem;
+  padding: 0.8rem 4rem 0.8rem 1.6rem;
   @include pretendard-16-400;
 }
 
 @mixin md {
   height: 4.4rem;
-  padding: 1rem 3.2rem 1rem 1.6rem;
+  padding: 1rem 4rem 1rem 1.6rem;
   @include pretendard-16-400;
 }
 
 @mixin lg {
   height: 4.4rem;
-  padding: 1rem 3.2rem 1rem 1.6rem;
+  padding: 1rem 4rem 1rem 1.6rem;
   @include pretendard-18-400;
 }
 
@@ -39,6 +39,7 @@
   border-radius: 0.8rem;
   outline: none;
   color: $black;
+  text-align: left;
 
   &.red {
     border: 0.1rem solid $red;
@@ -62,39 +63,8 @@
   }
 }
 
-.radio {
-  width: 1.6rem;
-  height: 1.6rem;
-  margin: 0;
-  margin-right: 0.8rem;
-  margin-bottom: 0.4rem;
-  border: 0.1em solid $gray-40;
-  border-radius: 9999rem;
-  vertical-align: middle;
-  appearance: none;
-  @include pretendard-18-400;
-
-  &:hover {
-    border: 0.4rem solid $primary-60;
-
-    &:disabled {
-      border: 0.1em solid $gray-40;
-    }
-  }
-
-  &:checked {
-    border: 0.4rem solid $primary;
-
-    &:disabled {
-      border: 0.4rem solid $gray-50;
-    }
-  }
-}
-
 .select {
-  display: flex;
   flex-wrap: wrap;
-  align-content: center;
   width: 100%;
   border-radius: 0.4rem;
   background: $white;
@@ -118,6 +88,7 @@
   border: 0.1rem solid $white;
   border-radius: 0;
   background-color: $white;
+  cursor: pointer;
 
   &:hover {
     background: $primary-20;
@@ -138,10 +109,16 @@
 }
 
 .xs {
+  @include xs;
+
+  padding: 0.8rem 1.6rem;
   border: none;
   background: none;
-  text-align: center;
-  @include xs;
+
+  &.select {
+    padding: 0.8rem 3.2rem 0.8rem 1.6rem;
+    text-align: center;
+  }
 
   &.checked {
     color: $primary;

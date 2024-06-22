@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 
-import ArrowIcon from '@/public/svgs/chevron.svg';
 import { Dropdown } from '@/components';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { ChevronIcon as ArrowIcon } from '@/public/index';
 import RenderDays from './Days';
 
 import styles from './Calendar.module.scss';
@@ -65,6 +65,8 @@ export default function Calendar({ selectedDate, onSetSelectedDate, onCloseCalen
             sizeVariant='xs'
             value={`${currentDate.getMonth() + 1}월`}
             onChange={(month) => handleMonthSelect(month)}
+            isDate
+            maxHeight={4}
           />
           {currentDate.getFullYear()}
           <ArrowIcon className={cn('arrow-right')} onClick={handleNextMonth} width={24} height={24} />
