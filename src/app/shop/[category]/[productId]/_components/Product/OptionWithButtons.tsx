@@ -30,6 +30,7 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptionType[]>([]);
   const totalPrice = selectedOptions.reduce((acc, option) => acc + option.count * price, 0);
   const [noOptionCount, setNoOptionCount] = useState<number>(1);
+  const noOptionTotalPrice = price * noOptionCount;
 
   const handleChangeOption = (value: string) => {
     if (value !== OPTION_PLACEHOLDER) {
@@ -104,7 +105,7 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
       <div className={cn('total-price-box')}>
         <h3>총 금액</h3>
         <h1>
-          <span>{totalPrice.toLocaleString()}</span>원
+          <span>{optionList?.length ? totalPrice.toLocaleString() : noOptionTotalPrice.toLocaleString()}</span> 원
         </h1>
       </div>
       <div className={cn('button-section')}>

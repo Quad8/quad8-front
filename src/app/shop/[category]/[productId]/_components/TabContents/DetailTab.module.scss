@@ -1,11 +1,11 @@
 .tab-container {
-  min-height: 800rem;
+  min-height: 150rem;
 }
 
 .tab-buttons {
   display: flex;
   position: sticky;
-  top: 8rem;
+  top: 7.9rem;
   justify-content: center;
   height: 6.4rem;
   border-top: 0.1rem solid $gray-10;
@@ -30,10 +30,5 @@
 }
 
 .content-container {
-  height: 50rem;
-}
-
-.tab-content {
-  height: 80rem;
-  margin-bottom: 15rem;
+  padding: 0 12rem;
 }
