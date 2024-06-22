@@ -22,7 +22,11 @@ interface DetailTabProps {
 }
 
 export default function DetailTab({ detailsImg, reviewData }: DetailTabProps) {
-  const tabRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
+  const [tabRefs] = useState([
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+  ]);
 
   const tabData: TabData[] = [
     { id: 0, button: '상품 상세 정보', content: <DetailImage detailsImg={detailsImg} />, ref: tabRefs[0] },
@@ -57,7 +61,7 @@ export default function DetailTab({ detailsImg, reviewData }: DetailTabProps) {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [tabRefs]);
 
   return (
     <div className={cn('tab-container')}>
