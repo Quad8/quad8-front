@@ -24,12 +24,17 @@ export const CartDataContext = createContext<CartDataContextType>({
 });
 
 export function CartDataContextProvider({ children }: PropsWithChildren) {
-  const [checkedCustomList, setCheckedCustomList] = useState<Record<string, boolean>>({});
-  const [checkedShopList, setCheckedShopList] = useState<Record<string, boolean>>({});
   const { data, isSuccess } = useQuery({ queryKey: ['cartData'], queryFn: getCartData }) as {
     data: CartAPIDataType;
     isSuccess: boolean;
   };
+  const [checkedCustomList, setCheckedCustomList] = useState<Record<string, boolean>>(
+    Object.fromEntries((isSuccess ? data.CUSTOM : []).map((element) => [element.id, false])),
+  );
+  const [checkedShopList, setCheckedShopList] = useState<Record<string, boolean>>(
+    Object.fromEntries((isSuccess ? data.SHOP : []).map((element) => [element.id, false])),
+  );
+
   useEffect(() => {
     const customData = isSuccess ? data.CUSTOM : [];
     const shopData = isSuccess ? data.SHOP : [];

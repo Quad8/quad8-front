@@ -14,19 +14,23 @@ interface CountInputProps {
 }
 
 export default forwardRef<HTMLInputElement, CountInputProps>(function CountInput({ value, onChange }, ref, ...rest) {
-  const [count, setCount] = useState<number>(value ?? 1);
+  const [count, setCount] = useState<number | ''>(value ?? 1);
   const handleClickButton = (type: 'decrease' | 'increase') => {
     if (type === 'decrease') {
-      setCount((prev) => Math.max(prev - 1, 1));
+      setCount((prev) => Math.max(Number(prev) - 1, 1));
       return;
     }
-    setCount((prev) => Math.min(prev + 1, 99));
+    setCount((prev) => Math.min(Number(prev) + 1, 99));
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.currentTarget.value === '') {
+      setCount('');
+      return;
+    }
     const newValue = Number(e.currentTarget.value);
     if (!newValue) {
-      setCount(0);
+      setCount(1);
       return;
     }
     if (newValue >= 100) {
@@ -42,6 +46,10 @@ export default forwardRef<HTMLInputElement, CountInputProps>(function CountInput
   };
 
   useEffect(() => {
+    if (count === '') {
+      return;
+    }
+
     if (onChange) {
       onChange(count);
     }
@@ -49,7 +57,7 @@ export default forwardRef<HTMLInputElement, CountInputProps>(function CountInput
   return (
     <div className={cn('wrapper')}>
       <button type='button' className={cn('button', 'left')} onClick={() => handleClickButton('decrease')}>
-        <DashIcon width={12} height={14} className={cn('icon', { disabled: count <= 1 })} />
+        <DashIcon width={12} height={14} className={cn('icon', { disabled: Number(count) <= 1 })} />
       </button>
       <Input
         className={cn('input')}
@@ -61,10 +69,10 @@ export default forwardRef<HTMLInputElement, CountInputProps>(function CountInput
       />
       <button
         type='button'
-        className={cn('button', 'right', { disabled: count >= 99 })}
+        className={cn('button', 'right', { disabled: Number(count) >= 99 })}
         onClick={() => handleClickButton('increase')}
       >
-        <CrossIcon width={12.5} height={12.5} className={cn('icon', { disabled: count >= 99 })} />
+        <CrossIcon width={12.5} height={12.5} className={cn('icon', { disabled: Number(count) >= 99 })} />
       </button>
     </div>
   );
