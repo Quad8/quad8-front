@@ -27,7 +27,7 @@ export default async function CommunityPage({ searchParams }: CommunityPageProps
   return (
     <div className={cn('container')}>
       <p className={cn('page-name')}>커뮤니티</p>
-      <PostCardList searchParams={searchParams} />
+      <PostCardList searchParams={searchParams} initialData={content} />
       <Pagination {...rest} searchParams={searchParams} />
     </div>
   );
