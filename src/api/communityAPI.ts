@@ -19,6 +19,31 @@ export const getAllCommunityPost = async ({ sort, page, size }: CommunityParamsT
   }
 };
 
+export const getMyPosts = async ({ sort, page, size }: CommunityParamsType) => {
+  const token = await getCookie('accessToken');
+
+  if (!token) {
+    return null;
+  }
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/community/user?sort=${sort}&page=${page}&size=${size}`,
+      {
+        cache: 'no-cache',
+        headers: {
+          'Cache-Control': 'no-cache',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getPostDetail = async (id: number) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/community/${id}`, {
