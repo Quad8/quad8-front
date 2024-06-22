@@ -1,4 +1,4 @@
-import { BLUR_URL } from '@/constants/blurImageUrl';
+import { IMAGE_BLUR } from '@/constants/blurImage';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import styles from './DetailImage.module.scss';
@@ -18,8 +18,8 @@ export default function DetailImage({ detailsImg }: DetailImageProps) {
         width={1200}
         height={500}
         alt='상품 설명 이미지'
-        placeholder='blur'
-        blurDataURL={BLUR_URL}
+        placeholder={IMAGE_BLUR.placeholder}
+        blurDataURL={IMAGE_BLUR.blurDataURL}
       />
     </div>
   );

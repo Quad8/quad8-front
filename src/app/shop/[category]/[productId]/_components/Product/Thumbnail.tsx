@@ -1,6 +1,6 @@
 'use client';
 
-import { BLUR_URL } from '@/constants/blurImageUrl';
+import { IMAGE_BLUR } from '@/constants/blurImage';
 import type { ThumbnailTypes } from '@/types/ProductTypes';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
@@ -29,8 +29,8 @@ export default function Thumbnail({ imageList }: ThumbnailProps) {
         width={948}
         height={629}
         priority
-        placeholder='blur'
-        blurDataURL={BLUR_URL}
+        placeholder={IMAGE_BLUR.placeholder}
+        blurDataURL={IMAGE_BLUR.blurDataURL}
       />
       <div>
         {imageList.map((item) => (
@@ -43,8 +43,8 @@ export default function Thumbnail({ imageList }: ThumbnailProps) {
               sizes='115px'
               onClick={() => handleClickImage(item.imgUrl)}
               priority
-              placeholder='blur'
-              blurDataURL={BLUR_URL}
+              placeholder={IMAGE_BLUR.placeholder}
+              blurDataURL={IMAGE_BLUR.blurDataURL}
             />
           </div>
         ))}
