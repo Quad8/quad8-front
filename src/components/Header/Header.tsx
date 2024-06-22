@@ -45,6 +45,15 @@ export default function Header() {
     setIsModalOpen((prevIsOpen) => !prevIsOpen);
   };
 
+  const handleCartIconClick = () => {
+    if (users) {
+      router.push(ROUTER.MY_PAGE.CART);
+      return;
+    }
+
+    setIsModalOpen((prevIsOpen) => !prevIsOpen);
+  };
+
   return (
     <>
       <header className={cn('header', { 'bg-black': isBlack })}>
@@ -73,7 +82,7 @@ export default function Header() {
               <button className={cn('user-icon')} type='button' onClick={handleUserIconClick}>
                 <UserIcon className={cn(isBlack ? 'user-black' : 'user-white')} width={31} height={31} />
               </button>
-              <CartButton cartCount={cartCount} isBlack={isBlack} />
+              <CartButton cartCount={cartCount} isBlack={isBlack} onClick={handleCartIconClick} />
             </div>
           </div>
         </div>

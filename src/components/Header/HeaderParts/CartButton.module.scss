@@ -6,11 +6,6 @@
   height: 100%;
 }
 
-.icon {
-  width: 2.4rem;
-  height: 2.4rem;
-}
-
 .cart-count {
   display: flex;
   position: absolute;
@@ -31,7 +26,10 @@
 }
 
 .cart-icon {
+  width: 2.4rem;
+  height: 2.4rem;
   fill: $primary;
+  cursor: pointer;
 }
 
 .black {
