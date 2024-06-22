@@ -1,0 +1,7 @@
+.checkout-form {
+  @include flex-column(4rem);
+
+  .form {
+    @include flex-column(0.8rem);
+  }
+}
