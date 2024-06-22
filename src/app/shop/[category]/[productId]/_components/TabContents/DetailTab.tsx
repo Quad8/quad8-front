@@ -10,18 +10,18 @@ import ProductReviewList from './Review/ProductReviewList';
 
 const cn = classNames.bind(styles);
 
+interface TabData {
+  id: number;
+  button: string;
+  content: JSX.Element;
+  ref: RefObject<HTMLDivElement>;
+}
 interface DetailTabProps {
   detailsImg: string;
   reviewData: ProductReviewType;
 }
 
 export default function DetailTab({ detailsImg, reviewData }: DetailTabProps) {
-  interface TabData {
-    id: number;
-    button: string;
-    content: JSX.Element;
-    ref: React.RefObject<HTMLDivElement>;
-  }
   const tabRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
 
   const tabData: TabData[] = [
@@ -57,7 +57,7 @@ export default function DetailTab({ detailsImg, reviewData }: DetailTabProps) {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  });
+  }, []);
 
   return (
     <div className={cn('tab-container')}>

@@ -1,10 +1,6 @@
 import { BLUR_URL } from '@/constants/blurImageUrl';
 import type { ReviewImage } from '@/types/ProductReviewTypes';
-import classNames from 'classnames/bind';
 import Image from 'next/image';
-import styles from './ReviewItem.module.scss';
-
-const cn = classNames.bind(styles);
 
 interface RenderImagesProps {
   reviewImgs: ReviewImage[];
@@ -20,7 +16,7 @@ export default function RenderImages({ reviewImgs, className, width, height, alt
       {reviewImgs.map((item, idx) => (
         <Image
           key={item.id}
-          className={cn(className)}
+          className={className}
           src={item.imageUrl}
           width={width}
           height={height}

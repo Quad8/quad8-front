@@ -1,5 +1,7 @@
+import { CATEGORY_MAP } from '@/constants/product';
 import { REVIEW_KEYWORD } from '@/constants/reviewKeyword';
-import type { KeywordStatistics, OptionRatio } from '@/types/ProductReviewTypes';
+import { getMaxKey } from '@/libs/getMaxKey';
+import type { KeywordStatistics, ReviewKeywordType } from '@/types/ProductReviewTypes';
 import classNames from 'classnames/bind';
 import styles from './KeywordRatio.module.scss';
 
@@ -11,16 +13,10 @@ interface KeywordRatiosProps {
 
 export default function KeywordRatios({ optionRatios }: KeywordRatiosProps) {
   const { option1Ratios, option2Ratios, option3Ratios } = optionRatios;
-
-  const category = '키보드';
-  const optionList = Object.keys(REVIEW_KEYWORD[category]);
-  const optionValueList = Object.values(REVIEW_KEYWORD[category]);
-
-  const getMaxKey = (options: OptionRatio) => {
-    return Object.keys(options).reduce((maxKey, key) => {
-      return options[key] > options[maxKey] ? key : maxKey;
-    });
-  };
+  const pathCategory = window.location.pathname.split('/')[2] as keyof typeof CATEGORY_MAP;
+  const category = CATEGORY_MAP[pathCategory];
+  const optionList = Object.keys(REVIEW_KEYWORD[category as keyof ReviewKeywordType]);
+  const optionValueList = Object.values(REVIEW_KEYWORD[category as keyof ReviewKeywordType]);
 
   const maxOptionKeys: number[] = [+getMaxKey(option1Ratios), +getMaxKey(option2Ratios), +getMaxKey(option3Ratios)];
   const maxOptionValues = [

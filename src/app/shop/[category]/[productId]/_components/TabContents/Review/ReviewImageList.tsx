@@ -1,6 +1,9 @@
 import RenderImages from '@/components/ReviewItem/RenderImages';
-import { ReviewImage } from '@/types/ProductReviewTypes';
+import type { ReviewImage } from '@/types/ProductReviewTypes';
+import classNames from 'classnames/bind';
+import styles from './ReviewImageList.module.scss';
 
+const cn = classNames.bind(styles);
 interface ReviewImageListProps {
   reviewImgs: ReviewImage[];
 }
@@ -9,7 +12,7 @@ export default function ReviewImageList({ reviewImgs }: ReviewImageListProps) {
   return (
     <div>
       <RenderImages
-        className='all-review-image'
+        className={cn('all-review-image')}
         reviewImgs={reviewImgs}
         width={228}
         height={228}

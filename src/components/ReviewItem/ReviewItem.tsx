@@ -85,8 +85,8 @@ export default function ReviewItem({ isDisplayOnMyPage, data }: ReviewItemProps)
           {!isDisplayOnMyPage && isExpanded && (
             <div className={cn('expand-image-section')}>
               <RenderImages
+                className={cn('big-image')}
                 reviewImgs={reviewImgs}
-                className='big-image'
                 width={600}
                 height={600}
                 altPrefix='펼친 리뷰 이미지'
@@ -96,8 +96,8 @@ export default function ReviewItem({ isDisplayOnMyPage, data }: ReviewItemProps)
           {isDisplayOnMyPage && (
             <div>
               <RenderImages
+                className={cn('mypage-review-image')}
                 reviewImgs={reviewImgs}
-                className='mypage-review-image'
                 width={80}
                 height={80}
                 altPrefix='마이페이지 리뷰 이미지'

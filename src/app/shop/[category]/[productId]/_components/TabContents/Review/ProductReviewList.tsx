@@ -2,7 +2,7 @@ import ReviewItem from '@/components/ReviewItem/ReviewItem';
 import { NoReviewIcon } from '@/public/index';
 import type { ProductReviewType } from '@/types/ProductReviewTypes';
 import classNames from 'classnames/bind';
-import React from 'react';
+import { memo } from 'react';
 import styles from './ProductReviewList.module.scss';
 import ReviewImageList from './ReviewImageList';
 import ReviewPreview from './ReviewPreview';
@@ -13,7 +13,7 @@ interface ProductReviewListProps {
   data: ProductReviewType;
 }
 
-export default React.memo(function ProductReviewList({ data }: ProductReviewListProps) {
+export default memo(function ProductReviewList({ data }: ProductReviewListProps) {
   const { reviewDtoList, ...previewData } = data;
   const allReviewImgs = reviewDtoList.flatMap((review) => review.reviewImgs);
 

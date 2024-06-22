@@ -15,7 +15,7 @@ export { default as HeartIcon } from './svgs/heart.svg';
 export { default as LogoIcon } from './svgs/logo.svg';
 
 export { default as NoReviewIcon } from './svgs/noReview.svg';
-export { default as ReviewCountIcon } from './svgs/reviewCount.svg';
+export { default as SpeechBubbleIcon } from './svgs/speechBubble.svg';
 
 export { default as MinusCircleIcon } from './svgs/minusCircle.svg';
 export { default as PlusCircleIcon } from './svgs/plusCircle.svg';

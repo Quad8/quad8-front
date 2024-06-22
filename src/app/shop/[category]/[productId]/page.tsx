@@ -1,5 +1,6 @@
 import { getProductDetail } from '@/api/productAPI';
-import { getProductReviews } from '@/api/reviewApI';
+import { getProductReviews } from '@/api/reviewAPI';
+import { ROUTER } from '@/constants/route';
 import { redirect } from 'next/navigation';
 import ProductDetail from './_components/Product/ProductDetail';
 import DetailTab from './_components/TabContents/DetailTab';
@@ -16,7 +17,7 @@ export default async function page({ params }: ProductDetailParams) {
   const productReviewData = await getProductReviews(productId);
 
   if (!productDetailData) {
-    redirect('/');
+    redirect(ROUTER.MAIN);
   }
 
   return (

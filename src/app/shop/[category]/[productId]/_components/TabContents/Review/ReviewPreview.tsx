@@ -1,5 +1,5 @@
 import { Rating } from '@/components';
-import { ReviewCountIcon } from '@/public/index';
+import { SpeechBubbleIcon } from '@/public/index';
 import type { ProductReviewPreview } from '@/types/ProductReviewTypes';
 import classNames from 'classnames/bind';
 import KeywordRatios from './KeywordRatios';
@@ -28,7 +28,7 @@ export default function ReviewPreview({ previewData }: ReviewListPreviewProps) {
       </div>
       <div className={cn('one-section')}>
         <h3 className={cn('title')}>리뷰 수</h3>
-        <ReviewCountIcon />
+        <SpeechBubbleIcon />
         <h1 className={cn('big-text')}>{reviewCounts}</h1>
       </div>
       <div className={cn('one-section')}>
