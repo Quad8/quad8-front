@@ -80,3 +80,26 @@ export const getCustomOrderList = async () => {
     throw error;
   }
 };
+
+export const postCreateCustomReview = async (formData: FormData) => {
+  const token = await getCookie('accessToken');
+
+  if (!token) {
+    return null;
+  }
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/community/create`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

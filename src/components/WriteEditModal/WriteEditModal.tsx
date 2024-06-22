@@ -1,11 +1,16 @@
+'use client';
+
 import classNames from 'classnames/bind';
-import { ChangeEvent, useState } from 'react';
 import Image from 'next/image';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 
 import { PostCardDetailModalCustomKeyboardType } from '@/types/CommunityTypes';
 import { Button, ImageInput, InputField, TextField } from '@/components';
 import { keydeukImg } from '@/public/index';
+import { postCreateCustomReview } from '@/api/communityAPI';
 
+import { toast } from 'react-toastify';
 import styles from './WriteEditModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -20,25 +25,56 @@ const TITLE_PLACEHOLDER = '미 입력 시 키득 커스텀 키보드로 등록�
 const CONTENT_PLACEHOLDER = '최소 20자 이상 입력해주세요';
 
 export default function WriteEditModal({ keyboardInfo, isCustomReview }: WriteEditModalProps) {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { isValid },
+  } = useForm({
+    mode: 'onChange',
+  });
 
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-    console.log(content);
+  const { mutate: postCreatePostMutation } = useMutation({
+    mutationFn: postCreateCustomReview,
+    onSuccess: (res) => {
+      if (res.status === 'SUCCESS') {
+        toast.success('리뷰가 달렸습니다.');
+      } else {
+        toast.error('데이터를 불러오는 중 오류가 발생하였습니다.');
+      }
+    },
+    onError: () => {
+      toast.error('리뷰 등록 중 오류가 발생했습니다.');
+    },
+  });
+
+  const registers = {
+    title: register('title', {
+      required: true,
+    }),
+    content: register('content', {
+      minLength: { value: 20, message: '최소 20자 이상 입력해주세요' },
+    }),
   };
 
-  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-  };
+  const onSubmit: SubmitHandler<FieldValues> = (payload) => {
+    const fetchFormData = new FormData();
+    const postDto = {
+      productId: keyboardInfo.productId,
+      title: payload.title,
+      content: payload.content,
+    };
 
-  const handleSubmit = () => {
-    /** 등록 버튼 누르면 실행되는 함수 */
-    setTitle(title || '키드 커스텀 키보드');
+    const { files } = payload;
+
+    fetchFormData.append('postDto', JSON.stringify(postDto));
+    fetchFormData.append('files', files);
+
+    postCreatePostMutation(fetchFormData);
   };
 
   return (
-    <form className={cn('container')} onSubmit={handleSubmit}>
+    <form className={cn('container')} onSubmit={handleSubmit(onSubmit)}>
       <div>
         {isCustomReview && <p className={cn('info-text')}>해당 후기는 커뮤니티란에 게시됩니다.</p>}
         <div className={cn('keyboard-info-wrapper')}>
@@ -59,24 +95,23 @@ export default function WriteEditModal({ keyboardInfo, isCustomReview }: WriteEd
             className={cn('title-input')}
             placeholder={TITLE_PLACEHOLDER}
             maxLength={TITLE_MAX_LENGTH}
-            onChange={handleTitleChange}
             labelSize='lg'
+            {...registers.title}
           />
-          <div className={cn('character-limit')}>
-            {title.length} / {TITLE_MAX_LENGTH}
-          </div>
         </div>
-        <ImageInput />
+        <ImageInput register={register} setValue={setValue} />
         <TextField
           label='내용'
           className={cn('text-area-input')}
           placeholder={CONTENT_PLACEHOLDER}
-          onChange={handleContentChange}
           sizeVariant='md'
+          {...registers.content}
         />
       </div>
       <div className={cn('button-wrapper')}>
-        <Button onClick={handleSubmit}>등록</Button>
+        <Button type='submit' backgroundColor={isValid ? 'background-primary' : 'background-gray-40'}>
+          등록
+        </Button>
       </div>
     </form>
   );

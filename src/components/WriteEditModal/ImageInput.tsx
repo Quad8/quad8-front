@@ -2,28 +2,45 @@
 
 import { useState, ChangeEvent, MouseEvent } from 'react';
 import Image from 'next/image';
-import { CameraIcon, DeleteIcon } from '@/public/index';
 import classNames from 'classnames/bind';
+import { UseFormRegister, FieldValues, UseFormSetValue } from 'react-hook-form';
+
+import { CameraIcon, DeleteIcon } from '@/public/index';
+
 import styles from './ImageInput.module.scss';
 
 const cn = classNames.bind(styles);
 
-export default function ImageInput() {
-  const [selectedImageFile, setSelectedImageFile] = useState<string[]>([]);
+interface ImageInputProps {
+  register: UseFormRegister<FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
+}
+
+export default function ImageInput({ register, setValue }: ImageInputProps) {
+  const [selectedImageUrls, setSelectedImageUrls] = useState<string[]>([]);
+  const [selectedImageFiles, setSelectedImageFiles] = useState<File[]>([]);
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
-    if (selectedImageFile.length >= 4 || !files) {
+    if (!files || selectedImageUrls.length >= 4) {
       return;
     }
-    const imageUrl = URL.createObjectURL(files[0]);
-    setSelectedImageFile((prev) => [...prev, imageUrl]);
+
+    const imageFile = files[0];
+    const imageUrl = URL.createObjectURL(imageFile);
+
+    setSelectedImageFiles((prevFiles) => [...prevFiles, imageFile]);
+    setSelectedImageUrls((prevUrls) => [...prevUrls, imageUrl]);
+
+    setValue('files', [...selectedImageFiles, imageFile]);
   };
 
   const handleClickDeleteImage = (e: MouseEvent<HTMLDivElement>, clickedImageIndex: number) => {
     e.stopPropagation();
-    setSelectedImageFile((prev) => [...prev.slice(0, clickedImageIndex), ...prev.slice(clickedImageIndex + 1)]);
+    setSelectedImageUrls((prev) => [...prev.slice(0, clickedImageIndex), ...prev.slice(clickedImageIndex + 1)]);
+    setSelectedImageFiles((prev) => [...prev.slice(0, clickedImageIndex), ...prev.slice(clickedImageIndex + 1)]);
   };
+
   return (
     <div className={cn('container')}>
       <div className={cn('title-wrapper')}>
@@ -31,9 +48,9 @@ export default function ImageInput() {
         <h3 className={cn('sub-title')}>최대 4장</h3>
       </div>
       <div>
-        <form className={cn('input-wrapper')}>
-          {selectedImageFile &&
-            selectedImageFile.map((imageUrl, index) => (
+        <div className={cn('input-wrapper')}>
+          {selectedImageUrls &&
+            selectedImageUrls.map((imageUrl, index) => (
               <div key={imageUrl} className={cn('image-wrapper')}>
                 <Image alt='선택된 이미지' src={imageUrl} fill className={cn('image')} />
                 <div className={cn('delete-image-icon')} onClick={(e) => handleClickDeleteImage(e, index)}>
@@ -46,13 +63,21 @@ export default function ImageInput() {
                 )}
               </div>
             ))}
-          {selectedImageFile.length < 4 && (
+          {selectedImageUrls.length < 4 && (
             <label htmlFor='imageInput' className={cn('label-input')}>
               <CameraIcon fill='#999999' width={46} height={40} />
             </label>
           )}
-          <input type='file' className={cn('input-image-input')} id='imageInput' onChange={handleChangeImage} />
-        </form>
+          <input
+            type='file'
+            className={cn('input-image-input')}
+            id='imageInput'
+            {...register('files', {
+              onChange: handleChangeImage,
+              validate: () => selectedImageUrls.length > 0 && true,
+            })}
+          />
+        </div>
       </div>
     </div>
   );
