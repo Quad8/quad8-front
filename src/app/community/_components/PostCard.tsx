@@ -17,10 +17,9 @@ const cn = classNames.bind(styles);
 
 interface PostCardProps {
   cardData: CommunityPostCardDataType;
-  postCardListRefetch: () => void;
 }
 
-export default function PostCard({ cardData, postCardListRefetch }: PostCardProps) {
+export default function PostCard({ cardData }: PostCardProps) {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
 
   const { id, nickName, updateAt, title, thumbnail, likeCount, commentCount, userImage } = cardData;
@@ -33,7 +32,6 @@ export default function PostCard({ cardData, postCardListRefetch }: PostCardProp
   };
   const handleClosePostModal = () => {
     setIsPostModalOpen(false);
-    postCardListRefetch();
   };
 
   return (

@@ -3,7 +3,7 @@
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { PostCardDetailModalCustomKeyboardType } from '@/types/CommunityTypes';
 import { Button, ImageInput, InputField, TextField } from '@/components';
@@ -19,19 +19,14 @@ interface WriteEditModalProps {
   keyboardInfo: PostCardDetailModalCustomKeyboardType;
   isCustomReview?: boolean;
   onSuccessReview: () => void;
-  refetch?: () => void;
 }
 
 const TITLE_MAX_LENGTH = 20;
 const TITLE_PLACEHOLDER = '미 입력 시 키득 커스텀 키보드로 등록됩니다.';
 const CONTENT_PLACEHOLDER = '최소 20자 이상 입력해주세요';
 
-export default function WriteEditModal({
-  keyboardInfo,
-  isCustomReview,
-  onSuccessReview,
-  refetch,
-}: WriteEditModalProps) {
+export default function WriteEditModal({ keyboardInfo, isCustomReview, onSuccessReview }: WriteEditModalProps) {
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -46,7 +41,7 @@ export default function WriteEditModal({
     onSuccess: (res) => {
       if (res.status === 'SUCCESS') {
         onSuccessReview();
-        refetch?.();
+        queryClient.invalidateQueries({ queryKey: ['postCardsList'] });
         toast.success('리뷰가 달렸습니다.');
       } else {
         toast.error('데이터를 불러오는 중 오류가 발생하였습니다.');

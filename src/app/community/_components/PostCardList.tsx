@@ -31,9 +31,8 @@ export default function PostCardList({ searchParams, initialData }: CommunityPag
     data: communityData,
     isLoading,
     isError,
-    refetch,
   } = useQuery({
-    queryKey: ['postCardData', searchParams],
+    queryKey: ['postCardsList', searchParams],
     queryFn: () => getAllCommunityPost(getAllCommunityParams),
   });
 
@@ -47,11 +46,11 @@ export default function PostCardList({ searchParams, initialData }: CommunityPag
     <div className={cn('container')}>
       <div className={cn('filter-write-button-wrapper')}>
         <SortDropdown />
-        <WritePostButton orderListData={orderListData} postCardListRefetch={refetch} />
+        <WritePostButton orderListData={orderListData} />
       </div>
       <div className={cn('post-wrapper')}>
         {content.map((cardData: CommunityPostCardDataType) => (
-          <PostCard key={cardData.id} cardData={cardData} postCardListRefetch={refetch} />
+          <PostCard key={cardData.id} cardData={cardData} />
         ))}
       </div>
     </div>

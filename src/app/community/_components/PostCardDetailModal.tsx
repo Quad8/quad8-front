@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { InputField } from '@/components';
 import { getPostDetail, postComment } from '@/api/communityAPI';
@@ -28,6 +28,7 @@ interface PostCardDetailModalProps {
 }
 
 export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps) {
+  const queryClient = useQueryClient();
   const [commentRef, setCommentRef] = useState<HTMLInputElement | null>(null);
   const [clickedImage, setClickedImage] = useState('');
 
@@ -42,6 +43,7 @@ export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps
       if (commentRef) {
         commentRef.value = '';
       }
+      queryClient.invalidateQueries({ queryKey: ['postCardsList'] });
       await refetch();
     },
     onError: () => {
