@@ -2,10 +2,11 @@
 
 import { RefObject } from 'react';
 import classNames from 'classnames/bind';
+
+import { getColorUpperCase } from '@/libs/getColorUpperCase';
 import type { CustomKeyboardPointKeyType, CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 import { POINT_KEY } from '@/constants/keyboardData';
-import { getColorUpperCase } from '@/libs/getColorUpperCase';
-import TooltipColor from '@/components/CustomOption/TooltipColor';
+import TooltipColor from './TooltipColor';
 import OptionWrapper from './OptionWrapper';
 
 import styles from './CustomOption.module.scss';

@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames/bind';
 import Image, { StaticImageData } from 'next/image';
 import { MouseEvent, RefObject, useContext } from 'react';

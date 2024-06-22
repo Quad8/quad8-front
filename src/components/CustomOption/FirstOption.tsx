@@ -7,6 +7,7 @@ import type {
   CustomKeyboardSwitchTypes,
 } from '@/types/CustomKeyboardTypes';
 import OptionWrapper from './OptionWrapper';
+
 import styles from './CustomOption.module.scss';
 
 const cn = classNames.bind(styles);

@@ -1,4 +1,4 @@
-'use clinet';
+'use client';
 
 import { ReactNode, RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';

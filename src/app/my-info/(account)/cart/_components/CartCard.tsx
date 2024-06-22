@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 
+import { putChangeCartData } from '@/api/cartAPI';
 import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 import type { CustomDataType, OptionChageAPIType, ShopDataType } from '@/types/CartTypes';
-import { Button, Modal } from '@/components';
-import CustomOption from '@/components/CustomOption/CustomOption';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { putChangeCartData } from '@/api/cartAPI';
-import { useRouter } from 'next/navigation';
 import { ROUTER } from '@/constants/route';
+import { Button, Modal, CustomOption } from '@/components';
 import CardCheckBox from './CardCheckBox';
 import ShopOption from './ShopOption';
 import OptionEditModal from './OptionEditModal';

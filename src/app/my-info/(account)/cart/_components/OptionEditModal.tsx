@@ -1,13 +1,14 @@
+'use client';
+
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
-
-import { Button, Dropdown } from '@/components';
 import { useQuery } from '@tanstack/react-query';
-import { OptionChageAPIType } from '@/types/CartTypes';
-import { ProductType } from '@/types/ProductTypes';
+
 import { getProductDetail } from '@/api/productAPI';
-import CountInput from '../../../../../components/CountInput/CountInput';
+import type { OptionChageAPIType } from '@/types/CartTypes';
+import type { ProductType } from '@/types/ProductTypes';
+import { Button, Dropdown, CountInput } from '@/components';
 
 import styles from './OptionEditModal.module.scss';
 

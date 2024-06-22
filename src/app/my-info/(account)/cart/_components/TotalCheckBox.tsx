@@ -3,7 +3,7 @@
 import { useContext } from 'react';
 import classNames from 'classnames/bind';
 
-import CheckBox from '@/components/CheckBox/CheckBox';
+import { CheckBox } from '@/components';
 import { CartDataContext } from '@/context/CartDataContext';
 
 import styles from './TotalCheckBox.module.scss';

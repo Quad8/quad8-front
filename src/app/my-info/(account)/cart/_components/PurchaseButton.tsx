@@ -1,18 +1,18 @@
 'use client';
 
+import { useContext } from 'react';
+import { useRouter } from 'next/navigation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 
 import { getCartData } from '@/api/cartAPI';
-import type { CartAPIDataType } from '@/types/CartTypes';
-import { Button } from '@/components';
-
-import { useContext } from 'react';
-import { CartDataContext } from '@/context/CartDataContext';
 import { postCreateOrder } from '@/api/orderAPI';
+import type { CartAPIDataType } from '@/types/CartTypes';
 import type { CreateOrderResponseType } from '@/types/OrderTypes';
-import { useRouter } from 'next/navigation';
+import { Button } from '@/components';
+import { CartDataContext } from '@/context/CartDataContext';
 import { ROUTER } from '@/constants/route';
+
 import styles from './PurchaseButton.module.scss';
 
 const cn = classNames.bind(styles);
@@ -27,7 +27,6 @@ export default function PurchaseButton() {
   const createOrder = useMutation({
     mutationFn: postCreateOrder,
     onSuccess: (response: CreateOrderResponseType) => {
-      console.log(response.data);
       queryClient.setQueryData(['orderId'], response.data);
       router.push(ROUTER.MY_PAGE.CHECKOUT);
     },

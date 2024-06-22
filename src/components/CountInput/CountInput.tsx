@@ -1,3 +1,5 @@
+'use client';
+
 import { ChangeEvent, forwardRef, useState, FocusEvent, useEffect } from 'react';
 import classNames from 'classnames/bind';
 

@@ -1,10 +1,10 @@
 'use client';
 
-import classNames from 'classnames/bind';
 import { useQuery } from '@tanstack/react-query';
+import classNames from 'classnames/bind';
 
-import type { CartAPIDataType } from '@/types/CartTypes';
 import { getCartData } from '@/api/cartAPI';
+import type { CartAPIDataType } from '@/types/CartTypes';
 import CartCard from './CartCard';
 
 import styles from './CustomCardList.module.scss';

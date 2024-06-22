@@ -1,4 +1,6 @@
+import { RefObject } from 'react';
 import classNames from 'classnames/bind';
+
 import type {
   CustomKeyboardPointKeyType,
   CustomKeyboardSwitchTypes,
@@ -6,10 +8,9 @@ import type {
   CustomKeyboardTypeTypes,
   CustomKeyboardKeyTypes,
 } from '@/types/CustomKeyboardTypes';
-
-import { RefObject } from 'react';
 import FirstOption from './FirstOption';
 import SecondOption from './SecondOption';
+
 import styles from './CustomOption.module.scss';
 
 const cn = classNames.bind(styles);
