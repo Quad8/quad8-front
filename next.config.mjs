@@ -1,19 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  env: {
-    NEXT_PUBLIC_KEYDEUK_API_BASE_URL: process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL,
-  },
-
-  env: {
-    NEXT_PUBLIC_KEYDEUK_API_BASE_URL: process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL,
-  },
 
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'quad8-nextjs-static.s3.amazonaws.com',
+        port: '',
+        pathname: '/src/app/**',
       },
       {
         protocol: 'http',

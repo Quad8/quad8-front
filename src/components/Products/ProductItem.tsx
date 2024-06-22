@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import type { CategoryKey } from '@/types/Category';
 import classNames from 'classnames/bind';
 import styles from './ProductItem.module.scss';
 
@@ -13,15 +14,22 @@ interface ProductItemProps {
   price: number;
   reviewscount: number;
   size: 'sm' | 'lg';
+  category?: CategoryKey;
 }
 
-export default function ProductItem({ id, size, name, reviewscount, price, thumbnail }: ProductItemProps) {
+export default function ProductItem({ id, size, name, reviewscount, price, thumbnail, category }: ProductItemProps) {
   return (
     <li>
-      <Link href={`/products/${id}`}>
+      <Link href={`${category}/${id}`}>
         <div className={cn('product-item', size)}>
           <div className={cn('product-image-wrap')}>
-            <Image src={thumbnail} alt={`${name} 이미지`} fill className={cn('product-image', size)} />
+            <Image
+              src={thumbnail}
+              alt={`${name} 이미지`}
+              fill
+              className={cn('product-image', size)}
+              sizes='(max-width: 600px) 480px, (max-width: 1200px) 800px, 1200px'
+            />
           </div>
           <div className={cn('product-info')}>
             <h3 className={cn('product-title')}>{name}</h3>

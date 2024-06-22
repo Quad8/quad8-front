@@ -1,5 +1,5 @@
+import { CheckboxCircleIcon, WarnCircleIcon } from '@/public/index';
 import classNames from 'classnames/bind';
-import { WarnCircleIcon, CheckboxCircleIcon } from '@/public/index';
 
 import styles from './DialogIcon.module.scss';
 

@@ -1,0 +1,5 @@
+.page {
+  @include flex-column(4rem);
+
+  height: 100%;
+}

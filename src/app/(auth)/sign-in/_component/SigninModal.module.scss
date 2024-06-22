@@ -1,0 +1,63 @@
+.container {
+  width: 56.2rem;
+  padding: 4rem;
+  border-radius: 2.4rem;
+  background-color: $white;
+}
+
+.title {
+  margin-bottom: 8rem;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.input-wrapper {
+  @include flex-column(4rem);
+
+  margin-bottom: 6.8rem;
+}
+
+.auth-section-wrapper {
+  @include flex-center;
+  @include pretendard-14-400;
+
+  margin-bottom: 6rem;
+}
+
+.auth-section {
+  display: flex;
+
+  & > .auth-section-text {
+    color: $gray-50;
+    cursor: pointer;
+  }
+
+  & > .bar {
+    margin: 0 1.2rem;
+    color: $gray-20;
+    cursor: default;
+  }
+}
+
+.button {
+  margin-bottom: 4rem;
+}
+
+.o-auth-wrapper {
+  @include pretendard-14-400;
+  @include flex-column(2rem);
+
+  color: $gray-50;
+  text-align: center;
+}
+
+.icons {
+  display: flex;
+  gap: 3.6rem;
+  justify-content: center;
+
+  & > * {
+    cursor: pointer;
+  }
+}

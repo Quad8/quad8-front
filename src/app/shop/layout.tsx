@@ -6,7 +6,11 @@ import styles from './layout.module.scss';
 
 const cn = classNames.bind(styles);
 
-export default function ShopLayout({ children }: { children: ReactNode }) {
+interface ShopLayoutProps {
+  children: ReactNode;
+}
+
+export default function ShopLayout({ children }: ShopLayoutProps) {
   return (
     <section>
       <div className={cn('inner')}>

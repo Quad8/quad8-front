@@ -1,5 +1,6 @@
+import HeartIcon from '@/public/svgs/heart.svg';
+import ThumbIcon from '@/public/svgs/thumb.svg';
 import classNames from 'classnames/bind';
-import { HeartIcon, ThumbIcon } from '@/public/index';
 import styles from './LikeButton.module.scss';
 
 const cn = classNames.bind(styles);

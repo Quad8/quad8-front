@@ -22,7 +22,18 @@ export interface ProductListResponse {
 }
 
 export interface ProductParams {
-  sort: string | string[] | undefined;
-  page?: string | string[] | undefined;
-  size?: string | string[] | undefined;
+  sort: string | string[];
+  page?: string | string[];
+  size?: string | string[];
+}
+
+export interface GetCategoryListParams {
+  keyword: string;
+  sort: string | string[];
+  page: string | string[];
+  size: string;
+  company?: string | string[];
+  switchType?: string | string[];
+  minPrice?: string | string[];
+  maxPrice?: string | string[];
 }

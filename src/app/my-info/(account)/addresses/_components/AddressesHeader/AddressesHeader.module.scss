@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+
+  .title {
+    @include pretendard-30-700;
+
+    color: $black;
+  }
+
+  .button {
+    @include pretendard-16-500;
+    @include flex-center;
+
+    gap: 1rem;
+    width: 12.7rem;
+
+    .cross-icon {
+      font-size: 2.4rem;
+    }
+  }
+}
+
+.postcode-embed {
+  padding: 4.8rem;
+  border-radius: 2.4rem;
+  background-color: $white;
+}

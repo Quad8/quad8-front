@@ -1,13 +1,13 @@
 import { ChevronIcon, EyeOffIcon, EyeOnIcon, SearchIcon } from '@/public/index';
 import classNames from 'classnames/bind';
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, MouseEvent } from 'react';
 import styles from './SuffixIcon.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface SuffixIconProps extends InputHTMLAttributes<HTMLInputElement> {
+interface SuffixIconProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onClick'> {
   icon: 'search' | 'eye' | 'arrow';
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   isOpen?: boolean;
 }
 

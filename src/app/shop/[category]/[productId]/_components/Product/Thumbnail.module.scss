@@ -1,0 +1,23 @@
+.image-container {
+  flex-basis: 60%;
+}
+
+.big-image {
+  width: 100%;
+  height: auto;
+  padding-bottom: 1.2rem;
+  aspect-ratio: 4/3;
+}
+
+.small-image {
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+
+.small-image-wrap {
+  display: inline-block;
+  position: relative;
+  width: 11.5rem;
+  height: 11.5rem;
+  margin-right: 1.2rem;
+}
