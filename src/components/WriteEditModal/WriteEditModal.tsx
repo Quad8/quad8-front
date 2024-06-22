@@ -70,17 +70,6 @@ export default function WriteEditModal({ keyboardInfo, isCustomReview, onSuccess
       content: payload.content,
     };
 
-    // const { files } = payload;
-
-    // fetchFormData.append(
-    //   'postDto',
-    //   JSON.stringify({
-    //     productId: keyboardInfo.productId,
-    //     title: payload.title,
-    //     content: payload.content,
-    //   }),
-    // );
-
     fetchFormData.append('postDto', JSON.stringify(postDto));
 
     if (payload.files && payload.files.length > 0) {

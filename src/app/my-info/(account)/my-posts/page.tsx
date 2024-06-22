@@ -1,21 +1,32 @@
-import { Dropdown } from '@/components';
+import Pagination from '@/components/Pagination/Pagination';
+import { getMyPosts } from '@/api/communityAPI';
+import MyPostCardList from './_components/MyPostCardList';
 
-// interface MyPostsPageProps {
-//   searchParams: { [key: string]: string | undefined };
-// }
+interface MyPostsPageProps {
+  searchParams: { [key: string]: string | undefined };
+}
 
-// interface ParamsType {
-//   sort: string;
-//   page: string;
-//   size: string;
-// }
+interface MyPostsParamsType {
+  sort: string;
+  page?: string;
+  size?: string;
+}
 
-const DROPDOWN_OPTIONS = ['최신순', '조회순', '인기순'];
+export default async function MyPostsPage({ searchParams }: MyPostsPageProps) {
+  const initialParams: MyPostsParamsType = {
+    sort: searchParams.sort || 'new',
+    page: searchParams.page || '0',
+    size: searchParams.size || '10',
+  };
 
-export default function MyPostsPage() {
+  const data = await getMyPosts(initialParams);
+
+  const { content, ...rest } = data;
+
   return (
     <div>
-      <Dropdown options={DROPDOWN_OPTIONS} sizeVariant='xs' />
+      <MyPostCardList searchParams={searchParams} initialData={content} />
+      <Pagination {...rest} searchParams={searchParams} />;
     </div>
   );
 }

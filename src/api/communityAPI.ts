@@ -37,7 +37,7 @@ export const getMyPosts = async ({ sort, page, size }: CommunityParamsType) => {
         },
       },
     );
-    const data = await res.json();
+    const { data } = await res.json();
     return data;
   } catch (error) {
     throw error;
