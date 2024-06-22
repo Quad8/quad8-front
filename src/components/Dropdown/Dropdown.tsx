@@ -16,36 +16,11 @@ interface DropdownProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onC
   onClick?: (e: MouseEvent<HTMLInputElement>) => void;
   onChange?: (value: string) => void;
   isDate?: boolean;
+  maxHeight?: 4 | 6 | 8;
 }
 
-/**
- * Dropdown component documentation
- *
- * @param {object} props - 컴포넌트의 속성
- * @param {string} [props.type='text'] - 입력 필드의 타입, 기본값은 'text'
- * @param {string} [props.sizeVariant='sm'] - 드롭다운의 사이즈:
- * 'xs' = sort Dropdown에서 사용,
- * 'sm' = 일반적인 상품 옵션 선택,
- * 'md', 'lg' 중 하나
- * @param {string[]} props.options - 선택할 수 있는 옵션 목록
- * @param {string} [props.placeholder] - placeholder 텍스트로 기본값 설정
- * placeholder값 선택시 inputValue === ('')
- * placeholder 설정하지 않을 시 options의 첫번째 값 렌더링
- * @param {string} props.value - 드롭다운의 현재 값
- * @param {function} props.onChange - 드롭다운 값이 변경될 때 호출되는 함수
- * @returns {JSX.Element} 렌더링된 드롭다운 컴포넌트
- *
- * <Controller
- *   name='dropdown'
- *   control={control}
- *   render={({ field: { onChange: onDropdownChange, value, ...field } }) => (
- *     <Dropdown options={대충 옵션값} onChange={onDropdownChange} value={value} {...field} />
- *   )}
- * />
- */
-
 export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
-  { type = 'text', sizeVariant = 'sm', options, className, onClick, onChange, value, isDate, ...rest },
+  { type = 'text', sizeVariant = 'sm', options, className, onClick, onChange, value, isDate, maxHeight, ...rest },
   ref,
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -82,6 +57,8 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
     }
   };
 
+  const dropdownStyleClass = maxHeight ? `max-height-${maxHeight}` : '';
+
   return (
     <div className={cn('dropdown', sizeVariant, className)} ref={DropdownRef}>
       <div className={cn('input-wrapper')}>
@@ -113,6 +90,7 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
           className={cn('option-box', {
             'open-xs': isDropdownOpen,
             'open-other': isDropdownOpen && sizeVariant !== 'xs',
+            [dropdownStyleClass]: maxHeight,
           })}
         >
           {rest.placeholder && (

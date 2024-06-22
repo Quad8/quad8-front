@@ -4,3 +4,8 @@ export const LIST_SORT_OPTIONS = [
   { label: '가격 낮은순', value: 'price_asc' },
   { label: '가격 높은순', value: 'price_desc' },
 ];
+
+export const GENDER_OPTION = [
+  { label: '남자', value: 'MALE' },
+  { label: '여자', value: 'FEMALE' },
+];

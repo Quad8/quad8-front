@@ -1,5 +1,4 @@
-import { isNumberAllowedKey } from '@/libs';
-import { formatBirthDate } from '@/libs/formatBirthDate';
+import { isNumberAllowedKey } from '@/libs/isNumberAllowedKey';
 import classNames from 'classnames/bind';
 import { InputHTMLAttributes, KeyboardEvent, forwardRef, useEffect, useState } from 'react';
 import styles from './Input.module.scss';
@@ -40,7 +39,6 @@ export default forwardRef<HTMLInputElement, InputProps>(function Input(
   ref,
 ) {
   const [maxLength, setMaxLength] = useState<number | undefined>(undefined);
-  const [currectValue, setCurrectValue] = useState(value);
 
   useEffect(() => {
     if (isPhone) {
@@ -55,19 +53,10 @@ export default forwardRef<HTMLInputElement, InputProps>(function Input(
     setMaxLength(undefined);
   }, [isPhone, isNickname]);
 
-  useEffect(() => {
-    if (isBirth && typeof value === 'string') {
-      setCurrectValue(formatBirthDate(value));
-      return;
-    }
-
-    setCurrectValue(value);
-  }, [isBirth, value]);
-
   const formattedPlaceholder = isBirth ? 'YYYY / MM / DD' : rest.placeholder;
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-    if ((isPhone || isNumber) && !isNumberAllowedKey(e.key)) {
+    if ((isPhone || isBirth || isNumber) && !isNumberAllowedKey(e.key)) {
       e.preventDefault();
     }
   };
@@ -86,8 +75,8 @@ export default forwardRef<HTMLInputElement, InputProps>(function Input(
       className={combinedClassName}
       ref={ref}
       type={type}
+      value={value}
       maxLength={maxLength}
-      value={currectValue}
       placeholder={formattedPlaceholder}
       onKeyDown={handleKeyPress}
       {...rest}

@@ -7,7 +7,6 @@ export { default as CaretRightIcon } from './svgs/caretRight.svg';
 export { default as CartIcon } from './svgs/cart.svg';
 export { default as CheckboxCircleIcon } from './svgs/checkboxCircle.svg';
 export { default as ChevronIcon } from './svgs/chevron.svg';
-
 export { default as CommentIcon } from './svgs/comment.svg';
 export { default as CreditCard } from './svgs/creditCard.svg';
 export { default as CrossCircleIcon } from './svgs/crossCircle.svg';
@@ -18,12 +17,14 @@ export { default as EyeOffIcon } from './svgs/eyeOff.svg';
 export { default as EyeOnIcon } from './svgs/eyeOn.svg';
 export { default as HeartIcon } from './svgs/heart.svg';
 export { default as LogoIcon } from './svgs/logo.svg';
-
-export { default as MinusCircleIcon } from './svgs/minusCircle.svg';
-export { default as PlusCircleIcon } from './svgs/plusCircle.svg';
-
 export { default as PlusIcon } from './svgs/plus.svg';
 
+export { default as GitHubIcon } from '@/public/svgs/gitHub.svg';
+export { default as GoogleIcon } from '@/public/svgs/google.svg';
+export { default as KakaoIcon } from '@/public/svgs/kakaotalk.svg';
+export { default as CalendarIcon } from './svgs/calendar.svg';
+export { default as MinusCircleIcon } from './svgs/minusCircle.svg';
+export { default as PlusCircleIcon } from './svgs/plusCircle.svg';
 export { default as ResetIcon } from './svgs/reset.svg';
 export { default as SearchIcon } from './svgs/search.svg';
 export { default as SoundVibrationIcon } from './svgs/soundVibration.svg';
