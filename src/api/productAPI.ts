@@ -16,7 +16,7 @@ const baseURL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 export async function getAllProductList({ sort, page, size }: ProductParams): Promise<ProductListResponse> {
   try {
-    const response = await fetch(`${baseURL}/api/v1/product/get/all-list?&sort=${sort}&page=${page}&size=${size}`);
+    const response = await fetch(`${baseURL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`);
     const rawData: ProductListResponse = await response.json();
 
     return rawData;
@@ -47,7 +47,7 @@ export async function getCategoryProductList({
       ...(maxPrice && { maxPrice: encodeURIComponent(maxPrice as string) }),
     }).toString();
 
-    const response = await fetch(`${baseURL}/api/v1/product/get/category-list?${queryParams}`);
+    const response = await fetch(`${baseURL}/api/v1/product/category/${keyword}?${queryParams}`);
 
     if (!response.ok) {
       const errorDetails = await response.text();

@@ -11,6 +11,7 @@ import { getColorUpperCase } from '@/libs/getColorUpperCase';
 import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import { postCustomKeyboardOrder } from '@/api/customKeyboardAPI';
 import { StepContext, KeyboardDataContext } from '@/context';
+import { putUpdateCustomKeyboardData } from '@/api/cartAPI';
 import CartModalOptionCard from './parts/CartModalOptionCard';
 import CartModalToast from './parts/CartModalToast';
 
@@ -57,7 +58,12 @@ export default function CartModal({
   const createCustomKeyboard = useMutation({
     mutationFn: (data: CustomKeyboardAPITypes) => postCustomKeyboardOrder(data),
   });
+
+  const updateCustomKeybaord = useMutation<void, Error, { id: number; data: Omit<CustomKeyboardAPITypes, 'option'> }>({
+    mutationFn: ({ id, data }) => putUpdateCustomKeyboardData(id, data),
+  });
   const {
+    orderId,
     keyboardData: {
       type,
       texture,
@@ -132,11 +138,15 @@ export default function CartModal({
       pointKeyType: hasPointKeyCap ? pointKeyType : null,
       pointSetColor: pointKeyType === '세트 구성' ? pointKeySetColor : null,
       price,
-      option,
-      individualColor,
+      individualColor: hasPointKeyCap && Object.keys(individualColor) ? individualColor : null,
       imgBase64: keyboardImage.keyCap,
     };
-    createCustomKeyboard.mutate(data);
+    if (!orderId) {
+      Object.assign(data, { option });
+      createCustomKeyboard.mutate(data as CustomKeyboardAPITypes);
+      return;
+    }
+    updateCustomKeybaord.mutate({ id: orderId, data: data as Omit<CustomKeyboardAPITypes, 'option'> });
   };
 
   const onClickEditButton = (e: MouseEvent<HTMLButtonElement>, step: CustomKeyboardStepTypes) => {
@@ -159,6 +169,12 @@ export default function CartModal({
       alert('삭제되었습니다');
     }
   };
+
+  const isDisabled =
+    createCustomKeyboard.isPending ||
+    createCustomKeyboard.isSuccess ||
+    updateCustomKeybaord.isPending ||
+    updateCustomKeybaord.isSuccess;
 
   return (
     <div className={cn('wrapper', { overflow: isOverFlow })}>
@@ -202,15 +218,11 @@ export default function CartModal({
         </div>
       </div>
       <div className={cn('button-wrapper')}>
-        <Button
-          className={cn({ disabled: createCustomKeyboard.isPending || createCustomKeyboard.isSuccess })}
-          onClick={handleClickPutButton}
-          disabled={createCustomKeyboard.isPending || createCustomKeyboard.isSuccess}
-        >
-          장바구니 담기
+        <Button className={cn({ disabled: isDisabled })} onClick={handleClickPutButton} disabled={isDisabled}>
+          {orderId ? '수정하기' : '장바구니 담기'}
         </Button>
       </div>
-      {createCustomKeyboard.isSuccess && <CartModalToast />}
+      {(createCustomKeyboard.isSuccess || updateCustomKeybaord.isSuccess) && <CartModalToast />}
     </div>
   );
 }

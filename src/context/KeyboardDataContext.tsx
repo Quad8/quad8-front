@@ -96,7 +96,7 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
       pointKeySetColor: customData.pointSetColor ?? customData.baseKeyColor,
       price: customData.price,
       option: [],
-      individualColor: customData.individualColor,
+      individualColor: customData.individualColor ?? {},
     });
   }, []);
 

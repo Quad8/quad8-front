@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { OptionChageAPIType } from '@/types/CartTypes';
 import { ProductType } from '@/types/ProductTypes';
 import { getProductDetail } from '@/api/productAPI';
-import CountInput from './CountInput';
+import CountInput from '../../../../../components/CountInput/CountInput';
 
 import styles from './OptionEditModal.module.scss';
 

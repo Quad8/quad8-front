@@ -72,11 +72,11 @@ const UPDATE_NEXT_STEP_STATUS: UpdateStepType<'keyCap'> = {
 };
 
 export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNavigationProps) {
-  const { data, isSuccess } = useQuery({
+  const { data } = useQuery({
     queryKey: ['customRandomProduct'],
     queryFn: getRandomOptionProduct,
     staleTime: 0,
-  }) as { data: OptionDataType[]; isSuccess: boolean };
+  }) as { data: OptionDataType[] };
   const [optionData, setOptionData] = useState<OptionDataType[]>([]);
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
@@ -85,6 +85,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
   const [optionPrice, setOptionPrice] = useState(0);
   const { captureCanvas } = useCaptureCanvas();
   const {
+    orderId,
     keyboardData: { type, texture, price, hasPointKeyCap, individualColor, pointKeyType },
     updateData,
   } = useContext(KeyboardDataContext);
@@ -100,7 +101,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
           updateCurrentStep(nextStep);
           return;
         }
-        if (isInitialOpenOptionModal && optionData) {
+        if (isInitialOpenOptionModal && optionData && !orderId && data) {
           setIsOpenOptionModal(true);
           return;
         }
@@ -157,7 +158,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
 
   useEffect(() => {
     const getData = async () => {
-      if (!isSuccess) {
+      if (!data) {
         return;
       }
       const blurImage = await getBlurImageList(data.map((element) => element.thumbnail));
@@ -165,7 +166,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
       setOptionData(blurData);
     };
     getData();
-  }, [data, isSuccess]);
+  }, [data]);
 
   return (
     <div className={cn('wrapper')}>
