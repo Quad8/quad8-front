@@ -8,6 +8,8 @@ import { Button, Modal } from '@/components';
 import CustomOption from '@/components/CustomOption/CustomOption';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { putChangeCartData } from '@/api/cartAPI';
+import { useRouter } from 'next/navigation';
+import { ROUTER } from '@/constants/route';
 import CardCheckBox from './CardCheckBox';
 import ShopOption from './ShopOption';
 import OptionEditModal from './OptionEditModal';
@@ -33,6 +35,7 @@ const CATEGORY = {
 };
 
 export default function CartCard({ cardData, type }: CustomCardProps | ShopCardProps) {
+  const router = useRouter();
   const imageURL = type === 'custom' ? cardData.imgUrl : cardData.thumbsnail;
   const title = type === 'custom' ? '키득 커스텀 키보드' : cardData.productTitle;
   const queryClient = useQueryClient();
@@ -61,7 +64,13 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
   };
 
   const handleOpenModal = () => {
-    setIsOpenMoal(true);
+    if (type === 'shop') {
+      setIsOpenMoal(true);
+      return;
+    }
+    const custom = JSON.stringify(cardData);
+    localStorage.setItem('customData', custom);
+    router.push(ROUTER.CUSTOM_KEYBOARD, { scroll: false });
   };
 
   return (

@@ -30,18 +30,3 @@ export interface OptionChageAPIType {
   count: number;
   switchOptionId: number | null;
 }
-
-/* 임시 */
-
-export interface ProductDetailAPIType {
-  id: number;
-  name: string;
-  price: number;
-  view: number;
-  scope: number;
-  detailsImg: string;
-  thubmnailList: { id: number; imgUrl: string }[];
-  optionList: { id: number; optionName: string }[];
-  categoryName: string;
-  isLiked: boolean;
-}

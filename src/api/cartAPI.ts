@@ -69,14 +69,3 @@ export const putChangeCartData = async (id: number, data: OptionChageAPIType) =>
     throw error;
   }
 };
-
-/* 임시 */
-export const getProductDetailData = async (id: string) => {
-  try {
-    const res = await fetch(`${BASEURL}/api/v1/product/${id}`);
-    const { data } = await res.json();
-    return data;
-  } catch (error) {
-    throw error;
-  }
-};

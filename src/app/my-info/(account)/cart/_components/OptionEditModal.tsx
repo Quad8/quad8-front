@@ -4,8 +4,9 @@ import classNames from 'classnames/bind';
 
 import { Button, Dropdown } from '@/components';
 import { useQuery } from '@tanstack/react-query';
-import { getProductDetailData } from '@/api/cartAPI';
-import { OptionChageAPIType, ProductDetailAPIType } from '@/types/CartTypes';
+import { OptionChageAPIType } from '@/types/CartTypes';
+import { ProductType } from '@/types/ProductTypes';
+import { getProductDetail } from '@/api/productAPI';
 import CountInput from './CountInput';
 
 import styles from './OptionEditModal.module.scss';
@@ -35,9 +36,9 @@ export default function OptionEditModal({
   const notChanged = currentCount === count && currentOptionId === optionId;
   const { data, isSuccess, isError } = useQuery({
     queryKey: [`product-${productId}`],
-    queryFn: () => getProductDetailData(String(productId)),
+    queryFn: () => getProductDetail(String(productId)),
   }) as {
-    data: ProductDetailAPIType;
+    data: ProductType;
     isSuccess: boolean;
     isError: boolean;
   };
@@ -49,7 +50,6 @@ export default function OptionEditModal({
   if (isError) {
     onClickCancel();
   }
-
   const options = data.optionList ? data.optionList.map((option) => option.optionName) : [];
 
   const handleDropdownChange = (value: string) => {
