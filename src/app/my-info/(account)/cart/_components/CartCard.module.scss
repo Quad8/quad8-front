@@ -32,10 +32,19 @@
   height: 100%;
 }
 
+.type {
+  @include pretendard-14-500;
+}
+
 .title {
   @include pretendard-16-700;
 
+  display: -webkit-box;
+  overflow: hidden;
   color: $black;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .price {

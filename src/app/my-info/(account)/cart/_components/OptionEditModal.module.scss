@@ -51,6 +51,11 @@
   @include flex-column(2rem);
 }
 
+.reverse {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .count-wrapper {
   display: flex;
   align-items: center;
@@ -58,6 +63,10 @@
   padding: 2rem;
   border-radius: 0.8rem;
   background-color: $primary-5;
+}
+
+.white-background {
+  background-color: $white;
 }
 
 .count-title {

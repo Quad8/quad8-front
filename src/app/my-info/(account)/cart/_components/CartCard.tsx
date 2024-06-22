@@ -25,11 +25,20 @@ interface ShopCardProps {
   type: 'shop';
   cardData: ShopDataType;
 }
+
+const CATEGORY = {
+  keyboard: '키보드',
+  keycap: '키캡',
+  etc: '기타 용품',
+};
+
 export default function CartCard({ cardData, type }: CustomCardProps | ShopCardProps) {
   const imageURL = type === 'custom' ? cardData.imgUrl : cardData.thumbsnail;
   const title = type === 'custom' ? '키득 커스텀 키보드' : cardData.productTitle;
   const queryClient = useQueryClient();
   const [isOpenModal, setIsOpenMoal] = useState(false);
+  const price = type === 'custom' ? cardData.price : Number(cardData.count * cardData.price);
+  const category = type === 'shop' ? CATEGORY[cardData.category] : '';
 
   const updateOption = useMutation<void, Error, { id: number; data: OptionChageAPIType }>({
     mutationFn: ({ id, data }) => putChangeCartData(id, data),
@@ -62,8 +71,9 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
           <CardCheckBox id={cardData.id} type={type} />
         </div>
         <div className={cn('product-wrapper')}>
-          <Image src={imageURL} width={104} height={104} alt='이미지' className={cn('image')} />
+          <Image src={imageURL} width={104} height={104} alt='이미지' className={cn('image')} priority />
           <div className={cn('information-wrapper')}>
+            {type === 'shop' && <div className={cn('type')}>{category}</div>}
             <div className={cn('title')}> {title}</div>
             {type === 'custom' ? (
               <CustomOption
@@ -83,7 +93,7 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
           </div>
         </div>
       </div>
-      <div className={cn('price')}>{cardData.price.toLocaleString()}원</div>
+      <div className={cn('price')}>{price.toLocaleString()}원</div>
       <div className={cn('button-wrapper')}>
         <Button fontSize={14} width={90} radius={4} className={cn('button')} onClick={handleOpenModal}>
           주문수정

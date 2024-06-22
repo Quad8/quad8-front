@@ -33,22 +33,24 @@ export default function OptionEditModal({
   const [count, setCount] = useState(currentCount);
   const [optionId, setOptionId] = useState(currentOptionId);
   const notChanged = currentCount === count && currentOptionId === optionId;
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isError } = useQuery({
     queryKey: [`product-${productId}`],
     queryFn: () => getProductDetailData(String(productId)),
   }) as {
     data: ProductDetailAPIType;
     isSuccess: boolean;
+    isError: boolean;
   };
 
   if (!isSuccess) {
     return <div />;
   }
 
+  if (isError) {
+    onClickCancel();
+  }
+
   const options = data.optionList ? data.optionList.map((option) => option.optionName) : [];
-  const optionName = data.optionList
-    ? data.optionList.find((option) => option.id === optionId)?.optionName ?? data.optionList[0].optionName
-    : data.name;
 
   const handleDropdownChange = (value: string) => {
     if (!data.optionList) {
@@ -65,13 +67,21 @@ export default function OptionEditModal({
     <div className={cn('wrapper')}>
       <div className={cn('title')}>주문 수정</div>
       <div className={cn('header-wrapper')}>
-        <Image alt='상품 이미지' src={data.thubmnailList[0].imgUrl} width={104} height={104} className={cn('image')} />
+        <Image
+          alt='상품 이미지'
+          src={data.thubmnailList[0].imgUrl}
+          width={104}
+          height={104}
+          className={cn('image')}
+          placeholder='blur'
+          blurDataURL='data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBAB  bWyZJf74GZgAAAABJRU5ErkJggg=='
+        />
         <div className={cn('information-wrapper')}>
           <div className={cn('header-name')}>{data.name}</div>
           <div className={cn('header-price')}>{data.price.toLocaleString()}원</div>
         </div>
       </div>
-      <div className={cn('option-wrapper')}>
+      <div className={cn('option-wrapper', { reverse: !data.optionList })}>
         {data.optionList && (
           <Dropdown
             options={options}
@@ -82,14 +92,18 @@ export default function OptionEditModal({
           />
         )}
 
-        <div className={cn('count-wrapper')}>
-          <div className={cn('count-title')}>{optionName}</div>
+        <div className={cn('count-wrapper', { 'white-background': !data.optionList })}>
+          {data.optionList && (
+            <div className={cn('count-title')}>
+              {data.optionList.find((option) => option.id === optionId)?.optionName}
+            </div>
+          )}
           <CountInput value={count} ref={inputRef} onChange={(value) => setCount(Number(value))} />
         </div>
         <div className={cn('cart-wrapper')} />
         <div className={cn('price-wrapper')}>
           <div className={cn('price-text')}>총 상품금액</div>
-          <div className={cn('price-number')}>{(data.price ?? 0 * count).toLocaleString()}원</div>
+          <div className={cn('price-number')}>{(data.price * count).toLocaleString()}원</div>
         </div>
       </div>
       <div className={cn('button-wrapper')}>
