@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
@@ -28,9 +28,8 @@ interface PostCardDetailModalProps {
 }
 
 export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps) {
-  const commentRef = useRef<HTMLInputElement>(null);
+  const [commentRef, setCommentRef] = useState<HTMLInputElement | null>(null);
   const [clickedImage, setClickedImage] = useState('');
-  const [isRerendered, setIsRerenderd] = useState(false);
 
   const { isPending, isError, data, error, refetch } = useQuery({
     queryKey: ['postData'],
@@ -40,9 +39,8 @@ export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps
   const { mutate: postCommentMutation } = useMutation({
     mutationFn: postComment,
     onSuccess: async () => {
-      toast.success('댓글이 성공적으로 등록되었습니다.');
-      if (commentRef.current) {
-        commentRef.current.value = '';
+      if (commentRef) {
+        commentRef.value = '';
       }
       await refetch();
     },
@@ -52,22 +50,18 @@ export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps
   });
 
   useEffect(() => {
-    if (!commentRef.current) {
-      setIsRerenderd(!isRerendered);
-    }
     const handleSubmitComment = () => {
-      if (commentRef.current) {
-        const commentContent = commentRef.current.value;
+      if (commentRef) {
+        const commentContent = commentRef.value;
         postCommentMutation({ id: cardId, content: commentContent });
       }
     };
-    const removeEvent = addEnterKeyEvent({ element: commentRef, callback: handleSubmitComment });
+    const removeEvent = addEnterKeyEvent({ element: { current: commentRef }, callback: handleSubmitComment });
 
     return () => {
       removeEvent();
-      setIsRerenderd(true);
     };
-  }, [cardId, postCommentMutation, isRerendered]);
+  }, [cardId, postCommentMutation, commentRef]);
 
   if (isPending) {
     return <span>Loading...</span>;
@@ -144,7 +138,7 @@ export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps
           </div>
         </div>
         <div className={cn('comment-input')}>
-          <InputField placeholder='댓글을 입력해주세요' ref={commentRef} />
+          <InputField placeholder='댓글을 입력해주세요' ref={(ref) => setCommentRef(ref)} />
         </div>
       </div>
     </div>

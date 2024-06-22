@@ -16,9 +16,10 @@ const cn = classNames.bind(styles);
 
 interface WritePostButtonProps {
   orderListData: PostCardDetailModalCustomKeyboardType[];
+  postCardListRefetch: () => void;
 }
 
-export default function WritePostButton({ orderListData }: WritePostButtonProps) {
+export default function WritePostButton({ orderListData, postCardListRefetch }: WritePostButtonProps) {
   const [isOpenOrderListModal, setIsOpenOrderListModal] = useState(false);
   const [isOpenReviewModal, setIsOpenReviewModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<PostCardDetailModalCustomKeyboardType | null>(null);
@@ -48,6 +49,7 @@ export default function WritePostButton({ orderListData }: WritePostButtonProps)
   const handleSuccessPost = () => {
     setIsOpenReviewModal(false);
     setIsOpenOrderListModal(false);
+    postCardListRefetch();
   };
 
   return (
