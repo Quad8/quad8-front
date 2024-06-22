@@ -10,18 +10,6 @@
   }
 }
 
-// @keyframes expand {
-//   0% {
-//     max-height: max-content;
-//     opacity: 1;
-//   }
-
-//   100% {
-//     max-height: max-content;
-//     opacity: 1;
-//   }
-// }
-
 .dropdown {
   position: relative;
   z-index: 10;
@@ -50,7 +38,7 @@
     }
 
     &.open-other {
-      animation: expand 0.6s ease forwards;
+      animation: none;
     }
 
     &::-webkit-scrollbar {

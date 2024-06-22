@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 
 import { Dropdown } from '@/components';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
-import ArrowIcon from '@/public/svgs/chevron.svg';
+import { ChevronIcon as ArrowIcon } from '@/public/index';
 import RenderDays from './Days';
 
 import styles from './Calendar.module.scss';

@@ -17,13 +17,12 @@ export default forwardRef<HTMLInputElement, RadioProps>(function Radio(
 ) {
   return (
     <Label htmlFor={id} sizeVariant='md'>
-      {/* <Input ref={ref} id={id} type='radio' checked={checked} isError={isError} onChange={onChange} {...rest} /> */}
       <input
         className={cn('radio', { red: isError })}
         ref={ref}
         id={id}
         type='radio'
-        checked={isChecked || undefined}
+        checked={isChecked || false}
         value={value}
         {...rest}
       />
