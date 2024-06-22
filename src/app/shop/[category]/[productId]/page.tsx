@@ -1,5 +1,5 @@
 import { getProductDetail } from '@/api/productAPI';
-import { getProductReviews } from '@/api/reviewAPI';
+import { getProductReviews } from '@/api/productReviewAPI';
 import { ROUTER } from '@/constants/route';
 import { redirect } from 'next/navigation';
 import ProductDetail from './_components/Product/ProductDetail';
