@@ -3,6 +3,9 @@ import Image from 'next/image';
 import classNames from 'classnames/bind';
 
 import { Button, Dropdown } from '@/components';
+import { useQuery } from '@tanstack/react-query';
+import { getProductDetailData } from '@/api/cartAPI';
+import { OptionChageAPIType, ProductDetailAPIType } from '@/types/CartTypes';
 import CountInput from './CountInput';
 
 import styles from './OptionEditModal.module.scss';
@@ -11,27 +14,16 @@ const cn = classNames.bind(styles);
 
 interface OptionEditModalProps {
   id: number;
+  productId: number;
   currentCount: number;
   currentOptionId: number | null;
   onClickCancel: () => void;
-  onClickEdit: () => void;
-}
-
-interface OptionType {
-  id: number;
-  optionName: string;
-}
-
-interface ShopDetailDataType {
-  id: number;
-  name: string;
-  image: string;
-  optionList: null | OptionType[];
-  price: number;
+  onClickEdit: (id: number, data: OptionChageAPIType) => void;
 }
 
 export default function OptionEditModal({
   id,
+  productId,
   currentCount,
   currentOptionId,
   onClickCancel,
@@ -41,14 +33,18 @@ export default function OptionEditModal({
   const [count, setCount] = useState(currentCount);
   const [optionId, setOptionId] = useState(currentOptionId);
   const notChanged = currentCount === count && currentOptionId === optionId;
-  const data: ShopDetailDataType = {
-    id,
-    name: 'NZXT FUNCTION 2 MINITKL Matte White 8K 유선 게이밍 기계식 Matte White 8K 유선 게이밍 기계식',
-    image:
-      'https://shop-phinf.pstatic.net/20240429_278/1714358219579vxxyH_JPEG/41660903461778748_895965906.jpg?type=m510',
-    optionList: null,
-    price: 60000,
+  const { data, isSuccess } = useQuery({
+    queryKey: [`product-${productId}`],
+    queryFn: () => getProductDetailData(String(productId)),
+  }) as {
+    data: ProductDetailAPIType;
+    isSuccess: boolean;
   };
+
+  if (!isSuccess) {
+    return <div />;
+  }
+
   const options = data.optionList ? data.optionList.map((option) => option.optionName) : [];
   const optionName = data.optionList
     ? data.optionList.find((option) => option.id === optionId)?.optionName ?? data.optionList[0].optionName
@@ -60,11 +56,16 @@ export default function OptionEditModal({
     }
     setOptionId(data.optionList.find((option) => option.optionName === value)?.id ?? data.optionList[0].id);
   };
+
+  const handleClickEditButton = () => {
+    onClickEdit(id, { count, switchOptionId: optionId });
+  };
+
   return (
     <div className={cn('wrapper')}>
       <div className={cn('title')}>주문 수정</div>
       <div className={cn('header-wrapper')}>
-        <Image alt='상품 이미지' src={data.image} width={104} height={104} className={cn('image')} />
+        <Image alt='상품 이미지' src={data.thubmnailList[0].imgUrl} width={104} height={104} className={cn('image')} />
         <div className={cn('information-wrapper')}>
           <div className={cn('header-name')}>{data.name}</div>
           <div className={cn('header-price')}>{data.price.toLocaleString()}원</div>
@@ -88,12 +89,12 @@ export default function OptionEditModal({
         <div className={cn('cart-wrapper')} />
         <div className={cn('price-wrapper')}>
           <div className={cn('price-text')}>총 상품금액</div>
-          <div className={cn('price-number')}>{(data.price * count).toLocaleString()}원</div>
+          <div className={cn('price-number')}>{(data.price ?? 0 * count).toLocaleString()}원</div>
         </div>
       </div>
       <div className={cn('button-wrapper')}>
         <Button onClick={onClickCancel}>취소</Button>
-        <Button onClick={onClickEdit} className={cn({ disabled: notChanged })} disabled={notChanged}>
+        <Button onClick={handleClickEditButton} className={cn({ disabled: notChanged })} disabled={notChanged}>
           수정 완료
         </Button>
       </div>

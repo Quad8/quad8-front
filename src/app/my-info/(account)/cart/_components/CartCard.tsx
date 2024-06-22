@@ -3,9 +3,11 @@ import Image from 'next/image';
 import classNames from 'classnames/bind';
 
 import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
-import type { CustomDataType, ShopDataType } from '@/types/CartTypes';
+import type { CustomDataType, OptionChageAPIType, ShopDataType } from '@/types/CartTypes';
 import { Button, Modal } from '@/components';
 import CustomOption from '@/components/CustomOption/CustomOption';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { putChangeCartData } from '@/api/cartAPI';
 import CardCheckBox from './CardCheckBox';
 import ShopOption from './ShopOption';
 import OptionEditModal from './OptionEditModal';
@@ -26,17 +28,31 @@ interface ShopCardProps {
 export default function CartCard({ cardData, type }: CustomCardProps | ShopCardProps) {
   const imageURL = type === 'custom' ? cardData.imgUrl : cardData.thumbsnail;
   const title = type === 'custom' ? '키득 커스텀 키보드' : cardData.productTitle;
+  const queryClient = useQueryClient();
   const [isOpenModal, setIsOpenMoal] = useState(false);
 
-  const handleClickEdit = () => {
-    if (type === 'custom') {
-      return;
-    }
-    setIsOpenMoal(true);
+  const updateOption = useMutation<void, Error, { id: number; data: OptionChageAPIType }>({
+    mutationFn: ({ id, data }) => putChangeCartData(id, data),
+  });
+
+  const handleClickEdit = (id: number, data: OptionChageAPIType) => {
+    updateOption.mutate(
+      { id, data },
+      {
+        onSuccess: () => {
+          setIsOpenMoal(false);
+          queryClient.invalidateQueries({ queryKey: ['cartData'] });
+        },
+      },
+    );
   };
 
   const handleCloseModal = () => {
     setIsOpenMoal(false);
+  };
+
+  const handleOpenModal = () => {
+    setIsOpenMoal(true);
   };
 
   return (
@@ -69,7 +85,7 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
       </div>
       <div className={cn('price')}>{cardData.price.toLocaleString()}원</div>
       <div className={cn('button-wrapper')}>
-        <Button fontSize={14} width={90} radius={4} className={cn('button')} onClick={handleClickEdit}>
+        <Button fontSize={14} width={90} radius={4} className={cn('button')} onClick={handleOpenModal}>
           주문수정
         </Button>
         <Button fontSize={14} width={90} radius={4} className={cn('button')}>
@@ -80,6 +96,7 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
         <Modal isOpen={isOpenModal} onClose={handleCloseModal}>
           <OptionEditModal
             id={cardData.id}
+            productId={cardData.prductId}
             currentCount={cardData.count}
             currentOptionId={cardData.optionId}
             onClickCancel={handleCloseModal}

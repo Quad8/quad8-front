@@ -9,7 +9,6 @@ export const getBlurImage = async (imgSrc: string) => {
 
     return base64;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -20,7 +19,6 @@ export const getBlurImageList = async (imgSrcList: string[]) => {
     const base64 = await Promise.all(promise);
     return base64;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
