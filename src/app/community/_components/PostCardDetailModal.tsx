@@ -25,26 +25,31 @@ interface ReviewImageType {
 
 interface PostCardDetailModalProps {
   cardId: number;
+  onClose: () => void;
 }
 
-export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps) {
+export default function PostCardDetailModal({ cardId, onClose }: PostCardDetailModalProps) {
   const queryClient = useQueryClient();
   const [commentRef, setCommentRef] = useState<HTMLInputElement | null>(null);
   const [clickedImage, setClickedImage] = useState('');
 
   const { isPending, isError, data, error, refetch } = useQuery({
-    queryKey: ['postData'],
+    queryKey: ['postData', cardId],
     queryFn: () => getPostDetail(cardId),
   });
 
+  const handleSuccessSubmitComment = async () => {
+    if (commentRef) {
+      commentRef.value = '';
+    }
+    queryClient.invalidateQueries({ queryKey: ['postCardsList'] });
+    await refetch();
+  };
+
   const { mutate: postCommentMutation } = useMutation({
     mutationFn: postComment,
-    onSuccess: async () => {
-      if (commentRef) {
-        commentRef.value = '';
-      }
-      queryClient.invalidateQueries({ queryKey: ['postCardsList'] });
-      await refetch();
+    onSuccess: () => {
+      handleSuccessSubmitComment();
     },
     onError: () => {
       toast.error('댓글 등록 중 오류가 발생하였습니다.');
@@ -74,7 +79,13 @@ export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps
     return <span>Error: {error.message}</span>;
   }
 
-  const { data: postData } = data;
+  const { data: postData, status, message } = data;
+
+  if (status === 'FAIL') {
+    toast.error(message);
+    onClose();
+    return null;
+  }
 
   const { commentCount, comments, content, likeCount, nickName, reviewImages, title, updatedAt, userImage } =
     postData as CommunityPostCardDetailDataType;

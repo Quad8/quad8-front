@@ -51,7 +51,7 @@ export default function PostCard({ cardData }: PostCardProps) {
       <p className={cn('title')}>{title}</p>
       <PostInteractions likeCount={likeCount} commentCount={commentCount} />
       <Modal isOpen={isPostModalOpen} onClose={handleClosePostModal}>
-        <PostCardDetailModal cardId={id} />
+        <PostCardDetailModal cardId={id} onClose={handleClosePostModal} />
       </Modal>
     </div>
   );

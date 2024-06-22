@@ -3,6 +3,7 @@
 import { PlusIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { Button, Modal } from '@/components';
 import Dialog from '@/components/Dialog/Dialog';
@@ -16,10 +17,11 @@ const cn = classNames.bind(styles);
 
 interface WritePostButtonProps {
   orderListData: PostCardDetailModalCustomKeyboardType[];
-  postCardListRefetch: () => void;
 }
 
-export default function WritePostButton({ orderListData, postCardListRefetch }: WritePostButtonProps) {
+export default function WritePostButton({ orderListData }: WritePostButtonProps) {
+  const queryClient = useQueryClient();
+
   const [isOpenOrderListModal, setIsOpenOrderListModal] = useState(false);
   const [isOpenReviewModal, setIsOpenReviewModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<PostCardDetailModalCustomKeyboardType | null>(null);
@@ -49,7 +51,7 @@ export default function WritePostButton({ orderListData, postCardListRefetch }: 
   const handleSuccessPost = () => {
     setIsOpenReviewModal(false);
     setIsOpenOrderListModal(false);
-    postCardListRefetch();
+    queryClient.invalidateQueries({ queryKey: ['postCardsList'] });
   };
 
   return (
