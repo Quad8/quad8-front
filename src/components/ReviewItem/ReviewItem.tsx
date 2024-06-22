@@ -54,7 +54,7 @@ export default function ReviewItem({ isDisplayOnMyPage, data }: ReviewItemProps)
           {!isDisplayOnMyPage && (
             <>
               <h2 className={cn('name')}>{nickname}</h2>
-              <h2 className={cn('option')}>{switchOption}</h2>
+              {switchOption.length ? <h2 className={cn('option')}>스위치: {switchOption}</h2> : ''}
             </>
           )}
         </div>

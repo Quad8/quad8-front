@@ -30,11 +30,7 @@ export interface ReviewDto {
 
 export type OptionRatio = Record<string, number>;
 
-export interface KeywordStatistics {
-  option1Ratios: OptionRatio;
-  option2Ratios: OptionRatio;
-  option3Ratios: OptionRatio;
-}
+export type KeywordStatistics = Record<string, OptionRatio>;
 
 export type ProductReviewPreview = {
   averageScore: number;
@@ -46,33 +42,13 @@ export interface ProductReviewType extends ProductReviewPreview {
   reviewDtoList: ReviewDto[];
 }
 
-interface KeyboardKeyword {
-  키감: string[];
-  소리: string[];
-  내구성: string[];
-}
+type Keyword = Record<string, string[]>;
 
-interface KeycapKeyword {
-  색감: string[];
-  텍스처: string[];
-  내구성: string[];
-}
+export type ReviewKeywordType = Record<'키보드' | '키캡' | '스위치' | '기타용품', Keyword>;
 
-interface SwitchKeyword {
-  반응속도: string[];
-  소리: string[];
-  내구성: string[];
-}
-
-interface EtcKeyword {
-  호환성: string[];
-  편의성: string[];
-  내구성: string[];
-}
-
-export interface ReviewKeywordType {
-  키보드: KeyboardKeyword;
-  키캡: KeycapKeyword;
-  스위치: SwitchKeyword;
-  기타용품: EtcKeyword;
+export interface ProductReviewParams {
+  productId: string;
+  sort?: string;
+  page?: number;
+  size?: number;
 }

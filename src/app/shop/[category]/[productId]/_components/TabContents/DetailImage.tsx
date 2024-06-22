@@ -15,7 +15,7 @@ export default function DetailImage({ detailsImg }: DetailImageProps) {
       <Image
         className={cn('detail-image')}
         src={detailsImg}
-        width={1200}
+        width={600}
         height={500}
         alt='상품 설명 이미지'
         placeholder={IMAGE_BLUR.placeholder}
