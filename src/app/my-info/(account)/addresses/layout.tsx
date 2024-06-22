@@ -1,8 +1,8 @@
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { ReactNode } from 'react';
 
 import { getAddresses } from '@/api/shippingAPI';
-import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { AddressesHeader } from './_components';
 
 import styles from './layout.module.scss';
