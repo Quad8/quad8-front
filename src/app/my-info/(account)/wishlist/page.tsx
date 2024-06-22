@@ -1,3 +1,5 @@
+import { MyInfoEmptyCase } from '../../_components';
+
 export default function WishlistPage() {
-  return <div>찜 목록 페이지 입니다</div>;
+  return <MyInfoEmptyCase message='찜한 상품이 없습니다.' />;
 }

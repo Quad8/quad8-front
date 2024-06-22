@@ -1,3 +1,5 @@
+import { MyInfoEmptyCase } from '../../_components';
+
 export default function ReviewsPage() {
-  return <div>구매후기 페이지 입니다</div>;
+  return <MyInfoEmptyCase message='구매 후기가 없습니다.' />;
 }

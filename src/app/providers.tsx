@@ -4,6 +4,10 @@ import { ScrollUpButton } from '@/components';
 import { QueryClient, QueryClientProvider, isServer } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactNode, useRef } from 'react';
+import { ToastContainer, Zoom } from 'react-toastify';
+
+import '@/styles/toast/toastAnimation.scss';
+import '@/styles/toast/toastContainer.scss';
 
 interface ProvidersProps {
   children: ReactNode;
@@ -40,6 +44,7 @@ export function Providers({ children }: ProvidersProps) {
       <ScrollUpButton headerRef={scrollRef} />
       <div id='modal' />
       <ReactQueryDevtools initialIsOpen={false} />
+      <ToastContainer autoClose={2000} theme='dark' position='top-center' transition={Zoom} />
     </QueryClientProvider>
   );
 }
