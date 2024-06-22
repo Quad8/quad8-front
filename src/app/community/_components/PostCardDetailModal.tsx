@@ -30,6 +30,7 @@ interface PostCardDetailModalProps {
 export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps) {
   const commentRef = useRef<HTMLInputElement>(null);
   const [clickedImage, setClickedImage] = useState('');
+  const [isRerendered, setIsRerenderd] = useState(false);
 
   const { isPending, isError, data, error, refetch } = useQuery({
     queryKey: ['postData'],
@@ -51,19 +52,22 @@ export default function PostCardDetailModal({ cardId }: PostCardDetailModalProps
   });
 
   useEffect(() => {
+    if (!commentRef.current) {
+      setIsRerenderd(!isRerendered);
+    }
     const handleSubmitComment = () => {
       if (commentRef.current) {
         const commentContent = commentRef.current.value;
         postCommentMutation({ id: cardId, content: commentContent });
       }
     };
-
     const removeEvent = addEnterKeyEvent({ element: commentRef, callback: handleSubmitComment });
 
     return () => {
       removeEvent();
+      setIsRerenderd(true);
     };
-  }, [commentRef, cardId, postCommentMutation]);
+  }, [cardId, postCommentMutation, isRerendered]);
 
   if (isPending) {
     return <span>Loading...</span>;
