@@ -17,7 +17,6 @@ export default function ShopCardList() {
     isSuccess: boolean;
   };
   const shopData = isSuccess ? data.SHOP : [];
-  console.log(shopData);
 
   return (
     <div className={cn('wrapper')}>

@@ -17,6 +17,7 @@ export default function CustomCardList() {
     isSuccess: boolean;
   };
   const customData = isSuccess ? data.CUSTOM : [];
+
   return (
     <div className={cn('wrapper')}>
       {customData.map((custom) => (
