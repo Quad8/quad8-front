@@ -39,8 +39,8 @@ export interface GetCategoryListParams {
   sort: string | string[];
   page: string | string[];
   size: string;
-  company?: string | string[];
-  switchType?: string | string[];
+  companies?: string | string[];
+  switchTypes?: string | string[];
   minPrice?: string | string[];
   maxPrice?: string | string[];
 }

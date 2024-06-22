@@ -41,8 +41,8 @@ export async function getCategoryProductList({
   sort,
   page,
   size,
-  company,
-  switchType,
+  companies,
+  switchTypes,
   minPrice,
   maxPrice,
 }: GetCategoryListParams): Promise<ProductListResponse> {
@@ -52,8 +52,8 @@ export async function getCategoryProductList({
       sort: encodeURIComponent(sort as string),
       page: encodeURIComponent(page as string),
       size: encodeURIComponent(size),
-      ...(company && { company: encodeURIComponent(company as string) }),
-      ...(switchType && { switchType: encodeURIComponent(switchType as string) }),
+      ...(companies && { companies: encodeURIComponent(companies as string) }),
+      ...(switchTypes && { switchTypes: encodeURIComponent(switchTypes as string) }),
       ...(minPrice && { minPrice: encodeURIComponent(minPrice as string) }),
       ...(maxPrice && { maxPrice: encodeURIComponent(maxPrice as string) }),
     }).toString();
