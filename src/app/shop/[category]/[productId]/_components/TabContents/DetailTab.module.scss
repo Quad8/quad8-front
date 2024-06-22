@@ -15,13 +15,11 @@
 }
 
 .tab-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
+  @include pretendard-20-600;
+
   width: 15.6rem;
   color: $gray-50;
-
-  @include pretendard-20-600;
 }
 
 .active {

@@ -12,29 +12,28 @@
   }
 
   span {
-    padding-left: 1rem;
     @include pretendard-16-400;
 
+    padding-left: 1rem;
     color: $gray-50;
   }
 }
 
 .title-wrap {
   @include flex-column(1.2rem);
+  @include pretendard-20-700;
 
   padding: 4rem 0;
   border-top: 0.1rem solid $gray-10;
   border-bottom: 0.1rem solid $gray-10;
   background-color: $gray-5;
   text-align: center;
-
-  @include pretendard-20-700;
 }
 
 .sub-title {
-  color: $gray-50;
-
   @include pretendard-16-400;
+
+  color: $gray-50;
 }
 
 .content-title {
@@ -43,7 +42,8 @@
 }
 
 .main-title {
+  @include pretendard-20-700;
+
   margin-bottom: 2rem;
   padding-top: 2rem;
-  @include pretendard-20-700;
 }
