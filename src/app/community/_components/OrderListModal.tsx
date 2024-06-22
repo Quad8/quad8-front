@@ -23,7 +23,6 @@ export default function OrderListModal({
   selectedOrder,
 }: OrderListModalProps) {
   const handleClickWriteButton = () => {
-    // console.log(selectedOrder);
     onOpenReviewModal();
   };
 

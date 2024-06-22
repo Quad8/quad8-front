@@ -15,9 +15,9 @@ interface CommunityPageProps {
 
 export default async function CommunityPage({ searchParams }: CommunityPageProps) {
   const initialParams: CommunityParamsType = {
-    sort: 'new',
-    page: '0',
-    size: '10',
+    sort: searchParams.sort || 'new',
+    page: searchParams.page || '0',
+    size: searchParams.size || '10',
   };
 
   const data = await getAllCommunityPost(initialParams);

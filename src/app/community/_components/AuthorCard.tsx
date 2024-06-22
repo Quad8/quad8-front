@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 
 import { VerticalTripleDotIcon } from '@/public/index';
-
 import ProfileImage from '@/components/ProfileImage/ProfileImage';
 
 import styles from './AuthorCard.module.scss';

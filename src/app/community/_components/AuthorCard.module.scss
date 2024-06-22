@@ -6,8 +6,8 @@
 }
 
 .info-textbox {
-  display: flex;
-  flex-direction: column;
+  @include flex-column(0);
+
   align-items: space-between;
   justify-content: space-between;
   height: 80%;
