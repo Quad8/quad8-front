@@ -6,7 +6,7 @@ import styles from './CheckoutNavigation.module.scss';
 const cn = classNames.bind(styles);
 
 interface CheckoutNavigationProps {
-  isSuccess: boolean;
+  isSuccess?: boolean;
 }
 
 export default function CheckoutNavigation({ isSuccess }: CheckoutNavigationProps) {
