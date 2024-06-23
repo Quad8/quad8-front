@@ -25,24 +25,21 @@ export const CartDataContext = createContext<CartDataContextType>({
 });
 
 export function CartDataContextProvider({ children }: PropsWithChildren) {
-  const { data, isSuccess } = useQuery({ queryKey: ['cartData'], queryFn: getCartData }) as {
-    data: CartAPIDataType;
-    isSuccess: boolean;
-  };
+  const { data: cartData } = useQuery<CartAPIDataType>({ queryKey: ['cartData'], queryFn: getCartData });
   const [checkedCustomList, setCheckedCustomList] = useState<Record<string, boolean>>(
-    Object.fromEntries((isSuccess ? data.CUSTOM : []).map((element) => [element.id, false])),
+    Object.fromEntries((cartData ? cartData.CUSTOM : []).map((element) => [element.id, false])),
   );
   const [checkedShopList, setCheckedShopList] = useState<Record<string, boolean>>(
-    Object.fromEntries((isSuccess ? data.SHOP : []).map((element) => [element.id, false])),
+    Object.fromEntries((cartData ? cartData.SHOP : []).map((element) => [element.id, false])),
   );
 
   useEffect(() => {
-    const customData = isSuccess ? data.CUSTOM : [];
-    const shopData = isSuccess ? data.SHOP : [];
+    const customData = cartData?.CUSTOM ?? [];
+    const shopData = cartData?.SHOP ?? [];
 
     setCheckedCustomList(Object.fromEntries(customData.map((element) => [element.id, false])));
     setCheckedShopList(Object.fromEntries(shopData.map((element) => [element.id, false])));
-  }, [isSuccess, data]);
+  }, [cartData]);
 
   const updateCheckedAllCustom = useCallback((value: boolean) => {
     setCheckedCustomList((prev) => Object.fromEntries(Object.entries(prev).map((element) => [element[0], value])));
