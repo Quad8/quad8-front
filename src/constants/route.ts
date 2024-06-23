@@ -14,8 +14,10 @@ export const ROUTER = {
     REVIEWS: '/my-info/reviews', // 구매후기
     WISHLIST: '/my-info/wishlist', // 찜 목록
     CART: '/my-info/cart', // 장바구니
-    CHECKOUT: '/checkout', // 주문 / 결제
     MY_POSTS: '/my-info/my-posts', // 내 게시글
+
+    CHECKOUT: '/payment', // 주문 / 결제
+    CHECKOUT_SUCCESS: '/payment-success',
   },
 
   SHOP: {

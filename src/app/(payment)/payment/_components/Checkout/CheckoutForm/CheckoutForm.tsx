@@ -1,10 +1,13 @@
 'use client';
 
 import classNames from 'classnames/bind';
+import { useRouter } from 'next/navigation';
+import { FormEvent } from 'react';
 
 import { Button, Dropdown } from '@/components';
-
 import { Input, Label } from '@/components/parts';
+import { ROUTER } from '@/constants/route';
+
 import styles from './CheckoutForm.module.scss';
 
 const cn = classNames.bind(styles);
@@ -12,8 +15,15 @@ const cn = classNames.bind(styles);
 const DELIVERY_OPTIONS = ['부재시 문앞에 놓아주세요.', '경비실에 맡겨 주세요', '직접 입력'];
 
 export default function CheckoutForm() {
+  const router = useRouter();
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    router.push(ROUTER.MY_PAGE.CHECKOUT_SUCCESS);
+  };
+
   return (
-    <form className={cn('checkout-form')}>
+    <form className={cn('checkout-form')} onSubmit={onSubmit}>
       <article className={cn('form')}>
         <div className={cn('item-box')}>
           <h1>주문 상품</h1>
@@ -39,7 +49,6 @@ export default function CheckoutForm() {
                 <p>010-1234-5678</p>
                 <p>서울시 인천시 일산구</p>
               </div>
-              {/* <div className={cn('address')} /> */}
             </div>
             <Button type='button' paddingVertical={8} width={72} radius={4}>
               변경

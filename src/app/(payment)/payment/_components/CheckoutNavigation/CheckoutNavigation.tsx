@@ -5,16 +5,20 @@ import styles from './CheckoutNavigation.module.scss';
 
 const cn = classNames.bind(styles);
 
-export default function CheckoutNavigation() {
+interface CheckoutNavigationProps {
+  isSuccess: boolean;
+}
+
+export default function CheckoutNavigation({ isSuccess }: CheckoutNavigationProps) {
   return (
     <article className={cn('nav')}>
       <div className={cn('status-box')}>
         <CreditCard className={cn('card-icon')} />
         <h2>결제하기</h2>
-        <div className={cn('chain')} />
+        <div className={cn('chain', { success: isSuccess })} />
       </div>
       <div className={cn('status-box')}>
-        <Cube className={cn('cube-icon')} />
+        <Cube className={cn('cube-icon', { success: isSuccess })} />
         <h2>결제완료</h2>
       </div>
     </article>
