@@ -27,7 +27,7 @@ export default function PostCardList({ searchParams, initialData }: CommunityPag
   const getAllCommunityParams: CommunityParamsType = {
     sort: searchParams.sort || 'new',
     page: searchParams.page || '0',
-    size: searchParams.page || '10',
+    size: searchParams.size || '16',
   };
 
   const {

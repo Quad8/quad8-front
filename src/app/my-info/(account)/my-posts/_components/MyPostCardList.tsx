@@ -13,7 +13,7 @@ const cn = classNames.bind(styles);
 
 interface MyPostCardListProps {
   searchParams: { [key: string]: string | undefined };
-  initialData: CommunityPostCardDetailDataType;
+  initialData: CommunityPostCardDetailDataType[];
 }
 
 interface ParamsType {
@@ -26,7 +26,7 @@ export default function MyPostCardList({ searchParams, initialData }: MyPostCard
   const getMyPostCardParams: ParamsType = {
     sort: searchParams.sort || 'new',
     page: searchParams.page || '0',
-    size: searchParams.page || '10',
+    size: searchParams.size || '12',
   };
 
   const {
@@ -46,15 +46,21 @@ export default function MyPostCardList({ searchParams, initialData }: MyPostCard
 
   return (
     <div className={cn('container')}>
-      <div className={cn('filter-write-button-wrapper')}>
-        <SortDropdown />
-      </div>
-      {content && (
-        <div className={cn('post-wrapper')}>
-          {content.map((cardData: CommunityPostCardDataType) => (
-            <PostCard key={cardData.id} cardData={cardData} />
-          ))}
+      {initialData.length > 0 ? (
+        <div>
+          <div className={cn('filter-write-button-wrapper')}>
+            <SortDropdown />
+          </div>
+          {content && (
+            <div className={cn('post-wrapper')}>
+              {content.map((cardData: CommunityPostCardDataType) => (
+                <PostCard key={cardData.id} cardData={cardData} />
+              ))}
+            </div>
+          )}
         </div>
+      ) : (
+        <div>내 게시글이 없습니다.</div>
       )}
     </div>
   );

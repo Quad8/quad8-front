@@ -60,26 +60,7 @@ export interface CommunityCardDataDetailType {
 
 export const orderListData = [
   {
-    productId: 1000075,
-    type: 'full',
-    texture: 'metal',
-    boardColor: '#ffffff',
-    switchType: '적축',
-    baseKeyColor: '#ffffff',
-    hasPointKeyCap: true,
-    pointKeyType: '내 맘대로 바꾸기',
-    pointSetColor: '#ffffff',
-    imgUrl:
-      'https://keyduek-image-file.s3.ap-northeast-2.amazonaws.com/keydeuk/product/custom9df88e89-146f-4535-8efe-9504a1f87330.png',
-    price: 60000,
-    individualColor: {
-      '1': '#ffffff',
-      Q: '#ffffff',
-      T: '#ffffff',
-    },
-  },
-  {
-    productId: 1000076,
+    productId: 1000092,
     type: 'full',
     texture: 'metal',
     boardColor: '#ffffff',
@@ -98,7 +79,7 @@ export const orderListData = [
     },
   },
   {
-    productId: 1000077,
+    productId: 1000093,
     type: 'full',
     texture: 'metal',
     boardColor: '#ffffff',
@@ -117,7 +98,7 @@ export const orderListData = [
     },
   },
   {
-    productId: 1000078,
+    productId: 1000094,
     type: 'full',
     texture: 'metal',
     boardColor: '#ffffff',
@@ -136,7 +117,7 @@ export const orderListData = [
     },
   },
   {
-    productId: 1000079,
+    productId: 1000095,
     type: 'full',
     texture: 'metal',
     boardColor: '#ffffff',
@@ -155,26 +136,7 @@ export const orderListData = [
     },
   },
   {
-    productId: 1000080,
-    type: 'full',
-    texture: 'metal',
-    boardColor: '#ffffff',
-    baseKeyColor: '#ffffff',
-    switchType: '적축',
-    hasPointKeyCap: true,
-    pointKeyType: '내 맘대로 바꾸기',
-    pointSetColor: '#ffffff',
-    imgUrl:
-      'https://keyduek-image-file.s3.ap-northeast-2.amazonaws.com/keydeuk/product/custom9df88e89-146f-4535-8efe-9504a1f87330.png',
-    price: 60000,
-    individualColor: {
-      '1': '#ffffff',
-      Q: '#ffffff',
-      T: '#ffffff',
-    },
-  },
-  {
-    productId: 1000081,
+    productId: 1000096,
     type: 'full',
     texture: 'metal',
     boardColor: '#ffffff',

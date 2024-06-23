@@ -17,7 +17,7 @@ export default async function CommunityPage({ searchParams }: CommunityPageProps
   const initialParams: CommunityParamsType = {
     sort: searchParams.sort || 'new',
     page: searchParams.page || '0',
-    size: searchParams.size || '10',
+    size: searchParams.size || '16',
   };
 
   const data = await getAllCommunityPost(initialParams);

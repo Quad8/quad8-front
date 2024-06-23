@@ -16,7 +16,7 @@ export default async function MyPostsPage({ searchParams }: MyPostsPageProps) {
   const initialParams: MyPostsParamsType = {
     sort: searchParams.sort || 'new',
     page: searchParams.page || '0',
-    size: searchParams.size || '10',
+    size: searchParams.size || '12',
   };
 
   const data = await getMyPosts(initialParams);

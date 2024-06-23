@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Modal } from '@/components';
-import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
+// import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import styles from './ReviewModalTest.module.scss';
@@ -43,7 +43,7 @@ export default function ReviewModalTest() {
         button
       </Button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <WriteEditModal isCustomReview />
+        {/* <WriteEditModal isCustomReview /> */}
       </Modal>
     </div>
   );
