@@ -1,9 +1,13 @@
-import classNames from 'classnames/bind';
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import classNames from 'classnames/bind';
+
 import { LogoIcon } from '@/public/index';
 import { ROUTER } from '@/constants/route';
-import styles from './Footer.module.scss';
 import HoverLinkIocn from './HoverLinkIcon';
+import styles from './Footer.module.scss';
 
 const cn = classNames.bind(styles);
 
@@ -15,8 +19,11 @@ const INTRODUCE_PAGE = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isRender = pathname !== ROUTER.CUSTOM_KEYBOARD;
+
   return (
-    <div className={cn('wrapper')}>
+    <div className={cn('wrapper', { none: !isRender })}>
       <LogoIcon width={131} height={24} className={cn('logo')} />
       <div className={cn('content-wrapper')}>
         <div className={cn('left-wrapper')}>

@@ -16,7 +16,7 @@ export default function HoverLinkIocn({ color, href, ballonText }: HoverLinkIcon
   return (
     <div className={cn('wrapper')}>
       <div className={cn('ballon')}>{ballonText}</div>
-      <Link href={href}>
+      <Link href={href} target='_blank'>
         <GitHubRectangleIcon width={22} height={22} className={cn('icon', { invert: color === 'white' })} />
       </Link>
     </div>

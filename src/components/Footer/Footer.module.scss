@@ -2,9 +2,16 @@
   @include flex-column(2rem);
 
   width: 100%;
+  min-width: 112rem;
+  max-width: 192rem;
   height: 100%;
+  margin: 0 auto;
   padding: 3.8rem 12rem;
   background-color: $gray-7;
+}
+
+.none {
+  display: none;
 }
 
 .logo {
