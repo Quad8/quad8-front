@@ -21,19 +21,23 @@ export default function OrderItemList({ order }: OrderItemListProps) {
   const formmattedPurchaseDate = formatOrderDate(purchaseDate);
   const formmattedConfirmationDate = formatOrderDate(confirmationDate);
 
+  const isPaymented = orderStatus !== 'READY';
+
   return (
     <article className={cn('order')}>
       <div className={cn('order-header')}>
         <h2>{formmattedPurchaseDate}</h2>
-        <Link className={cn('header-button')} href={ROUTER.MY_PAGE.ORDER_INFO}>
-          주문 상세보기
-          <ChevronIcon className={cn('header-link-icon')} />
-        </Link>
+        {isPaymented && (
+          <Link className={cn('header-button')} href={ROUTER.MY_PAGE.ORDER_INFO}>
+            주문 상세보기
+            <ChevronIcon className={cn('header-link-icon')} />
+          </Link>
+        )}
       </div>
       <div className={cn('order-item-list')}>
         {orderItems.map((orderItem) => (
           <OrderItem
-            key={orderItem.id}
+            key={orderItem.productId}
             orderItem={orderItem}
             confirmationDate={formmattedConfirmationDate}
             orderStatus={orderStatus}

@@ -1,16 +1,15 @@
 import classNames from 'classnames/bind';
 
 import { getOrderStatusDescription } from '@/libs/getOrderStatusDescriptions';
-import type { OrderStatus } from '@/types/orderType';
-import type { Product } from '@/types/ProductItem';
+import type { OrderItem as item, OrderStatus } from '@/types/orderType';
+import OrderItemButton from './OrderItemButton/OrderItemButton';
 
 import styles from './OrderItem.module.scss';
-import OrderItemButton from './OrderItemButton/OrderItemButton';
 
 const cn = classNames.bind(styles);
 
 interface OrderItemProps {
-  orderItem: Product;
+  orderItem: item;
   confirmationDate: string;
   orderStatus: OrderStatus;
 }

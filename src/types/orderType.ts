@@ -1,4 +1,4 @@
-import type { Product } from './ProductItem';
+import { CustomKeyboardTypes } from './CustomKeyboardTypes';
 
 export enum OrderStatus {
   READY = 'READY',
@@ -10,9 +10,19 @@ export enum OrderStatus {
   PURCHASED = 'PURCHASED',
 }
 
+export interface OrderItem {
+  productId: number;
+  productImgUrl: string;
+  productName: string;
+  quantity: number;
+  switchOption: CustomKeyboardTypes;
+  viewCount: number;
+  price: number;
+}
+
 export interface Order {
   orderId: number;
-  orderItems: Product[];
+  orderItems: OrderItem[];
   orderStatus: OrderStatus;
   purchaseDate: string;
   confirmationDate: string;

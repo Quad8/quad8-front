@@ -1,14 +1,16 @@
 .layout {
   display: flex;
   width: 100vw;
-  min-width: 112rem;
+
+  // min-width: 88rem;
+  max-width: 192rem;
   height: 100%;
-  padding: 10.6rem 12rem 11.2rem 32rem;
+  margin: 0 auto;
+  padding: 10.6rem 12rem 11.2rem;
   overflow: auto;
+  gap: 3.2rem;
 
   .page {
     width: 100%;
-    min-width: 112rem;
-    padding: 0 2rem;
   }
 }
