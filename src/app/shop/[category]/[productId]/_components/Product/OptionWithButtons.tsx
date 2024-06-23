@@ -1,11 +1,15 @@
 'use client';
 
 import { postCart } from '@/api/cartAPI';
-import { Button, Dropdown } from '@/components';
+import { Button, Dropdown, Modal } from '@/components';
+import Dialog from '@/components/Dialog/Dialog';
+import SignInModal from '@/components/SignInModal/SignInModal';
 import type { CartProductType, OptionTypes } from '@/types/ProductTypes';
-import { useMutation } from '@tanstack/react-query';
+import { Users } from '@/types/userType';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import OptionContainer from './OptionContainer';
 import styles from './ProductDetail.module.scss';
 import QuantitySelector from './QuantitySelector';
@@ -30,6 +34,10 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptionType[]>([]);
   const totalPrice = selectedOptions.reduce((acc, option) => acc + option.count * price, 0);
   const [noOptionCount, setNoOptionCount] = useState<number>(1);
+  const noOptionTotalPrice = price * noOptionCount;
+
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [isNoOptionModal, setIsNoOptionModal] = useState(false);
 
   const handleChangeOption = (value: string) => {
     if (value !== OPTION_PLACEHOLDER) {
@@ -63,7 +71,43 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
 
   const { mutate: addCartProduct } = useMutation({ mutationFn: (data: CartProductType) => postCart(data) });
 
+  const { data: userData } = useQuery<{ data: Users }>({
+    queryKey: ['userData'],
+  });
+
+  const checkUserAndOptions = () => {
+    if (!userData?.data) {
+      setIsSignInModalOpen(true);
+      return;
+    }
+
+    if (optionList && selectedOptions.length === 0) {
+      setIsNoOptionModal(true);
+    }
+  };
+
+  const handleAddCartProduct = (data: CartProductType) => {
+    addCartProduct(data, {
+      onSuccess: () => {
+        toast.success('상품이 장바구니에 담겼습니다.');
+        setSelectedOptions([]);
+      },
+      onError: () => {
+        toast.error('장바구니에 담기를 실패했습니다. 잠시 후 다시 시도해주세요.');
+      },
+    });
+  };
+
   const handleClickCartButton = () => {
+    checkUserAndOptions();
+
+    if (!optionList) {
+      const noOptionData: CartProductType = { productId, switchOptionId: undefined, count: noOptionCount };
+
+      handleAddCartProduct(noOptionData);
+      return;
+    }
+
     selectedOptions.forEach((option) => {
       const data: CartProductType = {
         productId,
@@ -71,14 +115,12 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
         count: option.count,
       };
 
-      addCartProduct(data);
+      handleAddCartProduct(data);
     });
+  };
 
-    if (!optionList) {
-      const noOptionData: CartProductType = { productId, switchOptionId: undefined, count: noOptionCount };
-
-      addCartProduct(noOptionData);
-    }
+  const handleClickBuyButton = () => {
+    checkUserAndOptions();
   };
 
   return (
@@ -104,13 +146,24 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
       <div className={cn('total-price-box')}>
         <h3>총 금액</h3>
         <h1>
-          <span>{totalPrice.toLocaleString()}</span>원
+          <span>{optionList?.length ? totalPrice.toLocaleString() : noOptionTotalPrice.toLocaleString()}</span> 원
         </h1>
       </div>
       <div className={cn('button-section')}>
         <Button onClick={handleClickCartButton}>장바구니</Button>
-        <Button>구매하기</Button>
+        <Button onClick={handleClickBuyButton}>구매하기</Button>
       </div>
+      <Modal isOpen={isSignInModalOpen} onClose={() => setIsSignInModalOpen(false)}>
+        <SignInModal />
+      </Modal>
+      <Dialog
+        type='alert'
+        iconType='accept'
+        message='옵션을 선택해 주세요.'
+        isOpen={isNoOptionModal}
+        onClick={() => setIsNoOptionModal(false)}
+        buttonText='확인'
+      />
     </>
   );
 }
