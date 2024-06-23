@@ -60,7 +60,7 @@ export interface CommunityCardDataDetailType {
 
 export const orderListData = [
   {
-    productId: 1000092,
+    productId: 1000068,
     type: 'full',
     texture: 'metal',
     boardColor: '#ffffff',
@@ -79,7 +79,7 @@ export const orderListData = [
     },
   },
   {
-    productId: 1000093,
+    productId: 1000069,
     type: 'full',
     texture: 'metal',
     boardColor: '#ffffff',
@@ -98,7 +98,7 @@ export const orderListData = [
     },
   },
   {
-    productId: 1000094,
+    productId: 1000070,
     type: 'full',
     texture: 'metal',
     boardColor: '#ffffff',
@@ -117,7 +117,7 @@ export const orderListData = [
     },
   },
   {
-    productId: 1000095,
+    productId: 1000071,
     type: 'full',
     texture: 'metal',
     boardColor: '#ffffff',
@@ -136,7 +136,7 @@ export const orderListData = [
     },
   },
   {
-    productId: 1000066,
+    productId: 1000072,
     type: 'full',
     texture: 'metal',
     boardColor: '#ffffff',
