@@ -1,4 +1,5 @@
 import { getCookie } from '@/libs/manageCookie';
+
 import type { CreateOrderAPIType } from '@/types/OrderTypes';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;

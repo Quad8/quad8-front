@@ -12,11 +12,8 @@ import styles from './ShopCardList.module.scss';
 const cn = classNames.bind(styles);
 
 export default function ShopCardList() {
-  const { data, isSuccess } = useQuery({ queryKey: ['cartData'], queryFn: getCartData }) as {
-    data: CartAPIDataType;
-    isSuccess: boolean;
-  };
-  const shopData = isSuccess ? data.SHOP : [];
+  const { data: cartData } = useQuery<CartAPIDataType>({ queryKey: ['cartData'], queryFn: getCartData });
+  const shopData = cartData?.SHOP ?? [];
 
   return (
     <div className={cn('wrapper')}>

@@ -1,9 +1,11 @@
 import type { GetCategoryListParams, ProductListResponse, ProductParams } from '@/types/ProductItem';
 import type { ProductType } from '@/types/ProductTypes';
 
+const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
+
 export const getProductDetail = async (productId: string): Promise<ProductType> => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/product/${productId}`);
+    const res = await fetch(`${BASE_URL}/api/v1/product/${productId}`);
     const result = await res.json();
 
     return result.data;
@@ -12,11 +14,9 @@ export const getProductDetail = async (productId: string): Promise<ProductType> 
   }
 };
 
-const baseURL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
-
 export async function getAllProductList({ sort, page, size }: ProductParams): Promise<ProductListResponse> {
   try {
-    const response = await fetch(`${baseURL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`);
+    const response = await fetch(`${BASE_URL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`);
     const rawData: ProductListResponse = await response.json();
 
     return rawData;
@@ -47,7 +47,7 @@ export async function getCategoryProductList({
       ...(maxPrice && { maxPrice: encodeURIComponent(maxPrice as string) }),
     }).toString();
 
-    const response = await fetch(`${baseURL}/api/v1/product/category/${keyword}?${queryParams}`);
+    const response = await fetch(`${BASE_URL}/api/v1/product/category/${keyword}?${queryParams}`);
 
     if (!response.ok) {
       const errorDetails = await response.text();

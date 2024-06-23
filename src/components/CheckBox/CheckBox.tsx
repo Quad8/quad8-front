@@ -9,12 +9,12 @@ const cn = classNames.bind(styles);
 
 interface CheckBoxProps {
   isChecked: boolean;
-  onCheck: () => void;
+  onClick: () => void;
 }
 
-export default function CheckBox({ isChecked, onCheck }: CheckBoxProps) {
+export default function CheckBox({ isChecked, onClick }: CheckBoxProps) {
   return (
-    <div className={cn('wrapper', { checked: isChecked })} onClick={onCheck}>
+    <div className={cn('wrapper', { checked: isChecked })} onClick={onClick}>
       <CheckboxCircleIcon width={22} height={22} className={cn('icon')} />
     </div>
   );

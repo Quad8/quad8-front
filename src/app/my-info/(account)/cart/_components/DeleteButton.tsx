@@ -18,12 +18,12 @@ interface DeleteButtonProps {
 
 export default function DeleteButton({ children }: DeleteButtonProps) {
   const queryClient = useQueryClient();
+
   const [isOpenConfirmDialog, setIsOpenConfirmDialog] = useState(false);
   const [isOpenAlertDialog, setIsOpenAlertDialog] = useState(false);
   const { checkedCustomList, checkedShopList } = useContext(CartDataContext);
-  const deleteCart = useMutation({
-    mutationFn: (idList: string[]) => deleteCartData(idList),
-  });
+
+  const { mutate: deleteCart } = useMutation({ mutationFn: deleteCartData });
 
   const handleConfirmDialog = (value: boolean) => {
     setIsOpenConfirmDialog(value);
@@ -34,10 +34,10 @@ export default function DeleteButton({ children }: DeleteButtonProps) {
   };
 
   const handledeleteCheckedData = () => {
-    /* 삭제 api 보내기 */
     const checkedCustomIdList = Object.keys(checkedCustomList).filter((id) => checkedCustomList[id]);
     const checkedShopIdList = Object.keys(checkedShopList).filter((id) => checkedShopList[id]);
-    deleteCart.mutate([...checkedCustomIdList, ...checkedShopIdList], {
+
+    deleteCart([...checkedCustomIdList, ...checkedShopIdList], {
       onSuccess: () => {
         handleConfirmDialog(false);
         handleAlertDialog(true);

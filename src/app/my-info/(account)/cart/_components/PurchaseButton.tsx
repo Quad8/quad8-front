@@ -20,10 +20,10 @@ const cn = classNames.bind(styles);
 export default function PurchaseButton() {
   const router = useRouter();
   const queryClient = useQueryClient();
+
   const { checkedCustomList, checkedShopList } = useContext(CartDataContext);
-  const { data } = useQuery({ queryKey: ['cartData'], queryFn: getCartData }) as {
-    data: CartAPIDataType;
-  };
+
+  const { data: cartData } = useQuery<CartAPIDataType>({ queryKey: ['cartData'], queryFn: getCartData });
   const createOrder = useMutation({
     mutationFn: postCreateOrder,
     onSuccess: (response: CreateOrderResponseType) => {
@@ -33,34 +33,38 @@ export default function PurchaseButton() {
   });
 
   const handleClickSelectedButton = () => {
-    const customSelectedData = data.CUSTOM.filter((custom) => checkedCustomList[custom.id]).map((element) => ({
-      productId: element.productId,
-      switchOptionId: element.productId,
-      quantity: 1,
-    }));
+    const customSelectedData =
+      cartData?.CUSTOM.filter((custom) => checkedCustomList[custom.id]).map((element) => ({
+        productId: element.productId,
+        switchOptionId: element.productId,
+        quantity: 1,
+      })) ?? [];
 
-    const shopSelectedData = data.SHOP.filter((shop) => checkedShopList[shop.id]).map((element) => ({
-      productId: element.prductId,
-      switchOptionId: element.optionId,
-      quantity: element.count,
-    }));
+    const shopSelectedData =
+      cartData?.SHOP.filter((shop) => checkedShopList[shop.id]).map((element) => ({
+        productId: element.prductId,
+        switchOptionId: element.optionId,
+        quantity: element.count,
+      })) ?? [];
 
     const orderData = [...customSelectedData, ...shopSelectedData];
     createOrder.mutate(orderData);
   };
 
   const handleClickAllButton = () => {
-    const customData = data.CUSTOM.map((element) => ({
-      productId: element.productId,
-      switchOptionId: element.productId,
-      quantity: 1,
-    }));
+    const customData =
+      cartData?.CUSTOM.map((element) => ({
+        productId: element.productId,
+        switchOptionId: element.productId,
+        quantity: 1,
+      })) ?? [];
 
-    const shopData = data.SHOP.map((element) => ({
-      productId: element.prductId,
-      switchOptionId: element.optionId,
-      quantity: element.count,
-    }));
+    const shopData =
+      cartData?.SHOP.map((element) => ({
+        productId: element.prductId,
+        switchOptionId: element.optionId,
+        quantity: element.count,
+      })) ?? [];
 
     const orderData = [...customData, ...shopData];
     createOrder.mutate(orderData);

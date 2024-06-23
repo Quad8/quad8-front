@@ -13,14 +13,12 @@ import styles from './TotalPrice.module.scss';
 const cn = classNames.bind(styles);
 
 export default function TotalPrice() {
-  const { data, isSuccess } = useQuery({ queryKey: ['cartData'], queryFn: getCartData }) as {
-    data: CartAPIDataType;
-    isSuccess: boolean;
-  };
-  const customData = isSuccess ? data.CUSTOM : [];
-  const shopData = isSuccess ? data.SHOP : [];
+  const { data: cartData } = useQuery<CartAPIDataType>({ queryKey: ['cartData'], queryFn: getCartData });
+  const customData = cartData?.CUSTOM ?? [];
+  const shopData = cartData?.SHOP ?? [];
 
   const { checkedCustomList, checkedShopList } = useContext(CartDataContext);
+
   const selectedCustomPrice = customData.reduce((total, custom) => {
     if (checkedCustomList[custom.id]) {
       return total + custom.price;
@@ -34,9 +32,11 @@ export default function TotalPrice() {
     }
     return total;
   }, 0);
+
   const totalSelectedPrice = selectedCustomPrice + selectedShopPrice;
   const discountPrice = 0;
   const totalPrice = totalSelectedPrice - discountPrice;
+
   return (
     <div className={cn('wrapper')}>
       <div className={cn('price-wrapper')}>
