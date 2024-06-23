@@ -77,8 +77,6 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
       setIsOpenMoal(true);
       return;
     }
-    const custom = JSON.stringify(cardData);
-    localStorage.setItem('customData', custom);
     router.push(`${ROUTER.CUSTOM_KEYBOARD}?orderId=${cardData.id}`, { scroll: false });
   };
 

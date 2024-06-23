@@ -169,8 +169,18 @@ export default function CartModal({
       });
       return;
     }
-    localStorage.removeItem('customData');
-    updateCustomKeyboard({ id: orderId, data: data as Omit<CustomKeyboardAPITypes, 'option'> });
+    updateCustomKeyboard(
+      { id: orderId, data: data as Omit<CustomKeyboardAPITypes, 'option'> },
+      {
+        onError: () => {
+          toast.error('장바구니 수정에 실패했습니다');
+        },
+        onSuccess: () => {
+          toast.success('장바구니를 수정하였습니다');
+          router.push(ROUTER.MY_PAGE.CART);
+        },
+      },
+    );
   };
 
   const onClickEditButton = (e: MouseEvent<HTMLButtonElement>, step: CustomKeyboardStepTypes) => {
