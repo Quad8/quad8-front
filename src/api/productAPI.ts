@@ -7,7 +7,7 @@ import type {
 } from '@/types/ProductItem';
 import type { ProductType } from '@/types/ProductTypes';
 
-const baseURL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 export const getProductDetail = async (productId: string): Promise<ProductType> => {
   try {
@@ -22,7 +22,7 @@ export const getProductDetail = async (productId: string): Promise<ProductType> 
 
 export async function getAllProductList({ sort, page, size }: ProductParams): Promise<ProductListResponse> {
   try {
-    const response = await fetch(`${baseURL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`, {
+    const response = await fetch(`${BASE_URL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`, {
       cache: 'no-cache',
       headers: {
         'Cache-Control': 'no-cache',
@@ -61,7 +61,7 @@ export async function getCategoryProductList({
 
     const queryString = new URLSearchParams(queryParams).toString();
 
-    const response = await fetch(`${baseURL}/api/v1/product/category/${keyword}?${queryString}`, {
+    const response = await fetch(`${BASE_URL}/api/v1/product/category/${keyword}?${queryString}`, {
       cache: 'no-cache',
       headers: {
         'Cache-Control': 'no-cache',
@@ -82,7 +82,7 @@ export async function getCategoryProductList({
 
 export async function getKeydeukPick(param: TabType) {
   try {
-    const response = await fetch(`${baseURL}/api/v1/product/keydeuk-pick?&param=${param}`);
+    const response = await fetch(`${BASE_URL}/api/v1/product/keydeuk-pick?&param=${param}`);
     const rawData: KeydeukPickResponse = await response.json();
 
     return rawData.data;
@@ -93,7 +93,7 @@ export async function getKeydeukPick(param: TabType) {
 
 export async function getKeydeukBest() {
   try {
-    const response = await fetch(`${baseURL}/api/v1/product/keydeuk-best`);
+    const response = await fetch(`${BASE_URL}/api/v1/product/keydeuk-best`);
     const rawData: KeydeukPickResponse = await response.json();
 
     return rawData.data;

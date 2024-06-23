@@ -52,12 +52,6 @@
   margin-bottom: 2rem;
   border-bottom: 0.1rem solid $gray-10;
   gap: 0.8rem;
-
-  & > h2 {
-    @include pretendard-16-700;
-
-    color: $black;
-  }
 }
 
 .check-icon {
@@ -71,18 +65,25 @@
 }
 
 .content {
+  @include pretendard-14-400;
+
   display: flex;
-  gap: 0.8rem;
   align-items: center;
-
-  & > h3 {
-    @include pretendard-14-400;
-
-    margin-top: 0.3rem;
-    color: $gray-50;
-  }
+  color: $gray-50;
 }
 
 .right-arrow {
   margin-left: auto;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+
+  & > h2 {
+    @include pretendard-16-700;
+
+    color: $black;
+  }
 }
