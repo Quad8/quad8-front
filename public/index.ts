@@ -1,6 +1,5 @@
 export { default as AlertIcon } from './svgs/alertIcon.svg';
 export { default as CameraIcon } from './svgs/camera.svg';
-export { default as CanvasLoadingIcon } from './svgs/canvasLoading.svg';
 export { default as CaretLeftIcon } from './svgs/caretLeft.svg';
 export { default as CaretRightIcon } from './svgs/caretRight.svg';
 export { default as CartIcon } from './svgs/cart.svg';
