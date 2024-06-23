@@ -4,8 +4,9 @@ import Image from 'next/image';
 import { toast } from 'react-toastify';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { InputField } from '@/components';
-import { getPostDetail, postComment } from '@/api/communityAPI';
+import { Button, InputField } from '@/components';
+import Dialog from '@/components/Dialog/Dialog';
+import { deletePost, getPostDetail, postComment } from '@/api/communityAPI';
 import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
 import { formatDateToString } from '@/libs/formatDateToString';
 import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
@@ -26,12 +27,16 @@ interface ReviewImageType {
 interface PostCardDetailModalProps {
   cardId: number;
   onClose: () => void;
+  isMine?: boolean;
 }
 
-export default function PostCardDetailModal({ cardId, onClose }: PostCardDetailModalProps) {
+export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCardDetailModalProps) {
   const queryClient = useQueryClient();
   const [commentRef, setCommentRef] = useState<HTMLInputElement | null>(null);
   const [clickedImage, setClickedImage] = useState('');
+
+  const [isCheckEditModalOpen, setIsCheckEditModalOpen] = useState(false);
+  const [isCheckDeleteModalOpen, setIsCheckDeleteModalOpen] = useState(false);
 
   const { isPending, isError, data, error, refetch } = useQuery({
     queryKey: ['postData', cardId],
@@ -53,6 +58,19 @@ export default function PostCardDetailModal({ cardId, onClose }: PostCardDetailM
     },
     onError: () => {
       toast.error('댓글 등록 중 오류가 발생하였습니다.');
+    },
+  });
+
+  const { mutate: deletePostMutation } = useMutation({
+    mutationFn: deletePost,
+    onSuccess: () => {
+      toast.success('리뷰를 삭제되었습니다.');
+      queryClient.invalidateQueries({
+        queryKey: ['MyCustomReview'],
+      });
+    },
+    onError: () => {
+      toast.error('리뷰 삭제 중 오류가 발생하였습니다.');
     },
   });
 
@@ -109,51 +127,102 @@ export default function PostCardDetailModal({ cardId, onClose }: PostCardDetailM
     setClickedImage(reviewImages[i].imgUrl);
   };
 
+  const handleClickDeleteButon = () => {
+    deletePostMutation(cardId);
+    setIsCheckDeleteModalOpen(false);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsCheckDeleteModalOpen(false);
+  };
+
+  const handleClickEditButon = () => {
+    setIsCheckEditModalOpen(false);
+  };
+
+  const handleCloseEditModal = () => {
+    setIsCheckEditModalOpen(false);
+  };
+
   return (
     <div className={cn('container')}>
-      <div className={cn('left-wrapper')}>
-        <div className={cn('selected-image')}>
-          <Image
-            src={clickedImage || (reviewImages.length > 0 ? reviewImages[0].imgUrl : keydeukImg)}
-            alt='키보드 이미지'
-            fill
-            onError={() => setClickedImage('')}
-            sizes='(max-width: 1200px) 100%'
-          />
+      {isMine && (
+        <div className={cn('edit-button-wrapper')}>
+          <Button width={72} paddingVertical={8} onClick={() => setIsCheckEditModalOpen(true)}>
+            수정
+          </Button>
+          <Button width={72} paddingVertical={8} onClick={() => setIsCheckDeleteModalOpen(true)}>
+            삭제
+          </Button>
         </div>
-        {reviewImages.length > 1 && (
-          <div className={cn('unselected-image-wrapper')}>
-            {reviewImages.map((image: ReviewImageType, i: number) => (
-              <div onClick={() => handleThumbnailClick(i)} key={image.id}>
-                <Image src={image.imgUrl} alt='키보드 이미지' className={cn('images')} width={48} height={48} />
-              </div>
-            ))}
+      )}
+      <div className={cn('image-content-wrapper')}>
+        <div className={cn('left-wrapper')}>
+          <div className={cn('selected-image')}>
+            <Image
+              src={clickedImage || (reviewImages.length > 0 ? reviewImages[0].imgUrl : keydeukImg)}
+              alt='키보드 이미지'
+              fill
+              onError={() => setClickedImage('')}
+              sizes='(max-width: 1200px) 100%'
+            />
           </div>
-        )}
-      </div>
-      <div className={cn('right-wrapper')}>
-        <div className={cn('content-wrapper')}>
-          <p className={cn('title')}>{title}</p>
-          <AuthorCard nickname={nickName} dateText={createdDateString} userImage={userImage} />
-          <div className={cn('keyboard-option-wrapper')}>키보드 옵션 넣는 곳~~~~~</div>
-          <p className={cn('content')}>{content}</p>
-          <PostInteractions likeCount={likeCount} commentCount={commentCount} />
-          <div className={cn('comment-wrapper')}>
-            {comments.map((comment) => (
-              <Comment
-                key={comment.id}
-                createdTime={comment.createdAt}
-                nickname={comment.nickName}
-                comment={comment.content}
-                profile={comment.imgUrl}
-              />
-            ))}
+          {reviewImages.length > 1 && (
+            <div className={cn('unselected-image-wrapper')}>
+              {reviewImages.map((image: ReviewImageType, i: number) => (
+                <div onClick={() => handleThumbnailClick(i)} key={image.id}>
+                  <Image src={image.imgUrl} alt='키보드 이미지' className={cn('images')} width={48} height={48} />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className={cn('right-wrapper')}>
+          <div className={cn('content-wrapper')}>
+            <p className={cn('title')}>{title}</p>
+            <AuthorCard nickname={nickName} dateText={createdDateString} userImage={userImage} />
+            <div className={cn('keyboard-option-wrapper')}>키보드 옵션 넣는 곳~~~~~</div>
+            <p className={cn('content')}>{content}</p>
+            <PostInteractions likeCount={likeCount} commentCount={commentCount} />
+            <div className={cn('comment-wrapper')}>
+              {comments.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  createdTime={comment.createdAt}
+                  nickname={comment.nickName}
+                  comment={comment.content}
+                  profile={comment.imgUrl}
+                />
+              ))}
+            </div>
+          </div>
+          <div className={cn('comment-input')}>
+            <InputField placeholder='댓글을 입력해주세요' ref={(ref) => setCommentRef(ref)} />
           </div>
         </div>
-        <div className={cn('comment-input')}>
-          <InputField placeholder='댓글을 입력해주세요' ref={(ref) => setCommentRef(ref)} />
-        </div>
       </div>
+      <Dialog
+        type='confirm'
+        message='수정하시겠습니까'
+        isOpen={isCheckEditModalOpen}
+        iconType='warn'
+        buttonText={{ left: '댣기', right: '확인' }}
+        onClick={{
+          left: () => handleCloseEditModal(),
+          right: () => handleClickEditButon(),
+        }}
+      />
+      <Dialog
+        type='confirm'
+        message='삭제하시겠습니까'
+        isOpen={isCheckDeleteModalOpen}
+        iconType='warn'
+        buttonText={{ left: '댣기', right: '확인' }}
+        onClick={{
+          left: () => handleCloseDeleteModal(),
+          right: () => handleClickDeleteButon(),
+        }}
+      />
     </div>
   );
 }

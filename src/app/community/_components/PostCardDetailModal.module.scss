@@ -1,8 +1,18 @@
 .container {
-  display: flex;
   padding: 4rem;
   border-radius: 1.6rem;
   background-color: $white;
+}
+
+.edit-button-wrapper {
+  display: flex;
+  gap: 1.2rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.image-content-wrapper {
+  display: flex;
   gap: 2rem;
 }
 

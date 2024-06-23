@@ -136,7 +136,7 @@ export const orderListData = [
     },
   },
   {
-    productId: 1000096,
+    productId: 1000066,
     type: 'full',
     texture: 'metal',
     boardColor: '#ffffff',

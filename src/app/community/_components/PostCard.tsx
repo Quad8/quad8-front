@@ -17,9 +17,10 @@ const cn = classNames.bind(styles);
 
 interface PostCardProps {
   cardData: CommunityPostCardDataType;
+  isMine?: boolean;
 }
 
-export default function PostCard({ cardData }: PostCardProps) {
+export default function PostCard({ cardData, isMine }: PostCardProps) {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
 
   const { id, nickName, updateAt, title, thumbnail, likeCount, commentCount, userImage } = cardData;
@@ -51,7 +52,7 @@ export default function PostCard({ cardData }: PostCardProps) {
       <p className={cn('title')}>{title}</p>
       <PostInteractions likeCount={likeCount} commentCount={commentCount} />
       <Modal isOpen={isPostModalOpen} onClose={handleClosePostModal}>
-        <PostCardDetailModal cardId={id} onClose={handleClosePostModal} />
+        <PostCardDetailModal cardId={id} onClose={handleClosePostModal} isMine={isMine} />
       </Modal>
     </div>
   );

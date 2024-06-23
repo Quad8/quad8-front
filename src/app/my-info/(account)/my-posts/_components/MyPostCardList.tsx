@@ -54,7 +54,7 @@ export default function MyPostCardList({ searchParams, initialData }: MyPostCard
           {content && (
             <div className={cn('post-wrapper')}>
               {content.map((cardData: CommunityPostCardDataType) => (
-                <PostCard key={cardData.id} cardData={cardData} />
+                <PostCard key={cardData.id} cardData={cardData} isMine />
               ))}
             </div>
           )}

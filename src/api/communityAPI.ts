@@ -127,3 +127,24 @@ export const postCreateCustomReview = async (formData: FormData) => {
     throw error;
   }
 };
+
+export const deletePost = async (postId: number) => {
+  const token = await getCookie('accessToken');
+
+  if (!token) {
+    return null;
+  }
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/community/delete/${postId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
