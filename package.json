@@ -21,6 +21,7 @@
     "classnames": "^2.5.1",
     "next": "14.2.3",
     "plaiceholder": "^3.0.0",
+    "query-string": "^9.0.0",
     "react": "^18",
     "react-colorful": "^5.6.1",
     "react-daum-postcode": "^3.1.3",
