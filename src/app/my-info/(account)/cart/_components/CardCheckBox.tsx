@@ -12,12 +12,13 @@ interface CardCheckBoxProps {
 export default function CardCheckBox({ id, type }: CardCheckBoxProps) {
   const { checkedCustomList, checkedShopList, updateCheckedCustom, updateCheckedShop } = useContext(CartDataContext);
   const isChecked = type === 'custom' ? checkedCustomList[id] : checkedShopList[id];
-  const handleCheck = () => {
+
+  const handleCLickCheckBox = () => {
     if (type === 'custom') {
       updateCheckedCustom(id);
       return;
     }
     updateCheckedShop(id);
   };
-  return <CheckBox isChecked={isChecked} onCheck={handleCheck} />;
+  return <CheckBox isChecked={isChecked} onClick={handleCLickCheckBox} />;
 }

@@ -57,7 +57,7 @@ export default function TotalCheckBox({ type }: TotalCheckBoxProps) {
     return `${totalCheckedShop}/${totalShop}`;
   };
 
-  const handleCheck = () => {
+  const handleClickCheckBox = () => {
     if (type === 'total') {
       if (isCheckedAllEntire) {
         updateCheckedAllCustom(false);
@@ -88,7 +88,7 @@ export default function TotalCheckBox({ type }: TotalCheckBoxProps) {
   };
   return (
     <div className={cn('select-wrapper')}>
-      <CheckBox isChecked={getCheckedValue()} onCheck={handleCheck} />
+      <CheckBox isChecked={getCheckedValue()} onClick={handleClickCheckBox} />
       <div className={cn('count-wrapper')}>
         <div className={cn('box-text')}>{TITLE[type]}</div>
         <div className={cn('count-text', { 'selected-all': getCheckedValue() })}>{getTotalCount()}</div>

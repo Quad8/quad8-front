@@ -15,7 +15,8 @@ interface ShopOptionProps {
 export default function ShopOption({ optionName, count }: ShopOptionProps) {
   const optionRef = useRef<HTMLDivElement>(null);
   const [isHover, setIsHover] = useState(false);
-  const isTextOverFlow = () => {
+
+  const isTextOverflow = () => {
     const target = optionRef.current;
     if (!target) {
       return false;
@@ -27,7 +28,7 @@ export default function ShopOption({ optionName, count }: ShopOptionProps) {
   };
 
   const handleMouseEnter = () => {
-    const isOverFlow = isTextOverFlow();
+    const isOverFlow = isTextOverflow();
     if (isOverFlow) {
       setIsHover(true);
     }
@@ -36,14 +37,11 @@ export default function ShopOption({ optionName, count }: ShopOptionProps) {
   const handleMouseLeave = () => {
     setIsHover(false);
   };
+
   return (
     <div className={cn('wrapper')}>
       {optionName && (
-        <div
-          className={cn('option-text-wrapper', { overflow: isTextOverFlow() })}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
+        <div className={cn('option-text-wrapper')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <div className={cn('option-text')} ref={optionRef}>
             {optionName}
           </div>

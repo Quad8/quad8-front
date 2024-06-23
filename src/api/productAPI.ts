@@ -5,7 +5,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 export const getProductDetail = async (productId: string): Promise<ProductType> => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/product/${productId}`);
+    const res = await fetch(`${BASE_URL}/api/v1/product/${productId}`);
     const result = await res.json();
 
     return result.data;

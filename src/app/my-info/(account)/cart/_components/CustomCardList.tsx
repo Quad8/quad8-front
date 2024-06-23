@@ -12,11 +12,8 @@ import styles from './CustomCardList.module.scss';
 const cn = classNames.bind(styles);
 
 export default function CustomCardList() {
-  const { data, isSuccess } = useQuery({ queryKey: ['cartData'], queryFn: getCartData }) as {
-    data: CartAPIDataType;
-    isSuccess: boolean;
-  };
-  const customData = isSuccess ? data.CUSTOM : [];
+  const { data: cartData } = useQuery<CartAPIDataType>({ queryKey: ['cartData'], queryFn: getCartData });
+  const customData = cartData?.CUSTOM ?? [];
 
   return (
     <div className={cn('wrapper')}>

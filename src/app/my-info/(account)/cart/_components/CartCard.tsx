@@ -37,14 +37,14 @@ const CATEGORY = {
 
 export default function CartCard({ cardData, type }: CustomCardProps | ShopCardProps) {
   const router = useRouter();
-  const imageURL = type === 'custom' ? cardData.imgUrl : cardData.thumbsnail;
-  const title = type === 'custom' ? '키득 커스텀 키보드' : cardData.productTitle;
   const queryClient = useQueryClient();
   const [isOpenModal, setIsOpenMoal] = useState(false);
+
+  const imageURL = type === 'custom' ? cardData.imgUrl : cardData.thumbsnail;
+  const title = type === 'custom' ? '키득 커스텀 키보드' : cardData.productTitle;
   const price = type === 'custom' ? cardData.price : Number(cardData.count * cardData.price);
   const category = type === 'shop' ? CATEGORY[cardData.category] : '';
-
-  const createOrder = useMutation({
+  const { mutate: createOrder } = useMutation({
     mutationFn: postCreateOrder,
     onSuccess: (response: CreateOrderResponseType) => {
       queryClient.setQueryData(['orderId'], response.data);
@@ -52,12 +52,12 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
     },
   });
 
-  const updateOption = useMutation<void, Error, { id: number; data: OptionChageAPIType }>({
+  const { mutate: updateOption } = useMutation<void, Error, { id: number; data: OptionChageAPIType }>({
     mutationFn: ({ id, data }) => putChangeCartData(id, data),
   });
 
   const handleClickEdit = (id: number, data: OptionChageAPIType) => {
-    updateOption.mutate(
+    updateOption(
       { id, data },
       {
         onSuccess: () => {
@@ -95,7 +95,7 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
             switchOptionId: cardData.optionId,
             quantity: cardData.count,
           };
-    createOrder.mutate([orderData]);
+    createOrder([orderData]);
   };
 
   return (

@@ -32,17 +32,19 @@ export default function OptionEditModal({
   onClickEdit,
 }: OptionEditModalProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+
   const [count, setCount] = useState(currentCount);
   const [optionId, setOptionId] = useState(currentOptionId);
+
   const notChanged = currentCount === count && currentOptionId === optionId;
-  const { data, isSuccess, isError } = useQuery({
+  const {
+    data: productData,
+    isSuccess,
+    isError,
+  } = useQuery<ProductType>({
     queryKey: [`product-${productId}`],
     queryFn: () => getProductDetail(String(productId)),
-  }) as {
-    data: ProductType;
-    isSuccess: boolean;
-    isError: boolean;
-  };
+  });
 
   if (!isSuccess) {
     return <div />;
@@ -51,13 +53,15 @@ export default function OptionEditModal({
   if (isError) {
     onClickCancel();
   }
-  const options = data.optionList ? data.optionList.map((option) => option.optionName) : [];
+  const options = productData.optionList ? productData.optionList.map((option) => option.optionName) : [];
 
   const handleDropdownChange = (value: string) => {
-    if (!data.optionList) {
+    if (!productData.optionList) {
       return;
     }
-    setOptionId(data.optionList.find((option) => option.optionName === value)?.id ?? data.optionList[0].id);
+    setOptionId(
+      productData.optionList.find((option) => option.optionName === value)?.id ?? productData.optionList[0].id,
+    );
   };
 
   const handleClickEditButton = () => {
@@ -70,7 +74,7 @@ export default function OptionEditModal({
       <div className={cn('header-wrapper')}>
         <Image
           alt='상품 이미지'
-          src={data.thubmnailList[0].imgUrl}
+          src={productData.thubmnailList[0].imgUrl}
           width={104}
           height={104}
           className={cn('image')}
@@ -78,25 +82,26 @@ export default function OptionEditModal({
           blurDataURL='data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBAB  bWyZJf74GZgAAAABJRU5ErkJggg=='
         />
         <div className={cn('information-wrapper')}>
-          <div className={cn('header-name')}>{data.name}</div>
-          <div className={cn('header-price')}>{data.price.toLocaleString()}원</div>
+          <div className={cn('header-name')}>{productData.name}</div>
+          <div className={cn('header-price')}>{productData.price.toLocaleString()}원</div>
         </div>
       </div>
-      <div className={cn('option-wrapper', { reverse: !data.optionList })}>
-        {data.optionList && (
+      <div className={cn('option-wrapper', { reverse: !productData.optionList })}>
+        {productData.optionList && (
           <Dropdown
             options={options}
             value={
-              data.optionList.find((option) => option.id === optionId)?.optionName ?? data.optionList[0].optionName
+              productData.optionList.find((option) => option.id === optionId)?.optionName ??
+              productData.optionList[0].optionName
             }
             onChange={handleDropdownChange}
           />
         )}
 
-        <div className={cn('count-wrapper', { 'white-background': !data.optionList })}>
-          {data.optionList && (
+        <div className={cn('count-wrapper', { 'white-background': !productData.optionList })}>
+          {productData.optionList && (
             <div className={cn('count-title')}>
-              {data.optionList.find((option) => option.id === optionId)?.optionName}
+              {productData.optionList.find((option) => option.id === optionId)?.optionName}
             </div>
           )}
           <CountInput value={count} ref={inputRef} onChange={(value) => setCount(Number(value))} />
@@ -104,7 +109,7 @@ export default function OptionEditModal({
         <div className={cn('cart-wrapper')} />
         <div className={cn('price-wrapper')}>
           <div className={cn('price-text')}>총 상품금액</div>
-          <div className={cn('price-number')}>{(data.price * count).toLocaleString()}원</div>
+          <div className={cn('price-number')}>{(productData.price * count).toLocaleString()}원</div>
         </div>
       </div>
       <div className={cn('button-wrapper')}>
