@@ -3,7 +3,7 @@
 import classNames from 'classnames/bind';
 import { MouseEvent, useContext, useRef, RefObject } from 'react';
 import { StaticImageData } from 'next/image';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 
 import { POINT_KEY } from '@/constants/keyboardData';
@@ -15,8 +15,9 @@ import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import { postCustomKeyboardOrder } from '@/api/customKeyboardAPI';
 import { StepContext, KeyboardDataContext } from '@/context';
 import { putUpdateCustomKeyboardData } from '@/api/cartAPI';
+import { toast } from 'react-toastify';
+import { ROUTER } from '@/constants/route';
 import CartModalOptionCard from './parts/CartModalOptionCard';
-import CartModalToast from './parts/CartModalToast';
 
 import styles from './CartModal.module.scss';
 
@@ -57,13 +58,22 @@ export default function CartModal({
   onChangeLoginModal,
   onUpdateOptionPrice,
 }: CartModalProps) {
+  const router = useRouter();
   const params = useSearchParams();
   const orderWrapperRef = useRef<HTMLDivElement>(null);
-  const createCustomKeyboard = useMutation({
+  const {
+    mutate: createCustomKeybaord,
+    isSuccess: createMutationSucess,
+    isPending: createMutationPending,
+  } = useMutation({
     mutationFn: (data: CustomKeyboardAPITypes) => postCustomKeyboardOrder(data),
   });
 
-  const updateCustomKeybaord = useMutation<void, Error, { id: number; data: Omit<CustomKeyboardAPITypes, 'option'> }>({
+  const {
+    mutate: updateCustomKeyboard,
+    isSuccess: updateMutationSuccess,
+    isPending: updateMutationPending,
+  } = useMutation<void, Error, { id: number; data: Omit<CustomKeyboardAPITypes, 'option'> }>({
     mutationFn: ({ id, data }) => putUpdateCustomKeyboardData(id, data),
   });
   const {
@@ -148,11 +158,19 @@ export default function CartModal({
     };
     if (!orderId || !id) {
       Object.assign(data, { option });
-      createCustomKeyboard.mutate(data as CustomKeyboardAPITypes);
+      createCustomKeybaord(data as CustomKeyboardAPITypes, {
+        onError: () => {
+          toast.error('장바구니 담기에 실패했습니다');
+        },
+        onSuccess: () => {
+          toast.success('장바구니에 담았습니다');
+          router.push(ROUTER.MY_PAGE.CART);
+        },
+      });
       return;
     }
     localStorage.removeItem('customData');
-    updateCustomKeybaord.mutate({ id: orderId, data: data as Omit<CustomKeyboardAPITypes, 'option'> });
+    updateCustomKeyboard({ id: orderId, data: data as Omit<CustomKeyboardAPITypes, 'option'> });
   };
 
   const onClickEditButton = (e: MouseEvent<HTMLButtonElement>, step: CustomKeyboardStepTypes) => {
@@ -176,11 +194,7 @@ export default function CartModal({
     }
   };
 
-  const isDisabled =
-    createCustomKeyboard.isPending ||
-    createCustomKeyboard.isSuccess ||
-    updateCustomKeybaord.isPending ||
-    updateCustomKeybaord.isSuccess;
+  const isDisabled = createMutationPending || createMutationSucess || updateMutationPending || updateMutationSuccess;
 
   return (
     <div className={cn('wrapper', { overflow: isOverFlow })}>
@@ -228,7 +242,6 @@ export default function CartModal({
           {orderId ? '수정하기' : '장바구니 담기'}
         </Button>
       </div>
-      {(createCustomKeyboard.isSuccess || updateCustomKeybaord.isSuccess) && <CartModalToast />}
     </div>
   );
 }

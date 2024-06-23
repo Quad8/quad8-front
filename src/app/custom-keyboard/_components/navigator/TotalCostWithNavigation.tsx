@@ -16,6 +16,7 @@ import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
 import { useQuery } from '@tanstack/react-query';
 import { getRandomOptionProduct } from '@/api/customKeyboardAPI';
 import { getBlurImageList } from '@/libs/getBlurImage';
+import SignInModal from '@/components/SignInModal/SignInModal';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
 
@@ -99,6 +100,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
     }
     optionWrapper.scrollTop = 0;
   };
+
   const handleClickNextButton = () => {
     resetScroll();
     if (currentStep === 'board' || currentStep === 'keyCap') {
@@ -231,7 +233,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
         />
       </Modal>
       <Modal isOpen={isOpenLoginModal} onClose={() => handleLoginModal(false)}>
-        <div style={{ width: '300px', height: '300px', backgroundColor: '#ffffff' }}>로그인 모달</div>
+        <SignInModal />
       </Modal>
     </div>
   );
