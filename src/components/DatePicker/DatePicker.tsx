@@ -3,8 +3,8 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 
-import { CalendarIcon } from '@/public/index';
 import { Button } from '@/components';
+import { CalendarIcon } from '@/public/index';
 import Calendar from './Calendar';
 
 import styles from './DatePicker.module.scss';
@@ -130,7 +130,13 @@ function DatePicker({ onDateChange }: DatePickerProps) {
           )}
         </div>
       </div>
-      <Button width={72} paddingVertical={8} radius={4} onClick={handleQueryButtonClick}>
+      <Button
+        className={cn('comfirm-button')}
+        width={72}
+        paddingVertical={8}
+        radius={4}
+        onClick={handleQueryButtonClick}
+      >
         조회
       </Button>
     </div>

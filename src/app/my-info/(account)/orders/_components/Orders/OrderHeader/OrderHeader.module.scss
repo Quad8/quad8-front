@@ -1,0 +1,27 @@
+.header {
+  @include pretendard-16-400;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem 0;
+  border-top: 0.1rem solid $gray-20;
+  border-bottom: 0.1rem solid $gray-20;
+  color: $gray-50;
+
+  .column {
+    @include flex-center;
+  }
+
+  .column1 {
+    flex-grow: 3;
+  }
+
+  .column2 {
+    flex-grow: 1;
+  }
+
+  .column3 {
+    flex-grow: 1;
+  }
+}

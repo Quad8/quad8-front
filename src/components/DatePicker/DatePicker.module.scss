@@ -81,3 +81,7 @@
 .is-focus {
   @include hover-color;
 }
+
+.comfirm-button {
+  flex-shrink: 0;
+}

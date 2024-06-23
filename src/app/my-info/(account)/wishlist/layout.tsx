@@ -11,7 +11,7 @@ interface WishlistPageLayoutProps {
 export default function WishlistPageLayout({ children }: WishlistPageLayoutProps) {
   return (
     <section className={cn('page')}>
-      <h1>찜 목록</h1>
+      <h1 className={cn('title')}>찜 목록</h1>
       {children}
     </section>
   );
