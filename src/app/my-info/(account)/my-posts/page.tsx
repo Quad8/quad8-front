@@ -1,8 +1,9 @@
+import classNames from 'classnames/bind';
+
 import Pagination from '@/components/Pagination/Pagination';
 import { getMyPosts } from '@/api/communityAPI';
-import classNames from 'classnames/bind';
-import MyPostCardList from './_components/MyPostCardList';
 import { MyInfoEmptyCase } from '../../_components';
+import MyPostCardList from './_components/MyPostCardList';
 
 import styles from './page.module.scss';
 
@@ -30,7 +31,7 @@ export default async function MyPostsPage({ searchParams }: MyPostsPageProps) {
   const { content, ...rest } = data;
 
   return (
-    <div>
+    <div className={cn('container')}>
       {content.length > 0 ? (
         <div>
           <header className={cn('title')}>내 게시글</header>
