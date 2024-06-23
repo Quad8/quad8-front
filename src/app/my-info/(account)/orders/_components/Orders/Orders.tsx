@@ -14,7 +14,7 @@ export default function Orders() {
   const { data: orders } = useQuery<{ data: Order[] }>({ queryKey: ['ordersData'], queryFn: getOrdersData });
 
   const [searchDate, setSearchDate] = useState('');
-  const [ordersData, setOrdersData] = useState(orders?.data ?? null);
+  const [ordersData, setOrdersData] = useState(orders?.data ?? []);
 
   useEffect(() => {
     if (orders && searchDate !== '') {
@@ -31,7 +31,7 @@ export default function Orders() {
   return (
     <>
       <DatePicker onDateChange={handleDateClick} />
-      {orders ? (
+      {ordersData?.length > 0 ? (
         <>
           <OrderHeader />
           {ordersData?.map((order: Order) => <OrderItemList key={order.orderId} order={order} />)}
