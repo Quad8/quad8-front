@@ -10,10 +10,5 @@ interface MyPostLayoutProps {
 }
 
 export default function MyPostsLayout({ children }: MyPostLayoutProps) {
-  return (
-    <div className={cn('container')}>
-      <header className={cn('title')}>내 게시글</header>
-      {children}
-    </div>
-  );
+  return <div className={cn('container')}>{children}</div>;
 }

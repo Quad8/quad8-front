@@ -1,13 +1,14 @@
 'use client';
 
 import classNames from 'classnames/bind';
-
 import { useQuery } from '@tanstack/react-query';
+
 import { getMyPosts } from '@/api/communityAPI';
+import type { CommunityPostCardDataType, CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
 import PostCard from '@/app/community/_components/PostCard';
-import { CommunityPostCardDataType, CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
-import styles from './MyPostCardList.module.scss';
 import SortDropdown from './SortDropdown';
+
+import styles from './MyPostCardList.module.scss';
 
 const cn = classNames.bind(styles);
 
@@ -46,22 +47,18 @@ export default function MyPostCardList({ searchParams, initialData }: MyPostCard
 
   return (
     <div className={cn('container')}>
-      {initialData.length > 0 ? (
-        <div>
-          <div className={cn('filter-write-button-wrapper')}>
-            <SortDropdown />
-          </div>
-          {content && (
-            <div className={cn('post-wrapper')}>
-              {content.map((cardData: CommunityPostCardDataType) => (
-                <PostCard key={cardData.id} cardData={cardData} isMine />
-              ))}
-            </div>
-          )}
+      <div>
+        <div className={cn('filter-write-button-wrapper')}>
+          <SortDropdown />
         </div>
-      ) : (
-        <div>내 게시글이 없습니다.</div>
-      )}
+        {content && (
+          <div className={cn('post-wrapper')}>
+            {content.map((cardData: CommunityPostCardDataType) => (
+              <PostCard key={cardData.id} cardData={cardData} isMine />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
