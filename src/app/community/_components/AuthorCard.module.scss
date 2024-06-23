@@ -29,30 +29,6 @@
   cursor: pointer;
 }
 
-.pop-over-container {
-  position: absolute;
-  z-index: $zindex-popover;
-  right: 0.2rem;
-  width: 10rem;
-  overflow: hidden;
-  border: 0.1rem solid $gray-5;
-  border-radius: 0.8rem;
-  background-color: $white;
-  text-align: center;
-}
-
-.option {
-  @include pretendard-14-400;
-
-  z-index: $zindex-popover;
-  padding: 0.3rem 0;
-  color: $gray-50;
-
-  &:hover {
-    background-color: $primary-5;
-  }
-}
-
 .display-none {
   display: none;
 }
