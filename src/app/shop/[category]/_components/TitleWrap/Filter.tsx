@@ -28,6 +28,8 @@ export default function Filter({ category }: FilterProps) {
   );
   const [minPriceState, setMinPriceState] = useState<string>(searchParams.get('minPrice') || '');
   const [maxPriceState, setMaxPriceState] = useState<string>(searchParams.get('maxPrice') || '');
+  const [tempMinPrice, setTempMinPrice] = useState<string>(minPriceState);
+  const [tempMaxPrice, setTempMaxPrice] = useState<string>(maxPriceState);
 
   const options = FILTER_OPTIONS[category];
   const pathname = usePathname();
@@ -57,6 +59,8 @@ export default function Filter({ category }: FilterProps) {
     setSelectedSwitchTypes([]);
     setMinPriceState('');
     setMaxPriceState('');
+    setTempMinPrice('');
+    setTempMaxPrice('');
     handleSearch([], [], '', '');
   };
 
@@ -93,13 +97,17 @@ export default function Filter({ category }: FilterProps) {
   };
 
   const handleMinPriceChange = (value: string) => {
-    setMinPriceState(value);
-    handleSearch(selectedManufacturers, selectedSwitchTypes, value, maxPriceState);
+    setTempMinPrice(value);
   };
 
   const handleMaxPriceChange = (value: string) => {
-    setMaxPriceState(value);
-    handleSearch(selectedManufacturers, selectedSwitchTypes, minPriceState, value);
+    setTempMaxPrice(value);
+  };
+
+  const handlePriceSearch = () => {
+    setMinPriceState(tempMinPrice);
+    setMaxPriceState(tempMaxPrice);
+    handleSearch(selectedManufacturers, selectedSwitchTypes, tempMinPrice, tempMaxPrice);
   };
 
   if (!options) {
@@ -146,7 +154,7 @@ export default function Filter({ category }: FilterProps) {
               type='number'
               suffixUnit='원'
               sizeVariant='sm'
-              value={minPriceState}
+              value={tempMinPrice}
               onChange={(e) => handleMinPriceChange(e.target.value)}
             />
           </div>
@@ -156,10 +164,13 @@ export default function Filter({ category }: FilterProps) {
               type='number'
               suffixUnit='원'
               sizeVariant='sm'
-              value={maxPriceState}
+              value={tempMaxPrice}
               onChange={(e) => handleMaxPriceChange(e.target.value)}
             />
           </div>
+          <button type='button' onClick={handlePriceSearch} className={cn('search')}>
+            검색
+          </button>
         </div>
       </div>
       <div
