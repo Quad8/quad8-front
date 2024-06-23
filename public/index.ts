@@ -11,6 +11,7 @@ export { default as CrossCircleIcon } from './svgs/crossCircle.svg';
 export { default as DeleteIcon } from './svgs/delete.svg';
 export { default as EyeOffIcon } from './svgs/eyeOff.svg';
 export { default as EyeOnIcon } from './svgs/eyeOn.svg';
+export { default as GitHubRectangleIcon } from './svgs/gitHubRectangle.svg';
 export { default as HeartIcon } from './svgs/heart.svg';
 export { default as LogoIcon } from './svgs/logo.svg';
 
