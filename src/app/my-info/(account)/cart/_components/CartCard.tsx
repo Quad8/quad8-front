@@ -69,7 +69,7 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
     }
     const custom = JSON.stringify(cardData);
     localStorage.setItem('customData', custom);
-    router.push(ROUTER.CUSTOM_KEYBOARD, { scroll: false });
+    router.push(`${ROUTER.CUSTOM_KEYBOARD}?orderId=${cardData.id}`, { scroll: false });
   };
 
   return (

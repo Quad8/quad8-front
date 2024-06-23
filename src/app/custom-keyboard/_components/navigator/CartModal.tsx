@@ -3,6 +3,7 @@
 import classNames from 'classnames/bind';
 import { MouseEvent, useContext, useRef, RefObject } from 'react';
 import { StaticImageData } from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 
 import { POINT_KEY } from '@/constants/keyboardData';
@@ -56,6 +57,7 @@ export default function CartModal({
   onChangeLoginModal,
   onUpdateOptionPrice,
 }: CartModalProps) {
+  const params = useSearchParams();
   const orderWrapperRef = useRef<HTMLDivElement>(null);
   const createCustomKeyboard = useMutation({
     mutationFn: (data: CustomKeyboardAPITypes) => postCustomKeyboardOrder(data),
@@ -125,6 +127,7 @@ export default function CartModal({
   ];
 
   const handleClickPutButton = async () => {
+    const id = params.get('orderId');
     if (!accessToken) {
       onClose();
       onChangeLoginModal(true);
@@ -143,11 +146,12 @@ export default function CartModal({
       individualColor: hasPointKeyCap && Object.keys(individualColor) ? individualColor : null,
       imgBase64: keyboardImage.keyCap,
     };
-    if (!orderId) {
+    if (!orderId || !id) {
       Object.assign(data, { option });
       createCustomKeyboard.mutate(data as CustomKeyboardAPITypes);
       return;
     }
+    localStorage.removeItem('customData');
     updateCustomKeybaord.mutate({ id: orderId, data: data as Omit<CustomKeyboardAPITypes, 'option'> });
   };
 
