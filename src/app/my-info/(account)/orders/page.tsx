@@ -1,3 +1,9 @@
+import { MyInfoEmptyCase } from '../../_components';
+
 export default function OrdersPage() {
-  return <div>주문 / 배송조회 페이지 입니다.</div>;
+  return (
+    <div>
+      <MyInfoEmptyCase message='구매내역이 없습니다' />
+    </div>
+  );
 }

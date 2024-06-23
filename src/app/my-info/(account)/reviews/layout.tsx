@@ -10,8 +10,9 @@ interface ReviewsPageLayoutProps {
 
 export default function ReviewsPageLayout({ children }: ReviewsPageLayoutProps) {
   return (
-    <section className={cn('layout')}>
-      <div className={cn('page')}>{children}</div>
+    <section className={cn('page')}>
+      <h1 className={cn('title')}>구매 후기</h1>
+      {children}
     </section>
   );
 }

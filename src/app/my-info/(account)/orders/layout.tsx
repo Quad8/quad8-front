@@ -4,14 +4,14 @@ import styles from './layout.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface WishlistPageLayoutProps {
+interface OrdersPageLayoutProps {
   children: ReactNode;
 }
 
-export default function WishlistPageLayout({ children }: WishlistPageLayoutProps) {
+export default function OrdersPageLayout({ children }: OrdersPageLayoutProps) {
   return (
     <section className={cn('page')}>
-      <h1>찜 목록</h1>
+      <h1 className={cn('title')}>주문 / 배송 조회</h1>
       {children}
     </section>
   );
