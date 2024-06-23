@@ -1,3 +1,5 @@
+import type { Product } from './ProductItem';
+
 export enum OrderStatus {
   READY = 'READY',
   PAYMENT_COMPLETED = 'PAYMENT_COMPLETED',
@@ -7,22 +9,10 @@ export enum OrderStatus {
   CANCELED = 'CANCELED',
 }
 
-export interface OrderItem {
-  productId: number;
-  productImgUrl: string;
-  productName: string;
-  switchOption: string;
-  viewCount: number;
-}
-
 export interface Order {
   orderId: number;
-  orderItems: OrderItem[];
+  orderItems: Product[];
   orderStatus: OrderStatus;
   purchaseDate: string;
   confirmationDate: string;
-}
-
-export interface OrderData {
-  data: Order[];
 }

@@ -1,10 +1,12 @@
 .order-item {
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-around;
 
   .item {
     flex-grow: 4;
+    max-width: 58.6rem;
   }
 
   .order-status {
