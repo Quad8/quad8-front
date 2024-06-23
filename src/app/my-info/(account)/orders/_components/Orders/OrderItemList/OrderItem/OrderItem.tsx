@@ -1,11 +1,11 @@
 import classNames from 'classnames/bind';
 
-import { Button } from '@/components';
 import { getOrderStatusDescription } from '@/libs/getOrderStatusDescriptions';
 import type { OrderStatus } from '@/types/orderType';
 import type { Product } from '@/types/ProductItem';
 
 import styles from './OrderItem.module.scss';
+import OrderItemButton from './OrderItemButton/OrderItemButton';
 
 const cn = classNames.bind(styles);
 
@@ -26,12 +26,7 @@ export default function OrderItem({ orderItem, confirmationDate, orderStatus }: 
         <p className={cn('status')}>{status}</p>
       </div>
       <div className={cn('button-box')}>
-        <Button className={cn('button')} type='button' radioGroup='4' paddingVertical={8}>
-          구매 확정
-        </Button>
-        <Button className={cn('button')} type='button' radioGroup='4' paddingVertical={8}>
-          교환/반품
-        </Button>
+        <OrderItemButton orderStatus={orderStatus} />
       </div>
     </div>
   );

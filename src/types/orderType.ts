@@ -7,6 +7,7 @@ export enum OrderStatus {
   SHIPPING = 'SHIPPING',
   DELIVERED = 'DELIVERED',
   CANCELED = 'CANCELED',
+  PURCHASED = 'PURCHASED',
 }
 
 export interface Order {

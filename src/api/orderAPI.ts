@@ -19,6 +19,11 @@ export const getOrdersData = async () => {
     });
 
     const data = await res.json();
+
+    if (data.status === 'FAIL') {
+      return null;
+    }
+
     return data;
   } catch (error) {
     throw error;

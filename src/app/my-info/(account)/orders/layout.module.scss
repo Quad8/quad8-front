@@ -1,6 +1,7 @@
 .page {
   @include flex-column(4rem);
 
+  max-width: 112rem;
   height: 100%;
 
   .title {
