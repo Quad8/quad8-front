@@ -205,6 +205,9 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
               {comments.map((comment) => (
                 <Comment
                   key={comment.id}
+                  cardId={cardId}
+                  commentId={comment.id}
+                  userId={comment.userId}
                   createdTime={comment.createdAt}
                   nickname={comment.nickName}
                   comment={comment.content}
