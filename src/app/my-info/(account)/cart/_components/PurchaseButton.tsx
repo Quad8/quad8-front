@@ -24,7 +24,7 @@ export default function PurchaseButton() {
   const { checkedCustomList, checkedShopList } = useContext(CartDataContext);
 
   const { data: cartData } = useQuery<CartAPIDataType>({ queryKey: ['cartData'], queryFn: getCartData });
-  const createOrder = useMutation({
+  const { mutate: createOrder } = useMutation({
     mutationFn: postCreateOrder,
     onSuccess: (response: CreateOrderResponseType) => {
       queryClient.setQueryData(['orderId'], response.data);
@@ -48,7 +48,7 @@ export default function PurchaseButton() {
       })) ?? [];
 
     const orderData = [...customSelectedData, ...shopSelectedData];
-    createOrder.mutate(orderData);
+    createOrder(orderData);
   };
 
   const handleClickAllButton = () => {
@@ -67,7 +67,7 @@ export default function PurchaseButton() {
       })) ?? [];
 
     const orderData = [...customData, ...shopData];
-    createOrder.mutate(orderData);
+    createOrder(orderData);
   };
 
   return (
