@@ -138,6 +138,10 @@
   @include font-mixin('Pretendard', 3, 700);
 }
 
+@mixin pretendard-40-700 {
+  @include font-mixin('Pretendard', 4, 700);
+}
+
 // Poppins Mixin들
 @mixin poppins-18-400 {
   @include font-mixin('Poppins', 1.8, 400);
