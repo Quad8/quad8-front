@@ -16,7 +16,7 @@ export default async function Page() {
     <div className={cn('wrapper')}>
       <KeyboardViewer />
       <div className={cn('content-wrapper')}>
-        <div className={cn('option-wrapper')}>
+        <div id='option' className={cn('option-wrapper')}>
           <Option />
         </div>
         <div className={cn('button-wrapper')}>

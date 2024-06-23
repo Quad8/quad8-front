@@ -92,7 +92,15 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
   const { currentStep, updateCurrentStep, updateStepStatus } = useContext(StepContext);
   const { updateFocusKey } = useContext(FocusKeyContext);
 
+  const resetScroll = () => {
+    const optionWrapper = document.querySelector('#option');
+    if (!optionWrapper) {
+      return;
+    }
+    optionWrapper.scrollTop = 0;
+  };
   const handleClickNextButton = () => {
+    resetScroll();
     if (currentStep === 'board' || currentStep === 'keyCap') {
       captureCanvas(async () => {
         if (currentStep === 'board') {
@@ -115,6 +123,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
   };
 
   const handleClickPrevButton = () => {
+    resetScroll();
     updateFocusKey(null);
     updateCurrentStep(BUTTONS[currentStep].prev as CustomKeyboardStepTypes);
     if (currentStep === 'board') {
