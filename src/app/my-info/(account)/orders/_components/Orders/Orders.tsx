@@ -1,11 +1,17 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
+
+import { getOrdersData } from '@/api/orderAPI';
 import { MyInfoEmptyCase } from '@/app/my-info/_components';
 import DatePicker from '@/components/DatePicker/DatePicker';
-import OrderHeader from './OrderHeader/OrderHeader';
-import OrderItemList from './OrderItemList/OrderItemList';
+import type { OrderData } from '@/types/orderType';
+import { OrderHeader, OrderItemList } from './index';
 
 export default function Orders() {
+  const { data: ordersData } = useQuery<{ data: OrderData }>({ queryKey: ['ordersData'], queryFn: getOrdersData });
+
+  console.log(ordersData);
   return (
     <>
       <DatePicker onDateChange={() => {}} />

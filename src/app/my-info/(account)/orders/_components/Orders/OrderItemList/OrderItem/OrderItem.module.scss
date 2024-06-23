@@ -1,0 +1,36 @@
+.order-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  .item {
+    flex-grow: 4;
+  }
+
+  .order-status {
+    @include flex-column(0.4rem);
+    @include pretendard-16-500;
+
+    flex-grow: 2;
+    align-items: center;
+    width: 12rem;
+    color: $black;
+
+    .status {
+      color: $gray-40;
+    }
+  }
+
+  .button-box {
+    @include pretendard-18-400;
+    @include flex-column(0.4rem);
+
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+
+    .button {
+      width: 10.7rem;
+    }
+  }
+}

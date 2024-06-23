@@ -1,0 +1,31 @@
+.order {
+  @include flex-column(2.8rem);
+
+  color: $black;
+
+  .order-header {
+    @include pretendard-20-700;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .header-button {
+      @include pretendard-16-400;
+
+      display: flex;
+      align-items: center;
+      color: $gray-40;
+      gap: 0.8rem;
+
+      .header-link-icon {
+        rotate: -90deg;
+        fill: $gray-40;
+      }
+    }
+  }
+
+  .order-item-list {
+    @include flex-column(3.2rem);
+  }
+}

@@ -14,14 +14,16 @@
   }
 
   .column1 {
-    flex-grow: 3;
+    flex-grow: 4;
   }
 
   .column2 {
-    flex-grow: 1;
+    flex-grow: 2;
+    width: 12rem;
   }
 
   .column3 {
     flex-grow: 1;
+    width: 10.7rem;
   }
 }
