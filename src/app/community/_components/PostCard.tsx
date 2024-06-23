@@ -37,7 +37,7 @@ export default function PostCard({ cardData, isMine }: PostCardProps) {
 
   return (
     <div className={cn('container')} onClick={handleClickPostModal}>
-      <AuthorCard nickname={nickName} dateText={timeToString} userImage={userImage} />
+      <AuthorCard id={id} isMine={isMine} nickname={nickName} dateText={timeToString} userImage={userImage} />
       <div className={cn('keyboard-image-wrapper')}>
         <Image
           src={Array.isArray(thumbnail) ? thumbnail[0] : thumbnail}

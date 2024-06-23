@@ -123,7 +123,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
   //   individualColor,
   // };
 
-  const handleThumbnailClick = (i: number) => {
+  const handleClickThumbnail = (i: number) => {
     setClickedImage(reviewImages[i].imgUrl);
   };
 
@@ -170,7 +170,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
           {reviewImages.length > 1 && (
             <div className={cn('unselected-image-wrapper')}>
               {reviewImages.map((image: ReviewImageType, i: number) => (
-                <div onClick={() => handleThumbnailClick(i)} key={image.id}>
+                <div onClick={() => handleClickThumbnail(i)} key={image.id}>
                   <Image src={image.imgUrl} alt='키보드 이미지' className={cn('images')} width={48} height={48} />
                 </div>
               ))}
