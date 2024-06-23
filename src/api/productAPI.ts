@@ -47,18 +47,21 @@ export async function getCategoryProductList({
   maxPrice,
 }: GetCategoryListParams): Promise<ProductListResponse> {
   try {
-    const queryParams = new URLSearchParams({
-      keyword: encodeURIComponent(keyword),
-      sort: encodeURIComponent(sort as string),
-      page: encodeURIComponent(page as string),
-      size: encodeURIComponent(size),
-      ...(companies && { companies: encodeURIComponent(companies as string) }),
-      ...(switchTypes && { switchTypes: encodeURIComponent(switchTypes as string) }),
-      ...(minPrice && { minPrice: encodeURIComponent(minPrice as string) }),
-      ...(maxPrice && { maxPrice: encodeURIComponent(maxPrice as string) }),
-    }).toString();
+    const queryParams: Record<string, string> = {
+      keyword,
+      sort,
+      page,
+      size,
+    };
 
-    const response = await fetch(`${baseURL}/api/v1/product/category/${keyword}?${queryParams}`, {
+    if (companies) queryParams.companies = companies;
+    if (switchTypes) queryParams.switchTypes = switchTypes;
+    if (minPrice) queryParams.minPrice = minPrice;
+    if (maxPrice) queryParams.maxPrice = maxPrice;
+
+    const queryString = new URLSearchParams(queryParams).toString();
+
+    const response = await fetch(`${baseURL}/api/v1/product/category/${keyword}?${queryString}`, {
       cache: 'no-cache',
       headers: {
         'Cache-Control': 'no-cache',
@@ -71,10 +74,9 @@ export async function getCategoryProductList({
     }
 
     const rawData: ProductListResponse = await response.json();
-
     return rawData;
   } catch (error) {
-    throw error;
+    throw new Error('에러');
   }
 }
 
@@ -91,7 +93,7 @@ export async function getKeydeukPick(param: TabType) {
 
 export async function getKeydeukBest() {
   try {
-    const response = await fetch(`${baseURL}/api/v1/product/keyduek-best`);
+    const response = await fetch(`${baseURL}/api/v1/product/keydeuk-best`);
     const rawData: KeydeukPickResponse = await response.json();
 
     return rawData.data;
