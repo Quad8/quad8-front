@@ -23,6 +23,10 @@
   width: fit-content;
 }
 
+.is-fixed {
+  position: fixed;
+}
+
 .above {
   top: 0;
   transform: translateY(-100%);

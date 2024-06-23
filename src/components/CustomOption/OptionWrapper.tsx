@@ -55,7 +55,7 @@ export default function OptionWrapper({ optionText, wrapperRef, children, overTe
       : {
           top: `${targetTop + 20}px`,
           bottom: 'auto',
-          left: `${targetLeft + 40}px`,
+          left: `${targetLeft}px`,
           paddingLeft: '0px',
           paddingTop: '4px',
         };
@@ -102,7 +102,7 @@ export default function OptionWrapper({ optionText, wrapperRef, children, overTe
       <div className={cn('option-text')} ref={targetRef}>
         {optionText}
       </div>
-      <div className={cn('tooltip-wrapper', { above: overText })} ref={tooltipRef}>
+      <div className={cn('tooltip-wrapper', { above: overText, 'is-fixed': wrapperRef })} ref={tooltipRef}>
         {children}
       </div>
     </div>
