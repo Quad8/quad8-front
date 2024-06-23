@@ -1,24 +1,37 @@
 'use client';
 
-import { useState, ChangeEvent, MouseEvent } from 'react';
+import { useState, useEffect, ChangeEvent, MouseEvent } from 'react';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
 import { UseFormRegister, FieldValues, UseFormSetValue } from 'react-hook-form';
 
 import { CameraIcon, DeleteIcon } from '@/public/index';
-
 import styles from './ImageInput.module.scss';
 
 const cn = classNames.bind(styles);
 
+interface CustomImagesType {
+  id: number;
+  imgUrl: string;
+}
+
 interface ImageInputProps {
   register: UseFormRegister<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
+  editCustomImages?: CustomImagesType[];
+  onSaveDeletedImageId?: (id: number) => void;
 }
 
-export default function ImageInput({ register, setValue }: ImageInputProps) {
+export default function ImageInput({ register, setValue, editCustomImages, onSaveDeletedImageId }: ImageInputProps) {
   const [selectedImageUrls, setSelectedImageUrls] = useState<string[]>([]);
   const [selectedImageFiles, setSelectedImageFiles] = useState<File[]>([]);
+
+  useEffect(() => {
+    if (editCustomImages) {
+      const initialUrls = editCustomImages.map((image) => image.imgUrl);
+      setSelectedImageUrls(initialUrls);
+    }
+  }, [editCustomImages]);
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
@@ -37,6 +50,16 @@ export default function ImageInput({ register, setValue }: ImageInputProps) {
 
   const handleClickDeleteImage = (e: MouseEvent<HTMLDivElement>, clickedImageIndex: number) => {
     e.stopPropagation();
+
+    const clickedImageUrl = selectedImageUrls[clickedImageIndex];
+
+    if (editCustomImages && onSaveDeletedImageId) {
+      const imageToDelete = editCustomImages.find((image) => image.imgUrl === clickedImageUrl);
+      if (imageToDelete) {
+        onSaveDeletedImageId(imageToDelete.id);
+      }
+    }
+
     setSelectedImageUrls((prev) => [...prev.slice(0, clickedImageIndex), ...prev.slice(clickedImageIndex + 1)]);
     setSelectedImageFiles((prev) => [...prev.slice(0, clickedImageIndex), ...prev.slice(clickedImageIndex + 1)]);
   };

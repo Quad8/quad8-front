@@ -4,13 +4,14 @@ import Image from 'next/image';
 import { toast } from 'react-toastify';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { Button, InputField } from '@/components';
+import { Button, InputField, Modal } from '@/components';
 import Dialog from '@/components/Dialog/Dialog';
 import { deletePost, getPostDetail, postComment } from '@/api/communityAPI';
 import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
 import { formatDateToString } from '@/libs/formatDateToString';
 import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
 import { keydeukImg } from '@/public/index';
+import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import Comment from './Comment';
 import AuthorCard from './AuthorCard';
 import { PostInteractions } from './PostInteractions';
@@ -35,8 +36,9 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
   const [commentRef, setCommentRef] = useState<HTMLInputElement | null>(null);
   const [clickedImage, setClickedImage] = useState('');
 
-  const [isCheckEditModalOpen, setIsCheckEditModalOpen] = useState(false);
-  const [isCheckDeleteModalOpen, setIsCheckDeleteModalOpen] = useState(false);
+  const [isCheckEditAlertOpen, setIsCheckEditAlertOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isCheckDeleteAlertOpen, setIsCheckDeleteAlertOpen] = useState(false);
 
   const { isPending, isError, data, error, refetch } = useQuery({
     queryKey: ['postData', cardId],
@@ -105,7 +107,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
     return null;
   }
 
-  const { commentCount, comments, content, likeCount, nickName, reviewImages, title, updatedAt, userImage } =
+  const { commentCount, comments, content, likeCount, nickName, reviewImages, title, updatedAt, userImage, custom } =
     postData as CommunityPostCardDetailDataType;
 
   // const { type, texture, boardColor, switchType, baseKeyColor, hasPointKeyCap, pointKeyType, individualColor } = custom;
@@ -127,31 +129,46 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
     setClickedImage(reviewImages[i].imgUrl);
   };
 
-  const handleClickDeleteButon = () => {
+  const handleClickDeleteAlertButon = () => {
     deletePostMutation(cardId);
-    setIsCheckDeleteModalOpen(false);
+    setIsCheckDeleteAlertOpen(false);
   };
 
-  const handleCloseDeleteModal = () => {
-    setIsCheckDeleteModalOpen(false);
+  const handleCloseDeleteAlert = () => {
+    setIsCheckDeleteAlertOpen(false);
   };
 
-  const handleClickEditButon = () => {
-    setIsCheckEditModalOpen(false);
+  const handleClickEditAlertButton = () => {
+    setIsEditModalOpen(true);
+    setIsCheckEditAlertOpen(false);
+  };
+
+  const handleCloseEditAlert = () => {
+    setIsCheckEditAlertOpen(false);
+  };
+
+  const handleClickEditModalButton = () => {
+    setIsEditModalOpen(false);
+    queryClient.invalidateQueries({
+      queryKey: ['MyCustomReview'],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['postData', cardId],
+    });
   };
 
   const handleCloseEditModal = () => {
-    setIsCheckEditModalOpen(false);
+    setIsEditModalOpen(false);
   };
 
   return (
     <div className={cn('container')}>
       {isMine && (
         <div className={cn('edit-button-wrapper')}>
-          <Button width={72} paddingVertical={8} onClick={() => setIsCheckEditModalOpen(true)}>
+          <Button width={72} paddingVertical={8} onClick={() => setIsCheckEditAlertOpen(true)}>
             수정
           </Button>
-          <Button width={72} paddingVertical={8} onClick={() => setIsCheckDeleteModalOpen(true)}>
+          <Button width={72} paddingVertical={8} onClick={() => setIsCheckDeleteAlertOpen(true)}>
             삭제
           </Button>
         </div>
@@ -201,28 +218,40 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
           </div>
         </div>
       </div>
-      <Dialog
-        type='confirm'
-        message='수정하시겠습니까'
-        isOpen={isCheckEditModalOpen}
-        iconType='warn'
-        buttonText={{ left: '댣기', right: '확인' }}
-        onClick={{
-          left: () => handleCloseEditModal(),
-          right: () => handleClickEditButon(),
-        }}
-      />
-      <Dialog
-        type='confirm'
-        message='삭제하시겠습니까'
-        isOpen={isCheckDeleteModalOpen}
-        iconType='warn'
-        buttonText={{ left: '댣기', right: '확인' }}
-        onClick={{
-          left: () => handleCloseDeleteModal(),
-          right: () => handleClickDeleteButon(),
-        }}
-      />
+      <Modal isOpen={isEditModalOpen} onClose={handleCloseEditModal}>
+        <div onClick={(e) => e.stopPropagation()}>
+          <WriteEditModal
+            isCustomReview
+            editCustomData={postData}
+            keyboardInfo={custom}
+            onSuccessReview={handleClickEditModalButton}
+          />
+        </div>
+      </Modal>
+      <div onClick={(e) => e.stopPropagation()}>
+        <Dialog
+          type='confirm'
+          message='수정하시겠습니까'
+          isOpen={isCheckEditAlertOpen}
+          iconType='warn'
+          buttonText={{ left: '댣기', right: '확인' }}
+          onClick={{
+            left: () => handleCloseEditAlert(),
+            right: () => handleClickEditAlertButton(),
+          }}
+        />
+        <Dialog
+          type='confirm'
+          message='삭제하시겠습니까'
+          isOpen={isCheckDeleteAlertOpen}
+          iconType='warn'
+          buttonText={{ left: '댣기', right: '확인' }}
+          onClick={{
+            left: () => handleCloseDeleteAlert(),
+            right: () => handleClickDeleteAlertButon(),
+          }}
+        />
+      </div>
     </div>
   );
 }

@@ -128,6 +128,28 @@ export const postCreateCustomReview = async (formData: FormData) => {
   }
 };
 
+export const putEditCustomReview = async ({ id, formData }: { id: number; formData: FormData }) => {
+  const token = await getCookie('accessToken');
+
+  if (!token) {
+    return null;
+  }
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/community/update/${id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const deletePost = async (postId: number) => {
   const token = await getCookie('accessToken');
 
