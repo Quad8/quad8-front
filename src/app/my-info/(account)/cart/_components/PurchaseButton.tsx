@@ -70,18 +70,20 @@ export default function PurchaseButton() {
     <div className={cn('button-wrapper')}>
       <Button
         backgroundColor='outline-primary'
+        width={120}
+        paddingVertical={8}
         fontSize={14}
         radius={4}
-        className={cn('button')}
         onClick={handleClickSelectedButton}
       >
         선택 상품 구매
       </Button>
       <Button
         backgroundColor='outline-primary'
+        width={120}
+        paddingVertical={8}
         fontSize={14}
         radius={4}
-        className={cn('button')}
         onClick={handleClickAllButton}
       >
         전체 상품 구매

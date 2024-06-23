@@ -22,9 +22,6 @@
 }
 
 .button {
-  @include flex-center;
-
-  width: 19.9rem;
   gap: 1rem;
 
   &:hover {

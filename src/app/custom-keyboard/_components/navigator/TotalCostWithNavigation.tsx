@@ -189,6 +189,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
       <div className={cn('button-wrapper')}>
         {prev && (
           <Button
+            width={199}
             backgroundColor='outline-primary'
             hoverColor='outline-primary-60'
             radius={4}
@@ -200,6 +201,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
           </Button>
         )}
         <Button
+          width={199}
           backgroundColor='background-primary'
           hoverColor='background-primary-60'
           radius={4}
@@ -210,7 +212,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
           {currentStep !== 'keyCap' && <ChevronIcon width={16} height={16} className={cn('next-button-icon')} />}
         </Button>
       </div>
-      <Modal isOpen={isOpenOptionModal} onClose={handleCloseOptionModal}>
+      <Modal isOpen={isOpenOptionModal} onClose={() => {}}>
         <OptionProductModal
           optionData={optionData}
           onClose={handleCloseOptionModal}

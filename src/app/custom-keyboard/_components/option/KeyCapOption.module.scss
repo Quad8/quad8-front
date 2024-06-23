@@ -27,8 +27,6 @@
 .button {
   @include pretendard-16-400;
 
-  width: 19.9rem;
-
   &:hover {
     border-color: $primary-60;
     color: $white;
@@ -85,9 +83,8 @@
 .tag-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   width: 41rem;
-  gap: 1.2rem 0;
+  gap: 1.2rem 1rem;
 }
 
 .help-wrapper {

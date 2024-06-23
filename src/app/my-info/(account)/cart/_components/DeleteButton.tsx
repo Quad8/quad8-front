@@ -2,15 +2,10 @@
 
 import { ReactNode, useContext, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import classNames from 'classnames/bind';
 
 import { deleteCartData } from '@/api/cartAPI';
 import { Button, Dialog } from '@/components';
 import { CartDataContext } from '@/context/CartDataContext';
-
-import styles from './DeleteButton.module.scss';
-
-const cn = classNames.bind(styles);
 
 interface DeleteButtonProps {
   children: ReactNode;
@@ -52,8 +47,10 @@ export default function DeleteButton({ children }: DeleteButtonProps) {
         backgroundColor='outline-primary'
         width={90}
         radius={4}
-        className={cn('button')}
+        paddingVertical={8}
+        fontSize={14}
         onClick={() => handleConfirmDialog(true)}
+        hoverColor='outline-primary-60'
       >
         {children}
       </Button>

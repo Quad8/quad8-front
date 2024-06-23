@@ -54,6 +54,8 @@ export default function CartModalOptionCard({
             <Button
               width={72}
               fontSize={14}
+              paddingVertical={2}
+              backgroundColor='outline-gray-40'
               className={cn('button')}
               onClick={(e: MouseEvent<HTMLButtonElement>) => buttonOnClick(e)}
               hoverColor='outline-primary'

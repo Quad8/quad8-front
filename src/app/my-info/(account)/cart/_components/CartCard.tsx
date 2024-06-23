@@ -5,8 +5,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 
 import { putChangeCartData } from '@/api/cartAPI';
+import { postCreateOrder } from '@/api/orderAPI';
 import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 import type { CustomDataType, OptionChageAPIType, ShopDataType } from '@/types/CartTypes';
+import type { CreateOrderResponseType } from '@/types/OrderTypes';
 import { ROUTER } from '@/constants/route';
 import { Button, Modal, CustomOption } from '@/components';
 import CardCheckBox from './CardCheckBox';
@@ -42,6 +44,14 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
   const price = type === 'custom' ? cardData.price : Number(cardData.count * cardData.price);
   const category = type === 'shop' ? CATEGORY[cardData.category] : '';
 
+  const createOrder = useMutation({
+    mutationFn: postCreateOrder,
+    onSuccess: (response: CreateOrderResponseType) => {
+      queryClient.setQueryData(['orderId'], response.data);
+      router.push(ROUTER.MY_PAGE.CHECKOUT);
+    },
+  });
+
   const updateOption = useMutation<void, Error, { id: number; data: OptionChageAPIType }>({
     mutationFn: ({ id, data }) => putChangeCartData(id, data),
   });
@@ -70,6 +80,22 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
     const custom = JSON.stringify(cardData);
     localStorage.setItem('customData', custom);
     router.push(`${ROUTER.CUSTOM_KEYBOARD}?orderId=${cardData.id}`, { scroll: false });
+  };
+
+  const handleClickPurchase = () => {
+    const orderData =
+      type === 'custom'
+        ? {
+            productId: cardData.productId,
+            switchOptionId: cardData.productId,
+            quantity: 1,
+          }
+        : {
+            productId: cardData.prductId,
+            switchOptionId: cardData.optionId,
+            quantity: cardData.count,
+          };
+    createOrder.mutate([orderData]);
   };
 
   return (
@@ -103,10 +129,10 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
       </div>
       <div className={cn('price')}>{price.toLocaleString()}원</div>
       <div className={cn('button-wrapper')}>
-        <Button fontSize={14} width={90} radius={4} className={cn('button')} onClick={handleOpenModal}>
+        <Button fontSize={14} width={90} radius={4} paddingVertical={8} onClick={handleOpenModal}>
           주문수정
         </Button>
-        <Button fontSize={14} width={90} radius={4} className={cn('button')}>
+        <Button fontSize={14} width={90} radius={4} paddingVertical={8} onClick={handleClickPurchase}>
           바로구매
         </Button>
       </div>
