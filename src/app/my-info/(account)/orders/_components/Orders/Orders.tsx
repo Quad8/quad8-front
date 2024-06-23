@@ -12,13 +12,18 @@ export default function Orders() {
   const { data: ordersData } = useQuery<{ data: OrderData }>({ queryKey: ['ordersData'], queryFn: getOrdersData });
 
   console.log(ordersData);
+
   return (
     <>
       <DatePicker onDateChange={() => {}} />
-      <OrderHeader />
-      <OrderItemList />
-
-      <MyInfoEmptyCase message='구매내역이 없습니다.' />
+      {ordersData ? (
+        <>
+          <OrderHeader />
+          <OrderItemList />
+        </>
+      ) : (
+        <MyInfoEmptyCase message='구매내역이 없습니다.' />
+      )}
     </>
   );
 }

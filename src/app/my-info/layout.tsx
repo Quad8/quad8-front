@@ -1,4 +1,4 @@
-import { QueryClient } from '@tanstack/react-query';
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
@@ -30,9 +30,11 @@ export default async function MyInfoLayout({ children }: MyInfoLayoutProps) {
   await queryClient.prefetchQuery({ queryKey: ['ordersData'], queryFn: getOrdersData });
 
   return (
-    <section className={cn('layout')}>
-      <SNB />
-      <div className={cn('page')}>{children}</div>
-    </section>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <section className={cn('layout')}>
+        <SNB />
+        <div className={cn('page')}>{children}</div>
+      </section>
+    </HydrationBoundary>
   );
 }

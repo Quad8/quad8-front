@@ -1,3 +1,12 @@
+export enum OrderStatus {
+  READY = 'READY',
+  PAYMENT_COMPLETED = 'PAYMENT_COMPLETED',
+  PREPARING = 'PREPARING',
+  SHIPPING = 'SHIPPING',
+  DELIVERED = 'DELIVERED',
+  CANCELED = 'CANCELED',
+}
+
 export interface OrderItem {
   productId: number;
   productImgUrl: string;
@@ -9,7 +18,7 @@ export interface OrderItem {
 export interface Order {
   orderId: number;
   orderItems: OrderItem[];
-  orderStatus: 'READY' | 'COMPLETED' | 'CANCELLED';
+  orderStatus: OrderStatus;
   purchaseDate: string;
   confirmationDate: string;
 }
