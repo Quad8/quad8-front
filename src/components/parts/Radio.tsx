@@ -22,7 +22,7 @@ export default forwardRef<HTMLInputElement, RadioProps>(function Radio(
         ref={ref}
         id={id}
         type='radio'
-        checked={isChecked || false}
+        checked={isChecked || undefined}
         value={value}
         {...rest}
       />
