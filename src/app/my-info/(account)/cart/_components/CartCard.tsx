@@ -11,6 +11,7 @@ import type { CustomDataType, OptionChageAPIType, ShopDataType } from '@/types/C
 import type { CreateOrderResponseType } from '@/types/OrderTypes';
 import { ROUTER } from '@/constants/route';
 import { Button, Modal, CustomOption } from '@/components';
+import { toast } from 'react-toastify';
 import CardCheckBox from './CardCheckBox';
 import ShopOption from './ShopOption';
 import OptionEditModal from './OptionEditModal';
@@ -50,6 +51,9 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
       queryClient.setQueryData(['orderId'], response.data);
       router.push(ROUTER.MY_PAGE.CHECKOUT);
     },
+    onError: () => {
+      toast.error('주문 정보 생성에 실팽하였습니다');
+    },
   });
 
   const { mutate: updateOption } = useMutation<void, Error, { id: number; data: OptionChageAPIType }>({
@@ -63,6 +67,9 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
         onSuccess: () => {
           setIsOpenMoal(false);
           queryClient.invalidateQueries({ queryKey: ['cartData'] });
+        },
+        onError: () => {
+          toast.error('주문 변경에 실패하였습니다');
         },
       },
     );
@@ -93,7 +100,14 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
             switchOptionId: cardData.optionId,
             quantity: cardData.count,
           };
-    createOrder([orderData]);
+    createOrder([orderData], {
+      onSuccess: () => {
+        router.push(ROUTER.MY_PAGE.CHECKOUT);
+      },
+      onError: () => {
+        toast.error('주문 정보 생성에 실패하였습니다');
+      },
+    });
   };
 
   return (

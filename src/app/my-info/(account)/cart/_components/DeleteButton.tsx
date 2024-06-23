@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteCartData } from '@/api/cartAPI';
 import { Button, Dialog } from '@/components';
 import { CartDataContext } from '@/context/CartDataContext';
+import { toast } from 'react-toastify';
 
 interface DeleteButtonProps {
   children: ReactNode;
@@ -37,6 +38,9 @@ export default function DeleteButton({ children }: DeleteButtonProps) {
         handleConfirmDialog(false);
         handleAlertDialog(true);
         queryClient.invalidateQueries({ queryKey: ['cartData'] });
+      },
+      onError: () => {
+        toast.error('장바구니 수정에 실패하였습니다');
       },
     });
   };
