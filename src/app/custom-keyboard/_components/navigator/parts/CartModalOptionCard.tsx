@@ -8,6 +8,7 @@ import { Button } from '@/components';
 import { KeyboardDataContext } from '@/context';
 import SecondOption from '@/components/CustomOption/SecondOption';
 
+import { IMAGE_BLUR } from '@/constants/blurImage';
 import styles from './CartModalOptionCard.module.scss';
 
 const cn = classNames.bind(styles);
@@ -46,7 +47,15 @@ export default function CartModalOptionCard({
 
   return (
     <div className={cn('wrapper')}>
-      <Image src={imageSrc} width={104} height={104} alt='장바구니 이미지' className={cn('image')} />
+      <Image
+        src={imageSrc}
+        width={104}
+        height={104}
+        alt='장바구니 이미지'
+        className={cn('image')}
+        placeholder={IMAGE_BLUR.placeholder}
+        blurDataURL={IMAGE_BLUR.blurDataURL}
+      />
       <div className={cn('content-wrapper')}>
         <div className={cn('title-option-wrapper')}>
           <div className={cn('title-wrapper')}>

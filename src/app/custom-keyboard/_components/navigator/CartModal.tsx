@@ -163,8 +163,11 @@ export default function CartModal({
           toast.error('장바구니 담기에 실패했습니다');
         },
         onSuccess: () => {
-          toast.success('장바구니에 담았습니다');
-          router.push(ROUTER.MY_PAGE.CART);
+          toast.success('장바구니에 담았습니다', {
+            onClose: () => {
+              router.push(ROUTER.MY_PAGE.CART);
+            },
+          });
         },
       });
       return;
@@ -176,8 +179,12 @@ export default function CartModal({
           toast.error('장바구니 수정에 실패했습니다');
         },
         onSuccess: () => {
-          toast.success('장바구니를 수정하였습니다');
-          router.push(ROUTER.MY_PAGE.CART);
+          toast.success('장바구니를 수정하였습니다', {
+            autoClose: 1500,
+            onClose: () => {
+              router.push(ROUTER.MY_PAGE.CART);
+            },
+          });
         },
       },
     );
@@ -248,7 +255,11 @@ export default function CartModal({
         </div>
       </div>
       <div className={cn('button-wrapper')}>
-        <Button className={cn({ disabled: isDisabled })} onClick={handleClickPutButton} disabled={isDisabled}>
+        <Button
+          backgroundColor={isDisabled ? 'background-gray-40' : 'background-primary'}
+          onClick={handleClickPutButton}
+          disabled={isDisabled}
+        >
           {orderId ? '수정하기' : '장바구니 담기'}
         </Button>
       </div>

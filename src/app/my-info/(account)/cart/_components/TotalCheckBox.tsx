@@ -37,14 +37,14 @@ export default function TotalCheckBox({ type }: TotalCheckBoxProps) {
 
   const getCheckedValue = () => {
     if (type === 'total') {
-      return isCheckedAllEntire;
+      return isCheckedAllEntire && totalCustom + totalShop !== 0;
     }
 
     if (type === 'custom') {
-      return isCheckedAllCustom;
+      return isCheckedAllCustom && totalCustom !== 0;
     }
 
-    return isCheckedAllShop;
+    return isCheckedAllShop && totalShop !== 0;
   };
 
   const getTotalCount = () => {
