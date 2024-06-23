@@ -9,7 +9,6 @@ import { useState } from 'react';
 
 import { LogoIcon, UserIcon } from '@/public/index';
 import type { Users } from '@/types/userType';
-import Modal from '../Modal/Modal';
 import SignInModal from '../SignInModal/SignInModal';
 import { CartButton, LoginButton, LogoutButton, SearchBox, ShopButton } from './HeaderParts';
 
@@ -88,9 +87,7 @@ export default function Header() {
         </div>
       </header>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <SignInModal />
-      </Modal>
+      <SignInModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 }
