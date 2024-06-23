@@ -17,6 +17,7 @@
 .review-box {
   display: flex;
   flex-direction: column;
+  padding-left: 2rem;
 }
 
 .info-section {
@@ -24,11 +25,6 @@
 
   align-items: flex-start;
   margin-bottom: 0.8rem;
-}
-
-.profile-image {
-  margin-right: 1.9rem;
-  border-radius: 50%;
 }
 
 .profile-info {
@@ -116,7 +112,7 @@
   width: 8rem;
   height: 8rem;
   margin-right: 1.2rem;
-  border: 1px solid $gray-10;
+  border: 0.1rem solid $gray-10;
   border-radius: 0.8rem;
   object-fit: cover;
 }

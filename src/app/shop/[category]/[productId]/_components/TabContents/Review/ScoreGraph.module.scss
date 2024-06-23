@@ -1,0 +1,27 @@
+.scores-container {
+  display: flex;
+  gap: 2.8rem;
+}
+
+.one-score {
+  @include flex-column(1.2rem);
+
+  align-items: center;
+}
+
+.percent-background {
+  align-content: end;
+  width: 0.9rem;
+  height: 9rem;
+  border-radius: 0.8rem;
+  background-color: $gray-10;
+}
+
+.percent {
+  border-radius: 0.8rem;
+  background-color: $primary;
+}
+
+.score-text {
+  @include pretendard-14-500;
+}

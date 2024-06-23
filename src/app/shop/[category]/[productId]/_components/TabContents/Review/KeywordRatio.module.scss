@@ -1,0 +1,41 @@
+.option-container {
+  @include flex-column(1.2rem);
+}
+
+.one-option {
+  display: flex;
+  align-items: center;
+}
+
+.keyword {
+  width: 6.5rem;
+  margin-right: 1.9rem;
+  padding: 0.4rem 0;
+  border: 0.13rem solid $primary;
+  border-radius: 30rem;
+  color: $primary;
+  text-align: center;
+
+  @include pretendard-14-500;
+}
+
+.text-container {
+  @include flex-center;
+
+  justify-content: space-between;
+  width: 14rem;
+}
+
+.keyword-value,
+.percent {
+  @include pretendard-16-500;
+}
+
+.percent {
+  color: $gray-50;
+}
+
+.line {
+  width: 1.6rem;
+  border: 0.1rem dashed $primary;
+}
