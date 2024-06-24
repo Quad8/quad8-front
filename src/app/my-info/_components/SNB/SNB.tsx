@@ -20,7 +20,7 @@ const SECTIONS = [
     ],
   },
   {
-    category: '커뮤티니',
+    category: '커뮤니티',
     items: [{ name: '내 게시글', route: ROUTER.MY_PAGE.MY_POSTS }],
   },
 ];

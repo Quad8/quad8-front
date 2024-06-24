@@ -1,111 +1,244 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { keydeukProfileImg, myProfileImg } from '@/public/index';
-
+import { Button, InputField, Modal } from '@/components';
+import Dialog from '@/components/Dialog/Dialog';
+import { deletePostCard, getPostDetail, postComment } from '@/api/communityAPI';
 import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
 import { formatDateToString } from '@/libs/formatDateToString';
-
-import { InputField } from '@/components';
+import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
+import { keydeukImg } from '@/public/index';
+import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
+import Comment from './Comment';
 import AuthorCard from './AuthorCard';
 import { PostInteractions } from './PostInteractions';
-import Comment from './Comment';
 
 import styles from './PostCardDetailModal.module.scss';
 
-// const COMMENTS = {
-//   profileImage: defaultImage,
-//   nickname: 'nininini',
-//   createdAt: '2024-06-01T05:56:13.073Z',
-// };
-
-const TEMP_DETAIL_POSTDATE = {
-  id: 1234,
-  userId: 12345,
-  userNickname: '봉미선',
-  title: '짱구야',
-  content:
-    '짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?짱구니?',
-  createdDate: new Date(2022, 3, 22),
-  goodCount: 13,
-  commentCount: 192,
-  keyboardImages: [
-    { id: 1, src: myProfileImg },
-    { id: 2, src: keydeukProfileImg },
-  ],
-};
-
 const cn = classNames.bind(styles);
 
-const tempKeyboardimages = [
-  { id: 1, src: myProfileImg },
-  { id: 2, src: keydeukProfileImg },
-];
+interface PostCardDetailModalProps {
+  cardId: number;
+  onClose: () => void;
+  isMine?: boolean;
+}
 
-export default function PostCardDetailModal() {
-  const commentRef = useRef<HTMLInputElement>(null);
-  const [clickedImage, setClickedImage] = useState(tempKeyboardimages[0].src);
+export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCardDetailModalProps) {
+  const queryClient = useQueryClient();
+  const [commentRef, setCommentRef] = useState<HTMLInputElement | null>(null);
+  const [clickedImage, setClickedImage] = useState('');
 
-  const {
-    title,
-    content,
-    userNickname,
-    createdDate: created,
-    goodCount,
-    commentCount,
-    keyboardImages,
-  } = TEMP_DETAIL_POSTDATE;
-  const createdDateString = formatDateToString(created);
+  const [isEditAlertOpen, setIsEditAlertOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
-  const handleSubmitComment = () => {
-    if (commentRef.current) {
-      commentRef.current.value = '';
+  const { data, refetch } = useQuery({
+    queryKey: ['postData', cardId],
+    queryFn: () => getPostDetail(cardId),
+  });
+
+  const handleSuccessSubmitComment = () => {
+    if (commentRef) {
+      commentRef.value = '';
     }
+    queryClient.invalidateQueries({ queryKey: ['postCardsList'] });
+    refetch();
   };
+  const { data: postData, status, message } = data;
+
+  const { mutate: postCommentMutation } = useMutation({
+    mutationFn: postComment,
+    onSuccess: () => {
+      handleSuccessSubmitComment();
+    },
+    onError: () => {
+      toast.error('댓글 등록 중 오류가 발생하였습니다.');
+    },
+  });
+
+  const { mutate: deletePostMutation } = useMutation({
+    mutationFn: deletePostCard,
+    onSuccess: () => {
+      toast.success('게시글이 삭제되었습니다.');
+      queryClient.invalidateQueries({
+        queryKey: ['MyCustomReview'],
+      });
+    },
+    onError: () => {
+      toast.error('게시글 삭제 중 오류가 발생하였습니다.');
+    },
+  });
 
   useEffect(() => {
-    const removeEvent = addEnterKeyEvent({ element: commentRef, callback: handleSubmitComment });
+    const handleSubmitComment = () => {
+      if (commentRef) {
+        const commentContent = commentRef.value;
+        postCommentMutation({ id: cardId, content: commentContent });
+      }
+    };
+    const removeEvent = addEnterKeyEvent({ element: { current: commentRef }, callback: handleSubmitComment });
+
     return () => {
       removeEvent();
     };
-  }, []);
+  }, [cardId, postCommentMutation, commentRef]);
 
-  const handleThumbnailClick = (i: number) => {
-    setClickedImage(keyboardImages[i].src);
+  if (status === 'FAIL') {
+    toast.error(message);
+    onClose();
+    return null;
+  }
+
+  const { commentCount, comments, content, likeCount, nickName, reviewImages, title, updatedAt, userImage, custom } =
+    postData as CommunityPostCardDetailDataType;
+
+  // const { type, texture, boardColor, switchType, baseKeyColor, hasPointKeyCap, pointKeyType, individualColor } = custom;
+
+  const createdDateString = formatDateToString(new Date(updatedAt));
+
+  // const options = {
+  //   type,
+  //   texture,
+  //   boardColor,
+  //   switchType,
+  //   baseKeyColor,
+  //   hasPointKeyCap,
+  //   pointKeyType,
+  //   individualColor,
+  // };
+
+  const handleClickThumbnail = (i: number) => {
+    setClickedImage(reviewImages[i].imgUrl);
+  };
+
+  const handleClickDeleteAlertButon = () => {
+    deletePostMutation(cardId);
+    setIsDeleteAlertOpen(false);
+  };
+
+  const handleCloseDeleteAlert = () => {
+    setIsDeleteAlertOpen(false);
+  };
+
+  const handleClickEditAlertButton = () => {
+    setIsEditModalOpen(true);
+    setIsEditAlertOpen(false);
+  };
+
+  const handleCloseEditAlert = () => {
+    setIsEditAlertOpen(false);
+  };
+
+  const handleClickEditModalButton = () => {
+    setIsEditModalOpen(false);
+    queryClient.invalidateQueries({
+      queryKey: ['MyCustomReview'],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['postData', cardId],
+    });
+  };
+
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false);
   };
 
   return (
     <div className={cn('container')}>
-      <div className={cn('images-wrapper')}>
-        <Image src={clickedImage} alt='키보드 이미지' className={cn('selected-image')} />
-        {keyboardImages.length > 1 && (
-          <div className={cn('unselected-image-wrapper')}>
-            {keyboardImages.map((image, i) => (
-              <div onClick={() => handleThumbnailClick(i)} key={image.id}>
-                <Image src={image.src} alt='키보드 이미지' className={cn('images')} />
-              </div>
-            ))}
+      {isMine && (
+        <div className={cn('edit-button-wrapper')}>
+          <Button width={72} paddingVertical={8} onClick={() => setIsEditAlertOpen(true)}>
+            수정
+          </Button>
+          <Button width={72} paddingVertical={8} onClick={() => setIsDeleteAlertOpen(true)}>
+            삭제
+          </Button>
+        </div>
+      )}
+      <div className={cn('image-content-wrapper')}>
+        <div className={cn('left-wrapper')}>
+          <div className={cn('selected-image')}>
+            <Image
+              src={clickedImage || (reviewImages.length > 0 ? reviewImages[0].imgUrl : keydeukImg)}
+              alt='키보드 이미지'
+              fill
+              onError={() => setClickedImage('')}
+              sizes='(max-width: 1200px) 100%'
+            />
           </div>
-        )}
+          {reviewImages.length > 1 && (
+            <div className={cn('unselected-image-wrapper')}>
+              {reviewImages.map((image, i: number) => (
+                <div onClick={() => handleClickThumbnail(i)} key={image.id}>
+                  <Image src={image.imgUrl} alt='키보드 이미지' className={cn('images')} width={48} height={48} />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className={cn('right-wrapper')}>
+          <div className={cn('content-wrapper')}>
+            <p className={cn('title')}>{title}</p>
+            <AuthorCard nickname={nickName} dateText={createdDateString} userImage={userImage} />
+            <div className={cn('keyboard-option-wrapper')}>키보드 옵션 넣는 곳~~~~~</div>
+            <p className={cn('content')}>{content}</p>
+            <PostInteractions likeCount={likeCount} commentCount={commentCount} />
+            <div className={cn('comment-wrapper')}>
+              {comments.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  cardId={cardId}
+                  commentId={comment.id}
+                  commentUserId={comment.userId}
+                  createdTime={comment.createdAt}
+                  nickname={comment.nickName}
+                  comment={comment.content}
+                  profile={comment.imgUrl}
+                />
+              ))}
+            </div>
+          </div>
+          <div className={cn('comment-input')}>
+            <InputField placeholder='댓글을 입력해주세요' ref={(ref) => setCommentRef(ref)} />
+          </div>
+        </div>
       </div>
-      <div className={cn('content-wrapper')}>
-        <p className={cn('title')}>{title}</p>
-        <AuthorCard nickname={userNickname} dateText={createdDateString} />
-        <p className={cn('content')}>{content}</p>
-        <PostInteractions goodCount={goodCount} commentCount={commentCount} />
-        <div className={cn('comment-wrapper')}>
-          <Comment createdTime='Jun 15 2024 00:01:33 GMT+0900' nickname='훈이' comment='짱구야 귀엽다' />
-          <Comment createdTime='Jun 15 2024 00:00:33 GMT+0900' nickname='훈이' comment='짱구야 귀엽다' />
-          <Comment createdTime='Jun 13 2024 23:03:33 GMT+0900' nickname='훈이' comment='짱구야 귀엽다' />
-          <Comment createdTime='Jun 15 2024 00:03:33 GMT+0900' nickname='훈이' comment='짱구야 귀엽다' />
-          <Comment createdTime='Jun 15 2024 00:03:33 GMT+0900' nickname='훈이' comment='짱구야 귀엽다' />
-          <Comment createdTime='Jun 15 2024 00:03:33 GMT+0900' nickname='훈이' comment='짱구야 귀엽다' />
-          <Comment createdTime='May 13 2024 00:03:33 GMT+0900' nickname='훈이' comment='짱구야 귀엽다' />
+      <Modal isOpen={isEditModalOpen} onClose={handleCloseEditModal}>
+        <div onClick={(e) => e.stopPropagation()}>
+          <WriteEditModal
+            reviewType={postData ? 'customReviewEdit' : 'customReview'}
+            editCustomData={postData}
+            keyboardInfo={custom}
+            onSuccessReview={handleClickEditModalButton}
+          />
         </div>
-        <div className={cn('comment-input')}>
-          <InputField placeholder='댓글을 입력해주세요' ref={commentRef} />
-        </div>
+      </Modal>
+      <div onClick={(e) => e.stopPropagation()}>
+        <Dialog
+          type='confirm'
+          message='수정하시겠습니까'
+          isOpen={isEditAlertOpen}
+          iconType='warn'
+          buttonText={{ left: '댣기', right: '확인' }}
+          onClick={{
+            left: () => handleCloseEditAlert(),
+            right: () => handleClickEditAlertButton(),
+          }}
+        />
+        <Dialog
+          type='confirm'
+          message='삭제하시겠습니까'
+          isOpen={isDeleteAlertOpen}
+          iconType='warn'
+          buttonText={{ left: '댣기', right: '확인' }}
+          onClick={{
+            left: () => handleCloseDeleteAlert(),
+            right: () => handleClickDeleteAlertButon(),
+          }}
+        />
       </div>
     </div>
   );

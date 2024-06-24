@@ -1,4 +1,5 @@
 import { myProfileImg, keydeukProfileImg } from '@/public/index';
+import { PostCardDetailModalCustomKeyboardType } from '@/types/CommunityTypes';
 import { StaticImageData } from 'next/image';
 
 export const COMMUNITY_DATA = {
@@ -56,3 +57,101 @@ export interface CommunityCardDataDetailType {
   created_at: string;
   updated_at: string;
 }
+
+export const orderListData = [
+  {
+    productId: 1000068,
+    type: 'full',
+    texture: 'metal',
+    boardColor: '#ffffff',
+    baseKeyColor: '#ffffff',
+    switchType: '적축',
+    hasPointKeyCap: true,
+    pointKeyType: '내 맘대로 바꾸기',
+    pointSetColor: '#ffffff',
+    imgUrl:
+      'https://keyduek-image-file.s3.ap-northeast-2.amazonaws.com/keydeuk/product/custom9df88e89-146f-4535-8efe-9504a1f87330.png',
+    price: 60000,
+    individualColor: {
+      '1': '#ffffff',
+      Q: '#ffffff',
+      T: '#ffffff',
+    },
+  },
+  {
+    productId: 1000069,
+    type: 'full',
+    texture: 'metal',
+    boardColor: '#ffffff',
+    baseKeyColor: '#ffffff',
+    switchType: '적축',
+    hasPointKeyCap: true,
+    pointKeyType: '내 맘대로 바꾸기',
+    pointSetColor: '#ffffff',
+    imgUrl:
+      'https://keyduek-image-file.s3.ap-northeast-2.amazonaws.com/keydeuk/product/custom9df88e89-146f-4535-8efe-9504a1f87330.png',
+    price: 60000,
+    individualColor: {
+      '1': '#ffffff',
+      Q: '#ffffff',
+      T: '#ffffff',
+    },
+  },
+  {
+    productId: 1000070,
+    type: 'full',
+    texture: 'metal',
+    boardColor: '#ffffff',
+    baseKeyColor: '#ffffff',
+    switchType: '적축',
+    hasPointKeyCap: true,
+    pointKeyType: '내 맘대로 바꾸기',
+    pointSetColor: '#ffffff',
+    imgUrl:
+      'https://keyduek-image-file.s3.ap-northeast-2.amazonaws.com/keydeuk/product/custom9df88e89-146f-4535-8efe-9504a1f87330.png',
+    price: 60000,
+    individualColor: {
+      '1': '#ffffff',
+      Q: '#ffffff',
+      T: '#ffffff',
+    },
+  },
+  {
+    productId: 1000071,
+    type: 'full',
+    texture: 'metal',
+    boardColor: '#ffffff',
+    baseKeyColor: '#ffffff',
+    switchType: '적축',
+    hasPointKeyCap: true,
+    pointKeyType: '내 맘대로 바꾸기',
+    pointSetColor: '#ffffff',
+    imgUrl:
+      'https://keyduek-image-file.s3.ap-northeast-2.amazonaws.com/keydeuk/product/custom9df88e89-146f-4535-8efe-9504a1f87330.png',
+    price: 60000,
+    individualColor: {
+      '1': '#ffffff',
+      Q: '#ffffff',
+      T: '#ffffff',
+    },
+  },
+  {
+    productId: 1000072,
+    type: 'full',
+    texture: 'metal',
+    boardColor: '#ffffff',
+    baseKeyColor: '#ffffff',
+    switchType: '적축',
+    hasPointKeyCap: true,
+    pointKeyType: '내 맘대로 바꾸기',
+    pointSetColor: '#ffffff',
+    imgUrl:
+      'https://keyduek-image-file.s3.ap-northeast-2.amazonaws.com/keydeuk/product/custom9df88e89-146f-4535-8efe-9504a1f87330.png',
+    price: 60000,
+    individualColor: {
+      '1': '#ffffff',
+      Q: '#ffffff',
+      T: '#ffffff',
+    },
+  },
+] as PostCardDetailModalCustomKeyboardType[];
