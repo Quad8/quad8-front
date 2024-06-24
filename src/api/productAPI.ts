@@ -1,3 +1,4 @@
+import { getCookie } from '@/libs/manageCookie';
 import type {
   GetCategoryListParams,
   KeydeukPickResponse,
@@ -5,13 +6,23 @@ import type {
   ProductParams,
   TabType,
 } from '@/types/ProductItem';
+
 import type { ProductType } from '@/types/ProductTypes';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 export const getProductDetail = async (productId: string): Promise<ProductType> => {
+  const token = await getCookie('accessToken');
+
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/product/${productId}`);
+    const res = await fetch(`${BASE_URL}/api/v1/product/${productId}`, {
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : '',
+      },
+    });
+
     const result = await res.json();
 
     return result.data;
@@ -21,11 +32,14 @@ export const getProductDetail = async (productId: string): Promise<ProductType> 
 };
 
 export async function getAllProductList({ sort, page, size }: ProductParams): Promise<ProductListResponse> {
+  const token = await getCookie('accessToken');
+
   try {
     const response = await fetch(`${BASE_URL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`, {
       cache: 'no-cache',
       headers: {
         'Cache-Control': 'no-cache',
+        Authorization: token ? `Bearer ${token}` : '',
       },
     });
     const rawData: ProductListResponse = await response.json();
@@ -46,6 +60,8 @@ export async function getCategoryProductList({
   minPrice,
   maxPrice,
 }: GetCategoryListParams): Promise<ProductListResponse> {
+  const token = await getCookie('accessToken');
+
   try {
     const queryParams: Record<string, string> = {
       keyword,
@@ -65,6 +81,7 @@ export async function getCategoryProductList({
       cache: 'no-cache',
       headers: {
         'Cache-Control': 'no-cache',
+        Authorization: token ? `Bearer ${token}` : '',
       },
     });
 

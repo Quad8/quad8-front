@@ -6,9 +6,9 @@
 }
 
 .title {
+  @include pretendard-30-700;
+
   margin-bottom: 8rem;
-  font-size: 3rem;
-  font-weight: bold;
   text-align: center;
 }
 
