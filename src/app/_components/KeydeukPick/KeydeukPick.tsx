@@ -47,9 +47,7 @@ export default function KeydeukPick() {
         </nav>
 
         <ul className={cn('product-list')}>
-          {data?.map((product) => {
-            return <ProductItem key={product.id} size='lg' {...product} hasShop={false} />;
-          })}
+          {data?.map((product) => <ProductItem key={product.id} size='lg' {...product} hasShop={false} />)}
         </ul>
       </div>
     </section>
