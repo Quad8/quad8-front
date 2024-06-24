@@ -1,11 +1,20 @@
+import { getCookie } from '@/libs/manageCookie';
 import type { GetCategoryListParams, ProductListResponse, ProductParams } from '@/types/ProductItem';
 import type { ProductType } from '@/types/ProductTypes';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 export const getProductDetail = async (productId: string): Promise<ProductType> => {
+  const token = await getCookie('accessToken');
+
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/product/${productId}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/product/${productId}`, {
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : '',
+      },
+    });
     const result = await res.json();
 
     return result.data;
@@ -15,8 +24,15 @@ export const getProductDetail = async (productId: string): Promise<ProductType> 
 };
 
 export async function getAllProductList({ sort, page, size }: ProductParams): Promise<ProductListResponse> {
+  const token = await getCookie('accessToken');
+
   try {
-    const response = await fetch(`${BASE_URL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`);
+    const response = await fetch(`${BASE_URL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : '',
+      },
+    });
     const rawData: ProductListResponse = await response.json();
 
     return rawData;
@@ -35,6 +51,8 @@ export async function getCategoryProductList({
   minPrice,
   maxPrice,
 }: GetCategoryListParams): Promise<ProductListResponse> {
+  const token = await getCookie('accessToken');
+
   try {
     const queryParams = new URLSearchParams({
       keyword: encodeURIComponent(keyword),
@@ -47,7 +65,12 @@ export async function getCategoryProductList({
       ...(maxPrice && { maxPrice: encodeURIComponent(maxPrice as string) }),
     }).toString();
 
-    const response = await fetch(`${BASE_URL}/api/v1/product/category/${keyword}?${queryParams}`);
+    const response = await fetch(`${BASE_URL}/api/v1/product/category/${keyword}?${queryParams}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : '',
+      },
+    });
 
     if (!response.ok) {
       const errorDetails = await response.text();

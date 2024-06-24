@@ -13,4 +13,6 @@ export { default as KeyboardInfoBox } from './WriteEditModal/KeyboardInfoBox';
 export { default as Button } from './Buttons/Button/Button';
 export { default as ScrollUpButton } from './Buttons/ScrollUpButton/ScrollUpButton';
 
+export { default as HeartButton } from './Buttons/HeartButton/HeartButton';
+
 // export { default as ItemOverview } from './ItemOverview/ItemOverview';

@@ -19,6 +19,7 @@ export interface ProductType {
   thubmnailList: ThumbnailTypes[];
   optionList: OptionTypes[];
   categoryName: string;
+  isLiked: boolean;
 }
 
 export interface CartProductType {
