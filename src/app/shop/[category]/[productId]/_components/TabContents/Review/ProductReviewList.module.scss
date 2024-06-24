@@ -1,0 +1,19 @@
+.main-title {
+  margin-top: 15rem;
+  padding: 3rem 0;
+
+  @include pretendard-20-700;
+}
+
+.no-review-text {
+  color: $gray-30;
+
+  @include pretendard-20-600;
+}
+
+.no-review-container {
+  @include flex-column(2rem);
+
+  align-items: center;
+  margin-bottom: 25rem;
+}

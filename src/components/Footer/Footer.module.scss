@@ -1,0 +1,95 @@
+.wrapper {
+  @include flex-column(2rem);
+
+  width: 100%;
+  min-width: 112rem;
+  max-width: 192rem;
+  height: 100%;
+  margin: 0 auto;
+  padding: 3.8rem 12rem;
+  background-color: $gray-7;
+}
+
+.none {
+  display: none;
+}
+
+.logo {
+  fill: $black;
+}
+
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-wrapper {
+  @include flex-column(2rem);
+}
+
+.introduce-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+
+.introduce-text {
+  @include pretendard-16-500;
+
+  color: $black;
+}
+
+.brand-wrapper {
+  @include flex-column(0.4rem);
+}
+
+.corporation-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.corporation-text {
+  @include pretendard-14-400;
+
+  color: $gray-40;
+}
+
+.corporation-kanban {
+  width: 1;
+  height: 1.2rem;
+  background-color: $gray-20;
+}
+
+.copyright-text {
+  @include pretendard-14-400;
+
+  color: $gray-40;
+}
+
+.right-wrapper {
+  @include flex-column(1.2rem);
+}
+
+.cs-wrapper {
+  @include flex-column(0.8rem);
+}
+
+.telephone-text {
+  @include pretendard-20-700;
+
+  color: $black;
+}
+
+.operation-wrapper {
+  @include pretendard-14-400;
+
+  color: $gray-50;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}

@@ -7,16 +7,14 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: '**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'quad8-nextjs-static.s3.amazonaws.com',
         port: '',
-        pathname: '/src/app/**',
+        pathname: '/**',
       },
       {
         protocol: 'http',
         hostname: '**',
+        port: '',
+        pathname: '/**',
       },
     ],
   },

@@ -1,0 +1,26 @@
+.preview-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 10rem;
+}
+
+.one-section {
+  @include flex-column(3rem);
+
+  align-items: center;
+  justify-content: space-between;
+  height: 17.7rem;
+}
+
+.title {
+  @include pretendard-20-700;
+}
+
+.big-text {
+  @include pretendard-40-700;
+}
+
+.total-score {
+  color: $gray-20;
+}

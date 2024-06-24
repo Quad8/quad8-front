@@ -60,7 +60,7 @@ export default function Header() {
         <div className={cn('wrapper', { black: isBlack })}>
           <div className={cn('right-wrapper')}>
             <Link className={cn('logo')} href={ROUTER.MAIN}>
-              <LogoIcon width={131} height={24} />
+              <LogoIcon width={131} height={24} className={cn('logo-icon')} />
             </Link>
             <div className={cn('button-wrapper')}>
               <Link
