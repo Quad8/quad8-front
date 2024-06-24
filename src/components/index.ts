@@ -7,6 +7,11 @@ export { default as TextField } from './TextField/TextField';
 
 export { default as Modal } from './Modal/Modal';
 
+export { default as CheckBox } from './CheckBox/CheckBox';
+export { default as CountInput } from './CountInput/CountInput';
+export { default as CustomOption } from './CustomOption/CustomOption';
+export { default as Dialog } from './Dialog/Dialog';
+
 export { default as Rating } from './Rating/Rating';
 export { default as ImageInput } from './WriteEditModal/ImageInput';
 export { default as KeyboardInfoBox } from './WriteEditModal/KeyboardInfoBox';
