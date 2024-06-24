@@ -233,9 +233,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
           accessToken={accessToken}
         />
       </Modal>
-      <Modal isOpen={isOpenLoginModal} onClose={() => handleLoginModal(false)}>
-        <SignInModal />
-      </Modal>
+      <SignInModal isOpen={isOpenLoginModal} onClose={() => handleLoginModal(false)} />
     </div>
   );
 }
