@@ -131,7 +131,7 @@ function DatePicker({ onDateChange }: DatePickerProps) {
         </div>
       </div>
       <Button
-        className={cn('comfirm-button')}
+        className={cn('confirm-button')}
         width={72}
         paddingVertical={8}
         radius={4}
