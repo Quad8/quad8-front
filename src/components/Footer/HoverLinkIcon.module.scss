@@ -1,0 +1,41 @@
+.wrapper {
+  position: relative;
+
+  &:hover {
+    .ballon {
+      visibility: visible;
+    }
+  }
+}
+
+.invert {
+  filter: invert(100%);
+}
+
+.ballon {
+  @include pretendard-14-400;
+
+  display: flex;
+  visibility: hidden;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: fit-content;
+  padding: 0.4rem 1.2rem;
+  transform: translate(-50%, -1rem);
+  border-radius: 2rem;
+  background-color: $primary;
+  color: $white;
+  white-space: nowrap;
+}
+
+.ballon::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  border-top: 1rem solid $primary;
+  border-right: 0.5rem solid transparent;
+  border-left: 0.5rem solid transparent;
+}

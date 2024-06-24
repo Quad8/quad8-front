@@ -47,6 +47,10 @@
 
     .logo {
       flex-grow: 1;
+
+      .logo-icon {
+        fill: $primary;
+      }
     }
 
     .button-wrapper {
