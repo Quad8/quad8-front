@@ -76,7 +76,7 @@ export default function ImageInput({ register, setValue, editCustomImages, onSav
             <div key={imageUrl} className={cn('image-wrapper')}>
               <Image alt='선택된 이미지' src={imageUrl} fill className={cn('image')} />
               <div className={cn('delete-image-icon')} onClick={(e) => handleClickDeleteImage(e, index)}>
-                <DeleteIcon fill='#ffffff' width={42} height={42} />
+                <DeleteIcon fill='#ffffff' width={32} height={32} />
               </div>
               {index === 0 && (
                 <div className={cn('main-image-tag')}>

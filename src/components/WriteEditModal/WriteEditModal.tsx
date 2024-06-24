@@ -33,7 +33,7 @@ interface ProductDataType {
   option?: string;
 }
 
-const TITLE_MAX_LENGTH = 20;
+const TITLE_MAX_LENGTH = 16;
 const TITLE_PLACEHOLDER = '미 입력 시 키득 커스텀 키보드로 등록됩니다.';
 const CONTENT_PLACEHOLDER = '최소 20자 이상 입력해주세요';
 
@@ -58,6 +58,7 @@ export default function WriteEditModal({
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { isValid },
   } = useForm<FieldValues>({
     mode: 'onChange',
@@ -114,7 +115,7 @@ export default function WriteEditModal({
     if (reviewType === 'customReview') {
       const postDto = {
         productId: keyboardInfo?.productId,
-        title: payload.title,
+        title: payload.title || '키득 커스텀 키보드',
         content: payload.content,
       };
 
@@ -125,13 +126,14 @@ export default function WriteEditModal({
           fetchFormData.append('files', file as File);
         });
       }
+      console.log(payload);
       return postCreatePostMutation(fetchFormData);
     }
 
     // 2. 커스텀 리뷰 수정
     if (reviewType === 'customReviewEdit' && editCustomData) {
       const postDto = {
-        title: payload.title,
+        title: payload.title || '키득 커스텀 키보드',
         content: payload.content,
         deletedFileList: deletedImageId,
       };
@@ -203,6 +205,7 @@ export default function WriteEditModal({
               placeholder={TITLE_PLACEHOLDER}
               maxLength={TITLE_MAX_LENGTH}
               labelSize='lg'
+              currentLength={watch('title').length}
               {...registers.title}
             />
           </div>
