@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { keydeukImg } from '@/public/index';
 import { IMAGE_BLUR } from '@/constants/blurImage';
 
+// import { CustomKeyboardAPITypes } from '@/types/CustomKeyboardTypes';
 import styles from './OrderListModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -53,6 +54,24 @@ export default function OrderListModal({
               <div>키보드 옵션 들어간다</div>
             </div>
           </div>
+          // <ItemOverview
+          //   key={order.productId}
+          //   item={{
+          //     productId: order.productId,
+          //     productImgUrl: order.imgUrl,
+          //     productName: '키득 커스텀 키보드',
+          //     switchOption: {
+          //       type: order.type,
+          //       texture: order.texture,
+          //       pointKeyType: order.pointKeyType,
+          //       pointSetColor: order.pointSetColor,
+          //       imgBase64: IMAGE_BLUR.blurDataURL,
+          //     } as CustomKeyboardAPITypes,
+          //   }}
+          //   imegeWidth={104}
+          //   imageHeight={104}
+          //   className='keyboard-image'
+          // />
         ))}
       </div>
       <div className={cn('button-wrapper')}>

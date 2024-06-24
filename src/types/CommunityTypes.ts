@@ -41,8 +41,8 @@ export interface CommentType {
 
 export interface PostCardDetailModalCustomKeyboardType {
   productId: number;
-  type: 'full' | 'tkl';
-  texture: 'metal' | 'plastic';
+  type: string;
+  texture: string;
   boardColor: string;
   switchType: CustomKeyboardSwitchTypes;
   baseKeyColor: string;
