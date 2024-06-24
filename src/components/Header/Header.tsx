@@ -86,7 +86,6 @@ export default function Header() {
           </div>
         </div>
       </header>
-
       <SignInModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
