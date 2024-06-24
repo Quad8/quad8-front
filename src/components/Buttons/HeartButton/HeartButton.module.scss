@@ -14,9 +14,8 @@
 }
 
 .circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
+
   width: 4.33rem;
   height: 4.157rem;
   border-radius: 100%;

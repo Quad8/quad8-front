@@ -1,7 +1,7 @@
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { KakaoIcon, LinkCopyIcon } from '@/public/index';
 import classNames from 'classnames/bind';
-import { useRef } from 'react';
+import { MouseEvent, useRef } from 'react';
 import styles from './ShareButton.module.scss';
 
 const cn = classNames.bind(styles);
@@ -17,7 +17,7 @@ export default function ShareBox({ handleClick }: ShareBoxProps) {
     handleClick();
   });
 
-  const handleIconClick = (e: React.MouseEvent) => {
+  const handleIconClick = (e: MouseEvent) => {
     e.stopPropagation();
   };
 
