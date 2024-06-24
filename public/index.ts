@@ -36,7 +36,6 @@ export { default as SoundVibrationIcon } from './svgs/soundVibration.svg';
 export { default as StarIcon } from './svgs/star.svg';
 export { default as StepCompleteIcon } from './svgs/stepComplete.svg';
 export { default as ThumbIcon } from './svgs/thumb.svg';
-export { default as UpArrowIcon } from './svgs/upArrow.svg';
 export { default as UserIcon } from './svgs/user.svg';
 export { default as VerticalTripleDotIcon } from './svgs/verticalTripleDot.svg';
 export { default as WarnCircleIcon } from './svgs/warnCircle.svg';

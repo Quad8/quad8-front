@@ -1,15 +1,30 @@
 .button-div {
+  @include flex-center;
+
   position: fixed;
   z-index: $zindex-modal-backdrop - 1;
-  right: 12rem;
-  bottom: 6.4rem;
-  width: 5.7rem;
-  height: 5.7rem;
-  border-radius: 30rem;
+  right: 5rem;
+  bottom: 5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 100%;
   background-color: $primary;
-  @include flex-center;
+  box-shadow:
+    0 0.3rem 0.6rem rgb(0 0 0 / 16%),
+    0 0.3rem 0.6rem rgb(0 0 0 / 23%);
+
+  &:hover {
+    background-color: $primary-60;
+  }
 }
 
 .no-button-visible {
   display: none;
+}
+
+.icon {
+  margin-top: -0.2rem;
+  margin-left: 0.1rem;
+  transform: rotate(180deg);
+  fill: $white;
 }
