@@ -52,11 +52,11 @@ export default function EditProfileModal({ userData, onComplete }: EditProfileMo
         toast.success('사용 가능한 닉네임 입니다.');
         return;
       } else if (res.status === 'FAIL') {
-        toast('이미 사용중인 닉네임 입니다.');
+        toast.error('이미 사용중인 닉네임 입니다.');
         return;
       }
 
-      toast('중복확인에 실패 하였습니다.');
+      toast.error('중복확인에 실패 하였습니다.');
     },
   });
 
@@ -82,16 +82,13 @@ export default function EditProfileModal({ userData, onComplete }: EditProfileMo
 
     putProfileMutation(formData, {
       onSuccess: (res) => {
-        // console.log(res);
-
         if (res.status === 'SUCCESS') {
           toast('회원정보가 변경되었습니다');
-
           queryClient.invalidateQueries({ queryKey: ['userData'] }).then(() => {
             onComplete();
           });
         } else {
-          // console.log('회원정보 변경 실패');
+          toast.error('회원정보 변경에 실패 하였습니다');
         }
       },
     });
@@ -102,9 +99,7 @@ export default function EditProfileModal({ userData, onComplete }: EditProfileMo
   };
 
   const handleNicknameCheck = () => {
-    if (changedNickname !== nickname) {
-      checkNicknameMutation(nickname);
-    }
+    checkNicknameMutation(nickname);
   };
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
