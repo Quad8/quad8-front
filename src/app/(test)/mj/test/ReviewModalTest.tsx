@@ -1,9 +1,11 @@
 'use client';
 
 import { Button, Modal } from '@/components';
-// import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
+import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
+
+import productImage from '@/public/images/blueSwitch.jpg';
 import styles from './ReviewModalTest.module.scss';
 
 const cn = classNames.bind(styles);
@@ -22,6 +24,17 @@ export default function ReviewModalTest() {
   const handleButtonClick = () => {
     /** 버튼 누를 때 실행되는 함수 */
     // console.log('버튼 누름');
+  };
+
+  const handleSuccessReview = () => {
+    console.log('리뷰 작성');
+  };
+
+  const PRODUCT_DATA = {
+    orderId: 12345,
+    option: '옵션입니다',
+    productImgUrl: productImage,
+    productName: '상품 이름',
   };
 
   return (
@@ -43,7 +56,7 @@ export default function ReviewModalTest() {
         button
       </Button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        {/* <WriteEditModal isCustomReview /> */}
+        <WriteEditModal reviewType='productReview' onSuccessReview={handleSuccessReview} productData={PRODUCT_DATA} />
       </Modal>
     </div>
   );

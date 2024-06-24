@@ -224,7 +224,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
       <Modal isOpen={isEditModalOpen} onClose={handleCloseEditModal}>
         <div onClick={(e) => e.stopPropagation()}>
           <WriteEditModal
-            isCustomReview
+            reviewType={postData ? 'customReviewEdit' : 'customReview'}
             editCustomData={postData}
             keyboardInfo={custom}
             onSuccessReview={handleClickEditModalButton}

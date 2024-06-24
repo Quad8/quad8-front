@@ -73,7 +73,11 @@ export default function WritePostButton({ orderListData }: WritePostButtonProps)
           </Modal>
           {selectedOrder && (
             <Modal isOpen={isOpenReviewModal} onClose={closeReviewModal}>
-              <WriteEditModal keyboardInfo={selectedOrder} isCustomReview onSuccessReview={handleSuccessPost} />
+              <WriteEditModal
+                keyboardInfo={selectedOrder}
+                reviewType='customReview'
+                onSuccessReview={handleSuccessPost}
+              />
             </Modal>
           )}
         </>

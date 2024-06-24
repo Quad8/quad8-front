@@ -17,10 +17,18 @@ import styles from './WriteEditModal.module.scss';
 const cn = classNames.bind(styles);
 
 interface WriteEditModalProps {
-  keyboardInfo: PostCardDetailModalCustomKeyboardType;
-  isCustomReview?: boolean;
+  reviewType: 'customReview' | 'customReviewEdit' | 'otherReview';
+  keyboardInfo?: PostCardDetailModalCustomKeyboardType;
   editCustomData?: CommunityPostCardDetailDataType;
+  productData?: ProductDataType;
   onSuccessReview: () => void;
+}
+
+interface ProductDataType {
+  productImgUrl: string;
+  productName: string;
+  orderId: string;
+  option?: string;
 }
 
 const TITLE_MAX_LENGTH = 20;
@@ -29,25 +37,20 @@ const CONTENT_PLACEHOLDER = '최소 20자 이상 입력해주세요';
 
 export default function WriteEditModal({
   keyboardInfo,
-  isCustomReview,
+  reviewType,
   editCustomData,
+  productData,
   onSuccessReview,
 }: WriteEditModalProps) {
   const queryClient = useQueryClient();
 
   const [deletedImageId, setDeleteImageId] = useState<number[]>([]);
 
+  const isCustom = reviewType === 'customReview' || reviewType === 'customReviewEdit';
+
   const handleSaveDeletedImageId = (id: number) => {
     setDeleteImageId((prevIds) => [...prevIds, id]);
   };
-
-  const defaultImages = [];
-
-  if (editCustomData) {
-    for (let i = 0; i < editCustomData.reviewImages.length; i += 1) {
-      defaultImages.push(editCustomData.reviewImages[i].imgUrl);
-    }
-  }
 
   const {
     register,
@@ -85,13 +88,13 @@ export default function WriteEditModal({
       if (res.status === 'SUCCESS') {
         onSuccessReview();
         queryClient.invalidateQueries({ queryKey: ['postCardsList'] });
-        toast.success('수정이 완료되었습니다.');
+        toast.success('리뷰 수정이 완료되었습니다.');
       } else {
         toast.error('데이터를 불러오는 중 오류가 발생하였습니다.');
       }
     },
     onError: () => {
-      toast.error('리뷰 등록 중 오류가 발생했습니다.');
+      toast.error('리뷰 수정 중 오류가 발생했습니다.');
     },
   });
 
@@ -108,9 +111,9 @@ export default function WriteEditModal({
     // 1. 커스텀 리뷰 작성
     const fetchFormData = new FormData();
 
-    if (isCustomReview && !editCustomData) {
+    if (reviewType === 'customReview') {
       const postDto = {
-        productId: keyboardInfo.productId,
+        productId: keyboardInfo?.productId,
         title: payload.title,
         content: payload.content,
       };
@@ -126,7 +129,7 @@ export default function WriteEditModal({
     }
 
     // 2. 커스텀 리뷰 수정
-    if (isCustomReview && editCustomData) {
+    if (reviewType === 'customReviewEdit' && editCustomData) {
       const postDto = {
         title: payload.title,
         content: payload.content,
@@ -142,20 +145,48 @@ export default function WriteEditModal({
       return putEditPostMutation({ id: editCustomData.id, formData: fetchFormData });
     }
 
+    // 3. 커스텀 외 상품 리뷰 수정
+    if (reviewType === 'otherReview') {
+      //   const postDto = {
+      //     title: payload.title,
+      //     content: payload.content,
+      //     deletedFileList: deletedImageId,
+      //   };
+      //   fetchFormData.append('postDto', JSON.stringify(postDto));
+
+      //   if (payload.files && payload.files.length > 0) {
+      //     for (let i = 0; i < payload.files.length; i += 1) {
+      //       fetchFormData.append('files', payload.files[i] as File);
+      //     }
+      //   }
+      //   return putEditPostMutation({ id: editCustomData.id, formData: fetchFormData });
+      // }
+      console.log(payload);
+    }
+
     return null;
+  };
+
+  const PRODUCT_DATA = {
+    productImage: isCustom ? keyboardInfo?.imgUrl : productData?.productImgUrl,
+    productName: isCustom ? '키득 커스텀 키보드' : productData?.productName,
   };
 
   return (
     <form className={cn('container')} onSubmit={handleSubmit(onSubmit)}>
       <div>
-        {isCustomReview && <p className={cn('info-text')}>해당 후기는 커뮤니티란에 게시됩니다.</p>}
-        <div className={cn('keyboard-info-wrapper')}>
-          <div className={cn('keyboard-image')}>
-            <Image src={keydeukImg} alt='커스텀 키보드 이미지' width={143} height={143} />
+        {isCustom && <p className={cn('info-text')}>해당 후기는 커뮤니티란에 게시됩니다.</p>}
+        <div className={cn('product-data-wrapper')}>
+          <div className={cn('product-image')}>
+            <Image src={PRODUCT_DATA.productImage || keydeukImg} alt='커스텀 키보드 이미지' width={143} height={143} />
           </div>
-          <div className={cn('keyboard-info')}>
-            <p className={cn('keyboard-info-title')}>키득 커스텀 키보드</p>
-            <div>{keyboardInfo.baseKeyColor + keyboardInfo.baseKeyColor}</div>
+          <div className={cn('product-info')}>
+            <p className={cn('product-info-title')}>{PRODUCT_DATA.productName}</p>
+            {isCustom ? (
+              <div>{keyboardInfo && keyboardInfo.baseKeyColor + keyboardInfo.baseKeyColor}</div>
+            ) : (
+              <div className={cn('product-option')}>{productData?.option}</div>
+            )}
           </div>
         </div>
       </div>

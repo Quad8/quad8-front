@@ -22,13 +22,13 @@
   color: $gray-40;
 }
 
-.keyboard-info-wrapper {
+.product-data-wrapper {
   display: flex;
   align-items: center;
   gap: 2rem;
 }
 
-.keyboard-image {
+.product-image {
   width: 14.3rem;
   height: 14.3rem;
   overflow: hidden;
@@ -36,10 +36,16 @@
   border-radius: 0.8rem;
 }
 
-.keyboard-info-title {
+.product-info-title {
   @include pretendard-18-600;
 
   color: $black;
+}
+
+.product-option {
+  @include pretendard-14-400;
+
+  color: $gray-50;
 }
 
 .input-wrapper {
