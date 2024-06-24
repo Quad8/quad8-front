@@ -79,15 +79,16 @@ export default function OptionWithButton({ productData }: OptionWithButtonProps)
     queryKey: ['userData'],
   });
 
-  const checkUserAndOptions = () => {
+  const checkUserAndOptions = (): boolean => {
     if (!userData?.data) {
       setIsSignInModalOpen(true);
-      return;
+      return true;
     }
 
     if (optionList && selectedOptions.length === 0) {
       setIsNoOptionModalOpen(true);
     }
+    return false;
   };
 
   const handleAddCartProduct = (data: CartProductType) => {
@@ -103,7 +104,7 @@ export default function OptionWithButton({ productData }: OptionWithButtonProps)
   };
 
   const handleClickCartButton = () => {
-    checkUserAndOptions();
+    if (checkUserAndOptions()) return;
 
     if (!optionList) {
       const noOptionData: CartProductType = { productId, switchOptionId: undefined, count: noOptionCount };

@@ -18,7 +18,7 @@ export interface ProductType {
   detailsImg: string;
   thubmnailList: ThumbnailTypes[];
   optionList: OptionTypes[];
-  categoryName: string;
+  categoryName: 'switch' | 'keyboard' | 'keycap' | 'etc';
   isLiked: boolean;
 }
 

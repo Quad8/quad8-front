@@ -1,7 +1,6 @@
 'use client';
 
 import { deleteCommunityLikes, deleteProductLikes, postCommunityLikes, postProductLikes } from '@/api/likesAPI';
-import Modal from '@/components/Modal/Modal';
 import SignInModal from '@/components/SignInModal/SignInModal';
 import { HeartIcon } from '@/public/index';
 import { Users } from '@/types/userType';
@@ -51,6 +50,7 @@ export default function HeartButton({ id, usage, isLiked, likeCount }: HeartButt
 
   const handleClickButton = (e: MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
 
     if (!userData?.data) {
       setIsSignInModalOpen(true);
@@ -78,9 +78,8 @@ export default function HeartButton({ id, usage, isLiked, likeCount }: HeartButt
         <HeartIcon className={cn('heart', usage === 'detail' && 'white-stroke', isChecked && 'red-heart')} />
         {usage === 'community' && <span>{newLikeCount}</span>}
       </button>
-      <Modal isOpen={isSignInModalOpen} onClose={() => setIsSignInModalOpen(false)}>
-        <SignInModal />
-      </Modal>
+
+      <SignInModal isOpen={isSignInModalOpen} onClose={() => setIsSignInModalOpen(false)} />
     </>
   );
 }

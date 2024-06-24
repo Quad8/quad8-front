@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import type { CategoryKey } from '@/types/Category';
 import classNames from 'classnames/bind';
+import HeartButton from '../Buttons/HeartButton/HeartButton';
 import styles from './ProductItem.module.scss';
 
 const cn = classNames.bind(styles);
@@ -16,6 +17,7 @@ interface ProductItemProps {
   size: 'sm' | 'lg';
   category: CategoryKey;
   hasShop: boolean;
+  isLiked?: boolean;
 }
 
 export default function ProductItem({
@@ -27,6 +29,7 @@ export default function ProductItem({
   thumbnail,
   category,
   hasShop,
+  isLiked = false,
 }: ProductItemProps) {
   return (
     <li>
@@ -47,9 +50,9 @@ export default function ProductItem({
               <p className={cn('product-price')}>{price.toLocaleString()}원</p>
               <div className={cn('product-review-wishlist')}>
                 <p className={cn('product-reviews')}>리뷰 {reviewscount > 99 ? '99+' : reviewscount}</p>
-                <button type='button' className={cn('product-wishlist')}>
-                  {category}
-                </button>
+                <div className={cn('product-wishlist')}>
+                  <HeartButton id={id} isLiked={isLiked} />
+                </div>
               </div>
             </div>
           </div>

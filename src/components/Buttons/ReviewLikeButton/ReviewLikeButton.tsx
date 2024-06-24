@@ -1,7 +1,6 @@
 'use client';
 
 import { deleteReviewLikes, postReviewLikes } from '@/api/likesAPI';
-import Modal from '@/components/Modal/Modal';
 import SignInModal from '@/components/SignInModal/SignInModal';
 import { ThumbIcon } from '@/public/index';
 import { Users } from '@/types/userType';
@@ -65,9 +64,8 @@ export default function ReviewLikeButton({ id, isLiked, likeCount }: ReviewLikeB
         <ThumbIcon className={cn('thumb', isChecked && 'white-thumb')} />
         <span>{newLikeCount}</span>
       </button>
-      <Modal isOpen={isSignInModalOpen} onClose={() => setIsSignInModalOpen(false)}>
-        <SignInModal />
-      </Modal>
+
+      <SignInModal isOpen={isSignInModalOpen} onClose={() => setIsSignInModalOpen(false)} />
     </>
   );
 }

@@ -1,5 +1,7 @@
 'use client';
 
+import ProductItem from '@/components/Products/ProductItem';
+import type { ProductType } from '@/types/ProductTypes';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import MyInfoEmptyCase from '../MyInfoEmptyCase/MyInfoEmptyCase';
@@ -23,7 +25,7 @@ export default function RecentProducts() {
       <h1 className={cn('recent-title')}>최근 본 상품</h1>
       {recentViewProducts ? (
         <div className={cn('recent-items')}>
-          {/* {recentViewProducts.map(
+          {recentViewProducts.map(
             ({ id, name, price, thubmnailList, categoryName, isLiked, reviewscount }: ProductType) => (
               <ProductItem
                 key={id}
@@ -35,9 +37,10 @@ export default function RecentProducts() {
                 reviewscount={reviewscount}
                 isLiked={isLiked}
                 category={categoryName}
+                hasShop={false}
               />
             ),
-          )} */}
+          )}
         </div>
       ) : (
         <MyInfoEmptyCase message='최근 본 상품이 없습니다' isBackgroundColor />
