@@ -8,13 +8,13 @@ import styles from './PostInteractions.module.scss';
 const cn = classNames.bind(styles);
 
 interface PostInteractionsProps {
-  goodCount: number;
+  likeCount: number;
   commentCount: number;
 }
 
 const MAX_COUNT = 99;
 
-export function PostInteractions({ goodCount, commentCount }: PostInteractionsProps) {
+export function PostInteractions({ likeCount, commentCount }: PostInteractionsProps) {
   // const [isChecked, setIsChecked] = useState(false);
 
   const handleContainerClick = (e: MouseEvent<HTMLDivElement>) => {
@@ -28,7 +28,7 @@ export function PostInteractions({ goodCount, commentCount }: PostInteractionsPr
     <div className={cn('container')} onClick={handleContainerClick}>
       <div className={cn('icon-and-count')}>
         {/* <LikeButton isChecked={isChecked} onClick={handleLikeButtonClick} /> */}
-        <p id={cn('count')}>{goodCount > MAX_COUNT ? '99+' : goodCount}</p>
+        <p id={cn('count')}>{likeCount > MAX_COUNT ? '99+' : likeCount}</p>
       </div>
       <div className={cn('icon-and-count')}>
         <CommentIcon />
