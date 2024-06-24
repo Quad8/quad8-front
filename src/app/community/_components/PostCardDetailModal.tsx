@@ -1,25 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { Button, InputField, Modal } from '@/components';
-import Dialog from '@/components/Dialog/Dialog';
 import { deletePostCard, getPostDetail, postComment } from '@/api/communityAPI';
+import { Button, CustomOption, InputField, Modal } from '@/components';
+import Dialog from '@/components/Dialog/Dialog';
+import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
+import { IMAGE_BLUR } from '@/constants/blurImage';
 import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
 import { formatDateToString } from '@/libs/formatDateToString';
-import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
 import { keydeukImg } from '@/public/index';
-import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
-import Comment from './Comment';
+import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
 import AuthorCard from './AuthorCard';
+import Comment from './Comment';
 import { PostInteractions } from './PostInteractions';
 
 import styles from './PostCardDetailModal.module.scss';
 
 const cn = classNames.bind(styles);
-
 interface PostCardDetailModalProps {
   cardId: number;
   onClose: () => void;
@@ -27,19 +27,18 @@ interface PostCardDetailModalProps {
 }
 
 export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCardDetailModalProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
   const [commentRef, setCommentRef] = useState<HTMLInputElement | null>(null);
   const [clickedImage, setClickedImage] = useState('');
-
   const [isEditAlertOpen, setIsEditAlertOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
-  const { data, refetch } = useQuery({
+  const { data, refetch, isPending } = useQuery({
     queryKey: ['postData', cardId],
     queryFn: () => getPostDetail(cardId),
   });
-
   const handleSuccessSubmitComment = () => {
     if (commentRef) {
       commentRef.value = '';
@@ -47,8 +46,6 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
     queryClient.invalidateQueries({ queryKey: ['postCardsList'] });
     refetch();
   };
-  const { data: postData, status, message } = data;
-
   const { mutate: postCommentMutation } = useMutation({
     mutationFn: postComment,
     onSuccess: () => {
@@ -58,7 +55,6 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
       toast.error('댓글 등록 중 오류가 발생하였습니다.');
     },
   });
-
   const { mutate: deletePostMutation } = useMutation({
     mutationFn: deletePostCard,
     onSuccess: () => {
@@ -71,7 +67,6 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
       toast.error('게시글 삭제 중 오류가 발생하였습니다.');
     },
   });
-
   useEffect(() => {
     const handleSubmitComment = () => {
       if (commentRef) {
@@ -80,58 +75,44 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
       }
     };
     const removeEvent = addEnterKeyEvent({ element: { current: commentRef }, callback: handleSubmitComment });
-
     return () => {
       removeEvent();
     };
   }, [cardId, postCommentMutation, commentRef]);
+
+  if (isPending) {
+    return null;
+  }
+
+  const { data: postData, status, message } = data;
 
   if (status === 'FAIL') {
     toast.error(message);
     onClose();
     return null;
   }
-
   const { commentCount, comments, content, likeCount, nickName, reviewImages, title, updatedAt, userImage, custom } =
     postData as CommunityPostCardDetailDataType;
 
-  // const { type, texture, boardColor, switchType, baseKeyColor, hasPointKeyCap, pointKeyType, individualColor } = custom;
-
   const createdDateString = formatDateToString(new Date(updatedAt));
-
-  // const options = {
-  //   type,
-  //   texture,
-  //   boardColor,
-  //   switchType,
-  //   baseKeyColor,
-  //   hasPointKeyCap,
-  //   pointKeyType,
-  //   individualColor,
-  // };
 
   const handleClickThumbnail = (i: number) => {
     setClickedImage(reviewImages[i].imgUrl);
   };
-
   const handleClickDeleteAlertButon = () => {
     deletePostMutation(cardId);
     setIsDeleteAlertOpen(false);
   };
-
   const handleCloseDeleteAlert = () => {
     setIsDeleteAlertOpen(false);
   };
-
   const handleClickEditAlertButton = () => {
     setIsEditModalOpen(true);
     setIsEditAlertOpen(false);
   };
-
   const handleCloseEditAlert = () => {
     setIsEditAlertOpen(false);
   };
-
   const handleClickEditModalButton = () => {
     setIsEditModalOpen(false);
     queryClient.invalidateQueries({
@@ -141,13 +122,12 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
       queryKey: ['postData', cardId],
     });
   };
-
   const handleCloseEditModal = () => {
     setIsEditModalOpen(false);
   };
 
   return (
-    <div className={cn('container')}>
+    <div className={cn('container')} ref={containerRef}>
       {isMine && (
         <div className={cn('edit-button-wrapper')}>
           <Button width={72} paddingVertical={8} onClick={() => setIsEditAlertOpen(true)}>
@@ -167,13 +147,25 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
               fill
               onError={() => setClickedImage('')}
               sizes='(max-width: 1200px) 100%'
+              priority
+              placeholder={IMAGE_BLUR.placeholder}
+              blurDataURL={IMAGE_BLUR.blurDataURL}
             />
           </div>
           {reviewImages.length > 1 && (
             <div className={cn('unselected-image-wrapper')}>
               {reviewImages.map((image, i: number) => (
                 <div onClick={() => handleClickThumbnail(i)} key={image.id}>
-                  <Image src={image.imgUrl} alt='키보드 이미지' className={cn('images')} width={48} height={48} />
+                  <Image
+                    src={image.imgUrl}
+                    alt='키보드 이미지'
+                    className={cn('images')}
+                    width={48}
+                    height={48}
+                    priority
+                    placeholder={IMAGE_BLUR.placeholder}
+                    blurDataURL={IMAGE_BLUR.blurDataURL}
+                  />
                 </div>
               ))}
             </div>
@@ -183,7 +175,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
           <div className={cn('content-wrapper')}>
             <p className={cn('title')}>{title}</p>
             <AuthorCard nickname={nickName} dateText={createdDateString} userImage={userImage} />
-            <div className={cn('keyboard-option-wrapper')}>키보드 옵션 넣는 곳~~~~~</div>
+            <CustomOption wrapperRef={containerRef} customData={custom} />
             <p className={cn('content')}>{content}</p>
             <PostInteractions likeCount={likeCount} commentCount={commentCount} />
             <div className={cn('comment-wrapper')}>
@@ -233,7 +225,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
           message='삭제하시겠습니까'
           isOpen={isDeleteAlertOpen}
           iconType='warn'
-          buttonText={{ left: '댣기', right: '확인' }}
+          buttonText={{ left: '닫기', right: '확인' }}
           onClick={{
             left: () => handleCloseDeleteAlert(),
             right: () => handleClickDeleteAlertButon(),

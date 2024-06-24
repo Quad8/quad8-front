@@ -17,7 +17,6 @@ const SECTIONS = [
       { name: '구매 후기', route: ROUTER.MY_PAGE.REVIEWS },
       { name: '찜 목록', route: ROUTER.MY_PAGE.WISHLIST },
       { name: '장바구니', route: ROUTER.MY_PAGE.CART },
-      { name: '주문 / 결제', route: ROUTER.MY_PAGE.CHECKOUT },
     ],
   },
   {

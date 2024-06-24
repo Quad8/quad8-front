@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { calculateTimeDifference } from '@/libs/calculateDate';
 import { Modal } from '@/components';
 import type { CommunityPostCardDataType } from '@/types/CommunityTypes';
+import { IMAGE_BLUR } from '@/constants/blurImage';
 import AuthorCard from './AuthorCard';
 import { PostInteractions } from './PostInteractions';
 import PostCardDetailModal from './PostCardDetailModal';
@@ -46,6 +47,8 @@ export default function PostCard({ cardData, isMine }: PostCardProps) {
           fill
           sizes='(max-width: 1200px) 100%'
           priority
+          placeholder={IMAGE_BLUR.placeholder}
+          blurDataURL={IMAGE_BLUR.blurDataURL}
         />
         {Array.isArray(thumbnail) && <p className={cn('image-count')}>{thumbnail.length}</p>}
       </div>

@@ -54,7 +54,7 @@ export default function ReviewModalTest() {
         button
       </Button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <WriteEditModal reviewType='otherReview' onSuccessReview={handleSuccessReview} productData={PRODUCT_DATA} />
+        <WriteEditModal reviewType='customReview' onSuccessReview={handleSuccessReview} productData={PRODUCT_DATA} />
       </Modal>
     </div>
   );

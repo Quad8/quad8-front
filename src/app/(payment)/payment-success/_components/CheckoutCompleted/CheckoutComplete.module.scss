@@ -1,0 +1,50 @@
+.checkout-completed {
+  @include flex-column(4rem);
+
+  .info-box {
+    @include flex-column(1.2rem);
+
+    padding: 2rem;
+    border-radius: 0.4rem;
+    background: $white;
+    color: $black;
+
+    .info-title {
+      @include pretendard-20-600;
+
+      display: flex;
+      align-items: center;
+      color: $primary;
+      gap: 1.2rem;
+    }
+
+    .info-address {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .address {
+        @include flex-column(0.4rem);
+        @include pretendard-16-500;
+      }
+
+      .address-modification-button {
+        @include pretendard-18-400;
+      }
+    }
+  }
+
+  .confirm-box {
+    @include pretendard-16-400;
+    @include flex-column(2rem);
+
+    align-items: center;
+
+    .confirm-button {
+      @include pretendard-18-500;
+
+      width: 34.8rem;
+      padding: 2rem 4rem;
+    }
+  }
+}
