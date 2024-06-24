@@ -1,3 +1,5 @@
+import { CategoryKey } from './Category';
+
 export interface Product {
   id: number;
   name: string;
@@ -5,6 +7,11 @@ export interface Product {
   reviewscount: number;
   views: number;
   thumbnail: string;
+  category: CategoryKey;
+}
+
+export interface KeydeukPickResponse {
+  data: Product[];
 }
 
 export interface ProductDataResponse {
@@ -22,18 +29,24 @@ export interface ProductListResponse {
 }
 
 export interface ProductParams {
-  sort: string | string[];
-  page?: string | string[];
-  size?: string | string[];
+  sort: string;
+  page?: string;
+  size?: string;
 }
 
-export interface GetCategoryListParams {
+export interface GetCategoryListParams extends Record<string, string | string[] | undefined> {
   keyword: string;
-  sort: string | string[];
-  page: string | string[];
+  sort: string;
+  page: string;
   size: string;
-  company?: string | string[];
-  switchType?: string | string[];
-  minPrice?: string | string[];
-  maxPrice?: string | string[];
+  companies?: string;
+  switchTypes?: string;
+  minPrice?: string;
+  maxPrice?: string;
 }
+
+export type TabType = '저소음' | '가성비' | '청축';
+
+export type TabKeyword = {
+  [key in TabType]: string;
+};

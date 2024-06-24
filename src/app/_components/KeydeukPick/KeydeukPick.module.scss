@@ -1,0 +1,66 @@
+.tab-nav ul {
+  @include flex-center;
+
+  gap: 4rem;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8rem 2.667rem;
+}
+
+.title {
+  @include pretendard-30-700;
+
+  margin-bottom: 1.6rem;
+  color: $black;
+  text-align: center;
+}
+
+.keydeuk-pick {
+  padding: 20rem 0;
+}
+
+.tab-nav {
+  @include pretendard-20-500;
+
+  margin-bottom: 4.8rem;
+  cursor: pointer;
+}
+
+.active {
+  color: $primary;
+}
+
+.tab {
+  position: relative;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  bottom: -0.2rem;
+  left: 0;
+  width: 100%;
+  height: 0.2rem;
+  animation: scale-up-hor-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  background-color: $primary;
+}
+
+.inner {
+  max-width: 168rem;
+  height: 51.6rem;
+  margin: 0 auto;
+  padding: 0 12rem;
+}
+
+@keyframes scale-up-hor-center {
+  0% {
+    transform: scaleX(0.4);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}

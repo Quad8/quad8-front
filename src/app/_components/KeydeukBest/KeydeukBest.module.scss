@@ -1,0 +1,22 @@
+.inner {
+  max-width: 168rem;
+  height: 51.6rem;
+  margin: 0 auto;
+  padding: 0 12rem;
+}
+
+.keydeuk-best {
+  padding-bottom: 20rem;
+}
+
+.title {
+  @include pretendard-30-700;
+
+  margin-bottom: 4.4rem;
+  color: $black;
+  text-align: center;
+}
+
+.product-list {
+  gap: 8rem 2.667rem;
+}

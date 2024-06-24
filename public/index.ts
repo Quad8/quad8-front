@@ -40,6 +40,10 @@ export { default as UserIcon } from './svgs/user.svg';
 export { default as VerticalTripleDotIcon } from './svgs/verticalTripleDot.svg';
 export { default as WarnCircleIcon } from './svgs/warnCircle.svg';
 
+export { default as ErrorIcon } from './svgs/404.svg';
+
+export { default as banner1Img } from './images/banner1.png';
+export { default as banner2Img } from './images/banner2.png';
 export { default as blackSwitchImg } from './images/blackSwitch.jpg';
 export { default as blueSwitchImg } from './images/blueSwitch.jpg';
 export { default as brownSwitchImg } from './images/brownSwitch.jpg';

@@ -1,8 +1,8 @@
-import NotFound from '@/app/not-found';
 import { CaretLeftIcon, CaretRightIcon } from '@/public/index';
 import { ProductDataResponse } from '@/types/ProductItem';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import styles from './Pagination.module.scss';
 
 interface PaginationProps extends Omit<ProductDataResponse, 'content' | 'size'> {
@@ -26,7 +26,7 @@ export default function Pagination({
   }
 
   if (currentPage < 0 || currentPage >= totalPages) {
-    return <NotFound />;
+    redirect('/404');
   }
 
   const renderPageLink = (pageNum: number, isSelected: boolean) => {
@@ -48,15 +48,15 @@ export default function Pagination({
 
   const renderArrowLink = (direction: 'prev' | 'next', isDisabled: boolean) => {
     const pageChange = direction === 'prev' ? currentPage - 1 : currentPage + 1;
-    const Icon = direction === 'prev' ? CaretLeftIcon : CaretRightIcon;
+    const ArrowIcon = direction === 'prev' ? CaretLeftIcon : CaretRightIcon;
 
     return isDisabled ? (
       <span className={cn('arrow-button')}>
-        <Icon stroke='#B8B8B8' />
+        <ArrowIcon stroke='#B8B8B8' />
       </span>
     ) : (
       <Link href={{ query: { ...searchParams, page: pageChange } }} className={cn('arrow-button')} scroll={false}>
-        <Icon stroke='#4968f6' />
+        <ArrowIcon stroke='#4968f6' />
       </Link>
     );
   };
