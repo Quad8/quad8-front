@@ -45,6 +45,8 @@ export default forwardRef<HTMLInputElement, DropdownProps>(function Dropdown(
   };
 
   const handleOptionClick = (e: MouseEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+
     const inputValue = e.currentTarget.value;
     setDropdownValue(inputValue);
     setIsDropdownOpen(false);
