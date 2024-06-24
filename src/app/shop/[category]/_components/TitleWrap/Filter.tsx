@@ -71,13 +71,14 @@ export default function Filter({ category }: FilterProps) {
         handleSearch(newSelected, selectedSwitchTypes, minPriceState, maxPriceState);
         return newSelected;
       });
-    } else if (type === 'switch') {
-      setSelectedSwitchTypes((prev) => {
-        const newSelected = prev.includes(item) ? prev.filter((x) => x !== item) : [...prev, item];
-        handleSearch(selectedManufacturers, newSelected, minPriceState, maxPriceState);
-        return newSelected;
-      });
+      return;
     }
+
+    setSelectedSwitchTypes((prev) => {
+      const newSelected = prev.includes(item) ? prev.filter((x) => x !== item) : [...prev, item];
+      handleSearch(selectedManufacturers, newSelected, minPriceState, maxPriceState);
+      return newSelected;
+    });
   };
 
   const handleRemoveItem = (item: string, type: 'manufacturer' | 'switch') => {
@@ -87,13 +88,14 @@ export default function Filter({ category }: FilterProps) {
         handleSearch(newSelected, selectedSwitchTypes, minPriceState, maxPriceState);
         return newSelected;
       });
-    } else if (type === 'switch') {
-      setSelectedSwitchTypes((prev) => {
-        const newSelected = prev.filter((x) => x !== item);
-        handleSearch(selectedManufacturers, newSelected, minPriceState, maxPriceState);
-        return newSelected;
-      });
+      return;
     }
+
+    setSelectedSwitchTypes((prev) => {
+      const newSelected = prev.filter((x) => x !== item);
+      handleSearch(selectedManufacturers, newSelected, minPriceState, maxPriceState);
+      return newSelected;
+    });
   };
 
   const handleMinPriceChange = (value: string) => {

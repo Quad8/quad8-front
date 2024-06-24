@@ -9,6 +9,14 @@ import styles from './not-found.module.scss';
 
 const cn = classNames.bind(styles);
 
+const BUTTONS = [
+  { text: '이전 페이지', path: 'back' },
+  { text: '메인으로 가기', path: ROUTER.MAIN },
+  { text: '커스텀 하러 가기', path: ROUTER.CUSTOM_KEYBOARD },
+  { text: '상품 둘러보기', path: ROUTER.SHOP.ALL },
+  { text: '커뮤니티에서 자랑하기', path: ROUTER.COMMUNITY },
+];
+
 export default function NotFound() {
   const router = useRouter();
 
@@ -21,14 +29,6 @@ export default function NotFound() {
     }
   };
 
-  const buttons = [
-    { text: '이전 페이지', path: 'back' },
-    { text: '메인으로 가기', path: ROUTER.MAIN },
-    { text: '커스텀 하러 가기', path: ROUTER.CUSTOM_KEYBOARD },
-    { text: '상품 둘러보기', path: ROUTER.SHOP.ALL },
-    { text: '커뮤니티에서 자랑하기', path: ROUTER.COMMUNITY },
-  ];
-
   return (
     <div className={cn('container')}>
       <section className={cn('left')}>
@@ -39,7 +39,7 @@ export default function NotFound() {
         </h1>
         <p className={cn('desc')}>대신 이 페이지를 보는건 어때요?</p>
         <ul className={cn('link-list')}>
-          {buttons.map((button) => (
+          {BUTTONS.map((button) => (
             <li key={button.text}>
               <button type='button' onClick={handleNavigation(button.path)} className={cn('button')}>
                 {button.text}

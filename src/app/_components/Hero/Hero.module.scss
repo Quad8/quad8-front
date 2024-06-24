@@ -80,10 +80,7 @@
 }
 
 .typing-wrap {
-  // @include flex-center
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
 }
 
 .typing {

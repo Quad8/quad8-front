@@ -25,7 +25,7 @@ export default function KeydeukPick() {
   };
 
   if (error) {
-    return <div>Error loading data</div>;
+    return null;
   }
 
   return (
@@ -49,9 +49,8 @@ export default function KeydeukPick() {
           <div className={cn('loading')}>Loading...</div>
         ) : (
           <ul className={cn('product-list')}>
-            {data?.map((product, i) => {
-              const key = `productItem-${i}`;
-              return <ProductItem key={key} size='lg' {...product} hasShop={false} />;
+            {data?.map((product) => {
+              return <ProductItem key={product.id} size='lg' {...product} hasShop={false} />;
             })}
           </ul>
         )}
