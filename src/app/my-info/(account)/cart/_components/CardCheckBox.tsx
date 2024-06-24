@@ -13,12 +13,12 @@ export default function CardCheckBox({ id, type }: CardCheckBoxProps) {
   const { checkedCustomList, checkedShopList, updateCheckedCustom, updateCheckedShop } = useContext(CartDataContext);
   const isChecked = type === 'custom' ? checkedCustomList[id] : checkedShopList[id];
 
-  const handleCLickCheckBox = () => {
+  const handleClickCheckBox = () => {
     if (type === 'custom') {
       updateCheckedCustom(id);
       return;
     }
     updateCheckedShop(id);
   };
-  return <CheckBox isChecked={isChecked} onClick={handleCLickCheckBox} />;
+  return <CheckBox isChecked={isChecked} onClick={handleClickCheckBox} />;
 }

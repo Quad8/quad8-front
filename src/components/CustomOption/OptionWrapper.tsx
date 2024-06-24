@@ -2,6 +2,7 @@
 
 import { ReactNode, RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
+import isTextOverFlow from '@/libs/isTextOverFlow';
 import styles from './OptionWrapper.module.scss';
 
 const cn = classNames.bind(styles);
@@ -16,17 +17,6 @@ export default function OptionWrapper({ optionText, wrapperRef, children, overTe
   const tooltipRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
   const [isHover, setIsHover] = useState(false);
-
-  const isTextOverFlow = () => {
-    const target = targetRef.current;
-    if (!target) {
-      return false;
-    }
-    if (target.clientWidth >= target.scrollWidth) {
-      return false;
-    }
-    return true;
-  };
 
   const updateTooltipPosition = useCallback(() => {
     const [target, tooltip, wraper] = [targetRef.current, tooltipRef.current, wrapperRef?.current];
@@ -63,7 +53,7 @@ export default function OptionWrapper({ optionText, wrapperRef, children, overTe
   }, [wrapperRef]);
 
   const handleMouseEnter = () => {
-    const isOverFlow = isTextOverFlow();
+    const isOverFlow = isTextOverFlow(targetRef);
     if (!isOverFlow) {
       return;
     }

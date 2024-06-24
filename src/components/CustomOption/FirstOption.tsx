@@ -17,9 +17,9 @@ interface FirstOptionProps {
   wrapperRef?: RefObject<HTMLDivElement>;
   boardType: CustomKeyboardTypeTypes;
   texture: CustomKeyboardTextureTypes;
-  boardColor: string | Color /* color */;
+  boardColor: string | Color;
   customSwitch: CustomKeyboardSwitchTypes;
-  baseKeyColor: string | Color /* color */;
+  baseKeyColor: string | Color;
   hasPointKeyCap: boolean;
 }
 

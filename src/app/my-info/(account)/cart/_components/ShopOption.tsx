@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import classNames from 'classnames/bind';
+import isTextOverFlow from '@/libs/isTextOverFlow';
 
 import styles from './ShopOption.module.scss';
 
@@ -16,19 +17,8 @@ export default function ShopOption({ optionName, count }: ShopOptionProps) {
   const optionRef = useRef<HTMLDivElement>(null);
   const [isHover, setIsHover] = useState(false);
 
-  const isTextOverflow = () => {
-    const target = optionRef.current;
-    if (!target) {
-      return false;
-    }
-    if (target.clientWidth >= target.scrollWidth) {
-      return false;
-    }
-    return true;
-  };
-
   const handleMouseEnter = () => {
-    const isOverFlow = isTextOverflow();
+    const isOverFlow = isTextOverFlow(optionRef);
     if (isOverFlow) {
       setIsHover(true);
     }
