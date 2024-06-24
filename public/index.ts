@@ -24,9 +24,6 @@ export { default as LogoIcon } from './svgs/logo.svg';
 export { default as NoReviewIcon } from './svgs/noReview.svg';
 export { default as SpeechBubbleIcon } from './svgs/speechBubble.svg';
 
-export { default as MinusCircleIcon } from './svgs/minusCircle.svg';
-export { default as PlusCircleIcon } from './svgs/plusCircle.svg';
-
 export { default as PlusIcon } from './svgs/plus.svg';
 
 export { default as GitHubIcon } from '@/public/svgs/gitHub.svg';

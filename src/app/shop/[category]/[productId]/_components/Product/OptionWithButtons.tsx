@@ -1,7 +1,7 @@
 'use client';
 
 import { postCart } from '@/api/cartAPI';
-import { Button, Dropdown } from '@/components';
+import { Button, CountInput, Dropdown } from '@/components';
 import Dialog from '@/components/Dialog/Dialog';
 import SignInModal from '@/components/SignInModal/SignInModal';
 import { ROUTER } from '@/constants/route';
@@ -14,7 +14,6 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import OptionContainer from './OptionContainer';
 import styles from './ProductDetail.module.scss';
-import QuantitySelector from './QuantitySelector';
 
 const cn = classNames.bind(styles);
 
@@ -149,7 +148,7 @@ export default function OptionWithButton({ productData }: OptionWithButtonProps)
         {optionList?.length ? (
           <Dropdown options={optionNames} placeholder={OPTION_PLACEHOLDER} value='' onChange={handleChangeOption} />
         ) : (
-          <QuantitySelector count={noOptionCount} updateCount={(count) => setNoOptionCount(count)} />
+          <CountInput value={noOptionCount} onChange={(count) => setNoOptionCount(count)} />
         )}
         {selectedOptions.map((option) => (
           <OptionContainer
