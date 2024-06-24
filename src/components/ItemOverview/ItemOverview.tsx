@@ -30,13 +30,13 @@ export default function ItemOverview({ item, imegeWidth = 107, imageHeight = 107
         blurDataURL={IMAGE_BLUR.blurDataURL}
       />
       {productName === '키득 커스텀 키보드' ? (
+        <div className={cn('item-option')}>
+          <CustomOption customData={switchOption} />
+        </div>
+      ) : (
         <div className={cn('item-text')}>
           <p>{productName}</p>
           <p className={cn('item-quantity')}>{quantity}개</p>
-        </div>
-      ) : (
-        <div className={cn('item-option')}>
-          <CustomOption customData={switchOption} />
         </div>
       )}
     </div>

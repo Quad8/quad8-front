@@ -15,8 +15,9 @@ import { keydeukImg } from '@/public/index';
 import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
 import AuthorCard from './AuthorCard';
 import Comment from './Comment';
-import styles from './PostCardDetailModal.module.scss';
 import { PostInteractions } from './PostInteractions';
+
+import styles from './PostCardDetailModal.module.scss';
 
 const cn = classNames.bind(styles);
 interface PostCardDetailModalProps {
