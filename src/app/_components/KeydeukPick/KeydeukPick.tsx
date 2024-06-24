@@ -15,7 +15,7 @@ const cn = classNames.bind(styles);
 export default function KeydeukPick() {
   const [pick, setPick] = useState<TabType>('저소음');
 
-  const { data, isLoading, error } = useQuery({
+  const { data, error } = useQuery({
     queryKey: QUERY_KEYS.PRODUCT.LIST(pick),
     queryFn: () => getKeydeukPick(pick),
   });
@@ -45,15 +45,12 @@ export default function KeydeukPick() {
             ))}
           </ul>
         </nav>
-        {isLoading ? (
-          <div className={cn('loading')}>Loading...</div>
-        ) : (
-          <ul className={cn('product-list')}>
-            {data?.map((product) => {
-              return <ProductItem key={product.id} size='lg' {...product} hasShop={false} />;
-            })}
-          </ul>
-        )}
+
+        <ul className={cn('product-list')}>
+          {data?.map((product) => {
+            return <ProductItem key={product.id} size='lg' {...product} hasShop={false} />;
+          })}
+        </ul>
       </div>
     </section>
   );

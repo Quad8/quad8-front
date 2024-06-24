@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { IMAGE_BLUR } from '@/constants/blurImage';
 import type { CategoryKey } from '@/types/Category';
 import classNames from 'classnames/bind';
 import HeartButton from '../Buttons/HeartButton/HeartButton';
@@ -42,6 +43,8 @@ export default function ProductItem({
               fill
               className={cn('product-image', size)}
               sizes='(max-width: 600px) 480px, (max-width: 1200px) 800px, 1200px'
+              placeholder={IMAGE_BLUR.placeholder}
+              blurDataURL={IMAGE_BLUR.blurDataURL}
             />
           </div>
           <div className={cn('product-info')}>
