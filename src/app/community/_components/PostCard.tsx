@@ -50,7 +50,7 @@ export default function PostCard({ cardData, isMine }: PostCardProps) {
         {Array.isArray(thumbnail) && <p className={cn('image-count')}>{thumbnail.length}</p>}
       </div>
       <p className={cn('title')}>{title}</p>
-      <PostInteractions postId={id} likeCount={likeCount} commentCount={commentCount} isLiked={isLiked} />
+      <PostInteractions cardId={id} likeCount={likeCount} commentCount={commentCount} isLiked={isLiked} />
       <Modal isOpen={isPostModalOpen} onClose={handleClosePostModal}>
         <PostCardDetailModal cardId={id} onClose={handleClosePostModal} isMine={isMine} />
       </Modal>

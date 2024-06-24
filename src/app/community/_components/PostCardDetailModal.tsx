@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { deletePostCard, getPostDetail, postComment } from '@/api/communityAPI';
 import { Button, InputField, Modal } from '@/components';
 import Dialog from '@/components/Dialog/Dialog';
-import { deletePostCard, getPostDetail, postComment } from '@/api/communityAPI';
+import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
 import { formatDateToString } from '@/libs/formatDateToString';
-import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
 import { keydeukImg } from '@/public/index';
-import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
-import Comment from './Comment';
+import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
 import AuthorCard from './AuthorCard';
+import Comment from './Comment';
 import { PostInteractions } from './PostInteractions';
 
 import styles from './PostCardDetailModal.module.scss';
@@ -92,8 +92,19 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
     return null;
   }
 
-  const { commentCount, comments, content, likeCount, nickName, reviewImages, title, updatedAt, userImage, custom } =
-    postData as CommunityPostCardDetailDataType;
+  const {
+    commentCount,
+    comments,
+    content,
+    likeCount,
+    nickName,
+    reviewImages,
+    title,
+    updatedAt,
+    userImage,
+    custom,
+    isLiked,
+  } = postData as CommunityPostCardDetailDataType;
 
   // const { type, texture, boardColor, switchType, baseKeyColor, hasPointKeyCap, pointKeyType, individualColor } = custom;
 
@@ -185,7 +196,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
             <AuthorCard nickname={nickName} dateText={createdDateString} userImage={userImage} />
             <div className={cn('keyboard-option-wrapper')}>키보드 옵션 넣는 곳~~~~~</div>
             <p className={cn('content')}>{content}</p>
-            <PostInteractions likeCount={likeCount} commentCount={commentCount} />
+            <PostInteractions likeCount={likeCount} commentCount={commentCount} cardId={cardId} isLiked={isLiked} />
             <div className={cn('comment-wrapper')}>
               {comments.map((comment) => (
                 <Comment

@@ -8,7 +8,7 @@ import styles from './PostInteractions.module.scss';
 const cn = classNames.bind(styles);
 
 interface PostInteractionsProps {
-  postId: number;
+  cardId: number;
   likeCount: number;
   commentCount: number;
   isLiked: boolean;
@@ -16,7 +16,7 @@ interface PostInteractionsProps {
 
 const MAX_COUNT = 99;
 
-export function PostInteractions({ postId, likeCount, commentCount, isLiked }: PostInteractionsProps) {
+export function PostInteractions({ cardId, likeCount, commentCount, isLiked }: PostInteractionsProps) {
   const handleContainerClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
@@ -24,7 +24,7 @@ export function PostInteractions({ postId, likeCount, commentCount, isLiked }: P
   return (
     <div className={cn('container')} onClick={handleContainerClick}>
       <div className={cn('icon-and-count')}>
-        <HeartButton id={postId} isLiked={isLiked} usage='community' likeCount={likeCount} />
+        <HeartButton id={cardId} isLiked={isLiked} usage='community' likeCount={likeCount} />
       </div>
       <div className={cn('icon-and-count')}>
         <CommentIcon />
