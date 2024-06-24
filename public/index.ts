@@ -8,9 +8,9 @@ export { default as CartIcon } from './svgs/cart.svg';
 export { default as CheckboxCircleIcon } from './svgs/checkboxCircle.svg';
 export { default as ChevronIcon } from './svgs/chevron.svg';
 export { default as CommentIcon } from './svgs/comment.svg';
-export { default as CreditCard } from './svgs/creditCard.svg';
+export { default as CreditCardIcon } from './svgs/creditCard.svg';
 export { default as CrossCircleIcon } from './svgs/crossCircle.svg';
-export { default as Cube } from './svgs/cube.svg';
+export { default as CubeIcon } from './svgs/cube.svg';
 
 export { default as DeleteIcon } from './svgs/delete.svg';
 export { default as EyeOffIcon } from './svgs/eyeOff.svg';
