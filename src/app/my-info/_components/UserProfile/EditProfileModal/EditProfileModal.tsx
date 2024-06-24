@@ -33,7 +33,6 @@ export default function EditProfileModal({ userData, onComplete }: EditProfileMo
   const {
     register,
     handleSubmit,
-    setError,
     setValue,
     formState: { errors },
   } = useForm({
@@ -48,12 +47,16 @@ export default function EditProfileModal({ userData, onComplete }: EditProfileMo
 
   const { mutate: checkNicknameMutation } = useMutation({
     mutationFn: checkNickname,
-    /** 피드백 메세지 수정 필요 */
     onSuccess: (res) => {
-      // console.log(res);
-      if (!res.ok && !errors.nickname) {
-        setError('nickname', { message: res.message });
+      if (res.status === 'SUCCESS') {
+        toast.success('사용 가능한 닉네임 입니다.');
+        return;
+      } else if (res.status === 'FAIL') {
+        toast('이미 사용중인 닉네임 입니다.');
+        return;
       }
+
+      toast('중복확인에 실패 하였습니다.');
     },
   });
 
