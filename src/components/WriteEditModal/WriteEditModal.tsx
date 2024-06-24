@@ -6,13 +6,15 @@ import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { CommunityPostCardDetailDataType, PostCardDetailModalCustomKeyboardType } from '@/types/CommunityTypes';
-import { Button, ImageInput, InputField, TextField } from '@/components';
+import { Button, ImageInput, InputField, Rating, TextField } from '@/components';
 import { keydeukImg } from '@/public/index';
 import { postCreateCustomReview, putEditCustomReview } from '@/api/communityAPI';
 
 import { toast } from 'react-toastify';
 import { useState } from 'react';
+import { REVIEW_KEYWORD } from '@/constants/reviewKeyword';
 import styles from './WriteEditModal.module.scss';
+import FeedbackToggle from './FeedbackToggle';
 
 const cn = classNames.bind(styles);
 
@@ -27,7 +29,7 @@ interface WriteEditModalProps {
 interface ProductDataType {
   productImgUrl: string;
   productName: string;
-  orderId: string;
+  orderId: number;
   option?: string;
 }
 
@@ -45,6 +47,11 @@ export default function WriteEditModal({
   const queryClient = useQueryClient();
 
   const [deletedImageId, setDeleteImageId] = useState<number[]>([]);
+
+  // const [feedbackValue, setFeedbackValue] = useState<string[]>(['', '', '']);
+  // const [typeFeelingFeedback, setTypeFeelingFeedback] = useState<'good' | 'bad' | null>(null);
+  // const [colorFeedback, setColorFeedback] = useState<'good' | 'bad' | null>(null);
+  // const [soundFeedback, setSoundFeedback] = useState<'good' | 'bad' | null>(null);
 
   const isCustom = reviewType === 'customReview' || reviewType === 'customReviewEdit';
 
@@ -172,6 +179,10 @@ export default function WriteEditModal({
     productName: isCustom ? '키득 커스텀 키보드' : productData?.productName,
   };
 
+  const productType = '키보드';
+
+  const OPTIONS = Object.keys(REVIEW_KEYWORD[productType]);
+
   return (
     <form className={cn('container')} onSubmit={handleSubmit(onSubmit)}>
       <div>
@@ -191,17 +202,31 @@ export default function WriteEditModal({
         </div>
       </div>
       <div className={cn('input-wrapper')}>
-        <div className={cn('title-input-wrapper')}>
-          <InputField
-            label='제목'
-            sizeVariant='md'
-            className={cn('title-input')}
-            placeholder={TITLE_PLACEHOLDER}
-            maxLength={TITLE_MAX_LENGTH}
-            labelSize='lg'
-            {...registers.title}
-          />
-        </div>
+        {isCustom ? (
+          <div className={cn('title-input-wrapper')}>
+            <InputField
+              label='제목'
+              sizeVariant='md'
+              className={cn('title-input')}
+              placeholder={TITLE_PLACEHOLDER}
+              maxLength={TITLE_MAX_LENGTH}
+              labelSize='lg'
+              {...registers.title}
+            />
+          </div>
+        ) : (
+          <div className={cn('product-review-wrapper')}>
+            <div className={cn('rating-review-wrapper')}>
+              <h1 id={cn('rating-label')}>상품을 사용해 보셨나요?</h1>
+              <Rating rating={0} />
+            </div>
+            <div className={cn('select-option-wrapper')}>
+              {OPTIONS.map((option) => (
+                <FeedbackToggle label={option} key={option} feedbacks={REVIEW_KEYWORD[productType][option]} />
+              ))}
+            </div>
+          </div>
+        )}
         <ImageInput
           register={register}
           setValue={setValue}

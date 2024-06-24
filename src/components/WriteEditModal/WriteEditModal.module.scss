@@ -54,6 +54,27 @@
   width: 100%;
 }
 
+.product-review-wrapper {
+  margin-bottom: 4rem;
+}
+
+.rating-review-wrapper {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  margin-bottom: 1.6rem;
+
+  & > #rating-label {
+    @include pretendard-20-600;
+  }
+}
+
+.select-option-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
 .button-wrapper {
   display: flex;
   gap: 1.2rem;

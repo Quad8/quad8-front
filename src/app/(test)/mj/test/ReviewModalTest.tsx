@@ -4,8 +4,6 @@ import { Button, Modal } from '@/components';
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
-
-import productImage from '@/public/images/blueSwitch.jpg';
 import styles from './ReviewModalTest.module.scss';
 
 const cn = classNames.bind(styles);
@@ -33,7 +31,7 @@ export default function ReviewModalTest() {
   const PRODUCT_DATA = {
     orderId: 12345,
     option: '옵션입니다',
-    productImgUrl: productImage,
+    productImgUrl: '',
     productName: '상품 이름',
   };
 
@@ -56,7 +54,7 @@ export default function ReviewModalTest() {
         button
       </Button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <WriteEditModal reviewType='productReview' onSuccessReview={handleSuccessReview} productData={PRODUCT_DATA} />
+        <WriteEditModal reviewType='otherReview' onSuccessReview={handleSuccessReview} productData={PRODUCT_DATA} />
       </Modal>
     </div>
   );
