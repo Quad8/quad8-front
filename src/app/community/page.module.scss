@@ -1,6 +1,8 @@
 .container {
   width: 100%;
-  padding: 12.8rem 12rem;
+  height: 100vh;
+  padding: 12.8rem 12rem 0;
+  overflow: auto;
 }
 
 .page-name-wrapper {
@@ -11,18 +13,4 @@
   @include pretendard-30-700;
 
   margin-bottom: 2rem;
-}
-
-.filter-write-button-wrapper {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 9rem;
-}
-
-.post-wrapper {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 0.7fr);
-  gap: 10rem 3.3rem;
 }

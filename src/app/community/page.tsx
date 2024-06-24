@@ -1,39 +1,34 @@
 import classNames from 'classnames/bind';
 
-import { Dropdown } from '@/components';
-import PostCard from './_components/PostCard';
-import WritePostButton from './_components/WritePostButton';
-
-import { COMMUNITY_DATA } from '../(test)/mj/communityData';
+import { getAllCommunityPost } from '@/api/communityAPI';
+import Pagination from '@/components/Pagination/Pagination';
+import type { CommunityParamsType } from '@/types/CommunityTypes';
+import PostCardList from './_components/PostCardList';
 
 import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
 
-export default function Page() {
+interface CommunityPageProps {
+  searchParams: { [key: string]: string | undefined };
+}
+
+export default async function CommunityPage({ searchParams }: CommunityPageProps) {
+  const initialParams: CommunityParamsType = {
+    sort: searchParams.sort || 'new',
+    page: searchParams.page || '0',
+    size: searchParams.size || '16',
+  };
+
+  const data = await getAllCommunityPost(initialParams);
+
+  const { content, ...rest } = data;
+
   return (
     <div className={cn('container')}>
       <p className={cn('page-name')}>커뮤니티</p>
-      <div className={cn('filter-write-button-wrapper')}>
-        <Dropdown options={['인기순', '최신순', '조회순']} sizeVariant='xs' />
-        <WritePostButton />
-      </div>
-      <div className={cn('post-wrapper')}>
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-        <PostCard cardData={COMMUNITY_DATA} />
-      </div>
+      <PostCardList searchParams={searchParams} initialData={content} />
+      <Pagination {...rest} searchParams={searchParams} />
     </div>
   );
 }

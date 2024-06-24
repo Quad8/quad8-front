@@ -24,6 +24,17 @@ export default function ReviewModalTest() {
     // console.log('버튼 누름');
   };
 
+  const handleSuccessReview = () => {
+    // console.log('리뷰 작성');
+  };
+
+  const PRODUCT_DATA = {
+    orderId: 12345,
+    option: '옵션입니다',
+    productImgUrl: '',
+    productName: '상품 이름',
+  };
+
   return (
     <div className={cn('container')}>
       <div className={cn('buttons')}>
@@ -43,7 +54,7 @@ export default function ReviewModalTest() {
         button
       </Button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <WriteEditModal isCustomReview />
+        <WriteEditModal reviewType='otherReview' onSuccessReview={handleSuccessReview} productData={PRODUCT_DATA} />
       </Modal>
     </div>
   );
