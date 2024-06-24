@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 
 import { Button } from '@/components';
-import type { OrderStatus } from '@/types/orderType';
+import type { OrderStatus } from '@/types/OrderTypes';
 
 import styles from './OrderItemButton.module.scss';
 
