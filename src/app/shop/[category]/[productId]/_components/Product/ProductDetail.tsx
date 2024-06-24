@@ -1,4 +1,5 @@
 import { HeartButton, Rating } from '@/components';
+import ShareButton from '@/components/Buttons/ShareButton/ShareButton';
 import type { ProductType } from '@/types/ProductTypes';
 import classNames from 'classnames/bind';
 import OptionWithButton from './OptionWithButtons';
@@ -28,7 +29,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
       <div className={cn('right-section')}>
         <div className={cn('name-button-section')}>
           <h1>{product.name}</h1>
-          <HeartButton usage='detail' id={product.id} isLiked={product.isLiked} />
+          <div className={cn('buttons')}>
+            <HeartButton usage='detail' id={product.id} isLiked={product.isLiked} />
+            <ShareButton />
+          </div>
         </div>
         <div className={cn('rate-section')}>
           <Rating rating={product.scope} />
