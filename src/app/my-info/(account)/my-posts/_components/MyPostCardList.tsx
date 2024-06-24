@@ -30,20 +30,12 @@ export default function MyPostCardList({ searchParams, initialData }: MyPostCard
     size: searchParams.size || '12',
   };
 
-  const {
-    data: MyPostData,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: MyPostData, isLoading } = useQuery({
     queryKey: ['MyCustomReview', searchParams],
     queryFn: () => getMyPosts(getMyPostCardParams),
   });
 
   const content = isLoading || !MyPostData ? initialData : MyPostData.content;
-
-  if (isError) {
-    <div>Error</div>;
-  }
 
   return (
     <div className={cn('container')}>

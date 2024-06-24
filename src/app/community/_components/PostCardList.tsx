@@ -9,7 +9,6 @@ import type {
   CommunityPostCardDataType,
   CommunityPostCardDetailDataType,
 } from '@/types/CommunityTypes';
-import { orderListData } from '@/app/(test)/mj/communityData';
 import PostCard from './PostCard';
 import WritePostButton from './WritePostButton';
 import SortDropdown from './SortDropdown';
@@ -30,26 +29,18 @@ export default function PostCardList({ searchParams, initialData }: CommunityPag
     size: searchParams.size || '16',
   };
 
-  const {
-    data: communityData,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: communityData, isLoading } = useQuery({
     queryKey: ['postCardsList', searchParams],
     queryFn: () => getAllCommunityPost(getAllCommunityParams),
   });
 
   const content = isLoading || !communityData ? initialData : communityData.content;
 
-  if (isError) {
-    return <div>Error Page</div>;
-  }
-
   return (
     <div className={cn('container')}>
       <div className={cn('filter-write-button-wrapper')}>
         <SortDropdown />
-        <WritePostButton orderListData={orderListData} />
+        <WritePostButton />
       </div>
       <div className={cn('post-wrapper')}>
         {content.map((cardData: CommunityPostCardDataType) => (

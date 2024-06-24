@@ -72,20 +72,19 @@ export default function ImageInput({ register, setValue, editCustomImages, onSav
       </div>
       <div>
         <div className={cn('input-wrapper')}>
-          {selectedImageUrls &&
-            selectedImageUrls.map((imageUrl, index) => (
-              <div key={imageUrl} className={cn('image-wrapper')}>
-                <Image alt='선택된 이미지' src={imageUrl} fill className={cn('image')} />
-                <div className={cn('delete-image-icon')} onClick={(e) => handleClickDeleteImage(e, index)}>
-                  <DeleteIcon fill='#ffffff' width={42} height={42} />
-                </div>
-                {index === 0 && (
-                  <div className={cn('main-image-tag')}>
-                    <span className={cn('main-tag-text')}>대표</span>
-                  </div>
-                )}
+          {selectedImageUrls?.map((imageUrl, index) => (
+            <div key={imageUrl} className={cn('image-wrapper')}>
+              <Image alt='선택된 이미지' src={imageUrl} fill className={cn('image')} />
+              <div className={cn('delete-image-icon')} onClick={(e) => handleClickDeleteImage(e, index)}>
+                <DeleteIcon fill='#ffffff' width={42} height={42} />
               </div>
-            ))}
+              {index === 0 && (
+                <div className={cn('main-image-tag')}>
+                  <span className={cn('main-tag-text')}>대표</span>
+                </div>
+              )}
+            </div>
+          ))}
           {selectedImageUrls.length < 4 && (
             <label htmlFor='imageInput' className={cn('label-input')}>
               <CameraIcon fill='#999999' width={46} height={40} />

@@ -32,7 +32,7 @@ export default function OrderListModal({
       <div className={cn('keyboard-list-wrapper')}>
         {orderList.map((order, i) => (
           <div
-            className={cn('keyboard-list', `${order === selectedOrder && 'selected-list'}`)}
+            className={cn('keyboard-list', { 'selected-list': order === selectedOrder })}
             key={order.productId}
             onClick={() => onSelectProduct(i)}
           >

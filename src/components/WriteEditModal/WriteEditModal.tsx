@@ -48,11 +48,6 @@ export default function WriteEditModal({
 
   const [deletedImageId, setDeleteImageId] = useState<number[]>([]);
 
-  // const [feedbackValue, setFeedbackValue] = useState<string[]>(['', '', '']);
-  // const [typeFeelingFeedback, setTypeFeelingFeedback] = useState<'good' | 'bad' | null>(null);
-  // const [colorFeedback, setColorFeedback] = useState<'good' | 'bad' | null>(null);
-  // const [soundFeedback, setSoundFeedback] = useState<'good' | 'bad' | null>(null);
-
   const isCustom = reviewType === 'customReview' || reviewType === 'customReviewEdit';
 
   const handleSaveDeletedImageId = (id: number) => {
@@ -106,9 +101,7 @@ export default function WriteEditModal({
   });
 
   const registers = {
-    title: register('title', {
-      required: true,
-    }),
+    title: register('title'),
     content: register('content', {
       minLength: { value: 20, message: '최소 20자 이상 입력해주세요' },
     }),
@@ -128,9 +121,9 @@ export default function WriteEditModal({
       fetchFormData.append('postDto', JSON.stringify(postDto));
 
       if (payload.files && payload.files.length > 0) {
-        for (let i = 0; i < payload.files.length; i += 1) {
-          fetchFormData.append('files', payload.files[i] as File);
-        }
+        payload.files.forEach((file: File) => {
+          fetchFormData.append('files', file as File);
+        });
       }
       return postCreatePostMutation(fetchFormData);
     }
@@ -145,9 +138,9 @@ export default function WriteEditModal({
       fetchFormData.append('postDto', JSON.stringify(postDto));
 
       if (payload.files && payload.files.length > 0) {
-        for (let i = 0; i < payload.files.length; i += 1) {
-          fetchFormData.append('files', payload.files[i] as File);
-        }
+        payload.files.forEach((file: File) => {
+          fetchFormData.append('files', file as File);
+        });
       }
       return putEditPostMutation({ id: editCustomData.id, formData: fetchFormData });
     }
@@ -160,7 +153,6 @@ export default function WriteEditModal({
       //     deletedFileList: deletedImageId,
       //   };
       //   fetchFormData.append('postDto', JSON.stringify(postDto));
-
       //   if (payload.files && payload.files.length > 0) {
       //     for (let i = 0; i < payload.files.length; i += 1) {
       //       fetchFormData.append('files', payload.files[i] as File);
@@ -168,7 +160,7 @@ export default function WriteEditModal({
       //   }
       //   return putEditPostMutation({ id: editCustomData.id, formData: fetchFormData });
       // }
-      console.log(payload);
+      // console.log(payload);
     }
 
     return null;

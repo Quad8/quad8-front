@@ -18,7 +18,7 @@ const cn = classNames.bind(styles);
 
 interface CommentProps {
   cardId: number;
-  userId: number;
+  commentUserId: number;
   commentId: number;
   nickname: string;
   profile: string | null;
@@ -32,7 +32,15 @@ interface UserDataType {
   message: string;
 }
 
-export default function Comment({ cardId, userId, commentId, nickname, profile, createdTime, comment }: CommentProps) {
+export default function Comment({
+  cardId,
+  commentUserId,
+  commentId,
+  nickname,
+  profile,
+  createdTime,
+  comment,
+}: CommentProps) {
   const queryClient = useQueryClient();
   const createdTimeToDate = new Date(createdTime);
   const [isOpenPopOver, setIsOpenPopOver] = useState(false);
@@ -104,7 +112,7 @@ export default function Comment({ cardId, userId, commentId, nickname, profile, 
             <VerticalTripleDotIcon />
             {isOpenPopOver && (
               <PopOver
-                optionsData={userID === userId ? MY_POPOVER_OPTION : OTHERS_POPOVER_OPTION}
+                optionsData={userID === commentUserId ? MY_POPOVER_OPTION : OTHERS_POPOVER_OPTION}
                 onHandleClose={handleClosePopOver}
               />
             )}

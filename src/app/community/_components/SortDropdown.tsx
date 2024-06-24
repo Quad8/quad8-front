@@ -4,15 +4,10 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { Dropdown } from '@/components';
-
-const DROPDOWN_OPTIONS: { [key: string]: string } = {
-  new: '최신순',
-  popular: '인기순',
-  views: '조회순',
-};
+import { COMMUNITY_REVIEW_SORT_OPTIONS } from '@/constants/dropdownOptions';
 
 export default function SortDropdown() {
-  const [selectedOption, setSelectedOption] = useState('최신순');
+  const [selectedOption, setSelectedOption] = useState(COMMUNITY_REVIEW_SORT_OPTIONS[0].label);
   const router = useRouter();
 
   const updateQuery = (queryValue: string) => {
@@ -23,7 +18,7 @@ export default function SortDropdown() {
 
   const handleDropdownChange = (option: string) => {
     setSelectedOption(option);
-    const queryValue = Object.keys(DROPDOWN_OPTIONS).find((key) => DROPDOWN_OPTIONS[key] === option);
+    const queryValue = COMMUNITY_REVIEW_SORT_OPTIONS.find((opt) => opt.label === option)?.value;
     if (!queryValue) {
       return;
     }
@@ -32,7 +27,7 @@ export default function SortDropdown() {
 
   return (
     <Dropdown
-      options={Object.values(DROPDOWN_OPTIONS)}
+      options={COMMUNITY_REVIEW_SORT_OPTIONS.map((option) => option.label)}
       sizeVariant='xs'
       onChange={handleDropdownChange}
       value={selectedOption}

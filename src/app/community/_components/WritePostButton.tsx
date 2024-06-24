@@ -4,6 +4,7 @@ import { PlusIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 import { Button, Modal } from '@/components';
 import Dialog from '@/components/Dialog/Dialog';
@@ -18,6 +19,7 @@ const cn = classNames.bind(styles);
 
 export default function WritePostButton() {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const [isOpenOrderListModal, setIsOpenOrderListModal] = useState(false);
   const [isOpenReviewModal, setIsOpenReviewModal] = useState(false);
@@ -63,7 +65,7 @@ export default function WritePostButton() {
           <PlusIcon /> 글 작성하기
         </div>
       </Button>
-      {orderListData ? (
+      {orderListData?.data ? (
         <>
           <Modal isOpen={isOpenOrderListModal} onClose={closeOrderListModal}>
             <OrderListModal
@@ -93,7 +95,7 @@ export default function WritePostButton() {
           onClick={{
             left: () => setIsOpenOrderListModal(false),
             right: () => {
-              window.location.href = ROUTER.CUSTOM_KEYBOARD;
+              router.push(ROUTER.CUSTOM_KEYBOARD);
             },
           }}
         />

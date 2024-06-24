@@ -20,11 +20,6 @@ import styles from './PostCardDetailModal.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface ReviewImageType {
-  imgUrl: string;
-  id: number;
-}
-
 interface PostCardDetailModalProps {
   cardId: number;
   onClose: () => void;
@@ -36,22 +31,23 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
   const [commentRef, setCommentRef] = useState<HTMLInputElement | null>(null);
   const [clickedImage, setClickedImage] = useState('');
 
-  const [isCheckEditAlertOpen, setIsCheckEditAlertOpen] = useState(false);
+  const [isEditAlertOpen, setIsEditAlertOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isCheckDeleteAlertOpen, setIsCheckDeleteAlertOpen] = useState(false);
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
-  const { isPending, isError, data, error, refetch } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ['postData', cardId],
     queryFn: () => getPostDetail(cardId),
   });
 
-  const handleSuccessSubmitComment = async () => {
+  const handleSuccessSubmitComment = () => {
     if (commentRef) {
       commentRef.value = '';
     }
     queryClient.invalidateQueries({ queryKey: ['postCardsList'] });
-    await refetch();
+    refetch();
   };
+  const { data: postData, status, message } = data;
 
   const { mutate: postCommentMutation } = useMutation({
     mutationFn: postComment,
@@ -66,13 +62,13 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
   const { mutate: deletePostMutation } = useMutation({
     mutationFn: deletePostCard,
     onSuccess: () => {
-      toast.success('리뷰를 삭제되었습니다.');
+      toast.success('게시글이 삭제되었습니다.');
       queryClient.invalidateQueries({
         queryKey: ['MyCustomReview'],
       });
     },
     onError: () => {
-      toast.error('리뷰 삭제 중 오류가 발생하였습니다.');
+      toast.error('게시글 삭제 중 오류가 발생하였습니다.');
     },
   });
 
@@ -89,17 +85,6 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
       removeEvent();
     };
   }, [cardId, postCommentMutation, commentRef]);
-
-  if (isPending) {
-    return <span>Loading...</span>;
-  }
-
-  if (isError) {
-    toast.error('데이터를 불러오는데 실패하였습니다.');
-    return <span>Error: {error.message}</span>;
-  }
-
-  const { data: postData, status, message } = data;
 
   if (status === 'FAIL') {
     toast.error(message);
@@ -131,20 +116,20 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
 
   const handleClickDeleteAlertButon = () => {
     deletePostMutation(cardId);
-    setIsCheckDeleteAlertOpen(false);
+    setIsDeleteAlertOpen(false);
   };
 
   const handleCloseDeleteAlert = () => {
-    setIsCheckDeleteAlertOpen(false);
+    setIsDeleteAlertOpen(false);
   };
 
   const handleClickEditAlertButton = () => {
     setIsEditModalOpen(true);
-    setIsCheckEditAlertOpen(false);
+    setIsEditAlertOpen(false);
   };
 
   const handleCloseEditAlert = () => {
-    setIsCheckEditAlertOpen(false);
+    setIsEditAlertOpen(false);
   };
 
   const handleClickEditModalButton = () => {
@@ -165,10 +150,10 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
     <div className={cn('container')}>
       {isMine && (
         <div className={cn('edit-button-wrapper')}>
-          <Button width={72} paddingVertical={8} onClick={() => setIsCheckEditAlertOpen(true)}>
+          <Button width={72} paddingVertical={8} onClick={() => setIsEditAlertOpen(true)}>
             수정
           </Button>
-          <Button width={72} paddingVertical={8} onClick={() => setIsCheckDeleteAlertOpen(true)}>
+          <Button width={72} paddingVertical={8} onClick={() => setIsDeleteAlertOpen(true)}>
             삭제
           </Button>
         </div>
@@ -186,7 +171,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
           </div>
           {reviewImages.length > 1 && (
             <div className={cn('unselected-image-wrapper')}>
-              {reviewImages.map((image: ReviewImageType, i: number) => (
+              {reviewImages.map((image, i: number) => (
                 <div onClick={() => handleClickThumbnail(i)} key={image.id}>
                   <Image src={image.imgUrl} alt='키보드 이미지' className={cn('images')} width={48} height={48} />
                 </div>
@@ -207,7 +192,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
                   key={comment.id}
                   cardId={cardId}
                   commentId={comment.id}
-                  userId={comment.userId}
+                  commentUserId={comment.userId}
                   createdTime={comment.createdAt}
                   nickname={comment.nickName}
                   comment={comment.content}
@@ -235,7 +220,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
         <Dialog
           type='confirm'
           message='수정하시겠습니까'
-          isOpen={isCheckEditAlertOpen}
+          isOpen={isEditAlertOpen}
           iconType='warn'
           buttonText={{ left: '댣기', right: '확인' }}
           onClick={{
@@ -246,7 +231,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
         <Dialog
           type='confirm'
           message='삭제하시겠습니까'
-          isOpen={isCheckDeleteAlertOpen}
+          isOpen={isDeleteAlertOpen}
           iconType='warn'
           buttonText={{ left: '댣기', right: '확인' }}
           onClick={{
