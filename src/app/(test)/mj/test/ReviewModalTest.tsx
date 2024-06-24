@@ -25,7 +25,7 @@ export default function ReviewModalTest() {
   };
 
   const handleSuccessReview = () => {
-    console.log('리뷰 작성');
+    // console.log('리뷰 작성');
   };
 
   const PRODUCT_DATA = {

@@ -6,7 +6,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Button, InputField, Modal } from '@/components';
 import Dialog from '@/components/Dialog/Dialog';
-import { deletePost, getPostDetail, postComment } from '@/api/communityAPI';
+import { deletePostCard, getPostDetail, postComment } from '@/api/communityAPI';
 import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
 import { formatDateToString } from '@/libs/formatDateToString';
 import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
@@ -64,7 +64,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
   });
 
   const { mutate: deletePostMutation } = useMutation({
-    mutationFn: deletePost,
+    mutationFn: deletePostCard,
     onSuccess: () => {
       toast.success('리뷰를 삭제되었습니다.');
       queryClient.invalidateQueries({

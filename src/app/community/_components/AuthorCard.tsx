@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 import { VerticalTripleDotIcon } from '@/public/index';
 import ProfileImage from '@/components/ProfileImage/ProfileImage';
-import { deletePost } from '@/api/communityAPI';
+import { deletePostCard } from '@/api/communityAPI';
 
 import { PopOver } from '@/components';
 import styles from './AuthorCard.module.scss';
@@ -24,10 +24,10 @@ export default function AuthorCard({ id, isMine, nickname, dateText, userImage }
   const queryClient = useQueryClient();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const { mutate: deletePostMutation } = useMutation({
-    mutationFn: deletePost,
+  const { mutate: deletePostCardMutation } = useMutation({
+    mutationFn: deletePostCard,
     onSuccess: () => {
-      toast.success('리뷰를 삭제되었습니다.');
+      toast.success('게시글을 삭제하였습니다.');
       queryClient.invalidateQueries({
         queryKey: ['MyCustomReview'],
       });
@@ -51,12 +51,12 @@ export default function AuthorCard({ id, isMine, nickname, dateText, userImage }
   // };
 
   const handleClickDelete = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     if (id) {
-      deletePostMutation(id);
+      deletePostCardMutation(id);
     } else {
       toast.error('해당 게시글이 존재하지 않습니다. 다시 확인해주세요.');
     }
-    e.stopPropagation();
   };
 
   const handleClickReport = (e: MouseEvent<HTMLDivElement>) => {
@@ -90,12 +90,12 @@ export default function AuthorCard({ id, isMine, nickname, dateText, userImage }
       </div>
       <div className={cn('show-more-icon')}>
         <VerticalTripleDotIcon onClick={handleClickPopup} />
-        {isPopupOpen &&
-          (isMine ? (
-            <PopOver optionsData={MY_POPOVER_OPTION} onHandleClose={handleClosePopOver} />
-          ) : (
-            <PopOver optionsData={OTHERS_POPOVER_OPTION} onHandleClose={handleClosePopOver} />
-          ))}
+        {isPopupOpen && (
+          <PopOver
+            optionsData={isMine ? MY_POPOVER_OPTION : OTHERS_POPOVER_OPTION}
+            onHandleClose={handleClosePopOver}
+          />
+        )}
       </div>
     </div>
   );

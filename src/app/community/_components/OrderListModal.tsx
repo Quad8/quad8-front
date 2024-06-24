@@ -37,7 +37,7 @@ export default function OrderListModal({
             onClick={() => onSelectProduct(i)}
           >
             <div className={cn('keyboard-image')}>
-              <Image src={keydeukImg} alt='커스텀 키보드 이미지' width={104} height={104} />
+              <Image src={order.imgUrl || keydeukImg} alt='커스텀 키보드 이미지' width={104} height={104} />
             </div>
             <div className={cn('keyboard-info-wrapper')}>
               <p className={cn('keyboard-info-title')}>키득 커스텀 키보드</p>

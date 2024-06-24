@@ -3,31 +3,33 @@
 import { PlusIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { Button, Modal } from '@/components';
 import Dialog from '@/components/Dialog/Dialog';
 import { ROUTER } from '@/constants/route';
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { PostCardDetailModalCustomKeyboardType } from '@/types/CommunityTypes';
+import { getCustomOrderList } from '@/api/communityAPI';
 import styles from './WritePostButton.module.scss';
 import OrderListModal from './OrderListModal';
 
 const cn = classNames.bind(styles);
 
-interface WritePostButtonProps {
-  orderListData: PostCardDetailModalCustomKeyboardType[];
-}
-
-export default function WritePostButton({ orderListData }: WritePostButtonProps) {
+export default function WritePostButton() {
   const queryClient = useQueryClient();
 
   const [isOpenOrderListModal, setIsOpenOrderListModal] = useState(false);
   const [isOpenReviewModal, setIsOpenReviewModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<PostCardDetailModalCustomKeyboardType | null>(null);
 
+  const { data: orderListData } = useQuery({
+    queryKey: ['orderList'],
+    queryFn: getCustomOrderList,
+  });
+
   const handleClickProductList = (i: number) => {
-    setSelectedOrder(orderListData[i]);
+    setSelectedOrder(orderListData.data[i]);
   };
 
   const openOrderListModal = () => {
@@ -65,7 +67,7 @@ export default function WritePostButton({ orderListData }: WritePostButtonProps)
         <>
           <Modal isOpen={isOpenOrderListModal} onClose={closeOrderListModal}>
             <OrderListModal
-              orderList={orderListData}
+              orderList={orderListData.data}
               onOpenReviewModal={openReviewModal}
               onSelectProduct={handleClickProductList}
               selectedOrder={selectedOrder}
