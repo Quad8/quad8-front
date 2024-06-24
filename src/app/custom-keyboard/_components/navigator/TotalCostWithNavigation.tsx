@@ -72,11 +72,12 @@ const UPDATE_NEXT_STEP_STATUS: UpdateStepType<'keyCap'> = {
 };
 
 export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNavigationProps) {
-  const { data, isSuccess } = useQuery({
+  const { data: randomProductData } = useQuery<OptionDataType[]>({
     queryKey: ['customRandomProduct'],
     queryFn: getRandomOptionProduct,
     staleTime: 0,
-  }) as { data: OptionDataType[]; isSuccess: boolean };
+  });
+
   const [optionData, setOptionData] = useState<OptionDataType[]>([]);
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
@@ -85,6 +86,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
   const [optionPrice, setOptionPrice] = useState(0);
   const { captureCanvas } = useCaptureCanvas();
   const {
+    orderId,
     keyboardData: { type, texture, price, hasPointKeyCap, individualColor, pointKeyType },
     updateData,
   } = useContext(KeyboardDataContext);
@@ -100,7 +102,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
           updateCurrentStep(nextStep);
           return;
         }
-        if (isInitialOpenOptionModal && optionData) {
+        if (isInitialOpenOptionModal && optionData && !orderId && randomProductData) {
           setIsOpenOptionModal(true);
           return;
         }
@@ -157,15 +159,15 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
 
   useEffect(() => {
     const getData = async () => {
-      if (!isSuccess) {
+      if (!randomProductData) {
         return;
       }
-      const blurImage = await getBlurImageList(data.map((element) => element.thumbnail));
-      const blurData = data.map((element, i) => ({ ...element, blurImage: blurImage[i] }));
+      const blurImage = await getBlurImageList(randomProductData.map((element) => element.thumbnail));
+      const blurData = randomProductData.map((element, i) => ({ ...element, blurImage: blurImage[i] }));
       setOptionData(blurData);
     };
     getData();
-  }, [data, isSuccess]);
+  }, [randomProductData]);
 
   return (
     <div className={cn('wrapper')}>

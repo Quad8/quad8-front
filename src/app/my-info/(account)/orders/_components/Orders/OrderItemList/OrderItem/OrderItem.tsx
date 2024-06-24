@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
 
 import { getOrderStatusDescription } from '@/libs/getOrderStatusDescriptions';
-import type { OrderItem as item, OrderStatus } from '@/types/orderType';
+import type { OrderItem as OrderItemT, OrderStatus } from '@/types/orderType';
+import ItemOverview from '../../../../../../../../components/ItemOverview/ItemOverview';
 import OrderItemButton from './OrderItemButton/OrderItemButton';
 
 import styles from './OrderItem.module.scss';
@@ -9,7 +10,7 @@ import styles from './OrderItem.module.scss';
 const cn = classNames.bind(styles);
 
 interface OrderItemProps {
-  orderItem: item;
+  orderItem: OrderItemT;
   confirmationDate: string;
   orderStatus: OrderStatus;
 }
@@ -19,7 +20,9 @@ export default function OrderItem({ orderItem, confirmationDate, orderStatus }: 
 
   return (
     <div className={cn('order-item')}>
-      <div className={cn('item')}>{JSON.stringify(orderItem)}</div>
+      <div className={cn('item')}>
+        <ItemOverview item={orderItem} />
+      </div>
       <div className={cn('order-status')}>
         <p>{confirmationDate}</p>
         <p className={cn('status')}>{status}</p>

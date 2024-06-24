@@ -1,0 +1,9 @@
+.container {
+  @include pretendard-24-700;
+
+  @include flex-center;
+
+  padding: 1rem 0;
+  background-color: $black;
+  color: $white;
+}

@@ -6,6 +6,11 @@
   .item {
     flex-grow: 4;
     max-width: 58.6rem;
+
+    .item-image {
+      width: 10.4rem;
+      height: 10.4rem;
+    }
   }
 
   .order-status {

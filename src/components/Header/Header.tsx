@@ -9,7 +9,6 @@ import { useState } from 'react';
 
 import { LogoIcon, UserIcon } from '@/public/index';
 import type { Users } from '@/types/userType';
-import Modal from '../Modal/Modal';
 import SignInModal from '../SignInModal/SignInModal';
 import { CartButton, LoginButton, LogoutButton, SearchBox, ShopButton } from './HeaderParts';
 
@@ -60,7 +59,7 @@ export default function Header() {
         <div className={cn('wrapper', { black: isBlack })}>
           <div className={cn('right-wrapper')}>
             <Link className={cn('logo')} href={ROUTER.MAIN}>
-              <LogoIcon width={131} height={24} />
+              <LogoIcon width={131} height={24} className={cn('logo-icon')} />
             </Link>
             <div className={cn('button-wrapper')}>
               <Link
@@ -87,10 +86,7 @@ export default function Header() {
           </div>
         </div>
       </header>
-
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <SignInModal />
-      </Modal>
+      <SignInModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 }

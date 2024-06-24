@@ -4,10 +4,10 @@ import { useState } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 
-import type { CommunityCardDataType } from '@/app/(test)/mj/communityData';
 import { calculateTimeDifference } from '@/libs/calculateDate';
-
 import { Modal } from '@/components';
+import type { CommunityPostCardDataType } from '@/types/CommunityTypes';
+import { IMAGE_BLUR } from '@/constants/blurImage';
 import AuthorCard from './AuthorCard';
 import { PostInteractions } from './PostInteractions';
 import PostCardDetailModal from './PostCardDetailModal';
@@ -17,25 +17,17 @@ import styles from './PostCard.module.scss';
 const cn = classNames.bind(styles);
 
 interface PostCardProps {
-  cardData: CommunityCardDataType;
+  cardData: CommunityPostCardDataType;
+  isMine?: boolean;
 }
 
-const MIN_IMAGE_COUNT = 1;
-
-export default function PostCard({ cardData }: PostCardProps) {
+export default function PostCard({ cardData, isMine }: PostCardProps) {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
 
-  const {
-    user_nickname: nickname,
-    created_at: createdAt,
-    title,
-    image,
-    good_count: goodCount,
-    comment_count: commentCount,
-  } = cardData;
+  const { id, nickName, updateAt, title, thumbnail, likeCount, commentCount, userImage } = cardData;
 
-  const createdDate = new Date(createdAt);
-  const timeToString = calculateTimeDifference(createdDate);
+  const ApdatedDate = new Date(updateAt);
+  const timeToString = calculateTimeDifference(ApdatedDate);
 
   const handleClickPostModal = () => {
     setIsPostModalOpen(true);
@@ -46,15 +38,24 @@ export default function PostCard({ cardData }: PostCardProps) {
 
   return (
     <div className={cn('container')} onClick={handleClickPostModal}>
-      <AuthorCard nickname={nickname} dateText={timeToString} />
+      <AuthorCard id={id} isMine={isMine} nickname={nickName} dateText={timeToString} userImage={userImage} />
       <div className={cn('keyboard-image-wrapper')}>
-        <Image src={image[0]} className={cn('keyboard-image')} alt='키보드 이미지' />
-        {image.length > MIN_IMAGE_COUNT && <p className={cn('image-count')}>{image.length}</p>}
+        <Image
+          src={Array.isArray(thumbnail) ? thumbnail[0] : thumbnail}
+          className={cn('keyboard-image')}
+          alt='키보드 이미지'
+          fill
+          sizes='(max-width: 1200px) 100%'
+          priority
+          placeholder={IMAGE_BLUR.placeholder}
+          blurDataURL={IMAGE_BLUR.blurDataURL}
+        />
+        {Array.isArray(thumbnail) && <p className={cn('image-count')}>{thumbnail.length}</p>}
       </div>
       <p className={cn('title')}>{title}</p>
-      <PostInteractions goodCount={goodCount} commentCount={commentCount} />
+      <PostInteractions likeCount={likeCount} commentCount={commentCount} />
       <Modal isOpen={isPostModalOpen} onClose={handleClosePostModal}>
-        <PostCardDetailModal />
+        <PostCardDetailModal cardId={id} onClose={handleClosePostModal} isMine={isMine} />
       </Modal>
     </div>
   );

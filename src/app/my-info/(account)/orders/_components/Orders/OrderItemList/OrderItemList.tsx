@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 
 import { ROUTER } from '@/constants/route';
-import { formatOrderDate } from '@/libs/formmatOrderDate';
+import { formatDateToString } from '@/libs/formatDateToString';
 import { ChevronIcon } from '@/public/index';
 import type { Order } from '@/types/orderType';
 import OrderItem from './OrderItem/OrderItem';
@@ -18,8 +18,8 @@ interface OrderItemListProps {
 export default function OrderItemList({ order }: OrderItemListProps) {
   const { confirmationDate, purchaseDate, orderStatus, orderItems } = order;
 
-  const formmattedPurchaseDate = formatOrderDate(purchaseDate);
-  const formmattedConfirmationDate = formatOrderDate(confirmationDate);
+  const formmattedPurchaseDate = formatDateToString(new Date(purchaseDate));
+  const formmattedConfirmationDate = formatDateToString(new Date(confirmationDate));
 
   const isPaymented = orderStatus !== 'READY';
 

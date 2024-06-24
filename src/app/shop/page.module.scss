@@ -1,4 +1,6 @@
 .title-wrap {
+  @include inner;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -7,6 +9,7 @@
 
 .list-section {
   @include flex-column(11rem);
+  @include inner;
 
   margin-bottom: 10rem;
 }

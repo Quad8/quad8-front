@@ -1,4 +1,4 @@
-import { CustomKeyboardTypes } from './CustomKeyboardTypes';
+import { CustomKeyboardAPITypes } from './CustomKeyboardTypes';
 
 export enum OrderStatus {
   READY = 'READY',
@@ -7,7 +7,7 @@ export enum OrderStatus {
   SHIPPING = 'SHIPPING',
   DELIVERED = 'DELIVERED',
   CANCELED = 'CANCELED',
-  PURCHASED = 'PURCHASED',
+  CONFIRMED = 'CONFIRMED',
 }
 
 export interface OrderItem {
@@ -15,7 +15,7 @@ export interface OrderItem {
   productImgUrl: string;
   productName: string;
   quantity: number;
-  switchOption: CustomKeyboardTypes;
+  switchOption: CustomKeyboardAPITypes;
   viewCount: number;
   price: number;
 }

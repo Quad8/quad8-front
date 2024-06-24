@@ -1,6 +1,6 @@
-// .list {
-//   color: $black;
-// }
+.inner {
+  @include inner;
+}
 
 .list-section {
   @include flex-column(11rem);

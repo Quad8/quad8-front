@@ -1,11 +1,17 @@
-import type { GetCategoryListParams, ProductListResponse, ProductParams } from '@/types/ProductItem';
+import type {
+  GetCategoryListParams,
+  KeydeukPickResponse,
+  ProductListResponse,
+  ProductParams,
+  TabType,
+} from '@/types/ProductItem';
 import type { ProductType } from '@/types/ProductTypes';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 export const getProductDetail = async (productId: string): Promise<ProductType> => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/product/${productId}`);
+    const res = await fetch(`${BASE_URL}/api/v1/product/${productId}`);
     const result = await res.json();
 
     return result.data;
@@ -16,7 +22,12 @@ export const getProductDetail = async (productId: string): Promise<ProductType> 
 
 export async function getAllProductList({ sort, page, size }: ProductParams): Promise<ProductListResponse> {
   try {
-    const response = await fetch(`${BASE_URL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`);
+    const response = await fetch(`${BASE_URL}/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`, {
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    });
     const rawData: ProductListResponse = await response.json();
 
     return rawData;
@@ -30,24 +41,32 @@ export async function getCategoryProductList({
   sort,
   page,
   size,
-  company,
-  switchType,
+  companies,
+  switchTypes,
   minPrice,
   maxPrice,
 }: GetCategoryListParams): Promise<ProductListResponse> {
   try {
-    const queryParams = new URLSearchParams({
-      keyword: encodeURIComponent(keyword),
-      sort: encodeURIComponent(sort as string),
-      page: encodeURIComponent(page as string),
-      size: encodeURIComponent(size),
-      ...(company && { company: encodeURIComponent(company as string) }),
-      ...(switchType && { switchType: encodeURIComponent(switchType as string) }),
-      ...(minPrice && { minPrice: encodeURIComponent(minPrice as string) }),
-      ...(maxPrice && { maxPrice: encodeURIComponent(maxPrice as string) }),
-    }).toString();
+    const queryParams: Record<string, string> = {
+      keyword,
+      sort,
+      page,
+      size,
+    };
 
-    const response = await fetch(`${BASE_URL}/api/v1/product/category/${keyword}?${queryParams}`);
+    if (companies) queryParams.companies = companies;
+    if (switchTypes) queryParams.switchTypes = switchTypes;
+    if (minPrice) queryParams.minPrice = minPrice;
+    if (maxPrice) queryParams.maxPrice = maxPrice;
+
+    const queryString = new URLSearchParams(queryParams).toString();
+
+    const response = await fetch(`${BASE_URL}/api/v1/product/category/${keyword}?${queryString}`, {
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    });
 
     if (!response.ok) {
       const errorDetails = await response.text();
@@ -55,8 +74,29 @@ export async function getCategoryProductList({
     }
 
     const rawData: ProductListResponse = await response.json();
-
     return rawData;
+  } catch (error) {
+    throw new Error('에러');
+  }
+}
+
+export async function getKeydeukPick(param: TabType) {
+  try {
+    const response = await fetch(`${BASE_URL}/api/v1/product/keydeuk-pick?&param=${param}`);
+    const rawData: KeydeukPickResponse = await response.json();
+
+    return rawData.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getKeydeukBest() {
+  try {
+    const response = await fetch(`${BASE_URL}/api/v1/product/keydeuk-best`);
+    const rawData: KeydeukPickResponse = await response.json();
+
+    return rawData.data;
   } catch (error) {
     throw error;
   }
