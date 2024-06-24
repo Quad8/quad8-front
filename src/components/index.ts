@@ -1,4 +1,5 @@
 export { default as Dropdown } from './Dropdown/Dropdown';
+export { default as Footer } from './Footer/Footer';
 export { default as Header } from './Header/Header';
 export { default as InputField } from './InputField/InputField';
 export { default as RadioField } from './RadioField/RadioField';
