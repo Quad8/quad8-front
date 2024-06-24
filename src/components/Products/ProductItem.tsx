@@ -14,13 +14,23 @@ interface ProductItemProps {
   price: number;
   reviewscount: number;
   size: 'sm' | 'lg';
-  category?: CategoryKey;
+  category: CategoryKey;
+  hasShop: boolean;
 }
 
-export default function ProductItem({ id, size, name, reviewscount, price, thumbnail, category }: ProductItemProps) {
+export default function ProductItem({
+  id,
+  size,
+  name,
+  reviewscount,
+  price,
+  thumbnail,
+  category,
+  hasShop,
+}: ProductItemProps) {
   return (
     <li>
-      <Link href={`${category}/${id}`}>
+      <Link href={hasShop ? `${category}/${id}` : `/shop/${category}/${id}`}>
         <div className={cn('product-item', size)}>
           <div className={cn('product-image-wrap')}>
             <Image
@@ -38,7 +48,7 @@ export default function ProductItem({ id, size, name, reviewscount, price, thumb
               <div className={cn('product-review-wishlist')}>
                 <p className={cn('product-reviews')}>리뷰 {reviewscount > 99 ? '99+' : reviewscount}</p>
                 <button type='button' className={cn('product-wishlist')}>
-                  찜버튼 영역
+                  {category}
                 </button>
               </div>
             </div>

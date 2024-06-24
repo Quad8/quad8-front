@@ -1,0 +1,50 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  @include flex-center;
+  @include pretendard-20-700;
+
+  width: 4rem;
+  height: 3.5rem;
+  border: 0.1rem solid $gray-30;
+  background-color: $white;
+  color: $black;
+  line-height: 2rem;
+}
+
+.left {
+  border-radius: 0.8rem 0 0 0.8rem;
+}
+
+.right {
+  border-radius: 0 0.8rem 0.8rem 0;
+}
+
+.icon {
+  stroke-width: 0.02rem;
+  stroke: $black;
+  fill: $black;
+}
+
+.disabled {
+  stroke: $gray-40;
+  fill: $gray-40;
+}
+
+.input {
+  @include pretendard-16-500;
+
+  width: 4.9rem;
+  height: 3.5rem;
+  border-width: 0.1rem 0;
+  border-radius: 0;
+  border-color: $gray-30;
+  text-align: center;
+
+  &:focus {
+    border-color: $gray-50;
+  }
+}

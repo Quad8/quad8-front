@@ -25,4 +25,8 @@ export const ROUTER = {
     SWITCH: '/shop/switch',
     ETC: '/shop/etc',
   },
+  GITHUB: {
+    FRONT: 'https://github.com/Quad8/quad8-front',
+    BACK: 'https://github.com/Quad8/quad8-backend',
+  },
 } as const;

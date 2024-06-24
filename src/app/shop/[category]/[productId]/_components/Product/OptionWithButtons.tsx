@@ -1,7 +1,7 @@
 'use client';
 
 import { postCart } from '@/api/cartAPI';
-import { Button, Dropdown, Modal } from '@/components';
+import { Button, Dropdown } from '@/components';
 import Dialog from '@/components/Dialog/Dialog';
 import SignInModal from '@/components/SignInModal/SignInModal';
 import { ROUTER } from '@/constants/route';
@@ -171,9 +171,7 @@ export default function OptionWithButton({ productData }: OptionWithButtonProps)
         <Button onClick={handleClickCartButton}>장바구니</Button>
         <Button onClick={handleClickBuyButton}>구매하기</Button>
       </div>
-      <Modal isOpen={isSignInModalOpen} onClose={() => setIsSignInModalOpen(false)}>
-        <SignInModal />
-      </Modal>
+      <SignInModal isOpen={isSignInModalOpen} onClose={() => setIsSignInModalOpen(false)} />
       <Dialog
         type='alert'
         iconType='accept'
