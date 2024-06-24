@@ -1,12 +1,11 @@
-.layout {
-  display: flex;
-  width: 100vw;
-  height: 100%;
-  padding: 10.6rem 12rem 11.2rem 32rem;
-  overflow: auto;
+.page {
+  @include flex-column(4rem);
 
-  .page {
-    width: 100%;
-    padding: 0 2rem;
+  height: 100%;
+
+  .title {
+    @include pretendard-30-700;
+
+    color: $black;
   }
 }

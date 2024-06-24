@@ -1,0 +1,39 @@
+.order-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  .item {
+    flex-grow: 4;
+    max-width: 58.6rem;
+
+    .item-image {
+      width: 10.4rem;
+      height: 10.4rem;
+    }
+  }
+
+  .order-status {
+    @include flex-column(0.4rem);
+    @include pretendard-16-500;
+
+    flex-grow: 2;
+    flex-shrink: 0;
+    align-items: center;
+    width: 12rem;
+    color: $black;
+
+    .status {
+      color: $gray-40;
+    }
+  }
+
+  .button-box {
+    @include flex-column(0.4rem);
+
+    flex-grow: 1;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+  }
+}

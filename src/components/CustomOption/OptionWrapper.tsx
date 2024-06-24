@@ -23,7 +23,6 @@ export default function OptionWrapper({ optionText, wrapperRef, children, overTe
     if (!target || !tooltip || !wraper) {
       return;
     }
-
     const { top: targetTop, left: targetLeft } = target.getBoundingClientRect();
     const tooltipHeight = tooltip.clientHeight;
     const viewportHeight = window.innerHeight;

@@ -21,4 +21,4 @@ export { default as ScrollUpButton } from './Buttons/ScrollUpButton/ScrollUpButt
 
 export { default as HeartButton } from './Buttons/HeartButton/HeartButton';
 
-// export { default as ItemOverview } from './ItemOverview/ItemOverview';
+export { default as ItemOverview } from './ItemOverview/ItemOverview';

@@ -56,6 +56,7 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
   const isPhone = label === '휴대폰 번호' || label === '연락처';
   const isBirth = label === '생년월일';
   const isNickname = id === 'nickname';
+  const isTitle = label === '제목';
   const isNumber = !!suffixUnit;
 
   const handleSuffixEyeIconClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -97,8 +98,8 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
           className={className}
           {...rest}
         />
-        {isNickname && (
-          <div className={cn('current-length')}>
+        {(isNickname || isTitle) && (
+          <div className={cn('current-length', isTitle && 'title-current-length')}>
             {currentLength} / {NICKNAME_MAX_LENGTH}
           </div>
         )}
