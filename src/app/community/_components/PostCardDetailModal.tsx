@@ -35,7 +35,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
-  const { data, refetch } = useQuery({
+  const { data, refetch, isPending } = useQuery({
     queryKey: ['postData', cardId],
     queryFn: () => getPostDetail(cardId),
   });
@@ -47,8 +47,6 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
     queryClient.invalidateQueries({ queryKey: ['postCardsList'] });
     refetch();
   };
-  const { data: postData, status, message } = data;
-
   const { mutate: postCommentMutation } = useMutation({
     mutationFn: postComment,
     onSuccess: () => {
@@ -85,6 +83,12 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
       removeEvent();
     };
   }, [cardId, postCommentMutation, commentRef]);
+
+  if (isPending) {
+    return null;
+  }
+
+  const { data: postData, status, message } = data;
 
   if (status === 'FAIL') {
     toast.error(message);
@@ -233,7 +237,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
           message='삭제하시겠습니까'
           isOpen={isDeleteAlertOpen}
           iconType='warn'
-          buttonText={{ left: '댣기', right: '확인' }}
+          buttonText={{ left: '딛기', right: '확인' }}
           onClick={{
             left: () => handleCloseDeleteAlert(),
             right: () => handleClickDeleteAlertButon(),

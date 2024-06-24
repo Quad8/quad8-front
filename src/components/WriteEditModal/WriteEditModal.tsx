@@ -126,7 +126,6 @@ export default function WriteEditModal({
           fetchFormData.append('files', file as File);
         });
       }
-      console.log(payload);
       return postCreatePostMutation(fetchFormData);
     }
 
