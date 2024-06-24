@@ -8,8 +8,8 @@ export { default as CartIcon } from './svgs/cart.svg';
 export { default as CheckboxCircleIcon } from './svgs/checkboxCircle.svg';
 export { default as ChevronIcon } from './svgs/chevron.svg';
 export { default as CommentIcon } from './svgs/comment.svg';
-export { default as CreditCard } from './svgs/creditCard.svg';
-export { default as Cube } from './svgs/cube.svg';
+export { default as CreditCardIcon } from './svgs/creditCard.svg';
+export { default as CubeIcon } from './svgs/cube.svg';
 
 export { default as CrossIcon } from './svgs/cross.svg';
 export { default as CrossCircleIcon } from './svgs/crossCircle.svg';
