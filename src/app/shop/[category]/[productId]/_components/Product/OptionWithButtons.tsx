@@ -1,25 +1,24 @@
 'use client';
 
 import { postCart } from '@/api/cartAPI';
-import { Button, Dropdown } from '@/components';
+import { Button, CountInput, Dropdown } from '@/components';
 import Dialog from '@/components/Dialog/Dialog';
 import SignInModal from '@/components/SignInModal/SignInModal';
-import type { CartProductType, OptionTypes } from '@/types/ProductTypes';
+import { ROUTER } from '@/constants/route';
+import type { CartProductType, ProductType } from '@/types/ProductTypes';
 import { Users } from '@/types/userType';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import OptionContainer from './OptionContainer';
 import styles from './ProductDetail.module.scss';
-import QuantitySelector from './QuantitySelector';
 
 const cn = classNames.bind(styles);
 
 interface OptionWithButtonProps {
-  productId: number;
-  optionList: OptionTypes[];
-  price: number;
+  productData: ProductType;
 }
 interface SelectedOptionType {
   id: number;
@@ -29,7 +28,9 @@ interface SelectedOptionType {
 
 const OPTION_PLACEHOLDER = '스위치 (필수)';
 
-export default function OptionWithButton({ productId, optionList, price }: OptionWithButtonProps) {
+export default function OptionWithButton({ productData }: OptionWithButtonProps) {
+  const { id: productId, optionList, price } = productData;
+
   const optionNames = optionList?.map((option) => option.optionName);
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptionType[]>([]);
   const totalPrice = selectedOptions.reduce((acc, option) => acc + option.count * price, 0);
@@ -37,7 +38,9 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
   const noOptionTotalPrice = price * noOptionCount;
 
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
-  const [isNoOptionModal, setIsNoOptionModal] = useState(false);
+  const [isNoOptionModalOpen, setIsNoOptionModalOpen] = useState(false);
+
+  const router = useRouter();
 
   const handleChangeOption = (value: string) => {
     if (value !== OPTION_PLACEHOLDER) {
@@ -75,15 +78,16 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
     queryKey: ['userData'],
   });
 
-  const checkUserAndOptions = () => {
+  const checkUserAndOptions = (): boolean => {
     if (!userData?.data) {
       setIsSignInModalOpen(true);
-      return;
+      return true;
     }
 
     if (optionList && selectedOptions.length === 0) {
-      setIsNoOptionModal(true);
+      setIsNoOptionModalOpen(true);
     }
+    return false;
   };
 
   const handleAddCartProduct = (data: CartProductType) => {
@@ -99,7 +103,7 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
   };
 
   const handleClickCartButton = () => {
-    checkUserAndOptions();
+    if (checkUserAndOptions()) return;
 
     if (!optionList) {
       const noOptionData: CartProductType = { productId, switchOptionId: undefined, count: noOptionCount };
@@ -121,7 +125,21 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
 
   const handleClickBuyButton = () => {
     checkUserAndOptions();
+
+    router.push(ROUTER.MY_PAGE.CHECKOUT);
   };
+
+  useEffect(() => {
+    const prevItems = window.localStorage.getItem('recentViews');
+
+    if (prevItems) {
+      const items = JSON.parse(prevItems);
+      const newItems = [productData, ...items.filter((item: ProductType) => item.id !== productData.id)];
+      localStorage.setItem('recentViews', JSON.stringify(newItems.slice(0, 8)));
+    } else {
+      localStorage.setItem('recentViews', JSON.stringify([productData]));
+    }
+  }, [productData]);
 
   return (
     <>
@@ -130,7 +148,7 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
         {optionList?.length ? (
           <Dropdown options={optionNames} placeholder={OPTION_PLACEHOLDER} value='' onChange={handleChangeOption} />
         ) : (
-          <QuantitySelector count={noOptionCount} updateCount={(count) => setNoOptionCount(count)} />
+          <CountInput value={noOptionCount} onChange={(count) => setNoOptionCount(count)} />
         )}
         {selectedOptions.map((option) => (
           <OptionContainer
@@ -158,8 +176,8 @@ export default function OptionWithButton({ productId, optionList, price }: Optio
         type='alert'
         iconType='accept'
         message='옵션을 선택해 주세요.'
-        isOpen={isNoOptionModal}
-        onClick={() => setIsNoOptionModal(false)}
+        isOpen={isNoOptionModalOpen}
+        onClick={() => setIsNoOptionModalOpen(false)}
         buttonText='확인'
       />
     </>

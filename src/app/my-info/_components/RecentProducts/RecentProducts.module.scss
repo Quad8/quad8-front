@@ -6,3 +6,14 @@
     @include pretendard-20-600;
   }
 }
+
+.recent-items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4rem 1.8rem;
+  margin-top: 4rem;
+
+  li {
+    list-style: none;
+  }
+}

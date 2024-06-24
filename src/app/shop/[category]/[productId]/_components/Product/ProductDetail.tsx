@@ -1,4 +1,5 @@
-import { Rating } from '@/components';
+import { HeartButton, Rating } from '@/components';
+import ShareButton from '@/components/Buttons/ShareButton/ShareButton';
 import type { ProductType } from '@/types/ProductTypes';
 import classNames from 'classnames/bind';
 import OptionWithButton from './OptionWithButtons';
@@ -28,12 +29,16 @@ export default function ProductDetail({ product }: ProductDetailProps) {
       <div className={cn('right-section')}>
         <div className={cn('name-button-section')}>
           <h1>{product.name}</h1>
+          <div className={cn('buttons')}>
+            <HeartButton usage='detail' id={product.id} isLiked={product.isLiked} />
+            <ShareButton />
+          </div>
         </div>
         <div className={cn('rate-section')}>
           <Rating rating={product.scope} />
           <h4>{product.reviewscount}개 상품평</h4>
         </div>
-        <h1 className={cn('price')}>{product.price.toLocaleString()}원</h1>
+        <h1 className={cn('price')}>{product.price?.toLocaleString()}원</h1>
         <div className={cn('delivery-section')}>
           <h2 className={cn('explain-title')}>배송 안내</h2>
           {Object.entries(DELIVERY_TEXT).map(([key, value]) => (
@@ -49,7 +54,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             <span>{Object.keys(POINT_TEXT)}</span> {POINT_TEXT.포인트}
           </h3>
         </div>
-        <OptionWithButton productId={product.id} optionList={product.optionList} price={product.price} />
+        <OptionWithButton productData={product} />
       </div>
     </div>
   );

@@ -18,7 +18,7 @@
     width: 12.7rem;
 
     .cross-icon {
-      font-size: 2.4rem;
+      @include pretendard-24-500;
     }
   }
 }

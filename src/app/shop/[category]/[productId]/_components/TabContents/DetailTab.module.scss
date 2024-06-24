@@ -5,13 +5,14 @@
 .tab-buttons {
   display: flex;
   position: sticky;
+  z-index: $zindex-sticky;
   top: 7.9rem;
   justify-content: center;
   height: 6.4rem;
   border-top: 0.1rem solid $gray-10;
   border-bottom: 0.1rem solid $gray-10;
-  gap: 12.6rem;
   background-color: $white;
+  gap: 12.6rem;
 }
 
 .tab-button {
