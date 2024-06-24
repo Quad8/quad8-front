@@ -1,0 +1,18 @@
+.wrapper {
+  width: 100%;
+}
+
+.tooltip {
+  @include pretendard-14-400;
+
+  display: flex;
+  flex-wrap: wrap;
+  width: max-content;
+  max-width: 52.6rem;
+  padding: 1.6rem;
+  border-radius: 0.8rem;
+  background-color: rgba($color: $black, $alpha: 90%);
+  color: $white;
+  word-break: keep-all;
+  white-space: normal;
+}

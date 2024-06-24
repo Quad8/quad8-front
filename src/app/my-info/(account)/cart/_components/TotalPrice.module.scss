@@ -1,0 +1,23 @@
+.wrapper {
+  @include flex-column(0.6rem);
+
+  padding: 1.2rem 0;
+}
+
+.price-wrapper {
+  @include pretendard-18-400;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: $black;
+}
+
+.discount-price {
+  color: $red;
+}
+
+.total-wrapper,
+.total-price {
+  @include pretendard-18-600;
+}

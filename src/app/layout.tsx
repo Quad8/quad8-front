@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 
 import { getUserData } from '@/api/usersAPI';
-import { Header } from '@/components';
+import { Header, Footer } from '@/components';
 import { Providers } from './providers';
 
 import '@/styles/reset.css';
@@ -29,6 +29,7 @@ export default async function RootLayout({
           <HydrationBoundary state={dehydrate(queryClient)}>
             <Header />
             {children}
+            <Footer />
           </HydrationBoundary>
         </Providers>
       </body>
