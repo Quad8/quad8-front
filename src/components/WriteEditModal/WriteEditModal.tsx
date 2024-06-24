@@ -1,18 +1,19 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { CommunityPostCardDetailDataType, PostCardDetailModalCustomKeyboardType } from '@/types/CommunityTypes';
-import { Button, ImageInput, InputField, Rating, TextField } from '@/components';
+import { Button, ImageInput, InputField, Rating, TextField, CustomOption } from '@/components';
 import { keydeukImg } from '@/public/index';
 import { postCreateCustomReview, putEditCustomReview } from '@/api/communityAPI';
 
 import { toast } from 'react-toastify';
-import { useState } from 'react';
 import { REVIEW_KEYWORD } from '@/constants/reviewKeyword';
+import { IMAGE_BLUR } from '@/constants/blurImage';
 import styles from './WriteEditModal.module.scss';
 import FeedbackToggle from './FeedbackToggle';
 
@@ -45,6 +46,8 @@ export default function WriteEditModal({
   onSuccessReview,
 }: WriteEditModalProps) {
   const queryClient = useQueryClient();
+
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const [deletedImageId, setDeleteImageId] = useState<number[]>([]);
 
@@ -178,16 +181,24 @@ export default function WriteEditModal({
 
   return (
     <form className={cn('container')} onSubmit={handleSubmit(onSubmit)}>
-      <div>
+      <div ref={containerRef}>
         {isCustom && <p className={cn('info-text')}>해당 후기는 커뮤니티란에 게시됩니다.</p>}
         <div className={cn('product-data-wrapper')}>
           <div className={cn('product-image')}>
-            <Image src={PRODUCT_DATA.productImage || keydeukImg} alt='커스텀 키보드 이미지' width={143} height={143} />
+            <Image
+              src={PRODUCT_DATA.productImage || keydeukImg}
+              alt='커스텀 키보드 이미지'
+              width={143}
+              height={143}
+              priority
+              placeholder={IMAGE_BLUR.placeholder}
+              blurDataURL={IMAGE_BLUR.blurDataURL}
+            />
           </div>
           <div className={cn('product-info')}>
             <p className={cn('product-info-title')}>{PRODUCT_DATA.productName}</p>
-            {isCustom ? (
-              <div>{keyboardInfo && keyboardInfo.baseKeyColor + keyboardInfo.baseKeyColor}</div>
+            {isCustom && keyboardInfo ? (
+              <CustomOption customData={keyboardInfo} wrapperRef={containerRef} />
             ) : (
               <div className={cn('product-option')}>{productData?.option}</div>
             )}
