@@ -24,7 +24,7 @@ export const getCheckNicknameDuplication = async (nickname: string) => {
   }
 };
 
-export const postSignup = async (formData: FormData) => {
+export const postSignup = async (payload: FormData) => {
   const url = `${BASE_URL}/api/v1/users`;
 
   try {
@@ -33,7 +33,7 @@ export const postSignup = async (formData: FormData) => {
       headers: {
         accept: 'application/json',
       },
-      body: formData,
+      body: payload,
     });
     const data = await response.json();
     return data;
