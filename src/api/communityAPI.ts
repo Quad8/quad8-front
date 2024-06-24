@@ -4,11 +4,14 @@ import { CommunityParamsType } from '@/types/CommunityTypes';
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 export const getAllCommunityPost = async ({ sort, page, size }: CommunityParamsType) => {
+  const token = await getCookie('accessToken');
+
   try {
     const res = await fetch(`${BASE_URL}/api/v1/community/all?sort=${sort}&page=${page}&size=${size}`, {
       cache: 'no-cache',
       headers: {
         'Cache-Control': 'no-cache',
+        Authorization: token ? `Bearer ${token}` : '',
       },
     });
     const { data } = await res.json();
@@ -41,11 +44,14 @@ export const getMyPosts = async ({ sort, page, size }: CommunityParamsType) => {
 };
 
 export const getPostDetail = async (id: number) => {
+  const token = await getCookie('accessToken');
+
   try {
     const res = await fetch(`${BASE_URL}/api/v1/community/${id}`, {
       cache: 'no-cache',
       headers: {
         'Cache-Control': 'no-cache',
+        Authorization: token ? `Bearer ${token}` : '',
       },
     });
     const data = await res.json();

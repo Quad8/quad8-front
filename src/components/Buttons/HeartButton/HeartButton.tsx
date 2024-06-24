@@ -23,6 +23,8 @@ interface LikeMutationProps {
   itemIsLiked: boolean;
 }
 
+const MAX_COUNT = 99;
+
 export default function HeartButton({ id, usage, isLiked, likeCount }: HeartButtonProps) {
   const [isChecked, setIsChecked] = useState(isLiked);
   const [newLikeCount, setNewLikeCount] = useState(likeCount || 0);
@@ -72,11 +74,13 @@ export default function HeartButton({ id, usage, isLiked, likeCount }: HeartButt
     <>
       <button
         type='button'
-        className={cn(usage === 'detail' && 'circle', isChecked && 'red-circle')}
+        className={cn({ circle: usage === 'detail', 'red-circle': isChecked })}
         onClick={handleClickButton}
       >
         <HeartIcon className={cn('heart', usage === 'detail' && 'white-stroke', isChecked && 'red-heart')} />
-        {usage === 'community' && <span>{newLikeCount}</span>}
+        {usage === 'community' && (
+          <span className={cn('like-count')}>{newLikeCount > MAX_COUNT ? '99+' : newLikeCount}</span>
+        )}
       </button>
 
       <SignInModal isOpen={isSignInModalOpen} onClose={() => setIsSignInModalOpen(false)} />

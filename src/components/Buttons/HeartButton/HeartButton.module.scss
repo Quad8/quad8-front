@@ -30,3 +30,9 @@
     background-color: $red-80;
   }
 }
+
+.like-count {
+  @include pretendard-16-500;
+
+  padding-left: 0.4rem;
+}
