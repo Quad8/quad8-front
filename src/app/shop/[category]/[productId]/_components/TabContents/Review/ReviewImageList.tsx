@@ -10,7 +10,7 @@ interface ReviewImageListProps {
 
 export default function ReviewImageList({ reviewImgs }: ReviewImageListProps) {
   return (
-    <div>
+    <div className={cn('all-review-image-lists')}>
       <RenderImages
         className={cn('all-review-image')}
         reviewImgs={reviewImgs}

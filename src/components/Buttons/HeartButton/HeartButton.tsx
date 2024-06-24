@@ -72,16 +72,15 @@ export default function HeartButton({ id, usage, isLiked, likeCount }: HeartButt
 
   return (
     <>
-      <button
-        type='button'
-        className={cn({ circle: usage === 'detail', 'red-circle': isChecked })}
+      <div
+        className={cn('count-wrap', { circle: usage === 'detail', 'red-circle': isChecked })}
         onClick={handleClickButton}
       >
         <HeartIcon className={cn('heart', usage === 'detail' && 'white-stroke', isChecked && 'red-heart')} />
         {usage === 'community' && (
           <span className={cn('like-count')}>{newLikeCount > MAX_COUNT ? '99+' : newLikeCount}</span>
         )}
-      </button>
+      </div>
 
       <SignInModal isOpen={isSignInModalOpen} onClose={() => setIsSignInModalOpen(false)} />
     </>

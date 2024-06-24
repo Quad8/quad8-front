@@ -34,5 +34,10 @@
 .like-count {
   @include pretendard-16-500;
 
-  padding-left: 0.4rem;
+  padding-left: 0.5rem;
+}
+
+.count-wrap {
+  display: flex;
+  align-items: center;
 }

@@ -136,7 +136,7 @@ export default function OptionWithButton({ productData }: OptionWithButtonProps)
     if (prevItems) {
       const items = JSON.parse(prevItems);
       const newItems = [productData, ...items.filter((item: ProductType) => item.id !== productData.id)];
-      localStorage.setItem('recentViews', JSON.stringify(newItems.slice(0, 7)));
+      localStorage.setItem('recentViews', JSON.stringify(newItems.slice(0, 8)));
     } else {
       localStorage.setItem('recentViews', JSON.stringify([productData]));
     }
