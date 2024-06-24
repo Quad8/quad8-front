@@ -1,26 +1,25 @@
-import { useEffect, useState, useRef } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { Button, InputField, Modal, CustomOption } from '@/components';
-import Dialog from '@/components/Dialog/Dialog';
 import { deletePostCard, getPostDetail, postComment } from '@/api/communityAPI';
-import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
-import { formatDateToString } from '@/libs/formatDateToString';
-import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
-import { keydeukImg } from '@/public/index';
+import { Button, CustomOption, InputField, Modal } from '@/components';
+import Dialog from '@/components/Dialog/Dialog';
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { IMAGE_BLUR } from '@/constants/blurImage';
-import Comment from './Comment';
+import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
+import { formatDateToString } from '@/libs/formatDateToString';
+import { keydeukImg } from '@/public/index';
+import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
 import AuthorCard from './AuthorCard';
+import Comment from './Comment';
 import { PostInteractions } from './PostInteractions';
 
 import styles from './PostCardDetailModal.module.scss';
 
 const cn = classNames.bind(styles);
-
 interface PostCardDetailModalProps {
   cardId: number;
   onClose: () => void;
@@ -32,7 +31,6 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
   const queryClient = useQueryClient();
   const [commentRef, setCommentRef] = useState<HTMLInputElement | null>(null);
   const [clickedImage, setClickedImage] = useState('');
-
   const [isEditAlertOpen, setIsEditAlertOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
@@ -41,7 +39,6 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
     queryKey: ['postData', cardId],
     queryFn: () => getPostDetail(cardId),
   });
-
   const handleSuccessSubmitComment = () => {
     if (commentRef) {
       commentRef.value = '';
@@ -58,7 +55,6 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
       toast.error('댓글 등록 중 오류가 발생하였습니다.');
     },
   });
-
   const { mutate: deletePostMutation } = useMutation({
     mutationFn: deletePostCard,
     onSuccess: () => {
@@ -71,7 +67,6 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
       toast.error('게시글 삭제 중 오류가 발생하였습니다.');
     },
   });
-
   useEffect(() => {
     const handleSubmitComment = () => {
       if (commentRef) {
@@ -80,7 +75,6 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
       }
     };
     const removeEvent = addEnterKeyEvent({ element: { current: commentRef }, callback: handleSubmitComment });
-
     return () => {
       removeEvent();
     };
@@ -97,7 +91,6 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
     onClose();
     return null;
   }
-
   const { commentCount, comments, content, likeCount, nickName, reviewImages, title, updatedAt, userImage, custom } =
     postData as CommunityPostCardDetailDataType;
 
@@ -106,25 +99,20 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
   const handleClickThumbnail = (i: number) => {
     setClickedImage(reviewImages[i].imgUrl);
   };
-
   const handleClickDeleteAlertButon = () => {
     deletePostMutation(cardId);
     setIsDeleteAlertOpen(false);
   };
-
   const handleCloseDeleteAlert = () => {
     setIsDeleteAlertOpen(false);
   };
-
   const handleClickEditAlertButton = () => {
     setIsEditModalOpen(true);
     setIsEditAlertOpen(false);
   };
-
   const handleCloseEditAlert = () => {
     setIsEditAlertOpen(false);
   };
-
   const handleClickEditModalButton = () => {
     setIsEditModalOpen(false);
     queryClient.invalidateQueries({
@@ -134,7 +122,6 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
       queryKey: ['postData', cardId],
     });
   };
-
   const handleCloseEditModal = () => {
     setIsEditModalOpen(false);
   };

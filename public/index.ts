@@ -1,3 +1,4 @@
+/** svgs */
 export { default as AlertIcon } from './svgs/alertIcon.svg';
 export { default as CameraIcon } from './svgs/camera.svg';
 export { default as CanvasLoadingIcon } from './svgs/canvasLoading.svg';
@@ -7,6 +8,9 @@ export { default as CartIcon } from './svgs/cart.svg';
 export { default as CheckboxCircleIcon } from './svgs/checkboxCircle.svg';
 export { default as ChevronIcon } from './svgs/chevron.svg';
 export { default as CommentIcon } from './svgs/comment.svg';
+export { default as CreditCardIcon } from './svgs/creditCard.svg';
+export { default as CubeIcon } from './svgs/cube.svg';
+
 export { default as CrossIcon } from './svgs/cross.svg';
 export { default as CrossCircleIcon } from './svgs/crossCircle.svg';
 export { default as DashIcon } from './svgs/dash.svg';
@@ -28,7 +32,6 @@ export { default as PlusIcon } from './svgs/plus.svg';
 export { default as GitHubIcon } from '@/public/svgs/gitHub.svg';
 export { default as GoogleIcon } from '@/public/svgs/google.svg';
 export { default as KakaoIcon } from '@/public/svgs/kakaotalk.svg';
-
 export { default as CalendarIcon } from './svgs/calendar.svg';
 export { default as ResetIcon } from './svgs/reset.svg';
 export { default as SearchIcon } from './svgs/search.svg';
