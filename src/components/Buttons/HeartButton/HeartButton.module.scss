@@ -3,6 +3,7 @@
   height: 2.157rem;
   stroke-width: 3;
   stroke: $red-80;
+  cursor: pointer;
 
   &.red-heart {
     fill: $red-80;
@@ -20,6 +21,7 @@
   height: 4.157rem;
   border-radius: 100%;
   background-color: $gray-10;
+  cursor: pointer;
 
   &:hover {
     background-color: $red-40;

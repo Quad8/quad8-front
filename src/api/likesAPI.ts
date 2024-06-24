@@ -1,10 +1,12 @@
 import { getCookie } from '@/libs/manageCookie';
 
+const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
+
 export const postProductLikes = async (productId: number) => {
   const token = await getCookie('accessToken');
 
   try {
-    await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/likes/${productId}`, {
+    await fetch(`${BASE_URL}/api/v1/likes/${productId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -20,7 +22,7 @@ export const deleteProductLikes = async (productId: number) => {
   const token = await getCookie('accessToken');
 
   try {
-    await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/likes/${productId}`, {
+    await fetch(`${BASE_URL}/api/v1/likes/${productId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -36,7 +38,7 @@ export const postCommunityLikes = async (communityId: number) => {
   const token = await getCookie('accessToken');
 
   try {
-    await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/community/likes/${communityId}`, {
+    await fetch(`${BASE_URL}/api/v1/community/likes/${communityId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +54,7 @@ export const deleteCommunityLikes = async (communityId: number) => {
   const token = await getCookie('accessToken');
 
   try {
-    await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/community/likes/${communityId}`, {
+    await fetch(`${BASE_URL}/api/community/likes/${communityId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -68,7 +70,7 @@ export const postReviewLikes = async (reviewId: number) => {
   const token = await getCookie('accessToken');
 
   try {
-    await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/reviews/likes/${reviewId}`, {
+    await fetch(`${BASE_URL}/api/v1/reviews/likes/${reviewId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +86,7 @@ export const deleteReviewLikes = async (reviewId: number) => {
   const token = await getCookie('accessToken');
 
   try {
-    await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/reviews/likes/${reviewId}`, {
+    await fetch(`${BASE_URL}/api/v1/reviews/likes/${reviewId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

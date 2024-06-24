@@ -15,7 +15,7 @@ export const getProductDetail = async (productId: string): Promise<ProductType> 
   const token = await getCookie('accessToken');
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/product/${productId}`, {
+    const res = await fetch(`${BASE_URL}/api/v1/product/${productId}`, {
       cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json',
