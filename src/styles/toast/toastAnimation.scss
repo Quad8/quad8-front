@@ -2,7 +2,7 @@
 
 $toastify: 'Toastify';
 
-.#{$toastify}-animate {
+.#{$toastify}--animate {
   animation-fill-mode: both;
   animation-duration: 0.7s;
 }
