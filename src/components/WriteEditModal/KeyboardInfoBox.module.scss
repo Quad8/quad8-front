@@ -5,9 +5,10 @@
 }
 
 .sub-text {
+  @include pretendard-14-400;
+
   margin-bottom: 2rem;
   color: $gray-50;
-  font-size: 1.4rem;
 }
 
 .keyboard-image {

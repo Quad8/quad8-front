@@ -9,8 +9,9 @@
   gap: 1rem;
 
   span {
+    @include pretendard-16-400;
+
     color: $black;
-    font-size: 1.6rem;
   }
 
   &:hover {

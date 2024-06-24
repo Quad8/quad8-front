@@ -13,16 +13,16 @@
 }
 
 .title-container {
+  @include pretendard-80-700;
+
   display: flex;
   position: absolute;
   top: 18rem;
   flex-direction: column;
   width: 100%;
   color: $white;
-  font-size: 8rem;
-  font-weight: 700;
-  text-align: center;
   gap: 3.5rem;
+  text-align: center;
 
   & h2 {
     @include pretendard-40-700;
