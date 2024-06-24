@@ -1,0 +1,154 @@
+/* stylelint-disable max-nesting-depth */
+@mixin default-layout {
+  @include flex-column(1.2rem);
+  @include pretendard-20-500;
+
+  padding: 2rem;
+  border-radius: 0.4rem;
+  background: $white;
+}
+
+.checkout-form {
+  @include flex-column(4rem);
+
+  .form {
+    @include flex-column(0.8rem);
+
+    color: $black;
+
+    .item-box {
+      @include default-layout;
+
+      .item {
+        height: 10.4rem;
+      }
+    }
+
+    .price-box {
+      @include pretendard-18-500;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem;
+      border-radius: 0.4rem;
+      background: $primary-20;
+      color: $primary;
+
+      .price {
+        @include pretendard-18-700;
+      }
+    }
+
+    .address-section {
+      @include default-layout;
+
+      .address-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .address-wrap {
+          @include pretendard-16-400;
+
+          display: flex;
+          gap: 1.4rem;
+
+          .address-key {
+            color: $gray-40;
+          }
+
+          .address-key,
+          .address-value {
+            @include flex-column(0.4rem);
+          }
+        }
+      }
+    }
+
+    .discount-box {
+      @include default-layout;
+
+      .discount-field-box {
+        @include flex-column(1.2rem);
+      }
+
+      .discount-field {
+        @include flex-column(1.2rem);
+
+        .discount-input {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 2.8rem;
+
+          .discount-coupon {
+            width: 100%;
+          }
+
+          .discount-button {
+            @include pretendard-14-400;
+
+            flex-shrink: 0;
+            width: 7.6rem;
+            height: 2.6rem;
+            padding: 0.2rem 1.2rem;
+            border-radius: 30rem;
+            background: $primary-20;
+            color: $primary;
+          }
+        }
+      }
+    }
+
+    .discount-point {
+      @include pretendard-14-400;
+
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+
+      .point-title {
+        color: $gray-40;
+      }
+    }
+
+    .method-box {
+      @include default-layout;
+
+      .method-default {
+        @include pretendard-16-400;
+      }
+    }
+
+    .checkout-detail {
+      @include default-layout;
+
+      .checkout-method {
+        @include pretendard-16-400;
+
+        display: flex;
+        align-items: center;
+        gap: 2.8rem;
+
+        .method-title {
+          color: $gray-40;
+        }
+      }
+    }
+  }
+
+  .submit-box {
+    @include pretendard-16-400;
+    @include flex-column(2rem);
+
+    align-items: center;
+
+    .submit-button {
+      @include pretendard-18-500;
+
+      width: 34.8rem;
+      padding: 2rem 4rem;
+    }
+  }
+}

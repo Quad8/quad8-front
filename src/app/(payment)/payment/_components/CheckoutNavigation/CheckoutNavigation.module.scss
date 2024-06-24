@@ -1,0 +1,48 @@
+.nav {
+  @include pretendard-16-400;
+  @include flex-center;
+
+  color: $black;
+  gap: 3.4rem;
+
+  .status-box {
+    position: relative;
+    align-items: center;
+    @include flex-column(1.2rem);
+
+    .card-icon {
+      z-index: 2;
+      width: 4rem;
+      height: 4rem;
+      padding: 0.8rem;
+      border-radius: 100%;
+      background-color: $primary;
+    }
+
+    .cube-icon {
+      z-index: 2;
+      width: 4rem;
+      height: 4rem;
+      padding: 0.8rem;
+      border-radius: 100%;
+      background-color: $gray-20;
+
+      &.success {
+        background-color: $primary;
+      }
+    }
+  }
+}
+
+.chain {
+  position: absolute;
+  z-index: 1;
+  top: 2rem;
+  right: -4.2rem;
+  width: 6rem;
+  border-bottom: 0.1rem dashed $gray-20;
+
+  &.success {
+    border-bottom: 0.1rem dashed $primary;
+  }
+}

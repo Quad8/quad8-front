@@ -1,10 +1,8 @@
 .snb {
   @include flex-column(4rem);
 
-  position: absolute;
-  top: 18.6rem;
-  left: 12rem;
-  width: 20rem;
+  flex-shrink: 0;
+  width: 16.8rem;
 
   .snb-main {
     @include pretendard-30-700;
