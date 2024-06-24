@@ -8,13 +8,19 @@ import styles from './page.module.scss';
 
 const cn = classNames.bind(styles);
 
-export default async function Page({
-  params,
-  searchParams,
-}: {
+interface PageProps {
   params: { category: CategoryKey };
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+  searchParams: {
+    sort?: string;
+    page?: string;
+    companies?: string[];
+    switchTypes?: string[];
+    minPrice?: string;
+    maxPrice?: string;
+  };
+}
+
+export default async function Page({ params, searchParams }: PageProps) {
   const { category } = params;
 
   const getCategoryProductParams = {
@@ -22,8 +28,10 @@ export default async function Page({
     sort: searchParams.sort || 'createdAt_desc',
     page: searchParams.page || '0',
     size: '16',
-    company: searchParams.company,
-    switchType: searchParams.switchType,
+    companies: Array.isArray(searchParams.companies) ? searchParams.companies.join(',') : searchParams.companies,
+    switchTypes: Array.isArray(searchParams.switchTypes)
+      ? searchParams.switchTypes.join(',')
+      : searchParams.switchTypes,
     minPrice: searchParams.minPrice,
     maxPrice: searchParams.maxPrice,
   };
@@ -32,12 +40,12 @@ export default async function Page({
   const { content, ...rest } = data;
 
   return (
-    <>
+    <div className={cn('inner')}>
       <TitleWrap category={category} totalCount={rest.totalElements} />
       <section className={cn('list-section')}>
-        <ProductList content={content} size='lg' category={category} />
+        <ProductList content={content} size='lg' hasShop />
         <Pagination {...rest} searchParams={searchParams} />
       </section>
-    </>
+    </div>
   );
 }

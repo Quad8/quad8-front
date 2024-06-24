@@ -12,7 +12,13 @@ export default function Hero() {
         <div className={cn('hero-box')}>
           <div className={cn('hero-item-container')}>
             {IMAGES.map((image, i) => (
-              <Image key={image.src} src={image} alt={`배경 이미지 ${i}`} className={cn('hero-item')} />
+              <Image
+                key={image.src}
+                src={image}
+                alt={`배경 이미지 ${i}`}
+                className={cn('hero-item')}
+                sizes='(max-width: 600px) 480px, (max-width: 1200px) 800px, 1200px'
+              />
             ))}
           </div>
           <div className={cn('title-container')}>

@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames/bind';
 import { useRef, useState } from 'react';
 

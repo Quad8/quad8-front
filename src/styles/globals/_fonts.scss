@@ -1,5 +1,5 @@
 @font-face {
-  font-family: Pretendard-Regular;
+  font-family: Pretendard;
   font-style: normal;
   font-weight: 400;
   src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -140,6 +140,14 @@
 
 @mixin pretendard-40-700 {
   @include font-mixin('Pretendard', 4, 700);
+}
+
+@mixin pretendard-50-100 {
+  @include font-mixin('Pretendard', 5, 100);
+}
+
+@mixin pretendard-70-700 {
+  @include font-mixin('Pretendard', 7, 700);
 }
 
 // Poppins Mixin들
