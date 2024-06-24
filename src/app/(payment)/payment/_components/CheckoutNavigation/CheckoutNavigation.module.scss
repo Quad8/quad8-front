@@ -1,9 +1,7 @@
 .nav {
   @include pretendard-16-400;
+  @include flex-center;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: $black;
   gap: 3.4rem;
 

@@ -36,7 +36,7 @@ export default function OrderItemButton({ orderStatus }: OrderItemButtonProps) {
             </Button>
           </>
         );
-      case 'PURCHASED':
+      case 'CONFIRMED':
         return (
           <Button className={cn('button')} type='button' radioGroup='4' paddingVertical={8}>
             후기 작성

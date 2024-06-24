@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 
 import { getOrderStatusDescription } from '@/libs/getOrderStatusDescriptions';
-import type { OrderItem as item, OrderStatus } from '@/types/orderType';
+import type { OrderItem as OrderItemT, OrderStatus } from '@/types/orderType';
 import OrderItemButton from './OrderItemButton/OrderItemButton';
 
 import styles from './OrderItem.module.scss';
@@ -9,7 +9,7 @@ import styles from './OrderItem.module.scss';
 const cn = classNames.bind(styles);
 
 interface OrderItemProps {
-  orderItem: item;
+  orderItem: OrderItemT;
   confirmationDate: string;
   orderStatus: OrderStatus;
 }
