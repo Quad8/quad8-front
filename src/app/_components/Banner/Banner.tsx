@@ -1,5 +1,5 @@
 import { ROUTER } from '@/constants/route';
-import { banner1Img } from '@/public/index';
+import { banner1Img, banner2Img } from '@/public/index';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,11 +19,11 @@ export default function Banner() {
           sizes='(max-width: 600px) 480px, (max-width: 1200px) 800px, 1200px'
         />
       </Link>
-      <Link href={ROUTER.CUSTOM_KEYBOARD} className={cn('banner')}>
+      <Link href={ROUTER.COMMUNITY} className={cn('banner')}>
         <Image
-          src={banner1Img}
+          src={banner2Img}
           fill
-          alt='배너1'
+          alt='배너2'
           priority
           sizes='(max-width: 600px) 480px, (max-width: 1200px) 800px, 1200px'
         />
