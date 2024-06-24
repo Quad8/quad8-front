@@ -4,6 +4,7 @@ import { Button } from '@/components';
 import type { PostCardDetailModalCustomKeyboardType } from '@/types/CommunityTypes';
 import Image from 'next/image';
 import { keydeukImg } from '@/public/index';
+import { IMAGE_BLUR } from '@/constants/blurImage';
 
 import styles from './OrderListModal.module.scss';
 
@@ -37,7 +38,15 @@ export default function OrderListModal({
             onClick={() => onSelectProduct(i)}
           >
             <div className={cn('keyboard-image')}>
-              <Image src={order.imgUrl || keydeukImg} alt='커스텀 키보드 이미지' width={104} height={104} />
+              <Image
+                src={order.imgUrl || keydeukImg}
+                alt='커스텀 키보드 이미지'
+                width={104}
+                height={104}
+                priority
+                placeholder={IMAGE_BLUR.placeholder}
+                blurDataURL={IMAGE_BLUR.blurDataURL}
+              />
             </div>
             <div className={cn('keyboard-info-wrapper')}>
               <p className={cn('keyboard-info-title')}>키득 커스텀 키보드</p>

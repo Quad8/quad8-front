@@ -1,7 +1,8 @@
 .container {
   width: 100%;
-  height: auto;
+  height: 100vh;
   margin-right: 21.5rem;
+  overflow: auto;
 }
 
 .title {
