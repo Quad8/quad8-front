@@ -15,6 +15,10 @@
   &.lg {
     max-width: 40rem;
   }
+
+  &:hover .product-image {
+    transform: scale(1.1);
+  }
 }
 
 .product-image-wrap {
@@ -22,11 +26,13 @@
   width: 100%;
   height: 27.4rem;
   overflow: hidden;
+  border: 0.1rem solid #eee;
   border-radius: 0.8rem;
 }
 
 .product-image {
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
 .product-info {
@@ -37,6 +43,13 @@
 
 .product-title {
   @include pretendard-18-600;
+
+  display: -webkit-box;
+  height: 5.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .product-details {

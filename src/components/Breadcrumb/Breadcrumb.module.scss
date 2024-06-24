@@ -1,5 +1,6 @@
 .breadcrumb-list {
   @include pretendard-16-400;
+  @include inner;
 
   display: flex;
   align-items: center;

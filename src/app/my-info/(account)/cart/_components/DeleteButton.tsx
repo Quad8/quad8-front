@@ -29,7 +29,7 @@ export default function DeleteButton({ children }: DeleteButtonProps) {
     setIsOpenAlertDialog(value);
   };
 
-  const handledeleteCheckedData = () => {
+  const handleDeleteCheckedData = () => {
     const checkedCustomIdList = Object.keys(checkedCustomList).filter((id) => checkedCustomList[id]);
     const checkedShopIdList = Object.keys(checkedShopList).filter((id) => checkedShopList[id]);
 
@@ -61,7 +61,7 @@ export default function DeleteButton({ children }: DeleteButtonProps) {
       <Dialog
         type='confirm'
         buttonText={{ left: '취소', right: '확인' }}
-        onClick={{ left: () => handleConfirmDialog(false), right: handledeleteCheckedData }}
+        onClick={{ left: () => handleConfirmDialog(false), right: handleDeleteCheckedData }}
         message='상품을 삭제하시겠습니까?'
         isOpen={isOpenConfirmDialog}
         iconType='warn'

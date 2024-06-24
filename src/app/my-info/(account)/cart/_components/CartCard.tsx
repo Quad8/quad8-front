@@ -6,7 +6,6 @@ import classNames from 'classnames/bind';
 
 import { putChangeCartData } from '@/api/cartAPI';
 import { postCreateOrder } from '@/api/orderAPI';
-import type { CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 import type { CustomDataType, OptionChageAPIType, ShopDataType } from '@/types/CartTypes';
 import type { CreateOrderResponseType } from '@/types/OrderTypes';
 import { ROUTER } from '@/constants/route';
@@ -122,17 +121,7 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
             {type === 'shop' && <div className={cn('type')}>{category}</div>}
             <div className={cn('title')}> {title}</div>
             {type === 'custom' ? (
-              <CustomOption
-                boardType={cardData.type === 'full' ? '풀 배열' : '텐키리스'}
-                texture={cardData.texture === 'metal' ? '금속' : '플라스틱'}
-                boardColor={cardData.boardColor as string}
-                customSwitch={cardData.switchType}
-                baseKeyColor={cardData.baseKeyColor as string}
-                hasPointKeyCap={cardData.hasPointKeyCap}
-                pointKeyType={cardData.pointKeyType}
-                pointSetColor={cardData.pointSetColor as string | null}
-                individualColor={cardData.individualColor as Partial<Record<CustomKeyboardKeyTypes, string>>}
-              />
+              <CustomOption customData={cardData} />
             ) : (
               <ShopOption optionName={cardData.optionName} count={cardData.count} />
             )}

@@ -1,0 +1,19 @@
+.container {
+  @include inner;
+  @include flex-center;
+
+  gap: 3.2rem;
+  margin-bottom: 20rem;
+}
+
+.banner {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 31.4rem;
+  overflow: hidden;
+}
+
+.banner img {
+  object-fit: contain;
+}

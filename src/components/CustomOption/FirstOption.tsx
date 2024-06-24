@@ -1,4 +1,5 @@
 import { RefObject } from 'react';
+import { Color } from '@react-three/fiber';
 import classNames from 'classnames/bind';
 
 import type {
@@ -16,9 +17,9 @@ interface FirstOptionProps {
   wrapperRef?: RefObject<HTMLDivElement>;
   boardType: CustomKeyboardTypeTypes;
   texture: CustomKeyboardTextureTypes;
-  boardColor: string /* color */;
+  boardColor: string | Color;
   customSwitch: CustomKeyboardSwitchTypes;
-  baseKeyColor: string /* color */;
+  baseKeyColor: string | Color;
   hasPointKeyCap: boolean;
 }
 

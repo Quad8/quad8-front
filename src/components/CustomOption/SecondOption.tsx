@@ -6,6 +6,7 @@ import classNames from 'classnames/bind';
 import { getColorUpperCase } from '@/libs/getColorUpperCase';
 import type { CustomKeyboardPointKeyType, CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
 import { POINT_KEY } from '@/constants/keyboardData';
+import { Color } from '@react-three/fiber';
 import TooltipColor from './TooltipColor';
 import OptionWrapper from './OptionWrapper';
 
@@ -17,7 +18,7 @@ interface SecondOptionProps {
   wrapperRef?: RefObject<HTMLDivElement>;
   pointKeyType: CustomKeyboardPointKeyType;
   pointSetColor?: string | null /* color */;
-  individualColor?: Partial<Record<CustomKeyboardKeyTypes, string>> /* 키: 색상 객체 */;
+  individualColor?: Partial<Record<CustomKeyboardKeyTypes, string | Color>> /* 키: 색상 객체 */;
 }
 
 export default function SecondOption({ wrapperRef, pointKeyType, pointSetColor, individualColor }: SecondOptionProps) {

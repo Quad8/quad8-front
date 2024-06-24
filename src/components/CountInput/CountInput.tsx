@@ -43,7 +43,7 @@ export default forwardRef<HTMLInputElement, CountInputProps>(function CountInput
   };
 
   const handleBlurInput = (e: FocusEvent<HTMLInputElement>) => {
-    const newValue = Math.max(Math.min(Number(Number(e.currentTarget.value)), 99), 1);
+    const newValue = Math.max(Math.min(Number(e.currentTarget.value), 99), 1);
     setCount(newValue);
   };
 

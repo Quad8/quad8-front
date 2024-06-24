@@ -25,10 +25,10 @@
   gap: 3.5rem;
 
   & h2 {
+    @include pretendard-40-700;
+
     padding-bottom: 5rem;
     color: $primary-20;
-    font-size: 4rem;
-    font-weight: 700;
   }
 }
 
@@ -80,10 +80,7 @@
 }
 
 .typing-wrap {
-  // @include flex-center
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
 }
 
 .typing {

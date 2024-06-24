@@ -4,7 +4,7 @@ export const useIntersectionObserver = (
   elementRef: MutableRefObject<HTMLElement | null>,
   options?: IntersectionObserverInit,
 ) => {
-  const [isIntersecting, setIsIntersecting] = useState(false);
+  const [isIntersecting, setIsIntersecting] = useState(true);
 
   useEffect(() => {
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
