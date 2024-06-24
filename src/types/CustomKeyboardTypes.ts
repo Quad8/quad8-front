@@ -50,6 +50,6 @@ export interface CustomKeyboardAPITypes
   type: string;
   texture: string;
   pointKeyType: CustomKeyboardPointKeyType | null;
-  pointSetColor: Color | null;
+  pointSetColor: string | null;
   imgBase64: string;
 }

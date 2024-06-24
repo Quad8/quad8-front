@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, useCallback, useMemo, createContext, PropsWithChildren } from 'react';
+import { useState, useCallback, useMemo, createContext, PropsWithChildren, useEffect } from 'react';
 import type { Color } from '@react-three/fiber';
 import type { KeyboardDataType, CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
+import type { CustomDataType } from '@/types/CartTypes';
 
 interface KeyboardDataContextType {
+  orderId: number | null;
   keyboardData: KeyboardDataType;
   updateData: (key: keyof KeyboardDataType, value: KeyboardDataType[keyof KeyboardDataType]) => void;
   updateIndividualColor: (value: Partial<Record<CustomKeyboardKeyTypes, Color>>) => void;
@@ -14,6 +16,7 @@ interface KeyboardDataContextType {
 }
 
 export const KeyboardDataContext = createContext<KeyboardDataContextType>({
+  orderId: null,
   keyboardData: {
     type: '풀 배열',
     texture: '금속',
@@ -35,6 +38,7 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
 });
 
 export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
+  const [orderId, setOrderId] = useState<number | null>(null);
   const [keyboardData, setKeyboardData] = useState<KeyboardDataType>({
     type: '풀 배열',
     texture: '금속',
@@ -73,9 +77,40 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
     setKeyboardData((prev) => ({ ...prev, option: [...prev.option.filter((element) => element !== id)] }));
   }, []);
 
+  useEffect(() => {
+    const data = localStorage.getItem('customData');
+    if (!data) {
+      return;
+    }
+    localStorage.removeItem('customData');
+    const customData = JSON.parse(data) as CustomDataType;
+    setOrderId(customData.id);
+    setKeyboardData({
+      type: customData.type === 'full' ? '풀 배열' : '텐키리스',
+      texture: customData.texture === 'metal' ? '금속' : '플라스틱',
+      boardColor: customData.boardColor,
+      switchType: customData.switchType,
+      baseKeyColor: customData.baseKeyColor,
+      hasPointKeyCap: customData.hasPointKeyCap,
+      pointKeyType: customData.pointKeyType ?? '세트 구성',
+      pointKeySetColor: customData.pointSetColor ?? customData.baseKeyColor,
+      price: customData.price,
+      option: [],
+      individualColor: customData.individualColor ?? {},
+    });
+  }, []);
+
   const value = useMemo(
-    () => ({ keyboardData, updateData, updateIndividualColor, deleteIndividualColor, updatePrice, deleteOption }),
-    [keyboardData, updateData, updateIndividualColor, deleteIndividualColor, updatePrice, deleteOption],
+    () => ({
+      orderId,
+      keyboardData,
+      updateData,
+      updateIndividualColor,
+      deleteIndividualColor,
+      updatePrice,
+      deleteOption,
+    }),
+    [orderId, keyboardData, updateData, updateIndividualColor, deleteIndividualColor, updatePrice, deleteOption],
   );
 
   return <KeyboardDataContext.Provider value={value}>{children}</KeyboardDataContext.Provider>;

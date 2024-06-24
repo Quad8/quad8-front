@@ -15,9 +15,12 @@ interface ShopAllPageProps {
 }
 
 export default async function ShopAllPage({ searchParams }: ShopAllPageProps) {
+  const sortParam = Array.isArray(searchParams.sort) ? searchParams.sort[0] : searchParams.sort || 'createdAt_desc';
+  const pageParam = Array.isArray(searchParams.page) ? searchParams.page[0] : searchParams.page || '0';
+
   const getAllProductParams: ProductParams = {
-    sort: searchParams.sort || 'createdAt_desc',
-    page: searchParams.page || '0',
+    sort: sortParam as string,
+    page: pageParam as string,
     size: '16',
   };
 

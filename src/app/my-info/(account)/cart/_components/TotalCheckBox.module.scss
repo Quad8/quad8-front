@@ -1,0 +1,27 @@
+.select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.count-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.box-text {
+  @include pretendard-18-400;
+
+  color: $black;
+}
+
+.count-text {
+  @include pretendard-16-500;
+
+  color: $gray-50;
+}
+
+.selected-all {
+  color: $primary;
+}
