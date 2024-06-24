@@ -21,8 +21,8 @@ interface ProductReviewListProps {
 export default function ProductReviewList({ data, productId }: ProductReviewListProps) {
   const { reviewDtoList, ...previewData } = data;
   const allReviewImgs = reviewDtoList.flatMap((review) => review.reviewImgs);
-  const [dropdownValue, setDropdownValue] = useState(PRODUCT_REVIEW_SORT_OPTIONS[0].label);
-  const [sortQuery, setSortQuery] = useState<string | undefined>(PRODUCT_REVIEW_SORT_OPTIONS[0].value);
+  const [dropdownValue, setDropdownValue] = useState(PRODUCT_REVIEW_SORT_OPTIONS[1].label);
+  const [sortQuery, setSortQuery] = useState<string | undefined>(PRODUCT_REVIEW_SORT_OPTIONS[1].value);
 
   const {
     data: sortedData,
