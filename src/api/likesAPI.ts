@@ -54,7 +54,7 @@ export const deleteCommunityLikes = async (communityId: number) => {
   const token = await getCookie('accessToken');
 
   try {
-    await fetch(`${BASE_URL}/api/community/likes/${communityId}`, {
+    await fetch(`${BASE_URL}/api/v1/community/likes/${communityId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
