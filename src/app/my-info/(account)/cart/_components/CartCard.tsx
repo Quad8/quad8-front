@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
+import Link from 'next/link';
 
 import { putChangeCartData } from '@/api/cartAPI';
 import { postCreateOrder } from '@/api/orderAPI';
@@ -32,6 +33,7 @@ interface ShopCardProps {
 const CATEGORY = {
   keyboard: '키보드',
   keycap: '키캡',
+  switch: '스위치',
   etc: '기타 용품',
 };
 
@@ -115,18 +117,24 @@ export default function CartCard({ cardData, type }: CustomCardProps | ShopCardP
         <div>
           <CardCheckBox id={cardData.id} type={type} />
         </div>
-        <div className={cn('product-wrapper')}>
-          <Image src={imageURL} width={104} height={104} alt='이미지' className={cn('image')} priority />
-          <div className={cn('information-wrapper')}>
-            {type === 'shop' && <div className={cn('type')}>{category}</div>}
-            <div className={cn('title')}> {title}</div>
-            {type === 'custom' ? (
-              <CustomOption customData={cardData} />
-            ) : (
+        {type === 'shop' ? (
+          <Link className={cn('product-wrapper')} href={`/shop/${cardData.category}/${cardData.prductId}`}>
+            <Image src={imageURL} width={104} height={104} alt='이미지' className={cn('image')} priority />
+            <div className={cn('information-wrapper')}>
+              {type === 'shop' && <div className={cn('type')}>{category}</div>}
+              <div className={cn('title')}> {title}</div>
               <ShopOption optionName={cardData.optionName} count={cardData.count} />
-            )}
+            </div>
+          </Link>
+        ) : (
+          <div className={cn('product-wrapper')}>
+            <Image src={imageURL} width={104} height={104} alt='이미지' className={cn('image')} priority />
+            <div className={cn('information-wrapper')}>
+              <div className={cn('title')}> {title}</div>
+              <CustomOption customData={cardData} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className={cn('price')}>{price.toLocaleString()}원</div>
       <div className={cn('button-wrapper')}>
