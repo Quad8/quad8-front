@@ -72,7 +72,6 @@ function DatePicker({ onDateChange }: DatePickerProps) {
     <div className={cn('container')}>
       <div className={cn('month-picker-wrapper')}>
         <Button
-          className={cn('date-option', 'first', `${selectedMonthOption === 1 && 'is-focus'}`)}
           hoverColor='outline-primary'
           paddingVertical={8}
           width={90}
@@ -82,7 +81,6 @@ function DatePicker({ onDateChange }: DatePickerProps) {
           1개월
         </Button>
         <Button
-          className={cn('date-option', 'second', `${selectedMonthOption === 2 && 'is-focus'}`)}
           hoverColor='outline-primary'
           paddingVertical={8}
           width={90}
@@ -92,7 +90,6 @@ function DatePicker({ onDateChange }: DatePickerProps) {
           2개월
         </Button>
         <Button
-          className={cn('date-option', 'third', `${selectedMonthOption === 3 && 'is-focus'}`)}
           hoverColor='outline-primary'
           paddingVertical={8}
           width={90}

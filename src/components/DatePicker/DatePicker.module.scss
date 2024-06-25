@@ -22,7 +22,6 @@
 }
 
 .month-picker-wrapper {
-  height: 100%;
   margin-right: 4rem;
 
   & > :nth-child(1) {
@@ -41,6 +40,9 @@
 .date-option {
   @include default-color;
   @include flex-center;
+
+  width: 10rem;
+  height: 100%;
 }
 
 .custom-picker-wrapper {
@@ -68,10 +70,6 @@
     & > svg {
       stroke: $primary;
     }
-  }
-
-  & > .date-text {
-    margin-top: 0.3rem;
   }
 }
 
