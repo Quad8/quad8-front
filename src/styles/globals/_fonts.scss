@@ -1,4 +1,11 @@
 @font-face {
+  font-family: Pretendard-Thin;
+  font-style: normal;
+  font-weight: 100;
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Thin.woff') format('woff');
+}
+
+@font-face {
   font-family: Pretendard-Regular;
   font-style: normal;
   font-weight: 400;
@@ -43,7 +50,9 @@
 @mixin font-mixin($font-family, $font-size, $font-weight) {
   $line-height: line-height-calc($font-family, $font-size);
   @if $font-family == 'Pretendard' {
-    @if $font-weight == 400 {
+    @if $font-weight == 100 {
+      font-family: Pretendard-Thin, sans-serif;
+    } @else if $font-weight == 400 {
       font-family: Pretendard-Regular, sans-serif;
     } @else if $font-weight == 500 {
       font-family: Pretendard-Medium, sans-serif;
