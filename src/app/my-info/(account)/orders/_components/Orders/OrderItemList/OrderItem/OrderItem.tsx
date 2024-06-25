@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 
 import { getOrderStatusDescription } from '@/libs/getOrderStatusDescriptions';
-import type { OrderItem as OrderItemT, OrderStatus } from '@/types/orderType';
+import type { OrderItem as OrderItemT, OrderStatus } from '@/types/OrderTypes';
 import ItemOverview from '../../../../../../../../components/ItemOverview/ItemOverview';
 import OrderItemButton from './OrderItemButton/OrderItemButton';
 

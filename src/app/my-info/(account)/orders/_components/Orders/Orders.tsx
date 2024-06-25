@@ -1,13 +1,13 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 
 import { getOrdersData } from '@/api/orderAPI';
 import { MyInfoEmptyCase } from '@/app/my-info/_components';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import { formatStartDate } from '@/libs/formatStartDate';
-import type { Order } from '@/types/orderType';
-import { useEffect, useState } from 'react';
+import type { Order } from '@/types/OrderTypes';
 import { OrderHeader, OrderItemList } from './index';
 
 export default function Orders() {

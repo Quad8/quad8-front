@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ROUTER } from '@/constants/route';
 import { formatDateToString } from '@/libs/formatDateToString';
 import { ChevronIcon } from '@/public/index';
-import type { Order } from '@/types/orderType';
+import type { Order } from '@/types/OrderTypes';
 import OrderItem from './OrderItem/OrderItem';
 
 import styles from './OrderItemList.module.scss';
