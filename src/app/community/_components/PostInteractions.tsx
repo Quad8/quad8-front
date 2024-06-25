@@ -27,7 +27,7 @@ export function PostInteractions({ cardId, likeCount, commentCount, isLiked }: P
         <HeartButton id={cardId} isLiked={isLiked} usage='community' likeCount={likeCount} />
       </div>
       <div className={cn('icon-and-count')}>
-        <CommentIcon />
+        <CommentIcon fill='#4968f6' />
         <p className={cn('count')}>{commentCount > MAX_COUNT ? '99+' : commentCount}</p>
       </div>
     </div>
