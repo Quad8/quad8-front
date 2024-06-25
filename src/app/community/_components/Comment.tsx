@@ -47,7 +47,7 @@ export default function Comment({
 
   const userData = queryClient.getQueryData<UserDataType>(['userData']);
 
-  const userID = userData?.data.id;
+  const userID = userData?.data?.id;
 
   const { mutate: deleteCommentMutation } = useMutation({
     mutationFn: deleteComment,
