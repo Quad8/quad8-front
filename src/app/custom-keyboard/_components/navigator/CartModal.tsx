@@ -263,9 +263,7 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
           {orderId ? '수정하기' : '장바구니 담기'}
         </Button>
       </div>
-      <div onClick={(e) => e.stopPropagation()}>
-        <SignInModal isOpen={isOpenLoginModal} onClose={() => setIsOpenLoginModal(false)} />
-      </div>
+      <SignInModal isOpen={isOpenLoginModal} onClose={() => setIsOpenLoginModal(false)} />
     </div>
   );
 }

@@ -65,41 +65,42 @@ export default function WritePostButton() {
           <PlusIcon /> 글 작성하기
         </div>
       </Button>
-      {orderListData?.data?.length > 0 ? (
-        <>
-          <Modal isOpen={isOpenOrderListModal} onClose={closeOrderListModal}>
-            <OrderListModal
-              orderList={orderListData.data}
-              onOpenReviewModal={openReviewModal}
-              onSelectProduct={handleClickProductList}
-              selectedOrder={selectedOrder}
-            />
-          </Modal>
-          {selectedOrder && (
-            <Modal isOpen={isOpenReviewModal} onClose={closeReviewModal}>
-              <WriteEditModal
-                keyboardInfo={selectedOrder}
-                reviewType='customReview'
-                onSuccessReview={handleSuccessPost}
+      {orderListData &&
+        (orderListData?.data?.length > 0 ? (
+          <>
+            <Modal isOpen={isOpenOrderListModal} onClose={closeOrderListModal}>
+              <OrderListModal
+                orderList={orderListData.data}
+                onOpenReviewModal={openReviewModal}
+                onSelectProduct={handleClickProductList}
+                selectedOrder={selectedOrder}
               />
             </Modal>
-          )}
-        </>
-      ) : (
-        <Dialog
-          type='confirm'
-          message='커스텀 키보드 구매내역이 없습니다.'
-          isOpen={isOpenOrderListModal}
-          iconType='warn'
-          buttonText={{ left: '댣기', right: '커스텀 만들러 가기' }}
-          onClick={{
-            left: () => setIsOpenOrderListModal(false),
-            right: () => {
-              router.push(ROUTER.CUSTOM_KEYBOARD);
-            },
-          }}
-        />
-      )}
+            {selectedOrder && (
+              <Modal isOpen={isOpenReviewModal} onClose={closeReviewModal}>
+                <WriteEditModal
+                  keyboardInfo={selectedOrder}
+                  reviewType='customReview'
+                  onSuccessReview={handleSuccessPost}
+                />
+              </Modal>
+            )}
+          </>
+        ) : (
+          <Dialog
+            type='confirm'
+            message='커스텀 키보드 구매내역이 없습니다.'
+            isOpen={isOpenOrderListModal}
+            iconType='warn'
+            buttonText={{ left: '댣기', right: '커스텀 만들러 가기' }}
+            onClick={{
+              left: () => setIsOpenOrderListModal(false),
+              right: () => {
+                router.push(ROUTER.CUSTOM_KEYBOARD);
+              },
+            }}
+          />
+        ))}
     </div>
   );
 }
