@@ -75,6 +75,8 @@ function DatePicker({ onDateChange }: DatePickerProps) {
           className={cn('date-option', 'first', `${selectedMonthOption === 1 && 'is-focus'}`)}
           hoverColor='outline-primary'
           paddingVertical={8}
+          width={90}
+          backgroundColor={selectedMonthOption === 1 ? 'outline-primary' : 'outline-gray-40'}
           onClick={() => handleClickMonthOption(1)}
         >
           1개월
@@ -83,6 +85,8 @@ function DatePicker({ onDateChange }: DatePickerProps) {
           className={cn('date-option', 'second', `${selectedMonthOption === 2 && 'is-focus'}`)}
           hoverColor='outline-primary'
           paddingVertical={8}
+          width={90}
+          backgroundColor={selectedMonthOption === 2 ? 'outline-primary' : 'outline-gray-40'}
           onClick={() => handleClickMonthOption(2)}
         >
           2개월
@@ -91,6 +95,8 @@ function DatePicker({ onDateChange }: DatePickerProps) {
           className={cn('date-option', 'third', `${selectedMonthOption === 3 && 'is-focus'}`)}
           hoverColor='outline-primary'
           paddingVertical={8}
+          width={90}
+          backgroundColor={selectedMonthOption === 3 ? 'outline-primary' : 'outline-gray-40'}
           onClick={() => handleClickMonthOption(3)}
         >
           3개월

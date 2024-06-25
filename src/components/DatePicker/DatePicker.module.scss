@@ -41,9 +41,6 @@
 .date-option {
   @include default-color;
   @include flex-center;
-
-  width: 10rem;
-  height: 100%;
 }
 
 .custom-picker-wrapper {
