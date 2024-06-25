@@ -17,6 +17,7 @@ import { StepContext, KeyboardDataContext } from '@/context';
 import { putUpdateCustomKeyboardData } from '@/api/cartAPI';
 import { toast } from 'react-toastify';
 import { ROUTER } from '@/constants/route';
+import { getCookie } from '@/libs/manageCookie';
 import CartModalOptionCard from './parts/CartModalOptionCard';
 
 import styles from './CartModal.module.scss';
@@ -26,7 +27,6 @@ const cn = classNames.bind(styles);
 interface CartModalProps {
   optionData: OptionDataType[];
   optionPrice: number;
-  accessToken: string;
   onClose: () => void;
   onChangeLoginModal: (value: boolean) => void;
   onUpdateOptionPrice: (value: number) => void;
@@ -53,7 +53,6 @@ const SWITCH_LIST = {
 export default function CartModal({
   optionData,
   optionPrice,
-  accessToken,
   onClose,
   onChangeLoginModal,
   onUpdateOptionPrice,
@@ -138,11 +137,13 @@ export default function CartModal({
 
   const handleClickPutButton = async () => {
     const id = params.get('orderId');
+    const accessToken = await getCookie('accessToken');
+
     if (!accessToken) {
-      onClose();
       onChangeLoginModal(true);
       return;
     }
+
     const data = {
       type: type === '풀 배열' ? 'full' : 'tkl',
       texture: texture === '금속' ? 'metal' : 'plastic',

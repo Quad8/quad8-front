@@ -24,10 +24,6 @@ import styles from './TotalCostWithNavigation.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface TotalCostWithNavigationProps {
-  accessToken: string;
-}
-
 type DualButtonType = {
   [key in CustomKeyboardStepTypes]: {
     prev: CustomKeyboardStepTypes | null;
@@ -72,7 +68,7 @@ const UPDATE_NEXT_STEP_STATUS: UpdateStepType<'keyCap'> = {
   switch: { switch: 'completed', keyCap: 'current' },
 };
 
-export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNavigationProps) {
+export default function TotalCostWithNavigation() {
   const { data: randomProductData } = useQuery<OptionDataType[]>({
     queryKey: ['customRandomProduct'],
     queryFn: getRandomOptionProduct,
@@ -230,10 +226,11 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
           onClose={handleCloseCartMoal}
           onChangeLoginModal={handleLoginModal}
           onUpdateOptionPrice={updateOptionPrice}
-          accessToken={accessToken}
         />
       </Modal>
-      <SignInModal isOpen={isOpenLoginModal} onClose={() => handleLoginModal(false)} />
+      <div onClick={(e) => e.stopPropagation()}>
+        <SignInModal isOpen={isOpenLoginModal} onClose={() => handleLoginModal(false)} />
+      </div>
     </div>
   );
 }
