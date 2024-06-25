@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames/bind';
 import { useRef } from 'react';
 
@@ -31,9 +33,9 @@ export default function OrderListModal({
   };
 
   return (
-    <div className={cn('container')} ref={containerRef}>
+    <div className={cn('container')}>
       <h1 className={cn('title')}>작성할 후기 제품을 선택해주세요.</h1>
-      <div className={cn('keyboard-list-wrapper')}>
+      <div className={cn('keyboard-list-wrapper')} ref={containerRef}>
         {orderList.map((order, i) => (
           <div
             className={cn('keyboard-list', { 'selected-list': order === selectedOrder })}
