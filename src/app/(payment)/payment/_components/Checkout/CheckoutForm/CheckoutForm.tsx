@@ -1,12 +1,16 @@
 'use client';
 
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 
-import { Button, Dropdown } from '@/components';
+import { getPaymentItemData } from '@/api/orderAPI';
+import { Button, Dropdown, ItemOverview } from '@/components';
 import { Input, Label } from '@/components/parts';
 import { ROUTER } from '@/constants/route';
+import type { OrderItem } from '@/types/OrderTypes';
+import type { OrderDetailData } from '@/types/paymentTypes';
 
 import styles from './CheckoutForm.module.scss';
 
@@ -15,7 +19,16 @@ const cn = classNames.bind(styles);
 const DELIVERY_OPTIONS = ['부재시 문앞에 놓아주세요.', '경비실에 맡겨 주세요', '직접 입력'];
 
 export default function CheckoutForm() {
+  const queryClient = useQueryClient();
   const router = useRouter();
+
+  const orderId = queryClient.getQueryData<string>(['orderId']);
+  const { data: paymentItemData } = useQuery<{ data: OrderDetailData | null }>({
+    queryKey: ['paymentItemData'],
+    queryFn: () => getPaymentItemData(orderId),
+  });
+
+  const orderDetailData = paymentItemData?.data ?? null;
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,12 +40,15 @@ export default function CheckoutForm() {
       <article className={cn('form')}>
         <div className={cn('item-box')}>
           <h1>주문 상품</h1>
-          <div className={cn('item')}>상품 컴포넌트</div>
+          {orderDetailData?.orderItemResponses &&
+            orderDetailData.orderItemResponses.map((item: OrderItem) => (
+              <ItemOverview key={item.productId} imegeWidth={104} imageHeight={104} item={item} />
+            ))}
         </div>
 
         <div className={cn('price-box')}>
           <p>총 주문금액</p>
-          <p className={cn('price')}>99,999원</p>
+          <p className={cn('price')}>{orderDetailData?.totalPrice}원</p>
         </div>
 
         <div className={cn('address-section')}>
@@ -45,9 +61,12 @@ export default function CheckoutForm() {
                 <p>배송 주소</p>
               </div>
               <div className={cn('address-value')}>
-                <p>오수야</p>
-                <p>010-1234-5678</p>
-                <p>서울시 인천시 일산구</p>
+                <p>{orderDetailData?.shippingAddressResponse.name}</p>
+                <p>{orderDetailData?.shippingAddressResponse.phone}</p>
+                <p>
+                  {orderDetailData?.shippingAddressResponse.address}{' '}
+                  {orderDetailData?.shippingAddressResponse.detailAddress}
+                </p>
               </div>
             </div>
             <Button type='button' paddingVertical={8} width={72} radius={4}>
@@ -106,7 +125,7 @@ export default function CheckoutForm() {
           <h1>결제 상세</h1>
           <p className={cn('checkout-method')}>
             <span className={cn('method-title')}>신용카드</span>
-            99,999원
+            {orderDetailData?.totalPrice}원
           </p>
         </div>
       </article>

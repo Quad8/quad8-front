@@ -1,16 +1,18 @@
 /* stylelint-disable */
 
-.Toastify--animate {
+$toastify: 'Toastify';
+
+.#{$toastify}--animate {
   animation-fill-mode: both;
-  animation-duration: 0.5s;
+  animation-duration: 0.7s;
 }
 
-.Toastify--animate-icon {
+.#{$toastify}--animate-icon {
   animation-fill-mode: both;
-  animation-duration: 0.3s;
+  animation-duration: 0.7s;
 }
 
-@keyframes Toastify__track-progress {
+@keyframes #{$toastify}__track-progress {
   0% {
     transform: scaleX(0);
   }
@@ -20,11 +22,11 @@
   }
 }
 
-.Toastify__progress-bar--animated {
-  animation: Toastify__track-progress linear 1 forwards;
+.#{$toastify}__progress-bar--animated {
+  animation: #{$toastify}__track-progress linear 1 forwards;
 }
 
-@keyframes Toastify__zoomIn {
+@keyframes #{$toastify}__zoomIn {
   0% {
     transform: scale3d(0.3, 0.3, 0.3);
     opacity: 0;
@@ -35,7 +37,7 @@
   }
 }
 
-@keyframes Toastify__zoomOut {
+@keyframes #{$toastify}__zoomOut {
   0% {
     opacity: 1;
   }
@@ -50,10 +52,10 @@
   }
 }
 
-.Toastify__zoom-enter {
-  animation-name: Toastify__zoomIn;
+.#{$toastify}__zoom-enter {
+  animation-name: #{$toastify}__zoomIn;
 }
 
-.Toastify__zoom-exit {
-  animation-name: Toastify__zoomOut;
+.#{$toastify}__zoom-exit {
+  animation-name: #{$toastify}__zoomOut;
 }
