@@ -14,13 +14,20 @@ interface ItemOverviewProps {
   imegeWidth?: number;
   imageHeight?: number;
   className?: string;
+  onClick?: () => void;
 }
 
-export default function ItemOverview({ item, imegeWidth = 107, imageHeight = 107, className }: ItemOverviewProps) {
+export default function ItemOverview({
+  item,
+  imegeWidth = 107,
+  imageHeight = 107,
+  className,
+  onClick,
+}: ItemOverviewProps) {
   const { productImgUrl, productName, switchOption, quantity } = item;
 
   return (
-    <div className={cn('item', className)}>
+    <div className={cn('item', className)} onClick={() => onClick?.()}>
       <Image
         src={productImgUrl}
         alt={productName}
@@ -28,9 +35,11 @@ export default function ItemOverview({ item, imegeWidth = 107, imageHeight = 107
         height={imageHeight}
         placeholder={IMAGE_BLUR.placeholder}
         blurDataURL={IMAGE_BLUR.blurDataURL}
+        className={cn('product-image')}
       />
       {productName === '키득 커스텀 키보드' ? (
         <div className={cn('item-option')}>
+          <p className={cn('keydeuk-keyboard-title')}>키드 커스텀 키보드</p>
           <CustomOption customData={switchOption} />
         </div>
       ) : (

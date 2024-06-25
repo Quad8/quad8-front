@@ -1,12 +1,12 @@
 import classNames from 'classnames/bind';
+import { useRef } from 'react';
 
-import { Button } from '@/components';
+import { Button, CustomOption } from '@/components';
 import type { PostCardDetailModalCustomKeyboardType } from '@/types/CommunityTypes';
 import Image from 'next/image';
 import { keydeukImg } from '@/public/index';
 import { IMAGE_BLUR } from '@/constants/blurImage';
 
-// import { CustomKeyboardAPITypes } from '@/types/CustomKeyboardTypes';
 import styles from './OrderListModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -24,12 +24,14 @@ export default function OrderListModal({
   onSelectProduct,
   selectedOrder,
 }: OrderListModalProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const handleClickWriteButton = () => {
     onOpenReviewModal();
   };
 
   return (
-    <div className={cn('container')}>
+    <div className={cn('container')} ref={containerRef}>
       <h1 className={cn('title')}>작성할 후기 제품을 선택해주세요.</h1>
       <div className={cn('keyboard-list-wrapper')}>
         {orderList.map((order, i) => (
@@ -51,27 +53,9 @@ export default function OrderListModal({
             </div>
             <div className={cn('keyboard-info-wrapper')}>
               <p className={cn('keyboard-info-title')}>키득 커스텀 키보드</p>
-              <div>키보드 옵션 들어간다</div>
+              <CustomOption wrapperRef={containerRef} customData={order} />
             </div>
           </div>
-          // <ItemOverview
-          //   key={order.productId}
-          //   item={{
-          //     productId: order.productId,
-          //     productImgUrl: order.imgUrl,
-          //     productName: '키득 커스텀 키보드',
-          //     switchOption: {
-          //       type: order.type,
-          //       texture: order.texture,
-          //       pointKeyType: order.pointKeyType,
-          //       pointSetColor: order.pointSetColor,
-          //       imgBase64: IMAGE_BLUR.blurDataURL,
-          //     } as CustomKeyboardAPITypes,
-          //   }}
-          //   imegeWidth={104}
-          //   imageHeight={104}
-          //   className='keyboard-image'
-          // />
         ))}
       </div>
       <div className={cn('button-wrapper')}>
