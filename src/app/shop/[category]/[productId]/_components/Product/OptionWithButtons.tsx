@@ -7,7 +7,7 @@ import SignInModal from '@/components/SignInModal/SignInModal';
 import { ROUTER } from '@/constants/route';
 import type { CartProductType, ProductType } from '@/types/ProductTypes';
 import { Users } from '@/types/userType';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -29,6 +29,7 @@ interface SelectedOptionType {
 const OPTION_PLACEHOLDER = '스위치 (필수)';
 
 export default function OptionWithButton({ productData }: OptionWithButtonProps) {
+  const queryClient = useQueryClient();
   const { id: productId, optionList, price } = productData;
 
   const optionNames = optionList?.map((option) => option.optionName);
@@ -93,6 +94,7 @@ export default function OptionWithButton({ productData }: OptionWithButtonProps)
   const handleAddCartProduct = (data: CartProductType) => {
     addCartProduct(data, {
       onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['cartData'] });
         toast.success('상품이 장바구니에 담겼습니다.');
         setSelectedOptions([]);
       },

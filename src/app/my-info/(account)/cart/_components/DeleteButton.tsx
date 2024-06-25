@@ -62,7 +62,7 @@ export default function DeleteButton({ children }: DeleteButtonProps) {
         type='confirm'
         buttonText={{ left: '취소', right: '확인' }}
         onClick={{ left: () => handleConfirmDialog(false), right: handleDeleteCheckedData }}
-        message='상품을 삭제하시겠습니까?'
+        message='장바구니에서 상품을 삭제하시겠습니까?'
         isOpen={isOpenConfirmDialog}
         iconType='warn'
       />
@@ -70,7 +70,7 @@ export default function DeleteButton({ children }: DeleteButtonProps) {
         type='alert'
         buttonText='확인'
         onClick={() => handleAlertDialog(false)}
-        message='상품이 삭제되었습니다'
+        message='해당 상품이 삭제되었습니다'
         isOpen={isOpenAlertDialog}
         iconType='accept'
       />
