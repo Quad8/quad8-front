@@ -17,9 +17,9 @@ interface ButtonCustomProps {
   backgroundColor?: ButtonColorType;
   hoverColor?: ButtonColorType;
   radius?: 4 | 8;
-  width?: 72 | 90 | 120 | 154 | 320;
+  width?: 72 | 90 | 120 | 154 | 199 | 320;
   fontSize?: 14 | 18 | 20 | 24;
-  paddingVertical?: 8 | 20;
+  paddingVertical?: 2 | 8 | 20;
   children: ReactNode;
   className?: string;
   as?: ElementType;

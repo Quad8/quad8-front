@@ -7,9 +7,9 @@ import { Suspense, useContext, useState } from 'react';
 import { Vector3 } from 'three';
 
 import { FocusKeyContext, StepContext } from '@/context';
+import LogoLoading from '@/components/LogoLoading/LogoLoading';
 import Keyboard from './parts/Keyboard';
 import Step from './Step';
-import CanvasLoading from './parts/CanvasLoading';
 
 import styles from './KeyboardViewer.module.scss';
 
@@ -36,7 +36,7 @@ export default function KeyboardViewer() {
 
   return (
     <div className={cn('wrapper')}>
-      <Suspense fallback={<CanvasLoading />}>
+      <Suspense fallback={<LogoLoading />}>
         <div className={cn('step-wrapper')}>{isLoaded && <Step />}</div>
         <Canvas
           camera={CAMERA}

@@ -1,5 +1,7 @@
 .wrapper {
   @include flex-column(4rem);
+
+  width: calc(100vw - 47rem);
 }
 
 .title {

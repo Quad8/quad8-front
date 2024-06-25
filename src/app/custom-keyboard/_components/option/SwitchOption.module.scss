@@ -22,11 +22,6 @@
 }
 
 .button {
-  @include pretendard-18-400;
-  @include flex-center;
-
-  width: 19.9rem;
-
   &:hover {
     border-color: $primary-60;
 

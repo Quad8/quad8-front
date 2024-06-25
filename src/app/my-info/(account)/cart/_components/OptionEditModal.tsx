@@ -10,6 +10,7 @@ import type { OptionChageAPIType } from '@/types/CartTypes';
 import type { ProductType } from '@/types/ProductTypes';
 import { Button, Dropdown, CountInput } from '@/components';
 
+import { IMAGE_BLUR } from '@/constants/blurImage';
 import styles from './OptionEditModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -78,8 +79,8 @@ export default function OptionEditModal({
           width={104}
           height={104}
           className={cn('image')}
-          placeholder='blur'
-          blurDataURL='data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBAB  bWyZJf74GZgAAAABJRU5ErkJggg=='
+          placeholder={IMAGE_BLUR.placeholder}
+          blurDataURL={IMAGE_BLUR.blurDataURL}
         />
         <div className={cn('information-wrapper')}>
           <div className={cn('header-name')}>{productData.name}</div>
