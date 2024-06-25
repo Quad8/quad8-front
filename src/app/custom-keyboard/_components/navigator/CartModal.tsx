@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { MouseEvent, useContext, useRef, RefObject } from 'react';
+import { MouseEvent, useContext, useRef, RefObject, useState } from 'react';
 import { StaticImageData } from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -18,6 +18,7 @@ import { putUpdateCustomKeyboardData } from '@/api/cartAPI';
 import { toast } from 'react-toastify';
 import { ROUTER } from '@/constants/route';
 import { getCookie } from '@/libs/manageCookie';
+import SignInModal from '@/components/SignInModal/SignInModal';
 import CartModalOptionCard from './parts/CartModalOptionCard';
 
 import styles from './CartModal.module.scss';
@@ -28,7 +29,6 @@ interface CartModalProps {
   optionData: OptionDataType[];
   optionPrice: number;
   onClose: () => void;
-  onChangeLoginModal: (value: boolean) => void;
   onUpdateOptionPrice: (value: number) => void;
 }
 
@@ -50,17 +50,13 @@ const SWITCH_LIST = {
   흑축: blackSwitchImg,
 };
 
-export default function CartModal({
-  optionData,
-  optionPrice,
-  onClose,
-  onChangeLoginModal,
-  onUpdateOptionPrice,
-}: CartModalProps) {
+export default function CartModal({ optionData, optionPrice, onClose, onUpdateOptionPrice }: CartModalProps) {
   const router = useRouter();
   const params = useSearchParams();
   const queryClient = useQueryClient();
+
   const orderWrapperRef = useRef<HTMLDivElement>(null);
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const {
     mutate: createCustomKeybaord,
     isSuccess: createMutationSucess,
@@ -141,7 +137,7 @@ export default function CartModal({
     const accessToken = await getCookie('accessToken');
 
     if (!accessToken) {
-      onChangeLoginModal(true);
+      setIsOpenLoginModal(true);
       return;
     }
 
@@ -266,6 +262,9 @@ export default function CartModal({
         >
           {orderId ? '수정하기' : '장바구니 담기'}
         </Button>
+      </div>
+      <div onClick={(e) => e.stopPropagation()}>
+        <SignInModal isOpen={isOpenLoginModal} onClose={() => setIsOpenLoginModal(false)} />
       </div>
     </div>
   );
