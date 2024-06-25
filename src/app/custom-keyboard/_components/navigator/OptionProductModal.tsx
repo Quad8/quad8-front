@@ -52,6 +52,11 @@ export default function OptionProductModal({
     onClick();
   };
 
+  const handleClickCloseButton = () => {
+    onClose();
+    onClick();
+  };
+
   return (
     <div className={cn('wrapper')}>
       <div className={cn('header-wrapper')}>
@@ -72,7 +77,10 @@ export default function OptionProductModal({
           ))}
         </div>
         <div className={cn('button-wrapper')}>
-          <Button onClick={handleClickAddButton} className={cn('button')} hoverColor='background-primary-60'>
+          <Button width={199} radius={4} onClick={handleClickCloseButton} hoverColor='background-primary-60'>
+            괜찮습니다
+          </Button>
+          <Button width={199} radius={4} onClick={handleClickAddButton} hoverColor='background-primary-60'>
             추가하기
           </Button>
         </div>

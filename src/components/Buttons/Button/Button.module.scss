@@ -100,6 +100,10 @@
   width: 15.4rem;
 }
 
+.width-199 {
+  width: 19.9rem;
+}
+
 .width-320 {
   width: 32rem;
 }
@@ -118,6 +122,10 @@
 
 .font-24 {
   @include pretendard-24-700;
+}
+
+.padding-2 {
+  padding: 0.2rem 0;
 }
 
 .padding-8 {

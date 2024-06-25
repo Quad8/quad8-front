@@ -17,7 +17,7 @@
   @include flex-column(2rem);
 
   padding-right: 1rem;
-  overflow-y: scroll;
+  overflow: hidden scroll;
 
   &::-webkit-scrollbar {
     width: 0.931rem;
@@ -57,9 +57,12 @@
 .keyboard-image {
   width: 10.4rem;
   height: 10.4rem;
-  overflow: hidden;
   border: 0.1rem solid $gray-20;
   border-radius: 0.8rem;
+}
+
+.keyboard-info-wrapper {
+  overflow: hidden;
 }
 
 .keyboard-info-title {

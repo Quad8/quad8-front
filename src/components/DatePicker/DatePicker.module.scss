@@ -22,7 +22,6 @@
 }
 
 .month-picker-wrapper {
-  height: 100%;
   margin-right: 4rem;
 
   & > :nth-child(1) {
@@ -71,10 +70,6 @@
     & > svg {
       stroke: $primary;
     }
-  }
-
-  & > .date-text {
-    margin-top: 0.3rem;
   }
 }
 

@@ -2,15 +2,11 @@
 
 import { ReactNode, useContext, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import classNames from 'classnames/bind';
 
 import { deleteCartData } from '@/api/cartAPI';
 import { Button, Dialog } from '@/components';
 import { CartDataContext } from '@/context/CartDataContext';
-
-import styles from './DeleteButton.module.scss';
-
-const cn = classNames.bind(styles);
+import { toast } from 'react-toastify';
 
 interface DeleteButtonProps {
   children: ReactNode;
@@ -43,6 +39,9 @@ export default function DeleteButton({ children }: DeleteButtonProps) {
         handleAlertDialog(true);
         queryClient.invalidateQueries({ queryKey: ['cartData'] });
       },
+      onError: () => {
+        toast.error('장바구니 수정에 실패하였습니다');
+      },
     });
   };
 
@@ -52,8 +51,10 @@ export default function DeleteButton({ children }: DeleteButtonProps) {
         backgroundColor='outline-primary'
         width={90}
         radius={4}
-        className={cn('button')}
+        paddingVertical={8}
+        fontSize={14}
         onClick={() => handleConfirmDialog(true)}
+        hoverColor='outline-primary-60'
       >
         {children}
       </Button>
@@ -61,7 +62,7 @@ export default function DeleteButton({ children }: DeleteButtonProps) {
         type='confirm'
         buttonText={{ left: '취소', right: '확인' }}
         onClick={{ left: () => handleConfirmDialog(false), right: handleDeleteCheckedData }}
-        message='상품을 삭제하시겠습니까?'
+        message='장바구니에서 상품을 삭제하시겠습니까?'
         isOpen={isOpenConfirmDialog}
         iconType='warn'
       />
@@ -69,7 +70,7 @@ export default function DeleteButton({ children }: DeleteButtonProps) {
         type='alert'
         buttonText='확인'
         onClick={() => handleAlertDialog(false)}
-        message='상품이 삭제되었습니다'
+        message='해당 상품이 삭제되었습니다'
         isOpen={isOpenAlertDialog}
         iconType='accept'
       />

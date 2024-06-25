@@ -1,37 +1,32 @@
 import { CommentIcon } from '@/public/index';
 import classNames from 'classnames/bind';
-import { MouseEvent } from 'react';
-// import { LikeButton } from '@/components';
 
+import { HeartButton } from '@/components';
 import styles from './PostInteractions.module.scss';
 
 const cn = classNames.bind(styles);
 
 interface PostInteractionsProps {
+  cardId: number;
   likeCount: number;
   commentCount: number;
+  isLiked: boolean;
 }
 
 const MAX_COUNT = 99;
 
-export function PostInteractions({ likeCount, commentCount }: PostInteractionsProps) {
-  // const [isChecked, setIsChecked] = useState(false);
-
-  const handleContainerClick = (e: MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-  };
-
-  // const handleLikeButtonClick = () => {
-  //   setIsChecked((prev) => !prev);
+export function PostInteractions({ cardId, likeCount, commentCount, isLiked }: PostInteractionsProps) {
+  // const handleContainerClick = (e: MouseEvent<HTMLDivElement>) => {
+  //   e.stopPropagation();
   // };
+
   return (
-    <div className={cn('container')} onClick={handleContainerClick}>
+    <div className={cn('container')}>
       <div className={cn('icon-and-count')}>
-        {/* <LikeButton isChecked={isChecked} onClick={handleLikeButtonClick} /> */}
-        <p id={cn('count')}>{likeCount > MAX_COUNT ? '99+' : likeCount}</p>
+        <HeartButton id={cardId} isLiked={isLiked} usage='community' likeCount={likeCount} />
       </div>
       <div className={cn('icon-and-count')}>
-        <CommentIcon />
+        <CommentIcon fill='#4968f6' />
         <p className={cn('count')}>{commentCount > MAX_COUNT ? '99+' : commentCount}</p>
       </div>
     </div>

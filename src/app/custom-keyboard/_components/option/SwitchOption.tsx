@@ -38,6 +38,7 @@ export default function SwitchOption() {
             <Button
               key={element}
               backgroundColor={switchType === element ? 'background-primary' : 'outline-gray-40'}
+              width={199}
               radius={4}
               className={cn('button')}
               onClick={() => handleClickSwitchButton(element)}

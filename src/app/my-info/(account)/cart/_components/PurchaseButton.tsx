@@ -13,6 +13,7 @@ import { Button } from '@/components';
 import { CartDataContext } from '@/context/CartDataContext';
 import { ROUTER } from '@/constants/route';
 
+import { toast } from 'react-toastify';
 import styles from './PurchaseButton.module.scss';
 
 const cn = classNames.bind(styles);
@@ -29,6 +30,9 @@ export default function PurchaseButton() {
     onSuccess: (response: CreateOrderResponseType) => {
       queryClient.setQueryData(['orderId'], response.data);
       router.push(ROUTER.MY_PAGE.CHECKOUT);
+    },
+    onError: () => {
+      toast.error('주문 정보 생성에 실패하였습니다');
     },
   });
 
@@ -48,7 +52,14 @@ export default function PurchaseButton() {
       })) ?? [];
 
     const orderData = [...customSelectedData, ...shopSelectedData];
-    createOrder(orderData);
+    createOrder(orderData, {
+      onSuccess: () => {
+        router.push(ROUTER.MY_PAGE.CHECKOUT);
+      },
+      onError: () => {
+        toast.error('주문 정보 생성에 실패하였습니다');
+      },
+    });
   };
 
   const handleClickAllButton = () => {
@@ -67,25 +78,34 @@ export default function PurchaseButton() {
       })) ?? [];
 
     const orderData = [...customData, ...shopData];
-    createOrder(orderData);
+    createOrder(orderData, {
+      onSuccess: () => {
+        router.push(ROUTER.MY_PAGE.CHECKOUT);
+      },
+      onError: () => {
+        toast.error('주문 정보 생성에 실패하였습니다');
+      },
+    });
   };
 
   return (
     <div className={cn('button-wrapper')}>
       <Button
         backgroundColor='outline-primary'
+        width={120}
+        paddingVertical={8}
         fontSize={14}
         radius={4}
-        className={cn('button')}
         onClick={handleClickSelectedButton}
       >
         선택 상품 구매
       </Button>
       <Button
         backgroundColor='outline-primary'
+        width={120}
+        paddingVertical={8}
         fontSize={14}
         radius={4}
-        className={cn('button')}
         onClick={handleClickAllButton}
       >
         전체 상품 구매

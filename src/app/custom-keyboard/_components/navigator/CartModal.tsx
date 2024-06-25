@@ -1,9 +1,10 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { MouseEvent, useContext, useRef, RefObject } from 'react';
+import { MouseEvent, useContext, useRef, RefObject, useState } from 'react';
 import { StaticImageData } from 'next/image';
-import { useMutation } from '@tanstack/react-query';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { POINT_KEY } from '@/constants/keyboardData';
 import type { CustomKeyboardStepTypes, OptionDataType, CustomKeyboardAPITypes } from '@/types/CustomKeyboardTypes';
@@ -14,8 +15,11 @@ import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import { postCustomKeyboardOrder } from '@/api/customKeyboardAPI';
 import { StepContext, KeyboardDataContext } from '@/context';
 import { putUpdateCustomKeyboardData } from '@/api/cartAPI';
+import { toast } from 'react-toastify';
+import { ROUTER } from '@/constants/route';
+import { getCookie } from '@/libs/manageCookie';
+import SignInModal from '@/components/SignInModal/SignInModal';
 import CartModalOptionCard from './parts/CartModalOptionCard';
-import CartModalToast from './parts/CartModalToast';
 
 import styles from './CartModal.module.scss';
 
@@ -24,9 +28,7 @@ const cn = classNames.bind(styles);
 interface CartModalProps {
   optionData: OptionDataType[];
   optionPrice: number;
-  accessToken: string;
   onClose: () => void;
-  onChangeLoginModal: (value: boolean) => void;
   onUpdateOptionPrice: (value: number) => void;
 }
 
@@ -48,20 +50,26 @@ const SWITCH_LIST = {
   흑축: blackSwitchImg,
 };
 
-export default function CartModal({
-  optionData,
-  optionPrice,
-  accessToken,
-  onClose,
-  onChangeLoginModal,
-  onUpdateOptionPrice,
-}: CartModalProps) {
+export default function CartModal({ optionData, optionPrice, onClose, onUpdateOptionPrice }: CartModalProps) {
+  const router = useRouter();
+  const params = useSearchParams();
+  const queryClient = useQueryClient();
+
   const orderWrapperRef = useRef<HTMLDivElement>(null);
-  const createCustomKeyboard = useMutation({
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
+  const {
+    mutate: createCustomKeybaord,
+    isSuccess: createMutationSucess,
+    isPending: createMutationPending,
+  } = useMutation({
     mutationFn: (data: CustomKeyboardAPITypes) => postCustomKeyboardOrder(data),
   });
 
-  const updateCustomKeybaord = useMutation<void, Error, { id: number; data: Omit<CustomKeyboardAPITypes, 'option'> }>({
+  const {
+    mutate: updateCustomKeyboard,
+    isSuccess: updateMutationSuccess,
+    isPending: updateMutationPending,
+  } = useMutation<void, Error, { id: number; data: Omit<CustomKeyboardAPITypes, 'option'> }>({
     mutationFn: ({ id, data }) => putUpdateCustomKeyboardData(id, data),
   });
   const {
@@ -125,11 +133,14 @@ export default function CartModal({
   ];
 
   const handleClickPutButton = async () => {
+    const id = params.get('orderId');
+    const accessToken = await getCookie('accessToken');
+
     if (!accessToken) {
-      onClose();
-      onChangeLoginModal(true);
+      setIsOpenLoginModal(true);
       return;
     }
+
     const data = {
       type: type === '풀 배열' ? 'full' : 'tkl',
       texture: texture === '금속' ? 'metal' : 'plastic',
@@ -143,12 +154,40 @@ export default function CartModal({
       individualColor: hasPointKeyCap && Object.keys(individualColor) ? individualColor : null,
       imgBase64: keyboardImage.keyCap,
     };
-    if (!orderId) {
+    if (!orderId || !id) {
       Object.assign(data, { option });
-      createCustomKeyboard.mutate(data as CustomKeyboardAPITypes);
+      createCustomKeybaord(data as CustomKeyboardAPITypes, {
+        onError: () => {
+          toast.error('장바구니 담기에 실패했습니다');
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['cartData'] });
+          toast.success('장바구니에 담았습니다', {
+            onClose: () => {
+              router.push(ROUTER.MY_PAGE.CART);
+            },
+          });
+        },
+      });
       return;
     }
-    updateCustomKeybaord.mutate({ id: orderId, data: data as Omit<CustomKeyboardAPITypes, 'option'> });
+    updateCustomKeyboard(
+      { id: orderId, data: data as Omit<CustomKeyboardAPITypes, 'option'> },
+      {
+        onError: () => {
+          toast.error('장바구니 수정에 실패했습니다');
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['cartData'] });
+          toast.success('장바구니를 수정하였습니다', {
+            autoClose: 1500,
+            onClose: () => {
+              router.push(ROUTER.MY_PAGE.CART);
+            },
+          });
+        },
+      },
+    );
   };
 
   const onClickEditButton = (e: MouseEvent<HTMLButtonElement>, step: CustomKeyboardStepTypes) => {
@@ -172,11 +211,7 @@ export default function CartModal({
     }
   };
 
-  const isDisabled =
-    createCustomKeyboard.isPending ||
-    createCustomKeyboard.isSuccess ||
-    updateCustomKeybaord.isPending ||
-    updateCustomKeybaord.isSuccess;
+  const isDisabled = createMutationPending || createMutationSucess || updateMutationPending || updateMutationSuccess;
 
   return (
     <div className={cn('wrapper', { overflow: isOverFlow })}>
@@ -220,11 +255,15 @@ export default function CartModal({
         </div>
       </div>
       <div className={cn('button-wrapper')}>
-        <Button className={cn({ disabled: isDisabled })} onClick={handleClickPutButton} disabled={isDisabled}>
+        <Button
+          backgroundColor={isDisabled ? 'background-gray-40' : 'background-primary'}
+          onClick={handleClickPutButton}
+          disabled={isDisabled}
+        >
           {orderId ? '수정하기' : '장바구니 담기'}
         </Button>
       </div>
-      {(createCustomKeyboard.isSuccess || updateCustomKeybaord.isSuccess) && <CartModalToast />}
+      <SignInModal isOpen={isOpenLoginModal} onClose={() => setIsOpenLoginModal(false)} />
     </div>
   );
 }

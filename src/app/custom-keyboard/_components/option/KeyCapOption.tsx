@@ -99,6 +99,7 @@ export default function KeyCapOption() {
       </div>
       <div className={cn('button-wrapper')}>
         <Button
+          width={199}
           radius={4}
           backgroundColor={!hasPointKeyCap ? 'background-primary' : 'outline-gray-40'}
           className={cn('button', { selected: !hasPointKeyCap })}
@@ -109,6 +110,7 @@ export default function KeyCapOption() {
         </Button>
         <Button
           radius={4}
+          width={199}
           backgroundColor={hasPointKeyCap ? 'background-primary' : 'outline-gray-40'}
           className={cn('button', { selected: hasPointKeyCap })}
           onClick={() => handleClickPointKeyCapButton(true)}

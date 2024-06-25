@@ -2,8 +2,12 @@
 
 import { useState, useCallback, useMemo, createContext, PropsWithChildren, useEffect } from 'react';
 import type { Color } from '@react-three/fiber';
+import { redirect, useSearchParams } from 'next/navigation';
+
 import type { KeyboardDataType, CustomKeyboardKeyTypes } from '@/types/CustomKeyboardTypes';
-import type { CustomDataType } from '@/types/CartTypes';
+import type { CartAPIDataType } from '@/types/CartTypes';
+import { ROUTER } from '@/constants/route';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface KeyboardDataContextType {
   orderId: number | null;
@@ -38,6 +42,8 @@ export const KeyboardDataContext = createContext<KeyboardDataContextType>({
 });
 
 export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
+  const params = useSearchParams();
+  const queryClient = useQueryClient();
   const [orderId, setOrderId] = useState<number | null>(null);
   const [keyboardData, setKeyboardData] = useState<KeyboardDataType>({
     type: '풀 배열',
@@ -78,12 +84,16 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
-    const data = localStorage.getItem('customData');
-    if (!data) {
+    const id = params.get('orderId');
+    const data = queryClient.getQueryData<CartAPIDataType>(['cartData']);
+
+    if (!data || !id) {
       return;
     }
-    localStorage.removeItem('customData');
-    const customData = JSON.parse(data) as CustomDataType;
+    const customData = data.CUSTOM.find((custom) => custom.id === Number(id));
+    if (!customData) {
+      redirect(ROUTER.CUSTOM_KEYBOARD);
+    }
     setOrderId(customData.id);
     setKeyboardData({
       type: customData.type === 'full' ? '풀 배열' : '텐키리스',
@@ -98,7 +108,7 @@ export function KeyboardDataContextProvider({ children }: PropsWithChildren) {
       option: [],
       individualColor: customData.individualColor ?? {},
     });
-  }, []);
+  }, [queryClient, params]);
 
   const value = useMemo(
     () => ({

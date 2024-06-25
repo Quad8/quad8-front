@@ -8,10 +8,10 @@
 
 .pending-wrapper {
   @include wrapper;
+  @include pretendard-14-400;
 
   background-color: $gray-10;
   color: $white;
-  font-size: 1.4rem;
 }
 
 .current-outside {

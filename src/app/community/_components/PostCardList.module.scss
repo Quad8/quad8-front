@@ -2,12 +2,12 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 9rem;
 }
 
 .post-wrapper {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  padding-bottom: 8rem;
+  margin-top: 9.1rem;
+  margin-bottom: 12.9rem;
   gap: 10rem 3.3rem;
 }
