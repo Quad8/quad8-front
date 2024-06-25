@@ -2,21 +2,20 @@
 
 import classNames from 'classnames/bind';
 import { useContext, useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
+import { getRandomOptionProduct } from '@/api/customKeyboardAPI';
 import type {
   CustomKeyboardStepStatusTypes,
   CustomKeyboardStepTypes,
   OptionDataType,
 } from '@/types/CustomKeyboardTypes';
 import { FocusKeyContext, KeyboardDataContext, StepContext } from '@/context';
-import { Modal, Button } from '@/components';
 import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
-import { ChevronIcon } from '@/public/index';
-import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
-import { useQuery } from '@tanstack/react-query';
-import { getRandomOptionProduct } from '@/api/customKeyboardAPI';
 import { getBlurImageList } from '@/libs/getBlurImage';
-import SignInModal from '@/components/SignInModal/SignInModal';
+import { ChevronIcon } from '@/public/index';
+import { Modal, Button } from '@/components';
+import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
 
@@ -79,7 +78,6 @@ export default function TotalCostWithNavigation() {
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
   const [isOpenCartModal, setIsOpenCartModal] = useState(false);
-  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [optionPrice, setOptionPrice] = useState(0);
   const { captureCanvas } = useCaptureCanvas();
   const {
@@ -147,10 +145,6 @@ export default function TotalCostWithNavigation() {
 
   const updateOptionPrice = (value: number) => {
     setOptionPrice((prevOptionPrice) => prevOptionPrice + value);
-  };
-
-  const handleLoginModal = (value: boolean) => {
-    setIsOpenLoginModal(value);
   };
 
   useEffect(() => {
@@ -224,13 +218,9 @@ export default function TotalCostWithNavigation() {
           optionData={optionData}
           optionPrice={optionPrice}
           onClose={handleCloseCartMoal}
-          onChangeLoginModal={handleLoginModal}
           onUpdateOptionPrice={updateOptionPrice}
         />
       </Modal>
-      <div onClick={(e) => e.stopPropagation()}>
-        <SignInModal isOpen={isOpenLoginModal} onClose={() => handleLoginModal(false)} />
-      </div>
     </div>
   );
 }
