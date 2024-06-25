@@ -16,16 +16,13 @@ import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
 import { useQuery } from '@tanstack/react-query';
 import { getRandomOptionProduct } from '@/api/customKeyboardAPI';
 import { getBlurImageList } from '@/libs/getBlurImage';
+import SignInModal from '@/components/SignInModal/SignInModal';
 import OptionProductModal from './OptionProductModal';
 import CartModal from './CartModal';
 
 import styles from './TotalCostWithNavigation.module.scss';
 
 const cn = classNames.bind(styles);
-
-interface TotalCostWithNavigationProps {
-  accessToken: string;
-}
 
 type DualButtonType = {
   [key in CustomKeyboardStepTypes]: {
@@ -71,7 +68,7 @@ const UPDATE_NEXT_STEP_STATUS: UpdateStepType<'keyCap'> = {
   switch: { switch: 'completed', keyCap: 'current' },
 };
 
-export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNavigationProps) {
+export default function TotalCostWithNavigation() {
   const { data: randomProductData } = useQuery<OptionDataType[]>({
     queryKey: ['customRandomProduct'],
     queryFn: getRandomOptionProduct,
@@ -93,7 +90,16 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
   const { currentStep, updateCurrentStep, updateStepStatus } = useContext(StepContext);
   const { updateFocusKey } = useContext(FocusKeyContext);
 
+  const resetScroll = () => {
+    const optionWrapper = document.querySelector('#option');
+    if (!optionWrapper) {
+      return;
+    }
+    optionWrapper.scrollTop = 0;
+  };
+
   const handleClickNextButton = () => {
+    resetScroll();
     if (currentStep === 'board' || currentStep === 'keyCap') {
       captureCanvas(async () => {
         if (currentStep === 'board') {
@@ -116,6 +122,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
   };
 
   const handleClickPrevButton = () => {
+    resetScroll();
     updateFocusKey(null);
     updateCurrentStep(BUTTONS[currentStep].prev as CustomKeyboardStepTypes);
     if (currentStep === 'board') {
@@ -181,6 +188,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
       <div className={cn('button-wrapper')}>
         {prev && (
           <Button
+            width={199}
             backgroundColor='outline-primary'
             hoverColor='outline-primary-60'
             radius={4}
@@ -192,6 +200,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
           </Button>
         )}
         <Button
+          width={199}
           backgroundColor='background-primary'
           hoverColor='background-primary-60'
           radius={4}
@@ -202,7 +211,7 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
           {currentStep !== 'keyCap' && <ChevronIcon width={16} height={16} className={cn('next-button-icon')} />}
         </Button>
       </div>
-      <Modal isOpen={isOpenOptionModal} onClose={handleCloseOptionModal}>
+      <Modal isOpen={isOpenOptionModal} onClose={() => {}}>
         <OptionProductModal
           optionData={optionData}
           onClose={handleCloseOptionModal}
@@ -217,12 +226,11 @@ export default function TotalCostWithNavigation({ accessToken }: TotalCostWithNa
           onClose={handleCloseCartMoal}
           onChangeLoginModal={handleLoginModal}
           onUpdateOptionPrice={updateOptionPrice}
-          accessToken={accessToken}
         />
       </Modal>
-      <Modal isOpen={isOpenLoginModal} onClose={() => handleLoginModal(false)}>
-        <div style={{ width: '300px', height: '300px', backgroundColor: '#ffffff' }}>로그인 모달</div>
-      </Modal>
+      <div onClick={(e) => e.stopPropagation()}>
+        <SignInModal isOpen={isOpenLoginModal} onClose={() => handleLoginModal(false)} />
+      </div>
     </div>
   );
 }

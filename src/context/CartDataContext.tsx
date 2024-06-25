@@ -34,8 +34,8 @@ export function CartDataContextProvider({ children }: PropsWithChildren) {
   );
 
   useEffect(() => {
-    const customData = cartData?.CUSTOM ?? [];
-    const shopData = cartData?.SHOP ?? [];
+    const customData = cartData ? cartData.CUSTOM : [];
+    const shopData = cartData ? cartData.SHOP : [];
 
     setCheckedCustomList(Object.fromEntries(customData.map((element) => [element.id, false])));
     setCheckedShopList(Object.fromEntries(shopData.map((element) => [element.id, false])));

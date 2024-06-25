@@ -35,14 +35,3 @@
   justify-content: flex-end;
   gap: 1.2rem;
 }
-
-.button {
-  @include flex-center;
-  @include pretendard-18-400;
-
-  width: 15.4rem;
-  height: 6.6rem;
-  background-color: $primary;
-  color: $white;
-  cursor: pointer;
-}
