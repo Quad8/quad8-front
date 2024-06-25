@@ -65,7 +65,7 @@ export default function WritePostButton() {
           <PlusIcon /> 글 작성하기
         </div>
       </Button>
-      {orderListData?.data.length > 0 ? (
+      {orderListData?.data?.length > 0 ? (
         <>
           <Modal isOpen={isOpenOrderListModal} onClose={closeOrderListModal}>
             <OrderListModal
