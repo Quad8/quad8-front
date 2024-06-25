@@ -165,6 +165,7 @@ export default function CartModal({
           toast.error('장바구니 담기에 실패했습니다');
         },
         onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['cartData'] });
           toast.success('장바구니에 담았습니다', {
             onClose: () => {
               router.push(ROUTER.MY_PAGE.CART);

@@ -54,10 +54,8 @@ export default function SignInModal({ isOpen, onClose }: SigninModalProps) {
       if (responseData.status === 'SUCCESS') {
         setCookie('accessToken', responseData.data.accessToken);
         setCookie('refreshToken', responseData.data.refreshToken);
+        onClose();
         toast.success('로그인이 성공적으로 완료되었습니다.', {
-          onClose: () => {
-            onClose();
-          },
           autoClose: 2000,
         });
       } else if (responseData.status === 'FAIL') {
