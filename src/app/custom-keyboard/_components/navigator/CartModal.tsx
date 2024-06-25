@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { MouseEvent, useContext, useRef, RefObject, useState } from 'react';
+import { MouseEvent, useContext, useRef, RefObject } from 'react';
 import { StaticImageData } from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -28,7 +28,9 @@ const cn = classNames.bind(styles);
 interface CartModalProps {
   optionData: OptionDataType[];
   optionPrice: number;
+  isOpenLoginModal: boolean;
   onClose: () => void;
+  onChangeLoginModal: (value: boolean) => void;
   onUpdateOptionPrice: (value: number) => void;
 }
 
@@ -50,13 +52,19 @@ const SWITCH_LIST = {
   흑축: blackSwitchImg,
 };
 
-export default function CartModal({ optionData, optionPrice, onClose, onUpdateOptionPrice }: CartModalProps) {
+export default function CartModal({
+  isOpenLoginModal,
+  optionData,
+  optionPrice,
+  onClose,
+  onChangeLoginModal,
+  onUpdateOptionPrice,
+}: CartModalProps) {
   const router = useRouter();
   const params = useSearchParams();
   const queryClient = useQueryClient();
 
   const orderWrapperRef = useRef<HTMLDivElement>(null);
-  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const {
     mutate: createCustomKeybaord,
     isSuccess: createMutationSucess,
@@ -137,7 +145,7 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
     const accessToken = await getCookie('accessToken');
 
     if (!accessToken) {
-      setIsOpenLoginModal(true);
+      onChangeLoginModal(true);
       return;
     }
 
@@ -263,7 +271,7 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
           {orderId ? '수정하기' : '장바구니 담기'}
         </Button>
       </div>
-      <SignInModal isOpen={isOpenLoginModal} onClose={() => setIsOpenLoginModal(false)} />
+      <SignInModal isOpen={isOpenLoginModal} onClose={() => onChangeLoginModal(false)} />
     </div>
   );
 }

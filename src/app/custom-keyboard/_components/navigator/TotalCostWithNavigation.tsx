@@ -78,6 +78,7 @@ export default function TotalCostWithNavigation() {
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
   const [isOpenCartModal, setIsOpenCartModal] = useState(false);
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [optionPrice, setOptionPrice] = useState(0);
   const { captureCanvas } = useCaptureCanvas();
   const {
@@ -213,12 +214,14 @@ export default function TotalCostWithNavigation() {
           onClick={handleOpenCartModal}
         />
       </Modal>
-      <Modal isOpen={isOpenCartModal} onClose={handleCloseCartMoal}>
+      <Modal isOpen={isOpenCartModal} onClose={!isOpenLoginModal ? handleCloseCartMoal : () => {}}>
         <CartModal
           optionData={optionData}
           optionPrice={optionPrice}
           onClose={handleCloseCartMoal}
           onUpdateOptionPrice={updateOptionPrice}
+          isOpenLoginModal={isOpenLoginModal}
+          onChangeLoginModal={(value: boolean) => setIsOpenLoginModal(value)}
         />
       </Modal>
     </div>
