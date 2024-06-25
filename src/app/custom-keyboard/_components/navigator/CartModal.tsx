@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import { MouseEvent, useContext, useRef, RefObject } from 'react';
 import { StaticImageData } from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { POINT_KEY } from '@/constants/keyboardData';
 import type { CustomKeyboardStepTypes, OptionDataType, CustomKeyboardAPITypes } from '@/types/CustomKeyboardTypes';
@@ -59,6 +59,7 @@ export default function CartModal({
 }: CartModalProps) {
   const router = useRouter();
   const params = useSearchParams();
+  const queryClient = useQueryClient();
   const orderWrapperRef = useRef<HTMLDivElement>(null);
   const {
     mutate: createCustomKeybaord,
@@ -180,6 +181,7 @@ export default function CartModal({
           toast.error('장바구니 수정에 실패했습니다');
         },
         onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['cartData'] });
           toast.success('장바구니를 수정하였습니다', {
             autoClose: 1500,
             onClose: () => {
