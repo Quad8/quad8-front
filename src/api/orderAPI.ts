@@ -68,8 +68,6 @@ export const getPaymentItemData = async (orderId: string | undefined) => {
     });
 
     const data = await res.json();
-    console.log(orderId);
-    console.log(data);
 
     if (data.status === 'FAIL') {
       return null;
