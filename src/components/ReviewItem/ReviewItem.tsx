@@ -10,6 +10,7 @@ import type { ReviewDto } from '@/types/ProductReviewTypes';
 import { CATEGORY_MAP } from '@/constants/product';
 import { formatDateToString } from '@/libs/formatDateToString';
 import classNames from 'classnames/bind';
+import ReviewLikeButton from '../Buttons/ReviewLikeButton/ReviewLikeButton';
 import ProfileImage from '../ProfileImage/ProfileImage';
 import RenderImages from './RenderImages';
 import styles from './ReviewItem.module.scss';
@@ -25,8 +26,21 @@ const PRODUCT_LIST = Object.values(CATEGORY_MAP);
 
 export default function ReviewItem({ isDisplayOnMyPage, data }: ReviewItemProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { score, content, reviewImgs, option1, option2, option3, switchOption, productCategoryId, writer, updatedAt } =
-    data;
+  const {
+    id,
+    score,
+    content,
+    reviewImgs,
+    option1,
+    option2,
+    option3,
+    switchOption,
+    productCategoryId,
+    writer,
+    likeCount,
+    likedByUser,
+    updatedAt,
+  } = data;
   const { nickname, imgUrl } = writer;
   const optionsValues = [option1, option2, option3];
 
@@ -106,7 +120,11 @@ export default function ReviewItem({ isDisplayOnMyPage, data }: ReviewItemProps)
           )}
         </div>
       </div>
-      {!isDisplayOnMyPage && <div className={cn('button-section')} />}
+      {!isDisplayOnMyPage && (
+        <div className={cn('button-section')}>
+          <ReviewLikeButton id={id} isLiked={likedByUser} likeCount={likeCount} />
+        </div>
+      )}
     </div>
   );
 }

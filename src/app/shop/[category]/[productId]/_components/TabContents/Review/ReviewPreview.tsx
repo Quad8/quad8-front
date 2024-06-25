@@ -22,7 +22,7 @@ export default function ReviewPreview({ previewData }: ReviewListPreviewProps) {
         <h3 className={cn('title')}>구매 고객 총 평점</h3>
         <Rating rating={averageScore} usage='show' />
         <h1 className={cn('big-text')}>
-          {averageScore}
+          {Math.ceil(averageScore * 100) / 100}
           <span className={cn('total-score')}> / 5</span>
         </h1>
       </div>

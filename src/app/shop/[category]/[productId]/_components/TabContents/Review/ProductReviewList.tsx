@@ -21,8 +21,8 @@ interface ProductReviewListProps {
 export default function ProductReviewList({ data, productId }: ProductReviewListProps) {
   const { reviewDtoList, ...previewData } = data;
   const allReviewImgs = reviewDtoList.flatMap((review) => review.reviewImgs);
-  const [dropdownValue, setDropdownValue] = useState(PRODUCT_REVIEW_SORT_OPTIONS[0].label);
-  const [sortQuery, setSortQuery] = useState<string | undefined>(PRODUCT_REVIEW_SORT_OPTIONS[0].value);
+  const [dropdownValue, setDropdownValue] = useState(PRODUCT_REVIEW_SORT_OPTIONS[1].label);
+  const [sortQuery, setSortQuery] = useState<string | undefined>(PRODUCT_REVIEW_SORT_OPTIONS[1].value);
 
   const {
     data: sortedData,
@@ -38,8 +38,6 @@ export default function ProductReviewList({ data, productId }: ProductReviewList
     refetch();
   }, [dropdownValue, refetch]);
 
-  if (isPending) return <div>로딩중..</div>;
-
   const handleChangeSortReview = (selectedValue: string) => {
     const sortOption = PRODUCT_REVIEW_SORT_OPTIONS.find((option) => option.label === selectedValue);
     setDropdownValue(selectedValue);
@@ -49,19 +47,21 @@ export default function ProductReviewList({ data, productId }: ProductReviewList
   return (
     <div>
       <h3 className={cn('main-title')}>상품 리뷰</h3>
-      {reviewDtoList.length > 0 ? (
-        <div>
+      {reviewDtoList.length > 0 && !isPending ? (
+        <div className={cn('review-container')}>
+          <ReviewPreview previewData={previewData} />
+          <ReviewImageList reviewImgs={allReviewImgs} />
           <Dropdown
             options={PRODUCT_REVIEW_SORT_OPTIONS.map((option) => option.label)}
             sizeVariant='xs'
             value={dropdownValue}
             onChange={handleChangeSortReview}
           />
-          <ReviewPreview previewData={previewData} />
-          <ReviewImageList reviewImgs={allReviewImgs} />
-          {sortedData.reviewDtoList.map((reviewData) => (
-            <ReviewItem key={reviewData.id} data={reviewData} />
-          ))}
+          <div className={cn('review-items')}>
+            {sortedData.reviewDtoList.map((reviewData) => (
+              <ReviewItem key={reviewData.id} data={reviewData} />
+            ))}
+          </div>
         </div>
       ) : (
         <div className={cn('no-review-container')}>

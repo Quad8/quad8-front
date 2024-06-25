@@ -1,6 +1,6 @@
+import { CountInput } from '@/components';
 import { DeleteIcon } from '@/public/index';
 import classNames from 'classnames/bind';
-import { CountInput } from '@/components';
 import styles from './ProductDetail.module.scss';
 
 const cn = classNames.bind(styles);

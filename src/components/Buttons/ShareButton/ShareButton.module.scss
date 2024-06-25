@@ -1,0 +1,71 @@
+.circle {
+  @include flex-center;
+
+  position: relative;
+  width: 4.33rem;
+  height: 4.157rem;
+  margin-left: 0.8rem;
+  border-radius: 100%;
+  background-color: $gray-10;
+
+  &:hover {
+    background-color: $primary-60;
+  }
+
+  &.blue-circle {
+    background-color: $primary;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.share-box {
+  position: absolute;
+  z-index: $zindex-popover;
+  top: 120%;
+  padding: 2rem;
+  animation: slide-down 0.5s ease;
+  border: 0.1rem solid $gray-10;
+  border-radius: 1.6rem;
+  background-color: $white;
+}
+
+.share-title {
+  @include pretendard-14-600;
+
+  padding-bottom: 1.6rem;
+}
+
+.share-contents {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.share-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.share-icon {
+  margin-bottom: 0.4rem;
+  cursor: pointer;
+}
+
+.share-text {
+  @include pretendard-14-400;
+
+  text-wrap: nowrap;
+}

@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
+
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -9,6 +10,7 @@ import { Button, CustomOption, InputField, Modal } from '@/components';
 import Dialog from '@/components/Dialog/Dialog';
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
 import { IMAGE_BLUR } from '@/constants/blurImage';
+
 import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
 import { formatDateToString } from '@/libs/formatDateToString';
 import { keydeukImg } from '@/public/index';
@@ -91,8 +93,20 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
     onClose();
     return null;
   }
-  const { commentCount, comments, content, likeCount, nickName, reviewImages, title, updatedAt, userImage, custom } =
-    postData as CommunityPostCardDetailDataType;
+
+  const {
+    commentCount,
+    comments,
+    content,
+    likeCount,
+    nickName,
+    reviewImages,
+    title,
+    updatedAt,
+    userImage,
+    custom,
+    isLiked,
+  } = postData as CommunityPostCardDetailDataType;
 
   const createdDateString = formatDateToString(new Date(updatedAt));
 
@@ -177,7 +191,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
             <AuthorCard nickname={nickName} dateText={createdDateString} userImage={userImage} />
             <CustomOption wrapperRef={containerRef} customData={custom} />
             <p className={cn('content')}>{content}</p>
-            <PostInteractions likeCount={likeCount} commentCount={commentCount} />
+            <PostInteractions likeCount={likeCount} commentCount={commentCount} cardId={cardId} isLiked={isLiked} />
             <div className={cn('comment-wrapper')}>
               {comments.map((comment) => (
                 <Comment
