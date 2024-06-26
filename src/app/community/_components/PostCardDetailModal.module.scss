@@ -1,24 +1,41 @@
 .container {
-  display: flex;
   padding: 4rem;
   border-radius: 1.6rem;
   background-color: $white;
+}
+
+.edit-button-wrapper {
+  display: flex;
+  gap: 1.2rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.image-content-wrapper {
+  display: flex;
   gap: 2rem;
 }
 
-.images-wrapper {
-  width: 49.2rem;
+.left-wrapper {
+  @include flex-column(2rem);
 
-  & > .selected-image {
-    width: 100%;
-    height: 53.6rem;
-  }
+  width: 49.2rem;
+  height: 60.4rem;
+}
+
+.selected-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 0.1rem solid $gray-10;
+  border-radius: 0.8rem;
 }
 
 .unselected-image-wrapper {
   display: flex;
   width: 100%;
-  margin-top: 2rem;
+  height: 4.8rem;
   gap: 0.8rem;
 }
 
@@ -30,25 +47,26 @@
 
 .title {
   @include pretendard-18-600;
+
+  margin-bottom: 0.4rem;
+}
+
+.right-wrapper {
+  @include flex-column(0);
+
+  justify-content: space-between;
 }
 
 .content-wrapper {
+  @include flex-column(0.8rem);
+
   position: relative;
   width: 48rem;
   height: 53.6rem;
   overflow-y: scroll;
 
-  @include flex-column(1.2rem);
-
   & > * {
     width: 44.5rem;
-  }
-
-  & > .content {
-    @include pretendard-16-400;
-
-    width: 44.5rem;
-    height: 16.8rem;
   }
 
   &::-webkit-scrollbar {
@@ -65,6 +83,14 @@
     border-radius: 0.8rem;
     background-color: $gray-20;
   }
+}
+
+.content {
+  @include pretendard-16-400;
+}
+
+.keyboard-option-wrapper {
+  @include flex-column(0);
 }
 
 .comment-wrapper {

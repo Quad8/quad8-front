@@ -4,11 +4,12 @@
 }
 
 .icon-and-count {
+  @include pretendard-16-400;
+
   display: flex;
   align-items: center;
-  font-size: 1.6rem;
-  gap: 0.4rem;
   line-height: 2.4rem;
+  gap: 0.5rem;
 
   & > .count {
     width: 2rem;

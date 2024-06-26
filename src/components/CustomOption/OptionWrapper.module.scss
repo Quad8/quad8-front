@@ -1,0 +1,33 @@
+.relative {
+  position: relative;
+  overflow: visible;
+}
+
+.option-text {
+  @include pretendard-14-400;
+
+  width: 100%;
+  overflow: hidden;
+  color: $gray-50;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  white-space: nowrap;
+  cursor: default;
+}
+
+.tooltip-wrapper {
+  visibility: hidden;
+  position: absolute;
+  z-index: $zindex-tooltip;
+  top: 2rem;
+  width: fit-content;
+}
+
+.is-fixed {
+  position: fixed;
+}
+
+.above {
+  top: 0;
+  transform: translateY(-100%);
+}

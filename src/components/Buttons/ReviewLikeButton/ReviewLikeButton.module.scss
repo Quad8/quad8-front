@@ -1,0 +1,45 @@
+.like-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 7.7rem;
+  height: 4rem;
+  border: 0.1rem solid $gray-20;
+  border-radius: 30rem;
+  gap: 1rem;
+  background-color: $white;
+
+  span {
+    @include pretendard-16-400;
+
+    color: $black;
+  }
+
+  &:hover {
+    background-color: $red-40;
+
+    svg {
+      fill: $white;
+    }
+
+    span {
+      color: $white;
+    }
+  }
+
+  &.red-circle {
+    background-color: $red-80;
+
+    span {
+      color: $white;
+    }
+  }
+}
+
+.thumb {
+  fill: $red-80;
+
+  &.white-thumb {
+    fill: $white;
+  }
+}

@@ -1,0 +1,18 @@
+.layout {
+  @include flex-column(4rem);
+
+  align-items: center;
+  width: 100vw;
+  min-width: 112rem;
+  height: 100%;
+  min-height: 93vh;
+  padding: 10.6rem 12rem 11.2rem;
+  overflow: auto;
+  background-color: $gray-5;
+
+  .page {
+    width: 100%;
+    max-width: 70em;
+    padding: 0 2rem;
+  }
+}

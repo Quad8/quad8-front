@@ -1,29 +1,31 @@
-.content {
+.item {
   display: flex;
   align-items: center;
   gap: 2rem;
 
-  .item-image {
-    width: 14.4rem;
-    height: 14.4rem;
+  .product-image {
+    border-radius: 0.8rem;
   }
 
   .item-text {
+    @include flex-column(0.4rem);
+    @include pretendard-16-500;
+
     color: $black;
 
     .item-name {
-      color: $black;
-      @include pretendard-16-500;
-    }
-
-    .item-selected {
-      @include pretendard-16-700;
-    }
-
-    .item-options,
-    .item-detail {
-      color: $gray-50;
       @include pretendard-14-400;
+
+      color: $gray-50;
     }
+  }
+
+  .item-option {
+    min-width: 46.2rem;
+    max-width: 54.5rem;
+  }
+
+  .keydeuk-keyboard-title {
+    @include pretendard-16-700;
   }
 }

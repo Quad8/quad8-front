@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { Address, DaumPostcodeEmbed } from 'react-daum-postcode';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { postAddress } from '@/api/shippingAPI';
 import { Button, Modal } from '@/components';
@@ -52,6 +53,7 @@ export default function AddressesHeader() {
     postAddressesMutate(payload, {
       onSuccess: (res) => {
         if (res.status === 'SUCCESS') {
+          toast('배송지를 추가하였습니다.');
           queryClient.invalidateQueries({ queryKey: ['addressesData'] });
           onSuccessClose();
         }

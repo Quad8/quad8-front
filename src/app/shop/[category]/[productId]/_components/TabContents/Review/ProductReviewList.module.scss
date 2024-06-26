@@ -5,6 +5,15 @@
   @include pretendard-20-700;
 }
 
+.review-container {
+  margin-bottom: 10rem;
+}
+
+.review-items {
+  margin-top: 5rem;
+  border-top: 0.1rem solid $gray-10;
+}
+
 .no-review-text {
   color: $gray-30;
 

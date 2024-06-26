@@ -5,6 +5,8 @@ import { FILTER_OPTIONS } from '@/constants/product';
 import { DeleteIcon, ResetIcon } from '@/public/index';
 import type { CategoryKey } from '@/types/Category';
 import classNames from 'classnames/bind';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import queryString from 'query-string';
 import { useState } from 'react';
 import styles from './Filter.module.scss';
 
@@ -12,24 +14,102 @@ const cn = classNames.bind(styles);
 
 const DELETE_ITEM_COLOR = '#787878';
 
-export default function Filter({ category }: { category: CategoryKey }) {
-  const [selectedList, setSelectedList] = useState<string[]>([]);
+interface FilterProps {
+  category: CategoryKey;
+}
+
+export default function Filter({ category }: FilterProps) {
+  const searchParams = useSearchParams();
+  const [selectedManufacturers, setSelectedManufacturers] = useState<string[]>(
+    searchParams.get('companies')?.split(',') || [],
+  );
+  const [selectedSwitchTypes, setSelectedSwitchTypes] = useState<string[]>(
+    searchParams.get('switchTypes')?.split(',') || [],
+  );
+  const [minPriceState, setMinPriceState] = useState<string>(searchParams.get('minPrice') || '');
+  const [maxPriceState, setMaxPriceState] = useState<string>(searchParams.get('maxPrice') || '');
+  const [tempMinPrice, setTempMinPrice] = useState<string>(minPriceState);
+  const [tempMaxPrice, setTempMaxPrice] = useState<string>(maxPriceState);
+
   const options = FILTER_OPTIONS[category];
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleSearch = (companies: string[], switchTypes: string[], minPrice: string, maxPrice: string) => {
+    const query: { [key: string]: string | undefined } = {
+      companies: companies.length ? companies.join(',') : undefined,
+      switchTypes: switchTypes.length ? switchTypes.join(',') : undefined,
+      minPrice: minPrice || undefined,
+      maxPrice: maxPrice || undefined,
+    };
+
+    router.push(
+      queryString.stringifyUrl(
+        {
+          url: pathname,
+          query,
+        },
+        { skipNull: true, skipEmptyString: true },
+      ),
+    );
+  };
 
   const handleClickReset = () => {
-    setSelectedList([]);
+    setSelectedManufacturers([]);
+    setSelectedSwitchTypes([]);
+    setMinPriceState('');
+    setMaxPriceState('');
+    setTempMinPrice('');
+    setTempMaxPrice('');
+    handleSearch([], [], '', '');
   };
 
-  const handleClickFilterItem = (item: string) => {
-    if (selectedList.includes(item)) {
-      setSelectedList(selectedList.filter((x) => x !== item));
-    } else {
-      setSelectedList([...selectedList, item]);
+  const handleClickFilterItem = (item: string, type: 'manufacturer' | 'switch') => {
+    if (type === 'manufacturer') {
+      setSelectedManufacturers((prev) => {
+        const newSelected = prev.includes(item) ? prev.filter((x) => x !== item) : [...prev, item];
+        handleSearch(newSelected, selectedSwitchTypes, minPriceState, maxPriceState);
+        return newSelected;
+      });
+      return;
     }
+
+    setSelectedSwitchTypes((prev) => {
+      const newSelected = prev.includes(item) ? prev.filter((x) => x !== item) : [...prev, item];
+      handleSearch(selectedManufacturers, newSelected, minPriceState, maxPriceState);
+      return newSelected;
+    });
   };
 
-  const handleRemoveItem = (selectedItem: string) => {
-    setSelectedList(selectedList.filter((item) => item !== selectedItem));
+  const handleRemoveItem = (item: string, type: 'manufacturer' | 'switch') => {
+    if (type === 'manufacturer') {
+      setSelectedManufacturers((prev) => {
+        const newSelected = prev.filter((x) => x !== item);
+        handleSearch(newSelected, selectedSwitchTypes, minPriceState, maxPriceState);
+        return newSelected;
+      });
+      return;
+    }
+
+    setSelectedSwitchTypes((prev) => {
+      const newSelected = prev.filter((x) => x !== item);
+      handleSearch(selectedManufacturers, newSelected, minPriceState, maxPriceState);
+      return newSelected;
+    });
+  };
+
+  const handleMinPriceChange = (value: string) => {
+    setTempMinPrice(value);
+  };
+
+  const handleMaxPriceChange = (value: string) => {
+    setTempMaxPrice(value);
+  };
+
+  const handlePriceSearch = () => {
+    setMinPriceState(tempMinPrice);
+    setMaxPriceState(tempMaxPrice);
+    handleSearch(selectedManufacturers, selectedSwitchTypes, tempMinPrice, tempMaxPrice);
   };
 
   if (!options) {
@@ -44,8 +124,8 @@ export default function Filter({ category }: { category: CategoryKey }) {
           {options.MANUFACTURERS.map((manufacturer) => (
             <li
               key={manufacturer}
-              className={cn({ selected: selectedList.includes(manufacturer) })}
-              onClick={() => handleClickFilterItem(manufacturer)}
+              className={cn({ selected: selectedManufacturers.includes(manufacturer) })}
+              onClick={() => handleClickFilterItem(manufacturer, 'manufacturer')}
             >
               {manufacturer}
             </li>
@@ -56,11 +136,11 @@ export default function Filter({ category }: { category: CategoryKey }) {
         <div className={cn('filter-group')}>
           <h4>스위치 유형</h4>
           <ul className={cn('options')}>
-            {options.SWITCH_TYPES.map((switchType: string) => (
+            {options.SWITCH_TYPES.map((switchType) => (
               <li
                 key={switchType}
-                className={cn({ selected: selectedList.includes(switchType) })}
-                onClick={() => handleClickFilterItem(switchType)}
+                className={cn({ selected: selectedSwitchTypes.includes(switchType) })}
+                onClick={() => handleClickFilterItem(switchType, 'switch')}
               >
                 {switchType}
               </li>
@@ -72,28 +152,56 @@ export default function Filter({ category }: { category: CategoryKey }) {
         <h4>가격</h4>
         <div className={cn('options', 'price-wrap')}>
           <div className={cn('price-input')}>
-            <InputField suffixUnit='원' sizeVariant='sm' />
+            <InputField
+              type='number'
+              suffixUnit='원'
+              sizeVariant='sm'
+              value={tempMinPrice}
+              onChange={(e) => handleMinPriceChange(e.target.value)}
+            />
           </div>
           <span>~</span>
           <div className={cn('price-input')}>
-            <InputField suffixUnit='원' sizeVariant='sm' />
+            <InputField
+              type='number'
+              suffixUnit='원'
+              sizeVariant='sm'
+              value={tempMaxPrice}
+              onChange={(e) => handleMaxPriceChange(e.target.value)}
+            />
           </div>
-          <button type='button' className={cn('search')}>
+          <button type='button' onClick={handlePriceSearch} className={cn('search')}>
             검색
           </button>
         </div>
       </div>
-      <div className={cn('reset-check', { hidden: !selectedList.length })}>
+      <div
+        className={cn('reset-check', {
+          hidden: !(selectedManufacturers.length || selectedSwitchTypes.length),
+        })}
+      >
         <button type='button' className={cn('reset')} onClick={handleClickReset}>
           <span>전체해제</span>
           <ResetIcon />
         </button>
         <span className={cn('bar')} />
         <ul className={cn('selected-item-list')}>
-          {selectedList.map((item) => (
+          {selectedManufacturers.map((item) => (
             <li key={item} className={cn('selected-item')}>
               {item}
-              <button type='button' onClick={() => handleRemoveItem(item)} className={cn('remove-button')}>
+              <button
+                type='button'
+                onClick={() => handleRemoveItem(item, 'manufacturer')}
+                className={cn('remove-button')}
+              >
+                <DeleteIcon fill={DELETE_ITEM_COLOR} width={17} height={17} />
+              </button>
+            </li>
+          ))}
+          {selectedSwitchTypes.map((item) => (
+            <li key={item} className={cn('selected-item')}>
+              {item}
+              <button type='button' onClick={() => handleRemoveItem(item, 'switch')} className={cn('remove-button')}>
                 <DeleteIcon fill={DELETE_ITEM_COLOR} width={17} height={17} />
               </button>
             </li>

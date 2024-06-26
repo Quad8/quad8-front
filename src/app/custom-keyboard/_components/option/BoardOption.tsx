@@ -52,6 +52,7 @@ export default function BoardOption() {
           {TYPE_BUTTONS.map((element) => (
             <Button
               key={element.name}
+              width={199}
               radius={4}
               backgroundColor={type === element.name ? 'background-primary' : 'outline-gray-40'}
               className={cn('button', { selected: type === element.name })}
@@ -70,6 +71,7 @@ export default function BoardOption() {
           {TEXTURE_BUTTONS.map((element) => (
             <Button
               key={element.name}
+              width={199}
               radius={4}
               backgroundColor={texture === element.name ? 'background-primary' : 'outline-gray-40'}
               className={cn('button', { selected: texture === element.name })}

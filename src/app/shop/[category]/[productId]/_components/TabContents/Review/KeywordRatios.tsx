@@ -21,9 +21,9 @@ export default function KeywordRatios({ optionRatios }: KeywordRatiosProps) {
 
   const maxOptionKeys: number[] = [+getMaxKey(option1Ratios), +getMaxKey(option2Ratios), +getMaxKey(option3Ratios)];
   const maxOptionValues = [
-    option1Ratios[maxOptionKeys[0]],
-    option2Ratios[maxOptionKeys[1]],
-    option3Ratios[maxOptionKeys[2]],
+    Math.floor(option1Ratios[maxOptionKeys[0]]),
+    Math.floor(option2Ratios[maxOptionKeys[1]]),
+    Math.floor(option3Ratios[maxOptionKeys[2]]),
   ];
 
   return (

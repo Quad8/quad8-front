@@ -18,7 +18,14 @@
 .content-wrapper {
   @include flex-column(0.4rem);
 
+  width: 100%;
   padding: 0.6rem 0;
+}
+
+.user-info-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .user-info {
@@ -34,6 +41,12 @@
 
     color: $gray-50;
   }
+}
+
+.dot-icon {
+  position: relative;
+  margin-left: auto;
+  cursor: pointer;
 }
 
 .content {

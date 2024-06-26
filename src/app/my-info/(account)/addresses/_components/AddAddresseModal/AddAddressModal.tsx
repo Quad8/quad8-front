@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import type { Address } from 'react-daum-postcode';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
@@ -10,6 +10,7 @@ import { Input, Label } from '@/components/parts';
 import { changePhoneNumber, formatPhoneNumber, unFormatPhoneNumber } from '@/libs';
 import type { UserAddress } from '@/types/shippingType';
 
+import { CheckboxCircleIcon } from '@/public/index';
 import styles from './AddAddressModal.module.scss';
 
 const cn = classNames.bind(styles);
@@ -40,7 +41,14 @@ interface AddAddressModalProps {
 }
 
 export default function AddAddressModal({ onClick, newAddressData, userAddressData, onSubmit }: AddAddressModalProps) {
-  const { handleSubmit, register, setValue } = useForm({
+  const [isChecked, setIsChecked] = useState(true);
+
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    formState: { isValid },
+  } = useForm({
     mode: 'all',
     defaultValues: DEFAULT_VALUES,
   });
@@ -70,34 +78,62 @@ export default function AddAddressModal({ onClick, newAddressData, userAddressDa
     setValue('phone', formattedValue, { shouldValidate: true });
   };
 
+  const handleCheckboxClick = () => {
+    setIsChecked((prevState) => !prevState);
+  };
+
   return (
     <form className={cn('modal')} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={cn('title')}>배송지 등록 / 수정</h1>
       <div className={cn('inputs')}>
-        <InputField label='이름' placeholder={PLACEHOLDERS.NAME} maxLength={10} {...register('name')} />
+        <InputField
+          label='이름'
+          placeholder={PLACEHOLDERS.NAME}
+          maxLength={10}
+          {...register('name', {
+            required: true,
+          })}
+        />
 
         <Label className={cn('inputs-address')} sizeVariant='md' htmlFor='address'>
           배송지
           <div className={cn('inputs-search')}>
-            <InputField placeholder={PLACEHOLDERS.ADDRESS1} readOnly {...register('address')} />
+            <InputField
+              placeholder={PLACEHOLDERS.ADDRESS1}
+              readOnly
+              {...register('address', {
+                required: true,
+              })}
+            />
             <Button className={cn('inputs-button')} type='button' radius={8} paddingVertical={8} onClick={onClick}>
               주소검색
             </Button>
           </div>
-          <InputField placeholder={PLACEHOLDERS.POSTAL_CODE} readOnly {...register('zoneCode')} />
-          <InputField placeholder={PLACEHOLDERS.ADDRESS2} {...register('detailAddress')} />
+          <InputField placeholder={PLACEHOLDERS.POSTAL_CODE} readOnly {...register('zoneCode', { required: true })} />
+          <InputField placeholder={PLACEHOLDERS.ADDRESS2} {...register('detailAddress', { required: true })} />
         </Label>
         <InputField
           label='연락처'
           placeholder={PLACEHOLDERS.PHONE}
           {...register('phone', {
+            required: true,
             setValueAs: (value) => unFormatPhoneNumber(value),
             onChange: handlePhoneChange,
           })}
         />
       </div>
-      <Input className={cn('checkbox')} type='checkbox' {...register('isDefault')} />
-      <Button className={cn('button')} type='submit' radius={8} paddingVertical={20}>
+      <Label className={cn('checkbox')}>
+        <CheckboxCircleIcon className={cn('checkbox-icon', { checked: isChecked })} stroke='#A5A5A5' />
+        기본 배송지로 설정
+        <Input
+          className={cn('checkbox-input')}
+          type='checkbox'
+          onClick={handleCheckboxClick}
+          {...register('isDefault')}
+        />
+      </Label>
+
+      <Button className={cn('button')} type='submit' radius={8} paddingVertical={20} disabled={!isValid}>
         저장
       </Button>
     </form>

@@ -13,6 +13,7 @@
 }
 
 .image {
+  border: 0.1rem solid $gray-7;
   border-radius: 0.8rem;
 }
 
@@ -100,7 +101,7 @@
   display: flex;
   flex-wrap: wrap;
   max-width: 52.6rem;
-  padding: 1.6rem;
+  padding: 1.2rem;
   border-radius: 0.8rem;
   background-color: rgba($color: $black, $alpha: 90%);
   color: $white;

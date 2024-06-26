@@ -1,0 +1,12 @@
+.page {
+  @include flex-column(4rem);
+
+  min-width: 84rem;
+  height: 100%;
+
+  .title {
+    @include pretendard-30-700;
+
+    color: $black;
+  }
+}

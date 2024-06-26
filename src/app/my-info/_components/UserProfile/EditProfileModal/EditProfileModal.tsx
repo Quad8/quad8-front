@@ -33,7 +33,6 @@ export default function EditProfileModal({ userData, onComplete }: EditProfileMo
   const {
     register,
     handleSubmit,
-    setError,
     setValue,
     formState: { errors },
   } = useForm({
@@ -48,12 +47,16 @@ export default function EditProfileModal({ userData, onComplete }: EditProfileMo
 
   const { mutate: checkNicknameMutation } = useMutation({
     mutationFn: checkNickname,
-    /** 피드백 메세지 수정 필요 */
     onSuccess: (res) => {
-      // console.log(res);
-      if (!res.ok && !errors.nickname) {
-        setError('nickname', { message: res.message });
+      if (res.status === 'SUCCESS') {
+        toast.success('사용 가능한 닉네임 입니다.');
+        return;
+      } else if (res.status === 'FAIL') {
+        toast.error('이미 사용중인 닉네임 입니다.');
+        return;
       }
+
+      toast.error('중복확인에 실패 하였습니다.');
     },
   });
 
@@ -79,16 +82,13 @@ export default function EditProfileModal({ userData, onComplete }: EditProfileMo
 
     putProfileMutation(formData, {
       onSuccess: (res) => {
-        // console.log(res);
-
         if (res.status === 'SUCCESS') {
           toast('회원정보가 변경되었습니다');
-
           queryClient.invalidateQueries({ queryKey: ['userData'] }).then(() => {
             onComplete();
           });
         } else {
-          // console.log('회원정보 변경 실패');
+          toast.error('회원정보 변경에 실패 하였습니다');
         }
       },
     });
@@ -99,9 +99,7 @@ export default function EditProfileModal({ userData, onComplete }: EditProfileMo
   };
 
   const handleNicknameCheck = () => {
-    if (changedNickname !== nickname) {
-      checkNicknameMutation(nickname);
-    }
+    checkNicknameMutation(nickname);
   };
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {

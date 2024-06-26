@@ -48,10 +48,8 @@
 
 .button {
   @include flex-center;
-  @include pretendard-18-400;
 
   gap: 1rem;
-  width: 19.9rem;
 
   &:hover {
     .prev-button-icon {

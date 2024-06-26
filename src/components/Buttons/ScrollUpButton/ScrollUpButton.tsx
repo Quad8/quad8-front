@@ -1,7 +1,7 @@
 'use client';
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import { UpArrowIcon } from '@/public/index';
+import { ChevronIcon } from '@/public/index';
 import classNames from 'classnames/bind';
 import { RefObject, useEffect, useState } from 'react';
 import styles from './ScrollUpButton.module.scss';
@@ -15,7 +15,7 @@ interface ScrollUpButtonProps {
 export default function ScrollUpButton({ headerRef }: ScrollUpButtonProps) {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const isIntersecting = useIntersectionObserver(headerRef, {
-    threshold: 0.1,
+    threshold: 0,
   });
   useEffect(() => {
     setIsHeaderVisible(isIntersecting);
@@ -30,7 +30,7 @@ export default function ScrollUpButton({ headerRef }: ScrollUpButtonProps) {
       className={cn('button-div', `${isHeaderVisible && 'no-button-visible'}`)}
       onClick={handleScrollUpButtonClick}
     >
-      <UpArrowIcon />
+      <ChevronIcon width={20} height={20} className={cn('icon')} />
     </button>
   );
 }

@@ -1,3 +1,5 @@
+import type { TabKeyword } from '@/types/ProductItem';
+
 export const CATEGORY_MAP = {
   keyboard: '키보드',
   keycap: '키캡',
@@ -118,3 +120,9 @@ type CategoryValue<K extends CategoryKey> = FilterOptionsType[K];
 export function getCategoryOptions<K extends CategoryKey>(category: K): CategoryValue<K> {
   return FILTER_OPTIONS[category];
 }
+
+export const TAB_KEYWORD: TabKeyword = {
+  저소음: '직장인을 위한 무소음 키보드',
+  가성비: '가성비 키보드',
+  청축: '타건감이 좋은 키보드',
+};

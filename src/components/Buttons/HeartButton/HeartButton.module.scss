@@ -1,0 +1,44 @@
+.heart {
+  width: 2.33rem;
+  height: 2.157rem;
+  stroke-width: 3;
+  stroke: $red-80;
+  cursor: pointer;
+
+  &.red-heart {
+    fill: $red-80;
+  }
+
+  &.white-stroke {
+    stroke: $white;
+  }
+}
+
+.circle {
+  @include flex-center;
+
+  width: 4.33rem;
+  height: 4.157rem;
+  border-radius: 100%;
+  background-color: $gray-10;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $red-40;
+  }
+
+  &.red-circle {
+    background-color: $red-80;
+  }
+}
+
+.like-count {
+  @include pretendard-16-500;
+
+  padding-left: 0.5rem;
+}
+
+.count-wrap {
+  display: flex;
+  align-items: center;
+}

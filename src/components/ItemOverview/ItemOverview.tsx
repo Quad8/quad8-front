@@ -1,36 +1,53 @@
-// import classNames from 'classnames/bind';
-// import styles from './ItemOverview.module.scss';
+import classNames from 'classnames/bind';
+import Image from 'next/image';
 
-// const cn = classNames.bind(styles);
+import { IMAGE_BLUR } from '@/constants/blurImage';
+import type { OrderItem } from '@/types/OrderTypes';
+import CustomOption from '../CustomOption/CustomOption';
 
-// const itemData = {
-//   image_URL: undefined,
-//   itemName: '키보드',
-//   selected: '키보드 이름',
-//   options: '옵션이 있으면 옵션',
-//   detail: '디테일이 있으면 디테일',
-// };
+import styles from './ItemOverview.module.scss';
 
-// interface ItemOverviewProps {
-//   itemData: Object;
-// }
+const cn = classNames.bind(styles);
 
-// export default function ItemOverview({ itemData }: ItemOverviewProps) {
-//   const { image_URL, itemName, selected, options, detail } = itemData;
+interface ItemOverviewProps {
+  item: OrderItem;
+  imegeWidth?: number;
+  imageHeight?: number;
+  className?: string;
+  onClick?: () => void;
+}
 
-//   return (
-//     <article className={cn('content')}>
-//       <div className={cn('item-image')}>
-//         <Image src={image_URL} fill placeholder='blur' />
-//       </div>
-//       <div className={cn('item-text')}>
-//         {/* <h1 className={cn('item-name')}>{itemName}</h1>
-//         <h2 className={cn('item-selected')}>{selected}</h2>
-//         <p className={cn('item-options')}>{options}</p>
-//         <p className={cn('item-detail')}>{detail}</p> */}
+export default function ItemOverview({
+  item,
+  imegeWidth = 107,
+  imageHeight = 107,
+  className,
+  onClick,
+}: ItemOverviewProps) {
+  const { productImgUrl, productName, switchOption, quantity } = item;
 
-//         <h1 className={cn('item-name')}>item입니다.</h1>
-//       </div>
-//     </article>
-//   );
-// }
+  return (
+    <div className={cn('item', className)} onClick={() => onClick?.()}>
+      <Image
+        src={productImgUrl}
+        alt={productName}
+        width={imegeWidth}
+        height={imageHeight}
+        placeholder={IMAGE_BLUR.placeholder}
+        blurDataURL={IMAGE_BLUR.blurDataURL}
+        className={cn('product-image')}
+      />
+      {productName === '키득 커스텀 키보드' ? (
+        <div className={cn('item-option')}>
+          <p className={cn('keydeuk-keyboard-title')}>키드 커스텀 키보드</p>
+          <CustomOption customData={switchOption} />
+        </div>
+      ) : (
+        <div className={cn('item-text')}>
+          <p>{productName}</p>
+          <p className={cn('item-quantity')}>{quantity}개</p>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -1,0 +1,41 @@
+.container {
+  @include inner;
+
+  display: flex;
+  margin: 15rem auto;
+  color: $black;
+  gap: 15.2rem;
+}
+
+.title {
+  @include pretendard-70-700;
+}
+
+.desc {
+  @include pretendard-50-100;
+}
+
+.left {
+  @include flex-column(4.2rem);
+}
+
+.right {
+  width: 60em;
+  height: 36rem;
+}
+
+.link-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  width: 50rem;
+}
+
+.button {
+  @include pretendard-18-400;
+
+  padding: 0.8rem 1.6rem;
+  border-radius: 10rem;
+  background-color: $gray-5;
+  color: #727589;
+}

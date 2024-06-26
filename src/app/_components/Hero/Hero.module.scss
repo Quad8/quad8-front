@@ -1,0 +1,168 @@
+.hero-section {
+  background-color: $black;
+}
+
+.inner {
+  max-width: 168rem;
+  margin: 0 auto;
+}
+
+.hero-box {
+  position: relative;
+  height: 100rem;
+}
+
+.title-container {
+  @include pretendard-80-700;
+
+  display: flex;
+  position: absolute;
+  top: 18rem;
+  flex-direction: column;
+  width: 100%;
+  color: $white;
+  gap: 3.5rem;
+  text-align: center;
+
+  & h2 {
+    @include pretendard-40-700;
+
+    padding-bottom: 5rem;
+    color: $primary-20;
+  }
+}
+
+.hero-item {
+  position: absolute;
+
+  &:nth-child(even) {
+    animation: bounce-in-fwd 1.3s both;
+  }
+
+  &:nth-child(1) {
+    bottom: 29.3rem;
+    left: 9.2rem;
+    animation: bounce-in-fwd 1.3s both;
+  }
+
+  &:nth-child(2) {
+    right: 10rem;
+    bottom: 22rem;
+  }
+
+  &:nth-child(3) {
+    top: 10rem;
+    right: 39rem;
+    animation: bounce-in-fwd 1.7s both;
+  }
+
+  &:nth-child(4) {
+    bottom: 22.2rem;
+    left: 52.2rem;
+  }
+
+  &:nth-child(5) {
+    top: 20rem;
+    left: 28rem;
+    animation: bounce-in-fwd 1.7s both;
+  }
+
+  &:nth-child(6) {
+    top: 30rem;
+    right: 10rem;
+  }
+}
+
+.animation-line {
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+
+.typing-wrap {
+  @include flex-center;
+}
+
+.typing {
+  display: inline-block;
+  overflow: hidden;
+  animation:
+    typing 1s steps(10, end),
+    blink-caret 1s step-start infinite;
+  animation-delay: 0.5s;
+  border-right: 0.15em solid $black;
+  background: linear-gradient(to right top, rgb(152 138 255), #ff70db);
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.wrap {
+  position: relative;
+  opacity: 0;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  0%,
+  100% {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: $white;
+  }
+}
+
+@mixin bounce-effect($scale, $timing) {
+  transform: scale($scale);
+  animation-timing-function: $timing;
+}
+
+@keyframes bounce-in-fwd {
+  0% {
+    @include bounce-effect(0, ease-in);
+
+    opacity: 0;
+  }
+
+  38% {
+    @include bounce-effect(1, ease-out);
+
+    opacity: 1;
+  }
+
+  55% {
+    @include bounce-effect(0.7, ease-in);
+  }
+
+  72% {
+    @include bounce-effect(1, ease-out);
+  }
+
+  81% {
+    @include bounce-effect(0.84, ease-in);
+  }
+
+  89% {
+    @include bounce-effect(1, ease-out);
+  }
+
+  95% {
+    @include bounce-effect(0.95, ease-in);
+  }
+
+  100% {
+    @include bounce-effect(1, ease-out);
+  }
+}

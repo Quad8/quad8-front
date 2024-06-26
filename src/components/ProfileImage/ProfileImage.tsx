@@ -4,6 +4,8 @@ import { CameraIcon, keydeukProfileImg } from '@/public/index';
 import classNames from 'classnames/bind';
 import Image, { StaticImageData } from 'next/image';
 import { ChangeEvent, forwardRef, useEffect, useState } from 'react';
+import { IMAGE_BLUR } from '@/constants/blurImage';
+
 import styles from './ProfileImage.module.scss';
 
 const cn = classNames.bind(styles);
@@ -51,6 +53,9 @@ export default forwardRef<HTMLInputElement, ProfileImageProp>(function ProfileIm
           height={height}
           className={cn('profile-image')}
           onError={() => setIsImageError(true)}
+          priority
+          placeholder={IMAGE_BLUR.placeholder}
+          blurDataURL={IMAGE_BLUR.blurDataURL}
         />
         {isEditable && (
           <div className={cn('image-input-wrapper')}>

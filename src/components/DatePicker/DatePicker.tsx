@@ -3,8 +3,8 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 
-import { CalendarIcon } from '@/public/index';
 import { Button } from '@/components';
+import { CalendarIcon } from '@/public/index';
 import Calendar from './Calendar';
 
 import styles from './DatePicker.module.scss';
@@ -72,25 +72,28 @@ function DatePicker({ onDateChange }: DatePickerProps) {
     <div className={cn('container')}>
       <div className={cn('month-picker-wrapper')}>
         <Button
-          className={cn('date-option', 'first', `${selectedMonthOption === 1 && 'is-focus'}`)}
           hoverColor='outline-primary'
           paddingVertical={8}
+          width={90}
+          backgroundColor={selectedMonthOption === 1 ? 'outline-primary' : 'outline-gray-40'}
           onClick={() => handleClickMonthOption(1)}
         >
           1개월
         </Button>
         <Button
-          className={cn('date-option', 'second', `${selectedMonthOption === 2 && 'is-focus'}`)}
           hoverColor='outline-primary'
           paddingVertical={8}
+          width={90}
+          backgroundColor={selectedMonthOption === 2 ? 'outline-primary' : 'outline-gray-40'}
           onClick={() => handleClickMonthOption(2)}
         >
           2개월
         </Button>
         <Button
-          className={cn('date-option', 'third', `${selectedMonthOption === 3 && 'is-focus'}`)}
           hoverColor='outline-primary'
           paddingVertical={8}
+          width={90}
+          backgroundColor={selectedMonthOption === 3 ? 'outline-primary' : 'outline-gray-40'}
           onClick={() => handleClickMonthOption(3)}
         >
           3개월
@@ -130,7 +133,13 @@ function DatePicker({ onDateChange }: DatePickerProps) {
           )}
         </div>
       </div>
-      <Button width={72} paddingVertical={8} radius={4} onClick={handleQueryButtonClick}>
+      <Button
+        className={cn('confirm-button')}
+        width={72}
+        paddingVertical={8}
+        radius={4}
+        onClick={handleQueryButtonClick}
+      >
         조회
       </Button>
     </div>

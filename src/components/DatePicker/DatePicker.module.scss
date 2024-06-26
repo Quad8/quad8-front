@@ -22,7 +22,6 @@
 }
 
 .month-picker-wrapper {
-  height: 100%;
   margin-right: 4rem;
 
   & > :nth-child(1) {
@@ -72,12 +71,12 @@
       stroke: $primary;
     }
   }
-
-  & > .date-text {
-    margin-top: 0.3rem;
-  }
 }
 
 .is-focus {
   @include hover-color;
+}
+
+.confirm-button {
+  flex-shrink: 0;
 }

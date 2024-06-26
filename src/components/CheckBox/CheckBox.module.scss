@@ -1,0 +1,17 @@
+.wrapper {
+  @include flex-center;
+
+  width: 1.8rem;
+  height: 1.8rem;
+  overflow: hidden;
+  border-radius: 0.2rem;
+  background-color: $gray-40;
+}
+
+.icon {
+  fill: transparent;
+}
+
+.checked {
+  background-color: $primary;
+}

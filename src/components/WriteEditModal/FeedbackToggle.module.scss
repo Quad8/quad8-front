@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.8rem;
+}
+
+#label {
+  @include pretendard-18-400;
+
+  width: 5rem;
+  text-align: center;
+}
+
+.option-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 15rem);
+  width: fit-content;
+}
+
+@mixin option($isClicked) {
+  @include pretendard-18-400;
+
+  padding: 0.8rem 0;
+  text-align: center;
+  cursor: pointer;
+
+  @if ($isClicked) {
+    background-color: $primary;
+    color: $white;
+  } @else {
+    border: 0.1rem solid $gray-50;
+    color: $gray-50;
+  }
+
+  &:first-child {
+    border-radius: 0.4rem 0 0 0.4rem;
+  }
+
+  &:nth-child(2) {
+    border-radius: 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0.4rem 0.4rem 0;
+  }
+}
+
+.option-clicked {
+  @include option(true);
+}
+
+.option-not-clicked {
+  @include option(false);
+}
