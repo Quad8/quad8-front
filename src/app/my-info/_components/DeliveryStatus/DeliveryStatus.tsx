@@ -9,7 +9,7 @@ import { ROUTER } from '@/constants/route';
 import { ChevronIcon } from '@/public/index';
 import { Order, OrderStatus } from '@/types/OrderTypes';
 
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import styles from './DeliveryStatus.module.scss';
 
 const cn = classNames.bind(styles);
@@ -27,17 +27,14 @@ export default function DeliveryStatus() {
 
   const { data: ordersData } = useQuery<{ data: Order[] }>({ queryKey: ['ordersData'], queryFn: getOrdersData });
 
-  const orders = ordersData?.data ?? [];
+  const orders = useMemo(() => ordersData?.data ?? [], [ordersData]);
 
   useEffect(() => {
-    const updatedStatusList = deliveryStatusList.map((statusItem) => ({
+    const updatedStatusList = DELIVERY_STATUS_LIST.map((statusItem) => ({
       ...statusItem,
       count: orders.filter((order) => order.orderStatus === statusItem.status).length,
     }));
     setDeliveryStatusList(updatedStatusList);
-
-    // [deliveryStatusList, orders]로 종속성 넣으면 무한호출 나와요
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orders]);
 
   return (
