@@ -2,6 +2,7 @@ import { FocusKeyContextProvider, KeyboardDataContextProvider, StepContextProvid
 import EventProvider from './EventProvider';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  console.log('render');
   return (
     <StepContextProvider>
       <KeyboardDataContextProvider>
