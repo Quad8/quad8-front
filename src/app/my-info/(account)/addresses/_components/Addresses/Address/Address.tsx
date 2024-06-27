@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { Address as AddressT, DaumPostcodeEmbed } from 'react-daum-postcode';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { deleteAddress, putAddress } from '@/api/shippingAPI';
 import { Modal } from '@/components';
@@ -40,6 +41,7 @@ export default function Address({ item }: AddressProps) {
     deleteAddressMutate(id, {
       onSuccess: (res) => {
         if (res.status === 'SUCCESS') {
+          toast('삭제되었습니다.');
           queryClient.invalidateQueries({ queryKey: ['addressesData'] });
         }
       },
@@ -64,6 +66,7 @@ export default function Address({ item }: AddressProps) {
     putAddressMutate(payload, {
       onSuccess: (res) => {
         if (res.status === 'SUCCESS') {
+          toast('수정되었습니다.');
           queryClient.invalidateQueries({ queryKey: ['addressesData'] });
           onSuccessClose();
         }

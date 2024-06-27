@@ -32,10 +32,33 @@
   }
 
   .checkbox {
-    // appearance: none;
+    @include pretendard-16-400;
+
+    display: flex;
+    align-items: center;
+    color: $black;
+    gap: 0.8rem;
+
+    .checkbox-icon {
+      width: 2rem;
+      height: 2rem;
+      fill: $gray-5;
+
+      &.checked {
+        fill: $primary;
+      }
+    }
+
+    .checkbox-input {
+      display: none;
+    }
   }
 
   .button {
     @include pretendard-18-700;
+
+    &:disabled {
+      background-color: $gray-40;
+    }
   }
 }
