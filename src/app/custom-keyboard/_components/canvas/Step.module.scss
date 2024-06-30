@@ -1,15 +1,26 @@
 .wrapper {
   @include flex-column(3.7rem);
 
-  position: relative;
-  width: 11.2rem;
+  position: absolute;
+  z-index: $zindex-offcanvas;
+  top: 50%;
+  left: 4rem;
+  width: 9.9rem;
   height: 17rem;
+  transform: translateY(-50%);
 }
 
 .content-wrapper {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 11%;
+  width: 100%;
+  height: 18.8%;
+}
+
+.step-button {
+  width: 32.2%;
+  height: 100%;
 }
 
 .content-text {
@@ -21,17 +32,17 @@
 
 .line {
   position: absolute;
-  left: 1.6rem;
-  height: 3.7rem;
+  left: 15.55%;
+  height: 22%;
   border-left: 0.1rem dashed $gray-40;
 }
 
 .first-line {
-  top: 3.2rem;
+  top: 18.8%;
 }
 
 .second-line {
-  top: 10.1rem;
+  top: 59.5%;
 }
 
 .completed-line {

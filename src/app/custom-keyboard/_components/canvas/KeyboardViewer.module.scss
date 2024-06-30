@@ -3,15 +3,3 @@
   height: calc(100vh - 8rem);
   background-color: $gray-5;
 }
-
-.step-wrapper {
-  @include flex-center;
-
-  position: absolute;
-  z-index: $zindex-offcanvas;
-  top: 50%;
-  left: 4rem;
-  width: 16.2rem;
-  height: 21.8rem;
-  transform: translateY(-50%);
-}
