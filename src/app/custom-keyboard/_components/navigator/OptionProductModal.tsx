@@ -16,14 +16,14 @@ interface OptionProductModalProps {
   optionData: OptionDataType[];
   onClose: () => void;
   updateOptionPrice: (value: number) => void;
-  onClick: () => void;
+  openCartModal: () => void;
 }
 
 export default function OptionProductModal({
   optionData,
   onClose,
   updateOptionPrice,
-  onClick,
+  openCartModal,
 }: OptionProductModalProps) {
   const { updateData } = useContext(KeyboardDataContext);
 
@@ -49,12 +49,12 @@ export default function OptionProductModal({
       .reduce((prev, next) => prev + next, 0);
     updateOptionPrice(currentPrice);
     onClose();
-    onClick();
+    openCartModal();
   };
 
   const handleClickCloseButton = () => {
     onClose();
-    onClick();
+    openCartModal();
   };
 
   return (

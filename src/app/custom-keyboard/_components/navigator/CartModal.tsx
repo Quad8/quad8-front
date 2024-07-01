@@ -9,7 +9,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { POINT_KEY } from '@/constants/keyboardData';
 import type { CustomKeyboardStepTypes, OptionDataType, CustomKeyboardAPITypes } from '@/types/CustomKeyboardTypes';
 import { blackSwitchImg, blueSwitchImg, brownSwitchImg, redSwitchImg } from '@/public/index';
-import { Button } from '@/components';
+import { Button, Dialog } from '@/components';
 import { getColorUpperCase } from '@/libs/getColorUpperCase';
 import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
 import { postCustomKeyboardOrder } from '@/api/customKeyboardAPI';
@@ -28,8 +28,14 @@ const cn = classNames.bind(styles);
 interface CartModalProps {
   optionData: OptionDataType[];
   optionPrice: number;
+  isOpenConfirmDialog: boolean;
+  isOpenAlertDialog: boolean;
+  isOpenLoginModal: boolean;
   onClose: () => void;
-  onUpdateOptionPrice: (value: number) => void;
+  changeConfrimDialog: (value: boolean) => void;
+  changeAlertDialog: (value: boolean) => void;
+  changeLoginModal: (value: boolean) => void;
+  updateOptionPrice: (value: number) => void;
 }
 
 interface OrderListType {
@@ -50,13 +56,26 @@ const SWITCH_LIST = {
   흑축: blackSwitchImg,
 };
 
-export default function CartModal({ optionData, optionPrice, onClose, onUpdateOptionPrice }: CartModalProps) {
+export default function CartModal({
+  optionData,
+  optionPrice,
+  isOpenConfirmDialog,
+  isOpenAlertDialog,
+  isOpenLoginModal,
+  onClose,
+  changeConfrimDialog,
+  changeAlertDialog,
+  changeLoginModal,
+  updateOptionPrice,
+}: CartModalProps) {
   const router = useRouter();
   const params = useSearchParams();
   const queryClient = useQueryClient();
 
   const orderWrapperRef = useRef<HTMLDivElement>(null);
-  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [isDeleteCompleted, setIsDeletedCompleted] = useState(true);
+
   const {
     mutate: createCustomKeybaord,
     isSuccess: createMutationSucess,
@@ -72,6 +91,7 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
   } = useMutation<void, Error, { id: number; data: Omit<CustomKeyboardAPITypes, 'option'> }>({
     mutationFn: ({ id, data }) => putUpdateCustomKeyboardData(id, data),
   });
+
   const {
     orderId,
     keyboardData: {
@@ -103,7 +123,7 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
 
   const isOverFlow = (option ? Object.entries(option).filter((element) => element[1]).length : 0) > 1;
 
-  const ORDER_LIST: OrderListType[] = [
+  const orderList: OrderListType[] = [
     {
       name: '키득 베어본',
       option1: `${type} / ${getColorUpperCase(boardColor)} / ${texture}`,
@@ -137,7 +157,7 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
     const accessToken = await getCookie('accessToken');
 
     if (!accessToken) {
-      setIsOpenLoginModal(true);
+      changeLoginModal(true);
       return;
     }
 
@@ -154,6 +174,7 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
       individualColor: hasPointKeyCap && Object.keys(individualColor) ? individualColor : null,
       imgBase64: keyboardImage.keyCap,
     };
+
     if (!orderId || !id) {
       Object.assign(data, { option });
       createCustomKeybaord(data as CustomKeyboardAPITypes, {
@@ -190,7 +211,7 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
     );
   };
 
-  const onClickEditButton = (e: MouseEvent<HTMLButtonElement>, step: CustomKeyboardStepTypes) => {
+  const handleClickEditButton = (e: MouseEvent<HTMLButtonElement>, step: CustomKeyboardStepTypes) => {
     e.stopPropagation();
     onClose();
     if (step !== 'keyCap') {
@@ -199,16 +220,35 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
     updateCurrentStep(step);
   };
 
-  const onClickDeleteButton = (e: MouseEvent<HTMLButtonElement>, id: number) => {
-    e.stopPropagation();
-    // eslint-disable-next-line no-alert
-    if (window.confirm('정말 삭제하시겠습니까?')) {
-      deleteOption(id);
-      const deleteOptionCost = optionData.find((element) => element.id === id)?.price as number;
-      onUpdateOptionPrice(-deleteOptionCost);
-      // eslint-disable-next-line no-alert
-      alert('삭제되었습니다');
+  const handleClickCloseConfirm = () => {
+    changeConfrimDialog(false);
+  };
+
+  const handleClickDeleteConfirm = () => {
+    if (!deleteId) {
+      setIsDeletedCompleted(false);
+      changeAlertDialog(true);
+      return;
     }
+    deleteOption(deleteId);
+    const deleteOptionCost = optionData.find((element) => element.id === deleteId)?.price;
+    if (!deleteOptionCost) {
+      setIsDeletedCompleted(false);
+      changeAlertDialog(true);
+      return;
+    }
+    updateOptionPrice(-deleteOptionCost);
+    setIsDeletedCompleted(true);
+    changeAlertDialog(true);
+  };
+
+  const handleCloseAlert = () => {
+    changeAlertDialog(false);
+  };
+
+  const handleClickDeleteOption = (id: number) => {
+    setDeleteId(id);
+    changeConfrimDialog(true);
   };
 
   const isDisabled = createMutationPending || createMutationSucess || updateMutationPending || updateMutationSuccess;
@@ -220,7 +260,7 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
       </div>
       <div className={cn('content-wraper')}>
         <div className={cn('order-wrapper')} ref={orderWrapperRef}>
-          {ORDER_LIST.map((element) => (
+          {orderList.map((element) => (
             <CartModalOptionCard
               key={element.name}
               name={element.name}
@@ -230,7 +270,7 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
               price={element.price}
               count={element.count}
               imageSrc={element.imageSrc}
-              buttonOnClick={(e) => onClickEditButton(e, element.step)}
+              buttonOnClick={(e) => handleClickEditButton(e, element.step)}
               wrapperRef={orderWrapperRef}
             />
           ))}
@@ -244,7 +284,7 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
                   price={element.price}
                   imageSrc={element.thumbnail}
                   buttonType='delete'
-                  buttonOnClick={(e) => onClickDeleteButton(e, element.id)}
+                  buttonOnClick={() => handleClickDeleteOption(element.id)}
                 />
               ),
           )}
@@ -263,7 +303,23 @@ export default function CartModal({ optionData, optionPrice, onClose, onUpdateOp
           {orderId ? '수정하기' : '장바구니 담기'}
         </Button>
       </div>
-      <SignInModal isOpen={isOpenLoginModal} onClose={() => setIsOpenLoginModal(false)} />
+      <Dialog
+        message='정말 삭제하시겠습니까?'
+        isOpen={isOpenConfirmDialog}
+        iconType='warn'
+        type='confirm'
+        buttonText={{ left: '닫기', right: '삭제하기' }}
+        onClick={{ left: handleClickCloseConfirm, right: handleClickDeleteConfirm }}
+      />
+      <Dialog
+        message={isDeleteCompleted ? '삭제되었습니다' : '해당 옵션을 삭제할 수 없습니다'}
+        isOpen={isOpenAlertDialog}
+        iconType={isDeleteCompleted ? 'accept' : 'warn'}
+        type='alert'
+        buttonText='닫기'
+        onClick={handleCloseAlert}
+      />
+      <SignInModal isOpen={isOpenLoginModal} onClose={() => changeLoginModal(false)} />
     </div>
   );
 }

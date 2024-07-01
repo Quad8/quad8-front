@@ -75,11 +75,21 @@ export default function TotalCostWithNavigation() {
   });
 
   const [optionData, setOptionData] = useState<OptionDataType[]>([]);
+
   const [isOpenOptionModal, setIsOpenOptionModal] = useState(false);
   const [isInitialOpenOptionModal, setIsInitialOpenOptionModal] = useState(true);
+
   const [isOpenCartModal, setIsOpenCartModal] = useState(false);
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
+  const [isOpenConfirmDialog, setIsOpenConfirmDialog] = useState(false);
+  const [isOpenAlertDialog, setIsOpenAlertDialog] = useState(false);
+
+  const isOpenAnyModalOnCartModal = isOpenAlertDialog || isOpenConfirmDialog || isOpenLoginModal;
+
   const [optionPrice, setOptionPrice] = useState(0);
+
   const { captureCanvas } = useCaptureCanvas();
+
   const {
     orderId,
     keyboardData: { type, texture, price, hasPointKeyCap, individualColor, pointKeyType },
@@ -135,11 +145,22 @@ export default function TotalCostWithNavigation() {
     setIsInitialOpenOptionModal(false);
   };
 
+  const handleConfirmDialog = (value: boolean) => {
+    setIsOpenConfirmDialog(value);
+  };
+
+  const handleAlertDialog = (value: boolean) => {
+    setIsOpenAlertDialog(value);
+  };
+
   const handleOpenCartModal = () => {
     setIsOpenCartModal(true);
   };
 
   const handleCloseCartMoal = () => {
+    if (isOpenAnyModalOnCartModal) {
+      return;
+    }
     setIsOpenCartModal(false);
   };
 
@@ -210,15 +231,21 @@ export default function TotalCostWithNavigation() {
           optionData={optionData}
           onClose={handleCloseOptionModal}
           updateOptionPrice={updateOptionPrice}
-          onClick={handleOpenCartModal}
+          openCartModal={handleOpenCartModal}
         />
       </Modal>
       <Modal isOpen={isOpenCartModal} onClose={handleCloseCartMoal}>
         <CartModal
           optionData={optionData}
           optionPrice={optionPrice}
+          isOpenConfirmDialog={isOpenConfirmDialog}
+          isOpenAlertDialog={isOpenAlertDialog}
+          isOpenLoginModal={isOpenLoginModal}
           onClose={handleCloseCartMoal}
-          onUpdateOptionPrice={updateOptionPrice}
+          updateOptionPrice={updateOptionPrice}
+          changeConfrimDialog={handleConfirmDialog}
+          changeAlertDialog={handleAlertDialog}
+          changeLoginModal={setIsOpenLoginModal}
         />
       </Modal>
     </div>

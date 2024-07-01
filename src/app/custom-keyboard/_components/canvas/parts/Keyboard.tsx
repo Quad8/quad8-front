@@ -1,7 +1,7 @@
 'use client';
 
 import { useGLTF } from '@react-three/drei';
-import { ThreeEvent } from '@react-three/fiber';
+import { ThreeEvent, useThree } from '@react-three/fiber';
 import { useContext } from 'react';
 import { Euler, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 import { GLTF } from 'three-stdlib';
@@ -31,9 +31,14 @@ export default function Keyboard() {
 
   const { focusKey, updateFocusKey, updateCurrentPointKeyColor } = useContext(FocusKeyContext);
   const { currentStep } = useContext(StepContext);
+
   const { nodes, materials } = useGLTF(
     type === '텐키리스' ? '/glbs/tklKeyboard.glb' : '/glbs/keyboard.glb',
   ) as unknown as GLTF & KeyboardNodes;
+
+  const { viewport } = useThree();
+
+  const groupScale = viewport.width < 2 * viewport.height ? viewport.width / 2 : viewport.height;
 
   const SCALE = type === '텐키리스' ? 3.2 : 0.05;
   const KEY_BUTTONS = type === '텐키리스' ? [...KEY] : [...KEY, ...TEN_KEY];
@@ -64,8 +69,12 @@ export default function Keyboard() {
     }
     return baseKeyColor;
   };
+
   return (
-    <group onClick={(e) => currentStep === 'keyCap' && pointKeyType === '내 맘대로 바꾸기' && handleClickKey(e)}>
+    <group
+      scale={groupScale}
+      onClick={(e) => currentStep === 'keyCap' && pointKeyType === '내 맘대로 바꾸기' && handleClickKey(e)}
+    >
       <mesh
         geometry={nodes.Cube.geometry}
         material={materials.Cube}
