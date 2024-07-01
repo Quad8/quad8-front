@@ -89,45 +89,117 @@
 <br><br><br>
 
 # <img height="30" src="https://github.com/Quad8/quad8-front/assets/110798291/a6ed5540-77a8-4cba-962d-49d143756499">  화면 구성
-<table align="center">
+
+### 1. 홈페이지
+
+<table>
   <tbody>
     <tr>
-      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
-      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
-      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+      <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+      <td align="center" width="300">메인 페이지</td>
     </tr>
     <tr>
-      <td align="center">메인 페이지</td>
-      <td align="center">상품 목록 페이지</td>
-      <td align="center">상품 상세 페이지</td>
+      <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+      <td align="center">로그인 페이지</td>
     </tr>
-  </tbody>
-  <tbody>
-    <tr>
-      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
-      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
-      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
-    </tr>
-    <tr>
-      <td align="center">커스텀 키보드 만들기 페이지</td>
-      <td align="center">커뮤니티 페이지</td>
-      <td align="center">마이페이지-내 정보 수정</td>
-    </tr>
-  </tbody>
-  <tbody>
-    <tr>
-      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
-      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
-      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
-    </tr>
-    <tr>
-      <td align="center">마이페이지-배송지 관리 페이지</td>
-      <td align="center">마이페이지-장바구니</td>
-      <td align="center">마이페이지-내 게시글 조회</td>
+     <tr>
+       <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+       <td align="center">회원가입 페이지</td>
     </tr>
   </tbody>
 </table>
+
+<br>
+
+### 2. 상품 페이지
+<table>
+  <tbody>
+    <tr>
+     <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+      <td align="center" width="300" >상품 목록 페이지</td>
+    </tr>
+     <tr>
+       <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+       <td align="center" width="300">상품 상세 페이지</td>
+    </tr><tr>
+       <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+       <td align="center" width="300">상품 리뷰 페이지</td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+### 3. 키보드 3D 커스터마이징 페이지
+<table>
+  <tbody>
+    <tr>
+      <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+      <td align="center" width="300">커스텀 키보드 만들기 페이지</td>
+    </tr>
+    <tr>
+     <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+      <td align="center"></td>
+    </tr>
+     <tr>
+      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+       <td align="center"></td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+### 4. 커뮤니티 페이지
+<table>
+  <tbody>
+    <tr>
+      <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+      <td align="center" width="300">커뮤니티 페이지</td>
+    </tr>
+    <tr>
+     <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+      <td align="center">게시글 작성</td>
+    </tr>
+     <tr>
+      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+       <td align="center">댓글 및 좋아요 기능</td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+### 5. 마이 페이지
+<table>
+  <tbody>
+    <tr>
+      <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+      <td align="center" width="300">내 정보 수정</td>
+    </tr>
+    <tr>
+     <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+      <td align="center">배송지 관리</td>
+    </tr>
+     <tr>
+      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+       <td align="center">장바구니</td>
+    </tr>
+    </tr>
+     <tr>
+      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+       <td align="center">주문 및 결제</td>
+    </tr>
+    <tr>
+      <td width=330 height=330 align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+       <td align="center">내 게시글 조회</td>
+    </tr>
+  </tbody>
+</table>
+
 <br><br><br>
+
+<!-- 
 
 # <img height="30" src="https://github.com/Quad8/quad8-front/assets/110798291/a6ed5540-77a8-4cba-962d-49d143756499">  주요 기능
 
@@ -155,7 +227,6 @@
 
 <br><br><br>
 
-<!-- 
 # <img height="30" src="https://github.com/Quad8/quad8-front/assets/110798291/a6ed5540-77a8-4cba-962d-49d143756499">  협업 관리
 
 ### 프론트엔드
