@@ -27,15 +27,15 @@ export const CartDataContext = createContext<CartDataContextType>({
 export function CartDataContextProvider({ children }: PropsWithChildren) {
   const { data: cartData } = useQuery<CartAPIDataType>({ queryKey: ['cartData'], queryFn: getCartData });
   const [checkedCustomList, setCheckedCustomList] = useState<Record<string, boolean>>(
-    Object.fromEntries((cartData ? cartData.CUSTOM : []).map((element) => [element.id, false])),
+    cartData?.CUSTOM ? Object.fromEntries(cartData.CUSTOM.map((element) => [element.id, false])) : {},
   );
   const [checkedShopList, setCheckedShopList] = useState<Record<string, boolean>>(
-    Object.fromEntries((cartData ? cartData.SHOP : []).map((element) => [element.id, false])),
+    cartData?.SHOP ? Object.fromEntries(cartData.SHOP.map((element) => [element.id, false])) : {},
   );
 
   useEffect(() => {
-    const customData = cartData ? cartData.CUSTOM : [];
-    const shopData = cartData ? cartData.SHOP : [];
+    const customData = cartData?.CUSTOM ?? [];
+    const shopData = cartData?.SHOP ?? [];
 
     setCheckedCustomList(Object.fromEntries(customData.map((element) => [element.id, false])));
     setCheckedShopList(Object.fromEntries(shopData.map((element) => [element.id, false])));

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
 import { useQuery } from '@tanstack/react-query';
@@ -32,8 +32,6 @@ export default function OptionEditModal({
   onClickCancel,
   onClickEdit,
 }: OptionEditModalProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const [count, setCount] = useState(currentCount);
   const [optionId, setOptionId] = useState(currentOptionId);
 
@@ -67,6 +65,10 @@ export default function OptionEditModal({
 
   const handleClickEditButton = () => {
     onClickEdit(id, { count, switchOptionId: optionId });
+  };
+
+  const handleChangeCount = (value: number) => {
+    setCount(value);
   };
 
   return (
@@ -105,7 +107,7 @@ export default function OptionEditModal({
               {productData.optionList.find((option) => option.id === optionId)?.optionName}
             </div>
           )}
-          <CountInput value={count} ref={inputRef} onChange={(value) => setCount(Number(value))} />
+          <CountInput value={count} onChange={handleChangeCount} />
         </div>
         <div className={cn('cart-wrapper')} />
         <div className={cn('price-wrapper')}>
