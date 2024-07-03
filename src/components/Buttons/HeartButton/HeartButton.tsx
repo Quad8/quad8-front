@@ -35,6 +35,7 @@ export default function HeartButton({ id, usage, isLiked, likeCount }: HeartButt
   });
 
   const { mutate: likeMutation } = useMutation({
+    retry: false,
     mutationFn: async ({ itemId, itemIsLiked }: LikeMutationProps) => {
       if (usage === 'community') {
         if (itemIsLiked) {

@@ -1,5 +1,5 @@
-import { getCookie } from '@/libs/manageCookie';
 import type { CustomKeyboardAPITypes } from '@/types/CustomKeyboardTypes';
+import { baseAPI } from './interceptor/interceptor';
 
 export const getRandomOptionProduct = async () => {
   try {
@@ -19,14 +19,8 @@ export const getRandomOptionProduct = async () => {
   }
 };
 export const postCustomKeyboardOrder = async (data: CustomKeyboardAPITypes) => {
-  const token = await getCookie('accessToken');
   try {
-    await fetch(`${process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL}/api/v1/custom/create`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+    await baseAPI.post('/api/v1/custom/create', {
       body: JSON.stringify(data),
     });
   } catch (error) {

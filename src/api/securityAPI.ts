@@ -2,27 +2,24 @@ import { getCookie } from '@/libs/manageCookie';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
-export const postRefreshToken = async (refreshToken: string) => {
-  const accessToken = await getCookie('accessToken');
+export const postRefreshToken = async () => {
+  const prevAccessToken = await getCookie('accessToken');
+  const prevRefreshToken = await getCookie('refreshToken');
 
   try {
     const res = await fetch(`${BASE_URL}/api/v1/reissue`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify({ refreshToken }),
+      body: JSON.stringify({ accessToken: prevAccessToken, refreshToken: prevRefreshToken }),
     });
 
-    const result = await res.json();
-
-    // console.log(result);
-
-    return result;
+    const {
+      data: { accessToken, refreshToken },
+    } = await res.json();
+    return { accessToken, refreshToken };
   } catch (error) {
-    // console.error('짜잔 토큰 갱싱 실패~', error);
-
     throw error;
   }
 };

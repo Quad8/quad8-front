@@ -1,22 +1,11 @@
-import { getCookie } from '@/libs/manageCookie';
-
 import type { CreateOrderAPIType } from '@/types/OrderTypes';
-
-const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
+import { baseAPI } from './interceptor/interceptor';
 
 export const postCreateOrder = async (orderData: CreateOrderAPIType) => {
-  const token = await getCookie('accessToken');
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/order`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+    const data = await baseAPI.post('/api/v1/order', {
       body: JSON.stringify(orderData),
     });
-    const data = await res.json();
-
     return data;
   } catch (error) {
     throw error;
@@ -24,23 +13,8 @@ export const postCreateOrder = async (orderData: CreateOrderAPIType) => {
 };
 
 export const getOrdersData = async () => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/order`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const data = await res.json();
-
+    const data = await baseAPI.get('/api/v1/order');
     if (data.status === 'FAIL') {
       return null;
     }
@@ -52,22 +26,8 @@ export const getOrdersData = async () => {
 };
 
 export const getPaymentItemData = async (orderId: string | undefined) => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/order/${orderId}/payment`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const data = await res.json();
+    const data = await baseAPI.get(`/api/v1/order/${orderId}/payment`);
 
     if (data.status === 'FAIL') {
       return null;

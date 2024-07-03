@@ -1,26 +1,11 @@
-import { getCookie } from '@/libs/manageCookie';
 import type { FieldValues } from 'react-hook-form';
-
-const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
+import { baseAPI } from './interceptor/interceptor';
 
 export const postAddress = async (payload: FieldValues) => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/shipping/address`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+    const result = await baseAPI.post('/api/v1/shipping/address', {
       body: JSON.stringify(payload),
     });
-
-    const result = await res.json();
     return result;
   } catch (error) {
     throw error;
@@ -28,22 +13,8 @@ export const postAddress = async (payload: FieldValues) => {
 };
 
 export const getAddresses = async () => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/shipping/address`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const data = await res.json();
+    const data = await baseAPI.get('/api/v1/shipping/address');
     return data;
   } catch (error) {
     throw error;
@@ -51,22 +22,8 @@ export const getAddresses = async () => {
 };
 
 export const deleteAddress = async (addressId: number) => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/shipping/address/${addressId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const result = await res.json();
+    const result = await baseAPI.delete(`/api/v1/shipping/address/${addressId}`);
     return result;
   } catch (error) {
     throw error;
@@ -74,23 +31,10 @@ export const deleteAddress = async (addressId: number) => {
 };
 
 export const putAddress = async (payload: FieldValues) => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/shipping/address/${payload.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+    const result = await baseAPI.put(`/api/v1/shipping/address/${payload.id}`, {
       body: JSON.stringify(payload),
     });
-
-    const result = await res.json();
     return result;
   } catch (error) {
     throw error;

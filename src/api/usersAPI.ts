@@ -1,31 +1,16 @@
-import { getCookie } from '@/libs/manageCookie';
+import { baseAPI } from './interceptor/interceptor';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
 /**
  * 주어진 토큰을 사용하여 사용자 데이터를 호출
  *
- * @param {string} token - 인증 토큰입니다.
  * @returns {Promise<Object>} - 사용자 데이터를 반환합니다.
  * @throws {Error} - 요청이 실패한 경우 에러를 던집니다.
  */
 export const getUserData = async () => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/users/me`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const data = await res.json();
+    const data = await baseAPI.get('/api/v1/users/me');
     return data;
   } catch (error) {
     throw error;
@@ -40,18 +25,10 @@ export const getUserData = async () => {
  * @throws {Error} - 요청이 실패한 경우 에러를 던집니다.
  */
 export const putEditProfile = async (formData: FormData) => {
-  const token = await getCookie('accessToken');
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/users/me`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const result = await baseAPI.put('/api/v1/users/me', {
       body: formData,
     });
-
-    const result = await res.json();
     return result;
   } catch (error) {
     throw error;

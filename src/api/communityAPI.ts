@@ -1,20 +1,14 @@
-import { getCookie } from '@/libs/manageCookie';
 import { CommunityParamsType } from '@/types/CommunityTypes';
-
-const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
+import { baseAPI } from './interceptor/interceptor';
 
 export const getAllCommunityPost = async ({ sort, page, size }: CommunityParamsType) => {
-  const token = await getCookie('accessToken');
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/community/all?sort=${sort}&page=${page}&size=${size}`, {
+    const { data } = await baseAPI.get(`/api/v1/community/all?sort=${sort}&page=${page}&size=${size}`, {
       cache: 'no-cache',
       headers: {
         'Cache-Control': 'no-cache',
-        Authorization: token ? `Bearer ${token}` : '',
       },
     });
-    const { data } = await res.json();
     return data;
   } catch (error) {
     throw error;
@@ -22,21 +16,13 @@ export const getAllCommunityPost = async ({ sort, page, size }: CommunityParamsT
 };
 
 export const getMyPosts = async ({ sort, page, size }: CommunityParamsType) => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/community/user?sort=${sort}&page=${page}&size=${size}`, {
+    const { data } = await baseAPI.get(`/api/v1/community/user?sort=${sort}&page=${page}&size=${size}`, {
       cache: 'no-cache',
       headers: {
         'Cache-Control': 'no-cache',
-        Authorization: `Bearer ${token}`,
       },
     });
-    const { data } = await res.json();
     return data;
   } catch (error) {
     throw error;
@@ -44,42 +30,28 @@ export const getMyPosts = async ({ sort, page, size }: CommunityParamsType) => {
 };
 
 export const getPostDetail = async (id: number) => {
-  const token = await getCookie('accessToken');
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/community/${id}`, {
+    const data = baseAPI.get(`/api/v1/community/${id}`, {
       cache: 'no-cache',
       headers: {
         'Cache-Control': 'no-cache',
-        Authorization: token ? `Bearer ${token}` : '',
       },
     });
-    const data = await res.json();
-    return data;
+    return await data;
   } catch (error) {
     throw error;
   }
 };
 
 export const postComment = async ({ id, content }: { id: number; content: string }) => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/community/comment/${id}`, {
-      method: 'POST',
+    const data = await baseAPI.post(`/api/v1/community/comment/${id}`, {
       cache: 'no-cache',
       headers: {
-        'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
-        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ content }),
     });
-    const data = await res.json();
     return data;
   } catch (error) {
     throw error;
@@ -87,23 +59,13 @@ export const postComment = async ({ id, content }: { id: number; content: string
 };
 
 export const deleteComment = async (id: number) => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/community/comment/${id}`, {
-      method: 'DELETE',
+    const data = await baseAPI.delete(`/api/v1/community/comment/${id}`, {
       cache: 'no-cache',
       headers: {
-        'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
-        Authorization: `Bearer ${token}`,
       },
     });
-    const data = await res.json();
     return data;
   } catch (error) {
     throw error;
@@ -111,21 +73,13 @@ export const deleteComment = async (id: number) => {
 };
 
 export const getCustomOrderList = async () => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/community/purchase-history`, {
+    const data = await baseAPI.get('/api/v1/community/purchase-history', {
       cache: 'no-cache',
       headers: {
         'Cache-Control': 'no-cache',
-        Authorization: `Bearer ${token}`,
       },
     });
-    const data = await res.json();
     return data;
   } catch (error) {
     throw error;
@@ -133,21 +87,11 @@ export const getCustomOrderList = async () => {
 };
 
 export const postCreateCustomReview = async (formData: FormData) => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/community/create`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const data = await baseAPI.post('/api/v1/community/create', {
       body: formData,
     });
-    const data = await res.json();
+
     return data;
   } catch (error) {
     throw error;
@@ -155,21 +99,10 @@ export const postCreateCustomReview = async (formData: FormData) => {
 };
 
 export const putEditCustomReview = async ({ id, formData }: { id: number; formData: FormData }) => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/community/update/${id}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const data = await baseAPI.put(`/api/v1/community/update/${id}`, {
       body: formData,
     });
-    const data = await res.json();
     return data;
   } catch (error) {
     throw error;
@@ -177,20 +110,8 @@ export const putEditCustomReview = async ({ id, formData }: { id: number; formDa
 };
 
 export const deletePostCard = async (postId: number) => {
-  const token = await getCookie('accessToken');
-
-  if (!token) {
-    return null;
-  }
-
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/community/delete/${postId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await res.json();
+    const data = await baseAPI.delete(`/api/v1/community/delete/${postId}`);
     return data;
   } catch (error) {
     throw error;

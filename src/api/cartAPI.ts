@@ -1,21 +1,11 @@
-import { getCookie } from '@/libs/manageCookie';
-
 import type { CartProductType } from '@/types/ProductTypes';
 import type { OptionChageAPIType } from '@/types/CartTypes';
 import type { CustomKeyboardAPITypes } from '@/types/CustomKeyboardTypes';
-
-const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
+import { baseAPI } from './interceptor/interceptor';
 
 export const postCart = async (data: CartProductType) => {
-  const token = await getCookie('accessToken');
-
   try {
-    await fetch(`${BASE_URL}/api/v1/cart/add`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+    await baseAPI.post('/api/v1/cart/add', {
       body: JSON.stringify(data),
     });
   } catch (error) {
@@ -24,16 +14,10 @@ export const postCart = async (data: CartProductType) => {
 };
 
 export const getCartData = async () => {
-  const accessToken = await getCookie('accessToken');
   try {
-    const res = await fetch(`${BASE_URL}/api/v1/cart/get`, {
+    const { data } = await baseAPI.get('/api/v1/cart/get', {
       cache: 'no-store',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
     });
-    const { data } = await res.json();
     return data;
   } catch (error) {
     throw error;
@@ -41,14 +25,8 @@ export const getCartData = async () => {
 };
 
 export const deleteCartData = async (idList: string[]) => {
-  const accessToken = await getCookie('accessToken');
   try {
-    await fetch(`${BASE_URL}/api/v1/cart/delete`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
+    await baseAPI.delete('/api/v1/cart/delete', {
       body: JSON.stringify({ deletedProducts: idList }),
     });
   } catch (error) {
@@ -57,14 +35,8 @@ export const deleteCartData = async (idList: string[]) => {
 };
 
 export const putChangeCartData = async (id: number, data: OptionChageAPIType) => {
-  const accessToken = await getCookie('accessToken');
   try {
-    await fetch(`${BASE_URL}/api/v1/cart/update/product/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
+    await baseAPI.put(`/api/v1/cart/update/product/${id}`, {
       body: JSON.stringify(data),
     });
   } catch (error) {
@@ -73,14 +45,8 @@ export const putChangeCartData = async (id: number, data: OptionChageAPIType) =>
 };
 
 export const putUpdateCustomKeyboardData = async (id: number, data: Omit<CustomKeyboardAPITypes, 'option'>) => {
-  const accessToken = await getCookie('accessToken');
   try {
-    await fetch(`${BASE_URL}/api/v1/cart/update/custom/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
+    await baseAPI.put(`/api/v1/cart/update/custom/${id}`, {
       body: JSON.stringify(data),
     });
   } catch (error) {

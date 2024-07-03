@@ -2,14 +2,30 @@ import { getCookie } from '@/libs/manageCookie';
 import { updateToken } from './updateToken';
 
 /* eslint-disable-next-line */
-const requestAPI<T> = async (baseURL: string, url: string, option?: RequestInit): Promise<T> => {
+const requestAPI = async (baseURL: string, url: string, option?: RequestInit): Promise<any> => {
   const accessToken = await getCookie('accessToken');
   const refreshToken = await getCookie('refreshToken');
+
+  if (!accessToken || !refreshToken) {
+    try {
+      const response = await fetch(baseURL + url, {
+        ...option,
+        headers: {
+          'Content-Type': 'application/json',
+          ...option?.headers,
+        },
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   const response = await fetch(baseURL + url, {
     ...option,
     headers: {
-      accept: 'application/json',
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
       ...option?.headers,
     },
