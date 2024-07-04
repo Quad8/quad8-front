@@ -1,11 +1,11 @@
 import type { ProductReviewParams, ProductReviewType } from '@/types/ProductReviewTypes';
 import { baseAPI } from './interceptor/interceptor';
 
-export const getProductReviews = async (params: ProductReviewParams): Promise<ProductReviewType> => {
+export const getProductReviews = async (params: ProductReviewParams) => {
   const { productId, sort = 'likes', page = 0, size = 10 } = params;
 
   try {
-    const { data } = await baseAPI.get(
+    const { data } = await baseAPI.get<ProductReviewType>(
       `/api/v1/reviews?productId=${productId}&sort=${sort}&page=${page}&size=${size}`,
       {
         cache: 'no-store',

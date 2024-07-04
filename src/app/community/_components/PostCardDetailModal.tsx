@@ -14,7 +14,6 @@ import { IMAGE_BLUR } from '@/constants/blurImage';
 import { addEnterKeyEvent } from '@/libs/addEnterKeyEvent';
 import { formatDateToString } from '@/libs/formatDateToString';
 import { keydeukImg } from '@/public/index';
-import type { CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
 import AuthorCard from './AuthorCard';
 import Comment from './Comment';
 import { PostInteractions } from './PostInteractions';
@@ -82,7 +81,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
     };
   }, [cardId, postCommentMutation, commentRef]);
 
-  if (isPending) {
+  if (isPending || !data) {
     return null;
   }
 
@@ -106,7 +105,7 @@ export default function PostCardDetailModal({ cardId, onClose, isMine }: PostCar
     userImage,
     custom,
     isLiked,
-  } = postData as CommunityPostCardDetailDataType;
+  } = postData;
 
   const createdDateString = formatDateToString(new Date(updatedAt));
 

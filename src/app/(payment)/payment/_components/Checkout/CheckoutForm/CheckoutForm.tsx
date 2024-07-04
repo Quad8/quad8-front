@@ -10,7 +10,6 @@ import { Button, Dropdown, ItemOverview } from '@/components';
 import { Input, Label } from '@/components/parts';
 import { ROUTER } from '@/constants/route';
 import type { OrderItem } from '@/types/OrderTypes';
-import type { OrderDetailData } from '@/types/paymentTypes';
 
 import styles from './CheckoutForm.module.scss';
 
@@ -23,7 +22,7 @@ export default function CheckoutForm() {
   const router = useRouter();
 
   const orderId = queryClient.getQueryData<string>(['orderId']);
-  const { data: paymentItemData } = useQuery<{ data: OrderDetailData | null }>({
+  const { data: paymentItemData } = useQuery({
     queryKey: ['paymentItemData'],
     queryFn: () => getPaymentItemData(orderId),
   });

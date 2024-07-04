@@ -30,6 +30,23 @@ export interface CommunityPostCardDetailDataType extends Omit<CommunityPostCardD
   custom: PostCardDetailModalCustomKeyboardType;
 }
 
+export interface CommunityAllDataAPITypes {
+  content: CommunityPostCardDataType[];
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort: Record<string, boolean>;
+  numberOfElements: number;
+  first: boolean;
+  empty: boolean;
+}
+
+export interface CommunityDataAPITypes extends Omit<CommunityAllDataAPITypes, 'content'> {
+  content: CommunityPostCardDetailDataType[];
+}
+
 export interface CommentType {
   id: number;
   nickName: string;

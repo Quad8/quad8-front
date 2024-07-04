@@ -1,7 +1,7 @@
 import type {
   GetCategoryListParams,
   KeydeukPickResponse,
-  ProductListResponse,
+  ProductDataResponse,
   ProductParams,
   TabType,
 } from '@/types/ProductItem';
@@ -11,9 +11,9 @@ import { baseAPI } from './interceptor/interceptor';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
 
-export const getProductDetail = async (productId: string): Promise<ProductType> => {
+export const getProductDetail = async (productId: string) => {
   try {
-    const { data } = await baseAPI.get(`/api/v1/product/${productId}`, {
+    const { data } = await baseAPI.get<ProductType>(`/api/v1/product/${productId}`, {
       cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json',
@@ -26,9 +26,9 @@ export const getProductDetail = async (productId: string): Promise<ProductType> 
   }
 };
 
-export async function getAllProductList({ sort, page, size }: ProductParams): Promise<ProductListResponse> {
+export async function getAllProductList({ sort, page, size }: ProductParams) {
   try {
-    const rawData: ProductListResponse = await baseAPI.get(
+    const rawData = await baseAPI.get<ProductDataResponse>(
       `/api/v1/product/all?&sort=${sort}&page=${page}&size=${size}`,
       {
         cache: 'no-cache',
@@ -53,7 +53,7 @@ export async function getCategoryProductList({
   switchTypes,
   minPrice,
   maxPrice,
-}: GetCategoryListParams): Promise<ProductListResponse> {
+}: GetCategoryListParams) {
   try {
     const queryParams: Record<string, string> = {
       keyword,
@@ -68,7 +68,7 @@ export async function getCategoryProductList({
     if (maxPrice) queryParams.maxPrice = maxPrice;
 
     const queryString = new URLSearchParams(queryParams).toString();
-    const rawData: ProductListResponse = await baseAPI.get(`/api/v1/product/category/${keyword}?${queryString}`, {
+    const rawData = await baseAPI.get<ProductDataResponse>(`/api/v1/product/category/${keyword}?${queryString}`, {
       cache: 'no-cache',
       headers: {
         'Cache-Control': 'no-cache',

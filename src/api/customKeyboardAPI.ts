@@ -20,7 +20,7 @@ export const getRandomOptionProduct = async () => {
 };
 export const postCustomKeyboardOrder = async (data: CustomKeyboardAPITypes) => {
   try {
-    await baseAPI.post('/api/v1/custom/create', {
+    await baseAPI.post<CustomKeyboardAPITypes>('/api/v1/custom/create', {
       body: JSON.stringify(data),
     });
   } catch (error) {

@@ -1,9 +1,10 @@
-import type { CreateOrderAPIType } from '@/types/OrderTypes';
+import type { CreateOrderAPIType, Order } from '@/types/OrderTypes';
+import { OrderDetailData } from '@/types/paymentTypes';
 import { baseAPI } from './interceptor/interceptor';
 
 export const postCreateOrder = async (orderData: CreateOrderAPIType) => {
   try {
-    const data = await baseAPI.post('/api/v1/order', {
+    const data = await baseAPI.post<number>('/api/v1/order', {
       body: JSON.stringify(orderData),
     });
     return data;
@@ -14,7 +15,7 @@ export const postCreateOrder = async (orderData: CreateOrderAPIType) => {
 
 export const getOrdersData = async () => {
   try {
-    const data = await baseAPI.get('/api/v1/order');
+    const data = await baseAPI.get<Order[]>('/api/v1/order');
     if (data.status === 'FAIL') {
       return null;
     }
@@ -27,7 +28,7 @@ export const getOrdersData = async () => {
 
 export const getPaymentItemData = async (orderId: string | undefined) => {
   try {
-    const data = await baseAPI.get(`/api/v1/order/${orderId}/payment`);
+    const data = await baseAPI.get<OrderDetailData>(`/api/v1/order/${orderId}/payment`);
 
     if (data.status === 'FAIL') {
       return null;

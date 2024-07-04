@@ -11,7 +11,7 @@ import type { Order } from '@/types/OrderTypes';
 import { OrderHeader, OrderItemList } from './index';
 
 export default function Orders() {
-  const { data: orders } = useQuery<{ data: Order[] }>({ queryKey: ['ordersData'], queryFn: getOrdersData });
+  const { data: orders } = useQuery({ queryKey: ['ordersData'], queryFn: getOrdersData });
 
   const [searchDate, setSearchDate] = useState('');
   const [ordersData, setOrdersData] = useState(orders?.data ?? []);

@@ -1,8 +1,12 @@
 import { getCookie } from '@/libs/manageCookie';
 import { updateToken } from './updateToken';
 
-/* eslint-disable-next-line */
-const requestAPI = async (baseURL: string, url: string, option?: RequestInit): Promise<any> => {
+interface ResponseAPIType<T> {
+  data: T;
+  message: string;
+  status: string;
+}
+const requestAPI = async <T>(baseURL: string, url: string, option?: RequestInit): Promise<ResponseAPIType<T>> => {
   const accessToken = await getCookie('accessToken');
   const refreshToken = await getCookie('refreshToken');
 
@@ -34,7 +38,7 @@ const requestAPI = async (baseURL: string, url: string, option?: RequestInit): P
   if (!response.ok) {
     if (response.status === 401 && accessToken && refreshToken) {
       await updateToken(baseURL);
-      const result = await requestAPI(baseURL, url, option);
+      const result: ResponseAPIType<T> = await requestAPI(baseURL, url, option);
       return result;
     }
     throw new Error(`API 오류 ${response.status}`);
@@ -51,23 +55,23 @@ class Interceptor {
     this.baseURL = baseURL;
   }
 
-  async get(url: string, option?: RequestInit) {
-    const data = await requestAPI(this.baseURL, url, { ...option, method: 'GET' });
+  async get<T>(url: string, option?: RequestInit) {
+    const data = await requestAPI<T>(this.baseURL, url, { ...option, method: 'GET' });
     return data;
   }
 
-  async post(url: string, option?: RequestInit) {
-    const data = await requestAPI(this.baseURL, url, { ...option, method: 'POST' });
+  async post<T>(url: string, option?: RequestInit) {
+    const data = await requestAPI<T>(this.baseURL, url, { ...option, method: 'POST' });
     return data;
   }
 
-  async put(url: string, option?: RequestInit) {
-    const data = await requestAPI(this.baseURL, url, { ...option, method: 'PUT' });
+  async put<T>(url: string, option?: RequestInit) {
+    const data = await requestAPI<T>(this.baseURL, url, { ...option, method: 'PUT' });
     return data;
   }
 
-  async delete(url: string, option?: RequestInit) {
-    const data = await requestAPI(this.baseURL, url, { ...option, method: 'DELETE' });
+  async delete<T>(url: string, option?: RequestInit) {
+    const data = await requestAPI<T>(this.baseURL, url, { ...option, method: 'DELETE' });
     return data;
   }
 }

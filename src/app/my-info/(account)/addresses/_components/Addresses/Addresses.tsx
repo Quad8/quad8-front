@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 
 import { getAddresses } from '@/api/shippingAPI';
-import type { UserAddress } from '@/types/shippingType';
 import { Address, AddressesEmptyCase } from './index';
 
 import styles from './Addresses.module.scss';
@@ -12,7 +11,7 @@ import styles from './Addresses.module.scss';
 const cn = classNames.bind(styles);
 
 export default function Addresses() {
-  const { data: addressesData } = useQuery<{ data: UserAddress[] }>({
+  const { data: addressesData } = useQuery({
     queryKey: ['addressesData'],
     queryFn: getAddresses,
   });

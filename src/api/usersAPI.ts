@@ -1,3 +1,4 @@
+import type { Users } from '@/types/userType';
 import { baseAPI } from './interceptor/interceptor';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
@@ -10,7 +11,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;
  */
 export const getUserData = async () => {
   try {
-    const data = await baseAPI.get('/api/v1/users/me');
+    const data = await baseAPI.get<Users>('/api/v1/users/me');
     return data;
   } catch (error) {
     throw error;

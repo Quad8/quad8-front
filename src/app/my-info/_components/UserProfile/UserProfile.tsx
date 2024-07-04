@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { getUserData } from '@/api/usersAPI';
 import { Modal } from '@/components';
 import ProfileImage from '@/components/ProfileImage/ProfileImage';
-import type { Users } from '@/types/userType';
 import EditProfileModal from './EditProfileModal/EditProfileModal';
 
 import styles from './UserProfile.module.scss';
@@ -16,7 +15,7 @@ const cn = classNames.bind(styles);
 
 export default function UserProfile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data: userData, refetch } = useQuery<{ data: Users }>({ queryKey: ['userData'], queryFn: getUserData });
+  const { data: userData, refetch } = useQuery({ queryKey: ['userData'], queryFn: getUserData });
 
   const users = userData?.data;
 

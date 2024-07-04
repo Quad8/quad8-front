@@ -1,5 +1,5 @@
 import type { CartProductType } from '@/types/ProductTypes';
-import type { OptionChageAPIType } from '@/types/CartTypes';
+import type { CartAPIDataType, OptionChageAPIType } from '@/types/CartTypes';
 import type { CustomKeyboardAPITypes } from '@/types/CustomKeyboardTypes';
 import { baseAPI } from './interceptor/interceptor';
 
@@ -15,7 +15,7 @@ export const postCart = async (data: CartProductType) => {
 
 export const getCartData = async () => {
   try {
-    const { data } = await baseAPI.get('/api/v1/cart/get', {
+    const { data } = await baseAPI.get<CartAPIDataType>('/api/v1/cart/get', {
       cache: 'no-store',
     });
     return data;

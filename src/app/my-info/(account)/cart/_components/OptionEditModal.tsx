@@ -7,7 +7,6 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getProductDetail } from '@/api/productAPI';
 import type { OptionChageAPIType } from '@/types/CartTypes';
-import type { ProductType } from '@/types/ProductTypes';
 import { Button, Dropdown, CountInput } from '@/components';
 
 import { IMAGE_BLUR } from '@/constants/blurImage';
@@ -40,7 +39,7 @@ export default function OptionEditModal({
     data: productData,
     isSuccess,
     isError,
-  } = useQuery<ProductType>({
+  } = useQuery({
     queryKey: [`product-${productId}`],
     queryFn: () => getProductDetail(String(productId)),
   });

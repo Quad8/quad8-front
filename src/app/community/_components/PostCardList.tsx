@@ -4,11 +4,7 @@ import classNames from 'classnames/bind';
 import { useQuery } from '@tanstack/react-query';
 
 import { getAllCommunityPost } from '@/api/communityAPI';
-import type {
-  CommunityParamsType,
-  CommunityPostCardDataType,
-  CommunityPostCardDetailDataType,
-} from '@/types/CommunityTypes';
+import type { CommunityParamsType, CommunityPostCardDataType } from '@/types/CommunityTypes';
 import PostCard from './PostCard';
 import WritePostButton from './WritePostButton';
 import SortDropdown from './SortDropdown';
@@ -19,7 +15,7 @@ const cn = classNames.bind(styles);
 
 interface CommunityPageProps {
   searchParams: { [key: string]: string | undefined };
-  initialData: CommunityPostCardDetailDataType;
+  initialData: CommunityPostCardDataType[];
 }
 
 export default function PostCardList({ searchParams, initialData }: CommunityPageProps) {

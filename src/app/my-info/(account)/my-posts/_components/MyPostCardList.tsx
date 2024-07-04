@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import { useQuery } from '@tanstack/react-query';
 
 import { getMyPosts } from '@/api/communityAPI';
-import type { CommunityPostCardDataType, CommunityPostCardDetailDataType } from '@/types/CommunityTypes';
+import type { CommunityPostCardDataType } from '@/types/CommunityTypes';
 import PostCard from '@/app/community/_components/PostCard';
 import SortDropdown from './SortDropdown';
 
@@ -14,7 +14,7 @@ const cn = classNames.bind(styles);
 
 interface MyPostCardListProps {
   searchParams: { [key: string]: string | undefined };
-  initialData: CommunityPostCardDetailDataType[];
+  initialData: CommunityPostCardDataType[];
 }
 
 interface ParamsType {
@@ -45,7 +45,7 @@ export default function MyPostCardList({ searchParams, initialData }: MyPostCard
         </div>
         {content && (
           <div className={cn('post-wrapper')}>
-            {content.map((cardData: CommunityPostCardDataType) => (
+            {content.map((cardData) => (
               <PostCard key={cardData.id} cardData={cardData} isMine />
             ))}
           </div>

@@ -1,4 +1,5 @@
 import type { FieldValues } from 'react-hook-form';
+import type { UserAddress } from '@/types/shippingType';
 import { baseAPI } from './interceptor/interceptor';
 
 export const postAddress = async (payload: FieldValues) => {
@@ -14,7 +15,7 @@ export const postAddress = async (payload: FieldValues) => {
 
 export const getAddresses = async () => {
   try {
-    const data = await baseAPI.get('/api/v1/shipping/address');
+    const data = await baseAPI.get<UserAddress[]>('/api/v1/shipping/address');
     return data;
   } catch (error) {
     throw error;

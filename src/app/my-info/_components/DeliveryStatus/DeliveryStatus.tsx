@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { getOrdersData } from '@/api/orderAPI';
 import { ROUTER } from '@/constants/route';
 import { ChevronIcon } from '@/public/index';
-import { Order, OrderStatus } from '@/types/OrderTypes';
+import { OrderStatus } from '@/types/OrderTypes';
 
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import styles from './DeliveryStatus.module.scss';
@@ -25,7 +25,7 @@ const DELIVERY_STATUS_LIST = [
 export default function DeliveryStatus() {
   const [deliveryStatusList, setDeliveryStatusList] = useState(DELIVERY_STATUS_LIST);
 
-  const { data: ordersData } = useQuery<{ data: Order[] }>({ queryKey: ['ordersData'], queryFn: getOrdersData });
+  const { data: ordersData } = useQuery({ queryKey: ['ordersData'], queryFn: getOrdersData });
 
   const orders = useMemo(() => ordersData?.data ?? [], [ordersData]);
 
