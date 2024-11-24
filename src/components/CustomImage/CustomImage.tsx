@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image, { ImageProps } from 'next/image';
 import { errorImg } from '@/public/index';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import { getValidImage, isValidImageURL } from '@/libs/checkValidImage';
+import { getValidImage, isValidImageURL } from '@/utils/checkValidImage';
 
 interface CustomImageProps extends ImageProps {
   errorSrc?: string | StaticImport;

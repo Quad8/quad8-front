@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 import { postSignin } from '@/api/authAPI';
 import { ROUTER } from '@/constants/route';
-import { setCookie } from '@/libs/manageCookie';
+import { setCookie } from '@/utils/manageCookie';
 import type { FetchSignInInfoTypes } from '@/types/authType';
 import { SpinLoading } from '@/public/index';
 import Button from '../Buttons/Button/Button';

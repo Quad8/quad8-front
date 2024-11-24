@@ -15,7 +15,7 @@ import type { CartProductType, ProductType } from '@/types/productType';
 
 import { Button, CountInput, Dialog, Dropdown, SignInModal } from '@/components';
 import { ROUTER } from '@/constants/route';
-import { getUpdatedCartCountData } from '@/libs/getUpdatedCartData';
+import { getUpdatedCartCountData } from '@/utils/getUpdatedCartData';
 import type { Users } from '@/types/userType';
 import OptionContainer from './OptionContainer';
 

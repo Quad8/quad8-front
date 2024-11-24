@@ -12,7 +12,7 @@ import type { ReviewDto } from '@/types/productReviewType';
 import type { ProductType } from '@/types/productType';
 import { Dialog, Modal } from '@/components';
 import WriteEditModal from '@/components/WriteEditModal/WriteEditModal';
-import { formatDateWithDot } from '@/libs/formatDateToString';
+import { formatDateWithDot } from '@/utils/formatDateToString';
 
 import styles from './MyReviewProduct.module.scss';
 

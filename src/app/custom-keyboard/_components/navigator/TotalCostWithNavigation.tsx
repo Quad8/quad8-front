@@ -8,8 +8,8 @@ import { getRandomOptionProduct } from '@/api/customKeyboardAPI';
 import { Button, Modal } from '@/components';
 import { FocusKeyContext, KeyboardDataContext, StepContext } from '@/context';
 import { useCaptureCanvas } from '@/hooks/useCanvasCaptrue';
-import { getBlurImageList } from '@/libs/getBlurImage';
-import { getCustomKeyboardPrice } from '@/libs/getCustomKeyboardPrice';
+import { getBlurImageList } from '@/utils/getBlurImage';
+import { getCustomKeyboardPrice } from '@/utils/getCustomKeyboardPrice';
 import { ChevronIcon } from '@/public/index';
 import type {
   CustomKeyboardStepStatusTypes,

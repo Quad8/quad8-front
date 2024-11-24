@@ -2,7 +2,7 @@ import { getUserData } from '@/api/usersAPI';
 import { ROUTER } from '@/constants/route';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { redirect } from 'next/navigation';
-import { fetchQueryBonding } from '@/libs/fetchQueryBounding';
+import { fetchQueryBonding } from '@/utils/fetchQueryBounding';
 import CheckoutNavigation from '../../_components/CheckoutNavigation/CheckoutNavigation';
 import CheckoutCompleted from './_components/CheckoutCompleted';
 

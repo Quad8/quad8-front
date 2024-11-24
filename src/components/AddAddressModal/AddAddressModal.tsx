@@ -7,9 +7,9 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import { Button, InputField } from '@/components';
 import { Input, Label } from '@/components/parts';
-import { changePhoneNumber } from '@/libs/changePhoneNumber';
-import { formatPhoneNumber } from '@/libs/formatPhoneNumber';
-import { unFormatPhoneNumber } from '@/libs/unFormatPhoneNumber';
+import { changePhoneNumber } from '@/utils/changePhoneNumber';
+import { formatPhoneNumber } from '@/utils/formatPhoneNumber';
+import { unFormatPhoneNumber } from '@/utils/unFormatPhoneNumber';
 import { CheckboxCircleIcon } from '@/public/index';
 import type { UserAddress } from '@/types/shippingType';
 

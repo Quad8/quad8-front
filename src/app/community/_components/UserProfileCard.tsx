@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { getOthersInfo } from '@/api/usersAPI';
 import { SpinLoading, keydeukProfileImg } from '@/public/index';
 import type { Users } from '@/types/userType';
-import { formatPhoneNumber } from '@/libs/formatPhoneNumber';
+import { formatPhoneNumber } from '@/utils/formatPhoneNumber';
 
 import styles from './UserProfileCard.module.scss';
 

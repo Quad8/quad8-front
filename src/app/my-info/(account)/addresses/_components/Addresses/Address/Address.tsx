@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { AddAddressModal, Dialog, Modal } from '@/components';
 import { useDeleteAddress } from '@/hooks/useDeleteAddress';
 import { useUpdateAddress } from '@/hooks/useUpdateAddress';
-import { formatPhoneNumber } from '@/libs/formatPhoneNumber';
+import { formatPhoneNumber } from '@/utils/formatPhoneNumber';
 import type { UserAddress } from '@/types/shippingType';
 
 import styles from './Address.module.scss';

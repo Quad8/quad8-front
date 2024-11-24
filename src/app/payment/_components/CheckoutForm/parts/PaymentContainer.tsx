@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components';
 import { ROUTER } from '@/constants/route';
 import { useUser } from '@/hooks/useUser';
-import { renderPaymentProductName } from '@/libs/renderPaymentProductName';
+import { renderPaymentProductName } from '@/utils/renderPaymentProductName';
 import type { OrderDetailData } from '@/types/orderType';
 
 import styles from './PaymentContainer.module.scss';

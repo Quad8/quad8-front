@@ -3,7 +3,7 @@
 import { getProductDetail } from '@/api/productAPI';
 import { getUserProductReviews } from '@/api/productReviewAPI';
 
-import { formatDateToQueryString } from '@/libs/formatDateToQueryString';
+import { formatDateToQueryString } from '@/utils/formatDateToQueryString';
 
 import { useQueries, useQuery, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';

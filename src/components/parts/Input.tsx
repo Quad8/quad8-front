@@ -1,4 +1,4 @@
-import { isNumberAllowedKey } from '@/libs/isNumberAllowedKey';
+import { isNumberAllowedKey } from '@/utils/isNumberAllowedKey';
 import classNames from 'classnames/bind';
 import { InputHTMLAttributes, KeyboardEvent, forwardRef, useEffect, useState } from 'react';
 import styles from './Input.module.scss';

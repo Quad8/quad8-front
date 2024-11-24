@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { ItemOverview, Modal, WriteEditModal } from '@/components';
 import { ROUTER } from '@/constants/route';
-import { getOrderStatusDescription } from '@/libs/getOrderStatusDescriptions';
+import { getOrderStatusDescription } from '@/utils/getOrderStatusDescriptions';
 import type { OrderItem as OrderItemT, OrderStatus } from '@/types/orderType';
 import OrderItemButton from './OrderItemButton/OrderItemButton';
 

@@ -2,7 +2,7 @@ import { MouseEvent } from 'react';
 import classNames from 'classnames/bind';
 
 import type { AlarmDataType, AlarmType } from '@/types/alarmType';
-import { calculateTimeDifference } from '@/libs/calculateDate';
+import { calculateTimeDifference } from '@/utils/calculateDate';
 import { DeleteIcon } from '@/public/index';
 
 import Modal from '@/components/Modal/Modal';

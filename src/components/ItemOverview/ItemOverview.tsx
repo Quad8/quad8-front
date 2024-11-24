@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import { getProductDetail } from '@/api/productAPI';
 import type { ProductType } from '@/types/productType';
 import type { OrderItem, SwitchOptionType } from '@/types/orderType';
-import { convertCategory } from '@/libs/convertProductCategory';
+import { convertCategory } from '@/utils/convertProductCategory';
 import { IMAGE_BLUR } from '@/constants/blurImage';
 import { CustomImage, CustomOption, Skeleton } from '@/components';
 import ItemWrapper from './ItemWrapper';

@@ -2,7 +2,7 @@ import { getAllCommunityPost } from '@/api/communityAPI';
 import Pagination from '@/components/Pagination/Pagination';
 import type { CommunityParamsType, CommunityPostListResponse } from '@/types/communityType';
 import { QueryClient, dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import { fetchQueryBonding } from '@/libs/fetchQueryBounding';
+import { fetchQueryBonding } from '@/utils/fetchQueryBounding';
 import CommunityEmptyCase from './_components/CommunityEmptyCase';
 import PostCardList from './_components/PostCardList';
 

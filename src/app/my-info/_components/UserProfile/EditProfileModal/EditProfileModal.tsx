@@ -10,9 +10,9 @@ import { Label } from '@/components/parts';
 import { GENDER_OPTION } from '@/constants/dropdownOptions';
 import { useCheckNickname } from '@/hooks/useCheckNickname';
 import { useUpdateProfile } from '@/hooks/useUpdateProfile';
-import { changePhoneNumber } from '@/libs/changePhoneNumber';
-import { formatPhoneNumber } from '@/libs/formatPhoneNumber';
-import { unFormatPhoneNumber } from '@/libs/unFormatPhoneNumber';
+import { changePhoneNumber } from '@/utils/changePhoneNumber';
+import { formatPhoneNumber } from '@/utils/formatPhoneNumber';
+import { unFormatPhoneNumber } from '@/utils/unFormatPhoneNumber';
 import type { Users } from '@/types/userType';
 
 import styles from './EditProfileModal.module.scss';

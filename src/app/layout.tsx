@@ -9,8 +9,8 @@ import { getAlarm } from '@/api/alarmAPI';
 import { getCartData } from '@/api/cartAPI';
 import { getUserData } from '@/api/usersAPI';
 import { Footer, Header } from '@/components';
-import { fetchQueryBonding } from '@/libs/fetchQueryBounding';
-import { getCookie } from '@/libs/manageCookie';
+import { fetchQueryBonding } from '@/utils/fetchQueryBounding';
+import { getCookie } from '@/utils/manageCookie';
 import { pretendard } from '@/public/fonts/pretendard';
 import { Providers } from './providers';
 

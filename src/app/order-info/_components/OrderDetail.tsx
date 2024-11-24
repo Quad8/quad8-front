@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation';
 import CheckoutAddress from '@/app/payment/_components/CheckoutForm/parts/CheckoutAddress';
 import { Button, ItemOverview } from '@/components';
 import { useOrderQuery } from '@/hooks/useOrderQuery';
-import { formatDateToKSTString } from '@/libs/formatDateToKSTString';
-import { formatNumber } from '@/libs/formatNumber';
+import { formatDateToKSTString } from '@/utils/formatDateToKSTString';
+import { formatNumber } from '@/utils/formatNumber';
 
 import styles from './OrderDetail.module.scss';
 

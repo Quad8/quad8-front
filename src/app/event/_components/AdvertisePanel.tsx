@@ -1,7 +1,7 @@
 'use client';
 
 import { ROUTER } from '@/constants/route';
-import { getCookie } from '@/libs/manageCookie';
+import { getCookie } from '@/utils/manageCookie';
 import { eventTopImg } from '@/public/index';
 import classNames from 'classnames/bind';
 import Image from 'next/image';

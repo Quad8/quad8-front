@@ -1,6 +1,6 @@
 'use client';
 
-import { getCookie, setCookie } from '@/libs/manageCookie';
+import { getCookie, setCookie } from '@/utils/manageCookie';
 import { emitCookieChange } from './event';
 
 const BASE_URL = process.env.NEXT_PUBLIC_KEYDEUK_API_BASE_URL;

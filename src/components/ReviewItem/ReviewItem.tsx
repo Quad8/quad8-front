@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { Rating } from '@/components';
 import { CATEGORY_MAP } from '@/constants/product';
 import { REVIEW_KEYWORD } from '@/constants/reviewKeyword';
-import { formatDateWithDot } from '@/libs/formatDateToString';
+import { formatDateWithDot } from '@/utils/formatDateToString';
 import type { ReviewDto } from '@/types/productReviewType';
 import ReviewLikeButton from '../Buttons/ReviewLikeButton/ReviewLikeButton';
 import ProfileImage from '../ProfileImage/ProfileImage';

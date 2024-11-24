@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import classNames from 'classnames/bind';
-import isTextOverFlow from '@/libs/isTextOverFlow';
+import isTextOverFlow from '@/utils/isTextOverFlow';
 
 import styles from './ShopOption.module.scss';
 

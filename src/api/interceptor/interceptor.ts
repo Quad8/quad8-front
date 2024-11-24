@@ -1,4 +1,4 @@
-import { getCookie } from '@/libs/manageCookie';
+import { getCookie } from '@/utils/manageCookie';
 import { updateToken } from './updateToken';
 
 interface ResponseAPIType<T> {

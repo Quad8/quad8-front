@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 
 import { ROUTER } from '@/constants/route';
-import { formatDateWithDot } from '@/libs/formatDateToString';
+import { formatDateWithDot } from '@/utils/formatDateToString';
 import { ChevronIcon } from '@/public/index';
 import type { Order } from '@/types/orderType';
 import OrderItem from './OrderItem/OrderItem';

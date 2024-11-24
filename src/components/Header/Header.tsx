@@ -11,7 +11,7 @@ import { getCartData } from '@/api/cartAPI';
 import { offCookieChange, onCookieChange } from '@/api/interceptor/event';
 import { CustomImage, SignInModal } from '@/components';
 import { ROUTER } from '@/constants/route';
-import { deleteCookie } from '@/libs/manageCookie';
+import { deleteCookie } from '@/utils/manageCookie';
 import { useUser } from '@/hooks/useUser';
 import { LogoIcon, UserIcon } from '@/public/index';
 import type { CartAPIDataType } from '@/types/cartType';

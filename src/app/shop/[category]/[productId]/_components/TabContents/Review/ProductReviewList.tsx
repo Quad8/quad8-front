@@ -4,7 +4,7 @@ import Pagination from '@/components/Pagination/Pagination';
 import ReviewItem from '@/components/ReviewItem/ReviewItem';
 
 import { PRODUCT_REVIEW_SORT_OPTIONS } from '@/constants/dropdownOptions';
-import { searchParamsToObject } from '@/libs/searchParamsToObject';
+import { searchParamsToObject } from '@/utils/searchParamsToObject';
 
 import { NoReviewIcon } from '@/public/index';
 import type { ProductReviewType, ReviewParamsType } from '@/types/productReviewType';

@@ -1,4 +1,4 @@
-import { formatDateToQueryString } from '@/libs/formatDateToQueryString';
+import { formatDateToQueryString } from '@/utils/formatDateToQueryString';
 import type { ProductReviewParams, ProductReviewType, ReviewResponse } from '@/types/productReviewType';
 import { baseAPI } from './interceptor/interceptor';
 

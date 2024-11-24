@@ -10,7 +10,7 @@ import { Button, ItemOverview, Modal } from '@/components';
 import { ROUTER } from '@/constants/route';
 import type { OptionChageAPIType, CustomCardProps, ShopCardProps } from '@/types/cartType';
 import type { CreateOrderResponseType } from '@/types/orderType';
-import { formatCartDataToItemOverview } from '@/libs/formatCartDataToItemOverview';
+import { formatCartDataToItemOverview } from '@/utils/formatCartDataToItemOverview';
 import CardCheckBox from './CardCheckBox';
 import OptionEditModal from './OptionEditModal';
 

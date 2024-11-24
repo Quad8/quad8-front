@@ -1,4 +1,4 @@
-import { getCookie } from '@/libs/manageCookie';
+import { getCookie } from '@/utils/manageCookie';
 import { useQueryClient } from '@tanstack/react-query';
 import { Event, EventSourcePolyfill } from 'event-source-polyfill';
 import { MutableRefObject, useEffect, useRef } from 'react';

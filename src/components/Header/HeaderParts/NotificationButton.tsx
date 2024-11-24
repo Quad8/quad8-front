@@ -10,7 +10,7 @@ import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { NotificationIcon } from '@/public/index';
 import { getAlarm, postAlarmRead, deleteAlarm } from '@/api/alarmAPI';
 import type { AlarmAPIDataType, AlarmType } from '@/types/alarmType';
-import { getCurrentAlarm } from '@/libs/getCurrentAlarm';
+import { getCurrentAlarm } from '@/utils/getCurrentAlarm';
 import { useEventSource } from '@/hooks/useEventSource';
 import { useEventAlarmStore, useProductAlarmStore } from '@/store/alarmStore';
 import NotificationCard from './NotificationCard';

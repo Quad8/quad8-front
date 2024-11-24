@@ -2,8 +2,8 @@ import { Color } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 
-import { getColorUpperCase } from '@/libs/getColorUpperCase';
-import { convertHexToHsva, convertHsvaToHsla } from '@/libs/convertColor';
+import { getColorUpperCase } from '@/utils/getColorUpperCase';
+import { convertHexToHsva, convertHsvaToHsla } from '@/utils/convertColor';
 
 import styles from './TooltipColor.module.scss';
 

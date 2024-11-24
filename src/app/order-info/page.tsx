@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 
 import { getOrder } from '@/api/orderAPI';
 import { getUserData } from '@/api/usersAPI';
-import { fetchQueryBonding } from '@/libs/fetchQueryBounding';
+import { fetchQueryBonding } from '@/utils/fetchQueryBounding';
 import { UserRouteProvider } from '@/components';
 import OrderDetail from './_components/OrderDetail';
 

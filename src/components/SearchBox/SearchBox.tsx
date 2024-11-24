@@ -8,7 +8,7 @@ import { ChangeEvent, FormEvent, KeyboardEvent, useEffect, useRef, useState } fr
 import { getSearchSuggestion } from '@/api/searchAPI';
 import { ROUTER } from '@/constants/route';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
-import { charMatcher } from '@/libs/charMatcher';
+import { charMatcher } from '@/utils/charMatcher';
 import { SearchIcon } from '@/public/index';
 import type { SuggestionDataType } from '@/types/searchType';
 import { toast } from 'react-toastify';

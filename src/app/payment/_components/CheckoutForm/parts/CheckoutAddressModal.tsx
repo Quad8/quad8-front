@@ -1,6 +1,6 @@
 import { Address, AddressesEmptyCase } from '@/app/my-info/(account)/addresses/_components/Addresses';
 import { useAddresses } from '@/hooks/useAddresses';
-import { sortAddressesByDefault } from '@/libs/sortAddressesByDefault';
+import { sortAddressesByDefault } from '@/utils/sortAddressesByDefault';
 import type { UserAddress } from '@/types/shippingType';
 import classNames from 'classnames/bind';
 

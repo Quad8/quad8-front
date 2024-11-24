@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { AddAddressModal, Button, Dropdown, Modal } from '@/components';
 import { useCreateAddress } from '@/hooks/useCreateAddress';
 import { useUpdatePaymentInfo } from '@/hooks/useUpdatePaymentInfo';
-import { formatPhoneNumber } from '@/libs/formatPhoneNumber';
+import { formatPhoneNumber } from '@/utils/formatPhoneNumber';
 import type { ShippingAddressResponse } from '@/types/orderType';
 import type { UserAddress } from '@/types/shippingType';
 import CheckoutAddressEmptyCase from './CheckoutAddressEmptyCase';

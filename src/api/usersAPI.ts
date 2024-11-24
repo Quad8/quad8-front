@@ -1,4 +1,4 @@
-import { getCookie } from '@/libs/manageCookie';
+import { getCookie } from '@/utils/manageCookie';
 import type { Users } from '@/types/userType';
 import { baseAPI } from './interceptor/interceptor';
 

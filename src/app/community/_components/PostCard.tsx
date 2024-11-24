@@ -8,8 +8,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { toast } from 'react-toastify';
 
 import { deletePostCard, getPostDetail } from '@/api/communityAPI';
-import { calculateTimeDifference } from '@/libs/calculateDate';
-import { communityPopOverOption } from '@/libs/communityPopOverOption';
+import { calculateTimeDifference } from '@/utils/calculateDate';
+import { communityPopOverOption } from '@/utils/communityPopOverOption';
 import type { CommunityPostCardDataType } from '@/types/communityType';
 
 import { Modal } from '@/components';

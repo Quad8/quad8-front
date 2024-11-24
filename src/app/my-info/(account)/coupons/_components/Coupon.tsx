@@ -4,8 +4,8 @@ import classNames from 'classnames/bind';
 import { VerticalTripleDotIcon, ChevronIcon } from '@/public/index';
 import { useState } from 'react';
 
-import { formatDateFromYMD } from '@/libs/formatDateToString';
-import { formatNumberToPrice } from '@/libs/formatNumberToPrice';
+import { formatDateFromYMD } from '@/utils/formatDateToString';
+import { formatNumberToPrice } from '@/utils/formatNumberToPrice';
 import type { CouponTypes } from '@/types/couponType';
 
 import styles from './Coupon.module.scss';

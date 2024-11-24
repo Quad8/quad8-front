@@ -7,7 +7,7 @@ import type {
   CustomKeyboardTextureTypes,
   CustomKeyboardTypeTypes,
 } from '@/types/customKeyboardType';
-import { getColorUpperCase } from '@/libs/getColorUpperCase';
+import { getColorUpperCase } from '@/utils/getColorUpperCase';
 import OptionWrapper from './OptionWrapper';
 
 import styles from './CustomOption.module.scss';

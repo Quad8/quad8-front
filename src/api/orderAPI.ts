@@ -1,4 +1,4 @@
-import { formatKSTSDate } from '@/libs/formatKSTSDate';
+import { formatKSTSDate } from '@/utils/formatKSTSDate';
 import type { CreateOrderAPIType, Order, OrderDetailData, OrderResponse, OrdersRequest } from '@/types/orderType';
 import { FieldValues } from 'react-hook-form';
 import { baseAPI } from './interceptor/interceptor';

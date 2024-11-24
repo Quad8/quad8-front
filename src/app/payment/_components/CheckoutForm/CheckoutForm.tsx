@@ -9,7 +9,7 @@ import { Input, Label } from '@/components/parts';
 import { usePaymentQuery } from '@/hooks/usePaymentQuery';
 import { useSelectedAddress } from '@/hooks/useSelectedAddress';
 import { useUpdatePaymentInfo } from '@/hooks/useUpdatePaymentInfo';
-import { formatNumber } from '@/libs/formatNumber';
+import { formatNumber } from '@/utils/formatNumber';
 import type { OrderItem } from '@/types/orderType';
 import type { UserAddress } from '@/types/shippingType';
 import CheckoutAddress from './parts/CheckoutAddress';

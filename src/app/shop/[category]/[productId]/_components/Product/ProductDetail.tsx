@@ -5,7 +5,7 @@ import { ROUTER } from '@/constants/route';
 import { QueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { redirect } from 'next/navigation';
-import { fetchQueryBonding } from '@/libs/fetchQueryBounding';
+import { fetchQueryBonding } from '@/utils/fetchQueryBounding';
 import OptionWithButton from './OptionWithButtons';
 import styles from './ProductDetail.module.scss';
 import Thumbnail from './Thumbnail';

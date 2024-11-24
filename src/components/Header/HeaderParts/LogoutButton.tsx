@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 
-import { deleteCookie } from '@/libs/manageCookie';
+import { deleteCookie } from '@/utils/manageCookie';
 import { ROUTER } from '@/constants/route';
 
 import styles from './AuthButton.module.scss';

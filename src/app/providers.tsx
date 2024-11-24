@@ -1,12 +1,13 @@
 'use client';
 
-import { QueryClient, QueryClientProvider, isServer } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import classNames from 'classnames/bind';
-import { ReactNode, useRef } from 'react';
+import { PropsWithChildren, useRef } from 'react';
 
 import { ScrollUpButton } from '@/components';
 import { ToastContainer, Zoom } from 'react-toastify';
+import { getQueryClient } from '@/libs/tanstackQuery/client';
 import AOSWrapper from './_components/Aos/AOSWrapper';
 import AdvertisePanel from './event/_components/AdvertisePanel';
 
@@ -16,31 +17,7 @@ import styles from './providers.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface ProvidersProps {
-  children: ReactNode;
-}
-
-function makeQueryClient() {
-  return new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 60 * 1000,
-      },
-    },
-  });
-}
-
-let browserQueryClient: QueryClient | undefined;
-
-function getQueryClient() {
-  if (isServer) {
-    return makeQueryClient();
-  }
-  if (!browserQueryClient) browserQueryClient = makeQueryClient();
-  return browserQueryClient;
-}
-
-export function Providers({ children }: ProvidersProps) {
+export function Providers({ children }: PropsWithChildren) {
   const queryClient = getQueryClient();
   const scrollRef = useRef(null);
 

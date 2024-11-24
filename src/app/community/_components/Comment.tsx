@@ -6,11 +6,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
 import ProfileImage from '@/components/ProfileImage/ProfileImage';
-import { calculateTimeDifference } from '@/libs/calculateDate';
+import { calculateTimeDifference } from '@/utils/calculateDate';
 import type { UserDataResponseType } from '@/types/userType';
 import { PopOver } from '@/components';
 import { deleteComment } from '@/api/communityAPI';
-import { communityPopOverOption } from '@/libs/communityPopOverOption';
+import { communityPopOverOption } from '@/utils/communityPopOverOption';
 
 import styles from './Comment.module.scss';
 import UserProfileCard from './UserProfileCard';

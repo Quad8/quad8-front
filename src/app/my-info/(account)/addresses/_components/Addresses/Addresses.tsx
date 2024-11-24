@@ -1,7 +1,7 @@
 'use client';
 
 import { useAddresses } from '@/hooks/useAddresses';
-import { sortAddressesByDefault } from '@/libs/sortAddressesByDefault';
+import { sortAddressesByDefault } from '@/utils/sortAddressesByDefault';
 import classNames from 'classnames/bind';
 import { Address, AddressesEmptyCase } from './index';
 

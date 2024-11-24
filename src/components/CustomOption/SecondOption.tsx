@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import { RefObject } from 'react';
 
 import { POINT_KEY } from '@/constants/keyboardData';
-import { getColorUpperCase } from '@/libs/getColorUpperCase';
+import { getColorUpperCase } from '@/utils/getColorUpperCase';
 import type { CustomKeyboardKeyTypes, CustomKeyboardPointKeyType } from '@/types/customKeyboardType';
 import { Color } from '@react-three/fiber';
 import OptionWrapper from './OptionWrapper';
