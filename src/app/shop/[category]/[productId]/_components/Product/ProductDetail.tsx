@@ -2,10 +2,11 @@ import { getProductDetail } from '@/api/productAPI';
 import { HeartButton, Rating } from '@/components';
 import ShareButton from '@/components/Buttons/ShareButton/ShareButton';
 import { ROUTER } from '@/constants/route';
-import { QueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { redirect } from 'next/navigation';
 import { fetchQueryBonding } from '@/utils/fetchQueryBounding';
+import { getQueryClient } from '@/libs/client';
+import { QUERY_KEYS } from '@/constants/queryKey';
 import OptionWithButton from './OptionWithButtons';
 import styles from './ProductDetail.module.scss';
 import Thumbnail from './Thumbnail';
@@ -27,9 +28,9 @@ const POINT_TEXT = {
 };
 
 export default async function ProductDetail({ productId }: ProductDetailProps) {
-  const queryClient = new QueryClient();
+  const queryClient = getQueryClient();
   const productData = await fetchQueryBonding(queryClient, {
-    queryKey: ['product', productId],
+    queryKey: QUERY_KEYS.PRODUCT.DETAIL(productId),
     queryFn: () => getProductDetail(productId),
   });
 

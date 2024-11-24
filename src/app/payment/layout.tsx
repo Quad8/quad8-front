@@ -1,10 +1,11 @@
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { ReactNode } from 'react';
 
-import { getUserData } from '@/api/usersAPI';
 import { UserRouteProvider } from '@/components';
+import { getQueryClient } from '@/libs/client';
 
+import { prefetchUserQuery } from '@/libs/prefetchers';
 import styles from './layout.module.scss';
 
 const cn = classNames.bind(styles);
@@ -14,9 +15,8 @@ interface CheckoutLayoutProps {
 }
 
 export default async function PaymentPageLayout({ children }: CheckoutLayoutProps) {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery({ queryKey: ['userData'], queryFn: getUserData });
+  const queryClient = getQueryClient();
+  await prefetchUserQuery(queryClient);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

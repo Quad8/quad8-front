@@ -1,10 +1,12 @@
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 
-import { getOrder } from '@/api/orderAPI';
 import { getUserData } from '@/api/usersAPI';
 import { fetchQueryBonding } from '@/utils/fetchQueryBounding';
 import { UserRouteProvider } from '@/components';
+import { QUERY_KEYS } from '@/constants/queryKey';
+import { getQueryClient } from '@/libs/client';
+import { prefetchOrderQuery } from '@/libs/prefetchers';
 import OrderDetail from './_components/OrderDetail';
 
 import styles from './page.module.scss';
@@ -17,13 +19,11 @@ interface OrderInfoPageProps {
 
 export default async function OrderInfoPage({ searchParams }: OrderInfoPageProps) {
   const { orderId } = searchParams;
-  const queryClient = new QueryClient();
+  const queryClient = getQueryClient();
 
-  const userData = await fetchQueryBonding(queryClient, { queryKey: ['userData'], queryFn: getUserData });
+  const userData = await fetchQueryBonding(queryClient, { queryKey: QUERY_KEYS.USER.DATA, queryFn: getUserData });
 
-  if (userData?.data) {
-    await queryClient.prefetchQuery({ queryKey: ['orderResponse', orderId], queryFn: () => getOrder(orderId) });
-  }
+  if (userData?.data) await prefetchOrderQuery(queryClient, orderId);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

@@ -1,7 +1,8 @@
 import { FocusKeyContextProvider, KeyboardDataContextProvider, StepContextProvider } from '@/context';
+import { PropsWithChildren } from 'react';
 import EventProvider from './EventProvider';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: PropsWithChildren) {
   return (
     <StepContextProvider>
       <KeyboardDataContextProvider>

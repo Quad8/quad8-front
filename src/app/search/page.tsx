@@ -1,4 +1,3 @@
-import { QueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import { redirect } from 'next/navigation';
 
@@ -6,6 +5,7 @@ import { getSearchResult } from '@/api/searchAPI';
 import { Pagination, SearchBox } from '@/components';
 import { ROUTER } from '@/constants/route';
 import type { SearchResultType } from '@/types/searchType';
+import { getQueryClient } from '@/libs/client';
 import { CardList, NoResult } from './_components';
 
 import styles from './page.module.scss';
@@ -17,7 +17,7 @@ interface SearchPageProps {
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const queryClient = new QueryClient();
+  const queryClient = getQueryClient();
 
   const { keyword = '', page = 0 } = searchParams;
 

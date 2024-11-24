@@ -1,17 +1,18 @@
 import { GoogleTagManager } from '@next/third-parties/google';
-import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
+import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import { ReactNode } from 'react';
 
-import { getAlarm } from '@/api/alarmAPI';
-import { getCartData } from '@/api/cartAPI';
 import { getUserData } from '@/api/usersAPI';
 import { Footer, Header } from '@/components';
 import { fetchQueryBonding } from '@/utils/fetchQueryBounding';
 import { getCookie } from '@/utils/manageCookie';
+import { prefetchCartDataQuery, prefetchCommunityAlarmQuery } from '@/libs/prefetchers';
 import { pretendard } from '@/public/fonts/pretendard';
+import { getQueryClient } from '@/libs/client';
+import { QUERY_KEYS } from '@/constants/queryKey';
 import { Providers } from './providers';
 
 import '@/styles/reset.css';
@@ -35,18 +36,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const queryClient = new QueryClient();
-  const entireQueryClient = new QueryClient();
+  const queryClient = getQueryClient();
   const accessToken = await getCookie('accessToken');
 
   if (accessToken) {
     const userData = await fetchQueryBonding(queryClient, {
-      queryKey: ['userData'],
+      queryKey: QUERY_KEYS.USER.DATA,
       queryFn: getUserData,
     });
     if (!userData?.data) {
-      await queryClient.prefetchQuery({ queryKey: ['communityAlarm'], queryFn: getAlarm, retry: false });
-      await entireQueryClient.prefetchQuery({ queryKey: ['cartData'], queryFn: getCartData, retry: false });
+      await prefetchCommunityAlarmQuery(queryClient);
+      await prefetchCartDataQuery(queryClient);
     }
   }
 
@@ -55,11 +55,9 @@ export default async function RootLayout({
       <GoogleTagManager gtmId='GTM-T3C6DZC6' />
       <body>
         <Providers>
-          <HydrationBoundary state={dehydrate(entireQueryClient)}>
+          <HydrationBoundary state={dehydrate(queryClient)}>
             <div className={cn('wrapper')}>
-              <HydrationBoundary state={dehydrate(queryClient)}>
-                <Header />
-              </HydrationBoundary>
+              <Header />
               <div className={cn('content-wrapper')}> {children}</div>
               <Footer />
             </div>

@@ -5,9 +5,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import classNames from 'classnames/bind';
 import { PropsWithChildren, useRef } from 'react';
 
+import { getQueryClient } from '@/libs/client';
 import { ScrollUpButton } from '@/components';
 import { ToastContainer, Zoom } from 'react-toastify';
-import { getQueryClient } from '@/libs/tanstackQuery/client';
 import AOSWrapper from './_components/Aos/AOSWrapper';
 import AdvertisePanel from './event/_components/AdvertisePanel';
 
