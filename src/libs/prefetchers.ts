@@ -4,6 +4,7 @@ import { getMyPosts } from '@/api/communityAPI';
 import { getCoupon } from '@/api/couponAPI';
 import { getProductLikes } from '@/api/likesAPI';
 import { getOrder, getOrdersData, getPayment } from '@/api/orderAPI';
+import { getProductDetail } from '@/api/productAPI';
 import { getUserProductReviews } from '@/api/productReviewAPI';
 import { getAddresses } from '@/api/shippingAPI';
 import { getUserData } from '@/api/usersAPI';
@@ -71,4 +72,13 @@ export const prefetchProductReviewsQuery = async (queryClient: QueryClient) => {
 
 export const prefetchPaymentQuery = async (queryClient: QueryClient, orderId: string) => {
   await queryClient.prefetchQuery({ queryKey: QUERY_KEYS.PAYMENT.DETAIL(orderId), queryFn: () => getPayment(orderId) });
+};
+
+export const fetchProductQuery = async (queryClient: QueryClient, productId: string | number) => {
+  const product = await queryClient.fetchQuery({
+    queryKey: QUERY_KEYS.PRODUCT.DETAIL(Number(productId)),
+    queryFn: () => getProductDetail(Number(productId)),
+  });
+
+  return product;
 };
