@@ -11,7 +11,7 @@ interface ProductDetailParams {
   };
 }
 
-export const generateProductMetadata = async ({ params }: ProductDetailParams): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: ProductDetailParams): Promise<Metadata> => {
   const { productId } = params;
   const queryClient = getQueryClient();
   const product = await fetchProductQuery(queryClient, productId);
