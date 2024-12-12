@@ -15,7 +15,7 @@ import { deleteCookie } from '@/utils/manageCookie';
 import { useUser } from '@/hooks/useUser';
 import { LogoIcon, UserIcon } from '@/public/index';
 import type { CartAPIDataType } from '@/types/cartType';
-import { CartButton, LoginButton, LogoutButton, NotificationButton, SearchButton, ShopButton } from './HeaderParts';
+import { CartButton, LoginButton, LogoutButton, NotificationButton, SearchButton } from './HeaderParts';
 
 import styles from './Header.module.scss';
 
@@ -103,7 +103,7 @@ export default function Header() {
               >
                 커스텀 키보드 만들기
               </Link>
-              <ShopButton />
+              {/* <ShopButton /> */}
               <Link href={ROUTER.COMMUNITY} className={cn('button', { 'current-page': pathname === ROUTER.COMMUNITY })}>
                 커뮤니티
               </Link>
