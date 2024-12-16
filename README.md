@@ -95,15 +95,19 @@
 <table>
   <tbody>
     <tr>
-      <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+      <td width="700" height="400" align="center">
+
+https://github.com/user-attachments/assets/677e8ebb-4220-4518-9cd1-3baaf1823b84
+
+</td>
       <td align="center" width="300">메인 페이지</td>
     </tr>
     <tr>
-      <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+      <td width="700" height="400" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
       <td align="center">로그인 페이지</td>
     </tr>
      <tr>
-       <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+       <td width="700" height="400" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
        <td align="center">회원가입 페이지</td>
     </tr>
   </tbody>
@@ -115,7 +119,11 @@
 <table>
   <tbody>
     <tr>
-     <td width="700" height="500" align="center"><img src="https://github.com/Quad8/quad8-front/assets/110798291/c3189734-4015-4373-8ce8-a83d4554e8a7" width="200"></td>
+     <td width="700" height="500" align="center">
+
+https://github.com/user-attachments/assets/a639239f-7946-4574-a92f-18a898522d0a
+
+</td>
       <td align="center" width="300" >상품 목록 페이지</td>
     </tr>
      <tr>
