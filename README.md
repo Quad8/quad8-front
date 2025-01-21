@@ -16,6 +16,7 @@
 
 ## 💻 Site
 https://keydeuk.com
+(현재 서버 관리 비용문제로 배포 중단 되었습니다.)
 
   
 ## ⌨️ keydeuk 소개
